@@ -1,0 +1,139 @@
+\ifx \nauthor\undefined
+  \def\nauthor{Ya\"el Dillies}
+\else
+\fi
+
+\author{Based on lectures by \nlecturer \\\small Notes taken by \nauthor}
+\date{\nterm\ \nyear}
+\ifdefined\draft
+\title{Part \npart\ -- \ncourse\ (\draft)}
+\else
+\title{Part \npart\ -- \ncourse}
+\fi
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{centernot}
+\usepackage{float}
+\usepackage{braket}
+\usepackage{marginnote}
+\usepackage[hypcap=true]{caption}
+\usepackage[shortlabels]{enumitem}
+\usepackage[pdftex,
+  colorlinks=true,
+  linkcolor=lblue,
+  pdfauthor={\nauthor},
+  pdfsubject={Cambridge Maths Notes: Part \npart\ - \ncourse},
+  pdftitle={\ncourse - Part \npart},
+pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]{hyperref}
+
+\usepackage[capitalise,nameinlink,noabbrev]{cleveref}
+\usepackage{nameref}
+\usepackage[margin=1.5in,a4paper]{geometry}
+
+\reversemarginpar
+\newcommand{\lecnum}[1]{\leavevmode\marginnote{\emph{Lecture #1}}\ignorespaces}
+\newcounter{lecturenumber}
+\newcommand{\newlec}{\stepcounter{lecturenumber}\lecnum{\arabic{lecturenumber}}}
+
+% Theorems
+\theoremstyle{definition}
+\newtheorem*{aim}{Aim}
+\newtheorem*{axiom}{Axiom}
+\newtheorem*{claim}{Claim}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem*{defi}{Definition}
+\newtheorem*{eg}{Example}
+\newtheorem*{egs}{Example}
+\newtheorem*{ex}{Exercise}
+\newtheorem*{fact}{Fact}
+\newtheorem*{idea}{Idea}
+\newtheorem*{law}{Law}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{notation}{Notation}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{question}{Question}
+\newtheorem*{rrule}{Rule}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{assumption}{Assumption}
+
+\newtheorem*{rmk}{Remark}
+\newtheorem*{rmks}{Remarks}
+\newtheorem*{warning}{Warning}
+\newtheorem*{exercise}{Exercise}
+
+\newtheorem{nthm}{Theorem}[section]
+\newtheorem{nlemma}[nthm]{Lemma}
+\newtheorem{nprop}[nthm]{Proposition}
+\newtheorem{ncor}[nthm]{Corollary}
+\newtheorem{ndef}[nthm]{Definition}
+
+% Special sets
+\newcommand{\C}{\mathbb C}
+\newcommand{\K}{\mathbb K}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\for}{\forall}
+\newcommand{\mor}{\rightarrow}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\Span}{\mathrm{Span}}
+\renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
+
+\newcommand{\named}[1]{\textbf{#1}\index{#1}}
+\newcommand{\bonusnamed}[1]{\textbf{#1}\index{#1@*#1}}
+
+\let\Im\relax
+\let\Re\relax
+
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\Re}{Re}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\id}{id}
+
+\definecolor{lblue}{rgb}{0., 0.05, 0.6}
+\definecolor{mblue}{rgb}{0.2, 0.3, 0.8}
+\definecolor{morange}{rgb}{1, 0.5, 0}
+\definecolor{mgreen}{rgb}{0.1, 0.4, 0.2}
+\definecolor{mred}{rgb}{0.5, 0, 0}
+
+\colorlet{bred}{red}
+\colorlet{bblue}{Cyan!50!blue}
+\colorlet{byellow}{yellow}
+\colorlet{bgreen}{YellowGreen!50!Green}
+\colorlet{borange}{red!20!yellow}
+\colorlet{bpurple}{violet}
+
+\newcommand{\red}[1]{\textcolor{bred}{#1}}
+\newcommand{\green}[1]{\textcolor{bgreen}{#1}}
+\newcommand{\blue}[1]{\textcolor{bblue}{#1}}
+\newcommand{\yellow}[1]{\textcolor{byellow}{#1}}
+\newcommand{\orange}[1]{\textcolor{borange}{#1}}
+\newcommand{\purple}[1]{\textcolor{bpurple}{#1}}
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[R]{\href{yaeldillies.github.io/maths-notes}{\color{lblue}{Updated online}}}
+\fancyfoot[C]{\thepage}
+\ifdefined\draft
+\fancyfoot[L]{\emph{\draft}}
+\else
+\fi
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.2pt}
