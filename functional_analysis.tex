@@ -1,0 +1,294 @@
+\documentclass{article}
+
+% preamble
+\def\npart{III}
+\def\nyear{2023}
+\def\nterm{Michaelmas}
+\def\nlecturer{Dr Andr\'as Zs\'ak}
+\def\ncourse{Functional Analysis}
+\def\draft{Incomplete}
+
+\usepackage{mathrsfs}
+\usepackage{imakeidx}
+\usepackage{marginnote}
+\usepackage{mathdots}
+\usepackage{tabularx}
+\usepackage{ifthen}
+
+\input{header}
+\swapnumbers
+\reversemarginpar
+
+\usetikzlibrary{positioning, decorations.pathmorphing, decorations.text, calc, backgrounds, fadings}
+\tikzset{node/.style = {circle,draw,inner sep=0.8mm}}
+
+\makeindex[intoc]
+
+\setcounter{section}{-1}
+
+% and here we go!
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\clearpage
+
+\section{Introduction}
+
+\subsection*{Prerequisites}
+
+\begin{itemize}
+  \item some basic functional analysis
+  \item a bit of measure theory
+  \item a bit of complex analysis
+\end{itemize}
+
+\subsection*{Books}
+
+Books relevant to the course are:
+\begin{itemize}
+  \item Bollob\'as, \textit{Linear Analysis}
+  \item Murphy, \textit{$C^*$-algebras}
+  \item Rudin
+  \item Graham-Allan
+\end{itemize}
+
+\subsection*{Notation}
+
+We will use $\K$ to mean "either $\R$ or $\C$".
+
+For $X$ a normed space, we define
+$$B_X = \{x \in X | \norm x \le 1\}$$
+$$S_X = \{x \in X | \norm x = 1\}$$
+
+For $X, Y$ normed spaces, we write $X \sim Y$ if $X, Y$ are isomorphic, ie there
+exists a linear bijection $T : X \mor Y$ such that $T$ and $T^{-1}$ are continuous. We write $X \cong Y$ if $X, Y$ are isometrically isomorphic, ie there exists a surjective linear map $T : X \mor Y$ such that $\norm{T x} = \norm x$ for all $x$.
+
+\clearpage
+
+\section{Hahn-Banach extension theorems}
+
+\newlec
+
+Let $X$ be a normed space. The {\bf dual space} of $X$ is the space $X^*$ of
+bounded linear functionals on $X$.
+$X^*$ is always a Banach space in the operator norm: for $f \in X^*$,
+$$\norm f = \sup_{x \in B_X} |f(x)|$$
+
+\begin{eg}
+  For $1 < p, q < \infty$, $p^{-1} + q^{-1} = 1$, $\ell_p^* \cong \ell_q$. \\
+  We also have $\ell_1^* \cong \ell_\infty$, $c_0^* \cong \ell_1$. \\
+  If $H$ is a Hilbert space, then $H^* \cong H$ (the isomorphism is conjugate-linear in the complex case).
+\end{eg}
+
+For $x \in X, f \in X^*$, we write $\langle x, f\rangle = f(x)$. Note that
+$$\langle x, f\rangle = |f(x)| \le \norm f\norm x$$
+
+\begin{defi}
+  Let $X$ be a {\it real} vector space. A functional $p : X \mor \R$ is
+  \begin{itemize}
+    \item {\bf positive homogeneous} if $p(tx) = tp(x)$ for all $x \in X$, $t \ge 0$
+    \item {\bf subadditive} if $p(x + y) \le p(x) + p(y)$ for all $x, y \in X$
+  \end{itemize}
+\end{defi}
+
+\begin{defi}
+  Let $P$ be a preorder, $A \subseteq P, x \in P$. We say
+  \begin{itemize}
+    \item $x$ is an {\bf upper bound} for $A$ if $\for a \in A, a \le x$.
+    \item $A$ is a {\bf chain} if $\for a, b \in A, a \le b \lor b \le a$.
+    \item $x$ is a {\bf maximal element} if $\for y \in P, x \not < y$
+  \end{itemize}
+\end{defi}
+
+\begin{fact}[Zorn's lemma]
+  A nonempty preorder in which all nonempty chains have an upper bound has a maximal element.
+\end{fact}
+
+\begin{thm}[Hahn-Banach, positive homogeneous version]\label{thm:hb-positive}
+  Let $X$ be a real vector space and $p : X \mor \R$ be positive homogeneous and subadditive. Let $Y$ be a subspace of $X$ and $g : Y \mor \R$ be linear such that $\for y \in Y, g(y) \le p(y)$. Then there exists $f : X \mor \R$ linear such that $f\restriction_Y = g$ and $\for x \in X, f(x) \le p(x)$.
+\end{thm}
+\begin{proof}
+  Let $P$ be the set of pairs $(Z, h)$ where $Z$ is a subspace of $X$ with $Y \subseteq Z$ and $h : Z \mor \R$ linear, $h\restriction_Y = g$ and $\for z \in Z, h(z) \le p(z)$. $P$ is nonempty since $(Y, g) \in P$, and is partially ordered by
+  $$(Z_1, h_1) \le (Z_2, h_2) \iff Z_1 \subseteq Z_2 \land h_2\restriction_{Z_1} = h_1$$
+  If $\{(Z_i, h_i) | i \in I\}$ is a chain with $I$ nonempty, then we can define
+  $$Z := \bigcup_{i \in I} Z_i, h\restriction_{Z_i} = h_i$$
+  The definition of $h$ makes sense thanks to the chain assumption. $(Z, h) \in P$ is therefore an upper bound for the chain. \\
+  Hence find by Zorn a maximal element $(Z, h)$ of $P$. If $Z = X$, we won. So assume there is some $x \in X \ Z$. Let $W = \Span(Z \cup \{x\})$ and define $f : W \mor \R$ by
+  $$f(z + \lambda x) = h(z) + \lambda\alpha$$
+  for some $\alpha \in \R$. Then $f$ is linear and $f\restriction_Z = h$. We now look for $\alpha$ such that $\for w \in W, f(w) \le p(w)$. We would then have $(W, f) \in P$ and $(Z, h) < (W, f)$, contradicting maximality of $(Z, h)$. \\
+  We need
+  $$h(z) + \lambda\alpha \le p(z + \lambda x) \for z \in Z, \lambda \in \R$$
+  Since $p$ is positive homogeneous, this becomes
+  \begin{align}
+    h(z) + \alpha \le p(z + x)
+    h(z) - \alpha \le p(z - x)
+  \end{align}
+  ie
+  $$h(z) - p(z - x) \le \alpha \le p(z + x) - h(z) \for z \in Z$$
+  The existence of $\alpha$ now amounts to
+  $$h(z_1) - p(z_1 - x) \le \alpha \le p(z_2 + x) - h(z_2) \for z_1, z_2 \in Z$$
+  But indeed
+  $$h(z_1) + h(z_2) = h(z_1 + z_2) \le p(z_1 + z_2) \le p(z_1 - x) + p(z_2 + x)$$
+\end{proof}
+
+\begin{defi}
+  Let $X$ be a $\K$-vector space. A {\bf seminorm} on $X$ is a functional $p : X \mor \R$ such that
+  \begin{itemize}
+    \item $\for x \in X, p(x) \ge 0$
+    \item $\for x \in X, \lambda \in \K, p(\lambda x) = |\lambda| p(x)$
+    \item $\for x, y \in X, p(x + y) \le p(x) + p(y)$
+  \end{itemize}
+\end{defi}
+
+\begin{rmk}
+  $$\text{norm} \implies \text{seminorm} \implies \text{positive homogeneous}$$
+\end{rmk}
+
+\newlec
+
+\begin{thm}[Hahn-Banach, absolute homogeneous version]\label{thm:hb-absolute}
+  Let $X$ be a real of complex vector space and $p$ a seminorm on $X$. Let $Y$ be a subspace of $X$, $g$ a linear functional on $Y$ such that $\for y \in Y, |g(y)| \le p(y)$. Then there exists a linear functional $f$ on $X$ such that $f\restriction_Y = g$ and $\for x \in X, |f(x)| \le p(x)$.
+\end{thm}
+\begin{proof}~\\
+  {\bf Real case}
+  $$\for y \in Y, g(y) \le |g(y)| \le p(y)$$
+  By Theorem \ref{thm:hb-positive}, there exists $f : X \mor \R$ such that $f\restriction_Y = g$ and $\for x \in X, f(x) \le p(x)$. We also have
+  $$\for x \in X, -f(x) = f(-x) \le p(-x) = p(x)$$
+  Hence $|f(x)| \le p(x)$ \\
+  {\bf Complex case} \\
+  $\Re g : Y \mor \R$ is real-linear.
+  $$\for y \in Y, |\Re g(y)| \le |g(y)| \le p(y)$$
+  By the real case, find $h : X \mor \R$ real-linear such that $h\restriction_Y = \Re g$
+  \begin{claim}
+    There exists a unique complex-linear $f : X \mor \C$ such that $h = \Re f$.
+  \end{claim}
+  \begin{proof}~\\
+    {\bf Uniqueness} \\
+    If we have such $f$, then
+    \begin{eqnarray*}
+      f(x)
+      & = & \Re f(x) + i\Im f(x) \\
+      & = & \Re f(x) - i\Re f(ix) \\
+      & = & h(x) - ih(ix)
+    \end{eqnarray*}
+    {\bf Existence} \\
+    Define $f(x) = h(x) - ih(ix)$. Then $f$ is real-linear and $f(ix) = if(x)$, so $f$ is complex-linear with $\Re f = h$.
+  \end{proof}
+  We now have $f : X \mor \C$ such that $\Re f = h$.
+  $$\Re f\restriction_Y = h\restriction_Y = \Re g$$
+  So, by uniqueness, $f\restriction_Y = g$. \\
+  Given $x \in X$, find $\lambda$ with $|\lambda| = 1$ such that
+  \begin{eqnarray*}
+    |f(x)|
+    & = & \lambda f(x) \\
+    & = & f(\lambda x) \\
+    & = & \Re f(\lambda x) \\
+    & = & h(\lambda x) \\
+    & \le & p(\lambda x) \\
+    & = & p(x)
+  \end{eqnarray*}
+\end{proof}
+
+\begin{rmk}
+  For a complex vector space $X$, if we write $X_\R$ for $X$ considered as a real vector space, the above proof shows that
+  $$\Re : (X^*)_\R \mor X_\R^*$$
+  is an isometric isomorphism.
+\end{rmk}
+
+\begin{cor}\label{cor:hb-point}
+  Let $X$ be a $\K$-vector space, $p$ a seminorm on $X$, $x_0 \in X$. Then there exists a linear functional $f$ on $X$ such that $f(x_0) = p(x_0)$ and $\for x \in X, |f(x)| \le p(x)$.
+\end{cor}
+\begin{proof}
+  Let $Y = \Span(x_0)$,
+  \begin{eqnarray*}
+    g : Y & \mor & \K \\
+    \lambda x_0 & \mapsto & \lambda p(x_0)
+  \end{eqnarray*}
+  We see that $\for y \in Y, g(y) \le p(y)$. Hence find by Theorem \ref{thm:hb-absolute} a linear functional $f$ on $X$ such that $f\restriction_Y = g$ and $\for x \in X, |f(x)| \le p(x)$. We check that $f(x_0) = g(x_0) = p(x_0)$.
+\end{proof}
+
+\begin{thm}[Hahn-Banach, existence of support functionals]
+  Let $X$ be a real or complex normed space. Then
+  \begin{enumerate}
+    \item If $Y$ is a subspace of $X$ and $g \in Y^*$, then there exists $f \in X^*$ such that $f\restriction_Y = g$ and $\norm f = \norm g$.
+    \item Given $x_0 \ne 0$, there exists $f \in S_{X^*}$ such that $f(x_0) = \norm{x_0}$.
+  \end{enumerate}
+\end{thm}
+\begin{proof}~
+  \begin{enumerate}
+    \item Let $p(x) = \norm g \norm x$. Then $p$ is a seminorm on $X$ and
+      $$\for y \in Y, |g(y)| \le \norm g \norm y = p(y)$$
+      Find by Theorem \ref{thm:hb-positive} a linear functional $f$ on $X$ such that $f\restriction_Y = g$ and $\for x \in X, |f(x)| \le p(x) = \norm g \norm x$. So $\norm f \le \norm g$. Since $f\restriction_Y = g$, we also have $\norm g \le \norm f$. Hence $\norm f = \norm g$.
+    \item Apply Corollary \ref{cor:hb-point} with $p(x) = \norm x$ to get $f \in X^*$ such that
+      $$\for x \in X, |f(x)| \le \norm x \text{ and } f(x_0) = \norm{x_0}$$
+      It follows that $\norm f = 1$.
+  \end{enumerate}
+\end{proof}
+
+\begin{rmks}~
+  \begin{itemize}
+    \item Part 1 is a sort of linear version of Tietze's extension theorem: Given $K$ compact Hausdorff, $L \subseteq K$ closed, $g : L \mor \K$ continuous, there exists $f : K \mor \K$ such that $f\restriction_L = g$ and $\norm f_\infty = \norm g_\infty$.
+    \item Part 2 shows that for all $x \ne y$ in $X$ there exists $f \in X^*$ such that $f(x) \ne f(y)$, namely $X^*$ {\bf separates points} of $X$. This is a sort of linear version of Urysohn: $C(K)$ separates points of $K$.
+    \item The $f$ in part 2 is called a {\bf norming functional}, aka {\bf support functional}, for $x_0$. The existence of support functionals shows that
+      $$x_0 = \max_{g \in B_{X^*}} \langle x_0, g\rangle$$
+      Assuming $X$ is a real normed space and $\norm{x_0} = 1$, we have $B_X \subseteq \{x \in X| f(x) \le 1\}$. Visually, TODO: insert tangency diagram
+  \end{itemize}
+\end{rmks}
+
+\subsection{Bidual}
+
+Let $X$ be a normed space. Then $X^{**}$ is called the {\bf bidual} or {\bf second dual} of $X$.
+
+For $x \in X$, define $\hat x : X^* \mor \K$, the {\bf evaluation at $x$}, by $\hat x(f) = f(x)$. $\hat x$ is linear and $|\hat x(f)| = |f(x)| \le \norm f \norm x$, so $\hat x \in X^{**}$ and $\norm{\hat x} \le \norm x$.
+
+The map $x \mapsto \hat x : X \mor X^{**}$ is called the {\bf canonical embedding} of $X$ into $X^{**}$.
+
+\begin{thm}\label{thm:can-emb}
+  The canonical embedding is an isometric embedding.
+\end{thm}
+\begin{proof}~\\
+  {\bf Linearity}
+  \begin{eqnarray*}
+    \widehat{x + y}(f) & = & f(x + y) = f(x) + f(y) = \hat x(f) + \hat y(f) \\
+    \widehat{\lambda x}(f) & = & f(\lambda x) = \lambda f(x) = \lambda \hat x(f)
+  \end{eqnarray*}
+  {\bf Isometry} \\
+  If $x \ne 0$, there exists a support functional $f$ for $x$. Then
+  $$ \norm{\hat x} \ge |\hat x(f)| = |f(x)| = \norm x$$
+\end{proof}
+
+\begin{rmks}~
+  \begin{itemize}
+    \item In bracket notation, $\langle f, \hat x\rangle = \langle x, f\rangle$
+    \item Let $\hat X$ be the image of $X$ in $X^{**}$. Theorem \ref{thm:can-emb} says
+      $$X \cong \hat X \subseteq X^{**}$$
+      We often identify $\hat X$ with $X$ and think of $X$ as living isometrically inside $X^{**}$. Note that
+      $$X \text{ complete } \iff \hat X \text{ closed in } X^{**}$$
+    \item More generally, $\bar{\hat X}$ is a Banach space containing an isometric copy of $X$ as a dense subspace. We proved that normed spaces have completions!
+  \end{itemize}
+\end{rmks}
+
+\begin{defi}
+  A normed space $X$ is {\bf reflexive} if the canonical embedding $X \mor X^{**}$ is surjective.
+\end{defi}
+
+\begin{egs}~
+  \begin{itemize}
+    \item Some reflexive spaces are Hilbert spaces, finite-dimensional spaces, $\ell_p$ and $L_p(\mu)$ for $1 < p < \infty$.
+    \item Some non-reflexive spaces are $c_0, \ell_1, \ell_\infty, L_1[0, 1]$.
+  \end{itemize}
+\end{egs}
+
+\begin{rmks}~
+  \begin{itemize}
+  \item If $X$ is reflexive, then $X \cong X^{**}$, so $X$ is complete.
+  \item There are Banach spaces $X$ such that $X \cong X^{**}$ but $X$ is not reflexive, eg {\bf James' space}. Any isomorphism to the bidual is then necessarily not the canonical embedding.
+  \end{itemize}
+\end{rmks}
+
+\newlec
+
+\printindex
+\end{document}
