@@ -26,6 +26,12 @@
 \usepackage{float}
 \usepackage{braket}
 \usepackage{marginnote}
+\usepackage{mathrsfs}
+\usepackage{imakeidx}
+\usepackage{marginnote}
+\usepackage{mathdots}
+\usepackage{tabularx}
+\usepackage{ifthen}
 \usepackage[hypcap=true]{caption}
 \usepackage[shortlabels]{enumitem}
 \usepackage[pdftex,
@@ -78,18 +84,27 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \newtheorem{ncor}[nthm]{Corollary}
 \newtheorem{ndef}[nthm]{Definition}
 
+\let\P\oldP
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
 % Special sets
 \newcommand{\C}{\mathbb C}
 \newcommand{\K}{\mathbb K}
 \newcommand{\N}{\mathbb N}
+\newcommand{\P}{\mathbb P}
 \newcommand{\Q}{\mathbb Q}
 \newcommand{\R}{\mathbb R}
 \newcommand{\Z}{\mathbb Z}
 
 \newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\floor}[1]{\left\lfloor #1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1\right\rceil}
+
+\newcommand{\eps}{\varepsilon}
 \newcommand{\for}{\forall}
 \newcommand{\mor}{\rightarrow}
-\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
 \newcommand{\Span}{\mathrm{Span}}
 \renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
 
@@ -123,9 +138,6 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \newcommand{\yellow}[1]{\textcolor{byellow}{#1}}
 \newcommand{\orange}[1]{\textcolor{borange}{#1}}
 \newcommand{\purple}[1]{\textcolor{bpurple}{#1}}
-
-\let\oldemptyset\emptyset
-\let\emptyset\varnothing
 
 \pagestyle{fancy}
 \fancyhf{}
