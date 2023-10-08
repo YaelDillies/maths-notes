@@ -1,0 +1,106 @@
+\documentclass{article}
+
+% preamble
+\def\npart{III}
+\def\nyear{2023}
+\def\nterm{Michaelmas}
+\def\nlecturer{Prof B\'ela Bollob\'as}
+\def\ncourse{Combinatorics}
+\def\draft{Incomplete}
+
+\input{header}
+\swapnumbers
+\reversemarginpar
+
+\usetikzlibrary{positioning, decorations.pathmorphing, decorations.text, calc, backgrounds, fadings}
+\tikzset{node/.style = {circle,draw,inner sep=0.8mm}}
+
+\makeindex[intoc]
+
+\setcounter{section}{-1}
+
+% and here we go!
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\clearpage
+
+\section{Introduction}
+
+For a finite set $A$, we write its cardinality $\abs A$.
+
+For a graph $G = (V, E)$ and $A, B \subseteq V$, we denote $\Gamma(A) = \{b | \exists a \in A, a \sim b\}$ the set of neighbors of $A$ and $e(A, B)$ the number of edges between $A$ and $B$.
+
+\clearpage
+
+\section{Basic Results}
+
+\subsection{Chains, Antichains and Scattered Sets of Vectors}
+
+\newlec
+
+During WW2, Littlewood and Offord were interested in roots of polynomials with random coefficients. They came up with the following neat theorem.
+
+\begin{thm}[Littlewood-Offord, 1943]
+  If $z_1, \dots, z_n \in \C$ with $\abs{z_i} \ge 1$, then, for any disk $D$ of radius $r$,
+  $$\#\{\eps \in \{-1, 1\}^n | \sum_i \eps_i z_i \in D\} \le c \log n \frac{2^n}{\sqrt n}$$
+  for some constant $c$ depending only on $r$.
+\end{thm}
+
+Upon seeing this theorem, Erd\H os immediately knew he could drastically improve the bound if the $z_i$ were real.
+
+\begin{thm}[Erd\H os, 1945]
+  If $x_1, \dots, x_n \in \R$, $\abs{x_i} \ge 1$, then, for any interval $I$ of length $2$,
+  $$\#\{\eps \in \{-1, 1\}^n | \sum_i \eps_i z_i \in I\} \le \binom n{\frac n 2}$$
+\end{thm}
+
+This is best possible, as we see by taking $x_1 = \dots = x_n = 1$.
+
+Let $G$ be a bipartite graph with parts $U$ and $W$. A {\bf complete matching} from $U$ to $W$ is an injective function $f : U \mor W$ such that $\for u \in U, u \sim f(u)$. \\
+If $G$ has a complete matching, then certainly $\abs A \le \abs{\Gamma(A)}$. Surprisingly, this is enough.
+
+\begin{thm}[K\H onig-Egerv\'ary-Hall Theorem, Hall's Marriage Theorem]\label{thm:hall}
+  $$G \text{ has a complete matching } \iff \for A \subseteq U, \abs A \le \abs{\Gamma(A)}$$
+\end{thm}
+\begin{proof}
+  Exercise
+\end{proof}
+
+Let $\mathcal F = (F_1, \dots, F_m)$ where the $F_i$ are finite sets. We say $a_1, \dots, a_m$ is a {\bf set of distinct representatives}, aka {\bf SDR} if they are distinct and $\for i, a_i \in F_i$. Certainly, if $\mathcal F$ has SDR, then $\abs I \le \abs{\bigcup_{i \in I} F_i}$ for all $I \subseteq [m]$.
+
+\begin{thm}
+  $$\mathcal F \text{ is a SDR } \iff \for I \subseteq [m], \abs I \le \abs{\bigcup_{i \in I} F_i}$$
+\end{thm}
+\begin{proof}
+  Define a bipartite graph $G$ with parts $[m]$ and $\bigcup_i F_i$ by $i \sim a \iff a \in F_i$. For all $I \subseteq [m]$, $\abs I \le \abs{\bigcup_{i \in I} F_i} = \abs{\Gamma(I)}$, so Theorem \ref{thm:hall} applies.
+\end{proof}
+
+\begin{thm}
+  If $G$ is a bipartite graph with parts $U$, $W$ such that $\deg(u) \ge \deg(w)$ for all $u \in U, w \in W$, then there is a complete matching from $U$ to $W$.
+\end{thm}
+\begin{proof}
+  Find $d$ such that $\deg(u) \ge d \ge \deg(w)$ for all $u \in U, w \in W$. For all $A \subseteq U$, we have
+  $$d\abs A \le e(A, \Gamma(A)) \le d\abs{\Gamma(A)}$$
+  Hence $\abs A \le \abs{\Gamma(A)}$. We're done by Theorem \ref{thm:hall}.
+\end{proof}
+
+For $A \subseteq U, B \subseteq W$, define $w(A) = \frac{\abs A}{\abs U}, w(B) = \frac{\abs B}{\abs W}$.
+
+Say a bipartite graph $G$ with parts $U, W$ is {\bf $(k, \ell)$-biregular} if
+$\deg(u) = k, \deg(w) = \ell$ for all $u \in U, w \in W$.
+
+\begin{lemma}
+  If $G$ is biregular with parts $U, W$ and $A \subseteq U$, then $w(A) \le w(\Gamma(A))$.
+\end{lemma}
+\begin{proof}
+  First, $k\abs U = e(G) = \ell\abs W$. Second,
+  $$k\abs A = e(A, \Gamma(A)) \le \ell\abs{\Gamma(A)}$$
+  Dividing the inequality by the equality gives the result.
+\end{proof}
+
+\newlec
+
+\printindex
+\end{document}
