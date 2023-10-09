@@ -82,7 +82,7 @@ $R(\ell, k) = R(k, \ell)$. By convention, we will usually assume $\ell \le k$.
 \section{Old bounds on \texorpdfstring{$R(k)$}{R(k)}}
 
 \begin{thm}[Erd\H os-Szekeres, 1935]
-  $$R(\ell, k) \le \binom{k + \ell - 1}{\ell - 1}$$
+  $$R(\ell, k) \le \binom{k + \ell - 2}{\ell - 1}$$
   In particular, $R(\ell, k)$ is well-defined.
 \end{thm}
 
@@ -117,13 +117,13 @@ TODO: Insert figure
 This polynomial lower bound is eons away from our exponential upper bound. For quite some time (in the 1930s), people thought that the lower bound was closer to the truth than the upper bound. Surprisingly, it is possible to show an exponential lower bound without actually exhibiting such a coloring!
 
 \begin{thm}[Erd\H os, 1948]
-  $$R(k) \ge (1 + o(1))\frac{2^{\frac k 2}}{e\sqrt 2}$$
+  $$R(k) \ge \frac{k - 1}{e\sqrt 2}2^{\frac k 2}$$
 \end{thm}
 \begin{fact}
   $$\left(\frac n k\right)^k \le \binom n k \le \left(\frac{en}k\right)^k$$
 \end{fact}
 \begin{proof}
-  Let $n = \ceil{\frac{1 - \eps}e 2^{\frac{k - 1} 2}}$ and $\chi$ be a random red/blue edge coloring of $K_n$ (each edge is independently colored red or blue with probability $\frac 1 2$). We see that
+  Let $n = \ceil{\frac{k - 1}{e\sqrt 2}2^{\frac k 2}}$ and $\chi$ be a random red/blue edge coloring of $K_n$ (each edge is independently colored red or blue with probability $\frac 1 2$). We see that
   \begin{eqnarray*}
     \P(\chi \text{ contains a monochromatic } K_k)
     & = & \P\left(\bigcup_{S \in [n]^{(k)}} \{S \text{ monochromatic}\}\right) \\
@@ -131,23 +131,23 @@ This polynomial lower bound is eons away from our exponential upper bound. For q
     & = & \binom n k 2^{-\binom k 2 + 1} \\
     & \le & 2 \left(\frac{en}k\right)^k 2^{-\frac{k(k - 1)}2} \\
     & = & 2 \left(\frac{en}k 2^{-\frac{k - 1}2}\right)^k \\
-    & \le & 2(1 - \eps)^k \\
-    & \mor & 0
+    & \le & 2\left(1 - \frac 1 k\right)^k \\
+    & < & 1
   \end{eqnarray*}
   Hence
   $$2^{\frac k 2} \le R(k) \le 4^k$$
 \end{proof}
 
-This proof is remarkable by the fact that it proves that the probability of some object existing is $1$, without actually constructing such an object. In fact it is still an important open problem to explicitly construct a $K_k$-free edge-coloring of $K_n$ with $n$ exponential in $k$. In other words, {\it even though $K_k$-free edge-colorings are abundant, we don't know how to write down a single one}.
+This proof is remarkable by the fact that it proves that the probability of some object existing is high, without actually constructing such an object. In fact it is still an important open problem to explicitly construct a $K_k$-free edge-coloring of $K_n$ with $n$ exponential in $k$. In other words, {\it even though $K_k$-free edge-colorings are abundant, we don't know how to write down a single one}.
 
 \begin{rmk}
-  The use of "constructive" here is quite different to that in other areas of mathematics. We do not mean that the proof requires the Law of Excluded Middle or the Axiom of Choice, nor that we do not provide an algorithm to find a graph without monochromatic $K_k$. \\
+  The use of ``constructive'' here is quite different to that in other areas of mathematics. We do not mean that the proof requires the Law of Excluded Middle or the Axiom of Choice, nor that we do not provide an algorithm to find a graph without monochromatic $K_k$. \\
   Since there are only finitely many red/blue edge-colorings of $K_n$ for a fixed $n$, there trivially is an algorithm to find such a coloring: enumerate them all and try them one by one. Less obviously, there is a procedure to systematically remove any use of the axiom of choice from the proofs of most of the results in this course. Excluded Middle is also redundant since the case splits we consider can be decided in finite time (again, everything is finite). \\
-  A more careful definition of "constructive" here is about complexity of the description of the object: Erd\H os' lower bound does not provide any better algorithm than "Try all edge-colorings", and this has complexity $O\left(2^{\binom n 2}\right)$. In contrast, we would expect a constructive lower bound to yield an edge-coloring in a polynomial number of operations in $n$.
+  A more careful definition of ``constructive'' here is about complexity of the description of the object: Erd\H os' lower bound does not provide any better {\it deterministic} algorithm than "Try all edge-colorings", and this has complexity $\Omega\left(2^{\binom n 2}\right)$ (without even accounting for the time it takes to check whether a coloring contains a monochromatic $K_k$). In contrast, we would expect a constructive lower bound to yield an edge-coloring in a polynomial number of operations in $n$.
 \end{rmk}
 
 \begin{question}
-  What's the base of the exponent here? Is there such a base?
+  What's the base of the exponent here? Is there even such a base?
 \end{question}
 
 \newlec
