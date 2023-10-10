@@ -102,5 +102,69 @@ $\deg(u) = k, \deg(w) = \ell$ for all $u \in U, w \in W$.
 
 \newlec
 
+\begin{cor}
+  Let $G$  be a $(k, \ell)$-biregular graph with parts $U, W$. If $k \ge \ell$ (or equivalently $\abs U \le \abs W$), then there is a complete matching from $U$ to $W$.
+\end{cor}
+
+\begin{cor}\label{cor:layer-inj}
+  If $\abs{s - \frac n 2} \le \abs{r - \frac n 2}$, then there exists an injection $f : X^{(r)} \hookrightarrow X^{(s)}$ such that either
+  \begin{itemize}
+    \item $r \le s$ and $A \subseteq f(A)$ for all $A \in X^{(r)}$
+    \item $s \le r$ and $f(A) \subseteq A$ for all $A \in X^{(r)}$
+  \end{itemize}
+\end{cor}
+
+\begin{thm}[Sperner, 1928]
+  Let $\mathcal A \subseteq \mathcal P(X)$ be an antichain. Then $\abs{\mathcal A} \le \binom n{\floor{\frac n 2}}$
+\end{thm}
+\begin{proof}
+  A chain and an antichain can intersect in at most one element. If we manage to partition $\mathcal P(X)$ into $\binom n{\floor{\frac n 2}}$ chains, we win. \\
+  But we can repeatedly use Corollary \ref{cor:layer-inj} to construct matchings $X^{(0)}$ to $X^{(1)}$, $X^{(1)}$ to $X^{(2)}$, ..., $X^{(\ceil{\frac n 2} - 1)}$ to $X^{(\ceil{\frac n 2})}$ and $X^{(n)}$ to $X^{(n - 1)}$, $X^{(n - 1)}$ to $X^{(n - 2)}$, ..., $X^{(\floor{\frac n 2} + 1)}$ to $X^{(\floor{\frac n 2})}$, then ``stack'' the matchings together to make chains (if an element of the middle layer). Each chain goes through $X^{(\floor{frac n 2})}$, so we made $\binom n {\floor{\frac n 2}}$.
+\end{proof}
+
+We can now understand the observation of Erd\H os (1945) about Littlewood-Offord (1943).
+
+\begin{cor}
+  Let $x_1, \dots, x_n \in \R$ be such that $\abs{x_i} \ge 1$. Then at most $\binom n{\floor{\frac n 2}}$ of the sums $\sum_i \eps_i x_i$, $\eps_i = \pm 1$ fall into the interior of an interval $I$ of length $2$.
+\end{cor}
+\begin{proof}
+  WLOG $\for i, x_i \ge 1$. Set $F_\eps = \{i | \eps_i = 1\}$. $\{F\eps | \sum_i \eps_i x_i \in I\}$ is an antichain (if $F_\eps \subsetneq F_{\eps'}$, then $\sum_i \eps'_i x_i \ge \sum_i \eps_i x_i + 2$, so both sums can't lie in $I$).
+\end{proof}
+
+\begin{defi}
+  A partial order $P$ is {\bf graded} if it has a partition $P_i$ such that
+  \begin{itemize}
+    \item if $x < y$, $x \in P_i$, $y \in P_j$, then $i < j$ (in particular each $P_i$ is an antichain)
+    \item if $x < y$, $x \in P_i$, $y \in P_j$, $i + 2 \le j$, then there exists $z$ such that $x < z < y$.
+  \end{itemize}
+  For $a \in P$, we call the unique $i$ for which $a \in P_i$ the {\bf grade} or {\bf rank} of $a$. \\
+  A graded order is {\bf regular} if for every $i$ there exists $p_i$ such that every $x \in P_i$ is less than exactly $p_k$ elemenets of $P_{i + 1}$. \\
+  For $A \subseteq P$, define $A_i = A \cap P_i$ and $w(A) = \sum_i \frac{\abs{A_i}}{\abs{P_i}}$.
+\end{defi}
+
+TODO: Insert picture
+
+\begin{thm}
+  Let $A$ be an antichain in a connected regular graded order $P$. Then $w(A) \le 1$.
+\end{thm}
+\begin{proof}
+  Homework. Solution is written in white below: \\
+  \color{white}
+  The regularity condition means that for each $i$ the bipartite graph $G_i$ with parts $P_{i - 1}, P_i$ and $x \sim y \iff x < y$ is $(p_{i - 1}, q)$-biregular. In particular, $w(A_i) \le w(\Gamma_{G_i}(A_i))$. \\
+  Now, write $r$ the maximal rank of an element of $A$ and define
+  $$B := A \setminus A_r \cup \Gamma_{G_r}(A_r)$$
+  The fact that $A$ is an antichain means that $B$ is an antichain as well and $\Gamma_{G_r}(A_r)$ is disjoint from $A_{r - 1}$. Hence
+  \begin{eqnarray*}
+    w(A)
+    & = & w(A_r) + w(A_{r - 1}) + \sum_{i < r - 1} w(A_i) \\
+    & \le & w(\Gamma_{G_r}(A_r)) + w(A_{r - 1}) + \sum_{i < r - 1} w(A_i) \\
+    & = & w(B_{r - 1}) + \sum_{i < r - 1} w(B_i) \\
+    & = & w(B)
+  \end{eqnarray*}
+  We therefore have decreased the maximal rank without decreasing the weight. We can repeat the process until the antichain is contained in some $P_i$, in which case its weight is clearly at most $1$.
+\end{proof}
+
+\newlec
+
 \printindex
 \end{document}
