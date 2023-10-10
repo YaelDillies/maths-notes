@@ -52,8 +52,11 @@ Books relevant to the course are:
 We will use $\K$ to mean "either $\R$ or $\C$".
 
 For $X$ a normed space, we define
-$$B_X = \{x \in X | \norm x \le 1\}$$
-$$S_X = \{x \in X | \norm x = 1\}$$
+\begin{eqnarray*}
+  B_X & = & \{x \in X | \norm x \le 1\} \\
+  S_X & = & \{x \in X | \norm x = 1\} \\
+  D_X & = & \{x \in X | \norm x < 1\}
+\end{eqnarray*}
 
 For $X, Y$ normed spaces, we write $X \sim Y$ if $X, Y$ are isomorphic, ie there
 exists a linear bijection $T : X \mor Y$ such that $T$ and $T^{-1}$ are continuous. We write $X \cong Y$ if $X, Y$ are isometrically isomorphic, ie there exists a surjective linear map $T : X \mor Y$ such that $\norm{T x} = \norm x$ for all $x$.
@@ -75,8 +78,8 @@ $$\norm f = \sup_{x \in B_X} |f(x)|$$
   If $H$ is a Hilbert space, then $H^* \cong H$ (the isomorphism is conjugate-linear in the complex case).
 \end{eg}
 
-For $x \in X, f \in X^*$, we write $\langle x, f\rangle = f(x)$. Note that
-$$\langle x, f\rangle = |f(x)| \le \norm f\norm x$$
+For $x \in X, f \in X^*$, we write $\inn x f = f(x)$. Note that
+$$\inn x f = |f(x)| \le \norm f\norm x$$
 
 \begin{defi}
   Let $X$ be a {\it real} vector space. A functional $p : X \mor \R$ is
@@ -202,7 +205,7 @@ $$\langle x, f\rangle = |f(x)| \le \norm f\norm x$$
   We see that $\for y \in Y, g(y) \le p(y)$. Hence find by Theorem \ref{thm:hb-absolute} a linear functional $f$ on $X$ such that $f\restriction_Y = g$ and $\for x \in X, |f(x)| \le p(x)$. We check that $f(x_0) = g(x_0) = p(x_0)$.
 \end{proof}
 
-\begin{thm}[Hahn-Banach, existence of support functionals]
+\begin{thm}[Hahn-Banach, existence of support functionals]\label{thm:hb-support}
   Let $X$ be a real or complex normed space. Then
   \begin{enumerate}
     \item If $Y$ is a subspace of $X$ and $g \in Y^*$, then there exists $f \in X^*$ such that $f\restriction_Y = g$ and $\norm f = \norm g$.
@@ -225,7 +228,7 @@ $$\langle x, f\rangle = |f(x)| \le \norm f\norm x$$
     \item Part 1 is a sort of linear version of Tietze's extension theorem: Given $K$ compact Hausdorff, $L \subseteq K$ closed, $g : L \mor \K$ continuous, there exists $f : K \mor \K$ such that $f\restriction_L = g$ and $\norm f_\infty = \norm g_\infty$.
     \item Part 2 shows that for all $x \ne y$ in $X$ there exists $f \in X^*$ such that $f(x) \ne f(y)$, namely $X^*$ {\bf separates points} of $X$. This is a sort of linear version of Urysohn: $C(K)$ separates points of $K$.
     \item The $f$ in part 2 is called a {\bf norming functional}, aka {\bf support functional}, for $x_0$. The existence of support functionals shows that
-      $$x_0 = \max_{g \in B_{X^*}} \langle x_0, g\rangle$$
+      $$x_0 = \max_{g \in B_{X^*}} \inn{x_0}g$$
       Assuming $X$ is a real normed space and $\norm{x_0} = 1$, we have $B_X \subseteq \{x \in X| f(x) \le 1\}$. Visually, TODO: insert tangency diagram
   \end{itemize}
 \end{rmks}
@@ -254,7 +257,7 @@ The map $x \mapsto \hat x : X \mor X^{**}$ is called the {\bf canonical embeddin
 
 \begin{rmks}~
   \begin{itemize}
-    \item In bracket notation, $\langle f, \hat x\rangle = \langle x, f\rangle$
+    \item In bracket notation, $\inn f {\hat x} = \inn x f$
     \item Let $\hat X$ be the image of $X$ in $X^{**}$. Theorem \ref{thm:can-emb} says
       $$X \cong \hat X \subseteq X^{**}$$
       We often identify $\hat X$ with $X$ and think of $X$ as living isometrically inside $X^{**}$. Note that
@@ -281,7 +284,123 @@ The map $x \mapsto \hat x : X \mor X^{**}$ is called the {\bf canonical embeddin
   \end{itemize}
 \end{rmks}
 
+\clearpage
+\section{The dual of \texorpdfstring{$L_p(\mu)$ and $C(K)$}{Lp(mu) or C(K)}}
+
+\subsection{Dual operators}
+
 \newlec
+
+Let $X, Y$ be normed spaces. Recall
+$$\mathcal B(X, Y) = \{T : X \mor Y | T \text{ linear, bounded}\}$$
+This is a normed space in the operator norm:
+$$\norm T = \sup_{x \in B_X} \norm{Tx}$$
+If $Y$ is complete, then so is $\mathcal B(X, Y)$. For $T \in \mathcal B(X, Y)$, the {\bf dual operator} of $T$ is the map $T^* : Y^* \mor X^*$ given by $T^*g = g \circ T$. In bracket notation $\inn x{T^*g} = \inn{Tx} g$ for $x \in X, g \in Y^*$.
+
+{\bf $T^*$ is linear}
+\begin{eqnarray*}
+  \inn x {T^*(g + h)}
+  & = & \inn{Tx}{g + h} \\
+  & = & \inn{Tx}g + \inn{Tx}h \\
+  & = & \inn x{T^*g} + \and x{T^* h} \\
+  & = & \inn x{T^*g + T^*h}
+\end{eqnarray*}
+\begin{eqnarray*}
+  \inn x {T^*(\lambda g)}
+  & = & \inn{Tx}{\lambda g} \\
+  & = & \lambda \inn{Tx}g \\
+  & = & \lambda \inn x{T^*g} \\
+  & = & \inn x{\lambda T^*g}
+\end{eqnarray*}
+
+{\bf $T^*$ is bounded}
+\begin{eqnarray*}
+  \norm{T^*}
+  & = & \sup_{g \in B_{Y^*}} \norm{T^*g} \\
+  & = & \sup_{g \in B_{Y^*}} \sup_{x \in B_X} \abs{\inn x{T^*g}} \\
+  & = & \sup_{x \in B_X} \sup_{g \in B_{Y^*}} \abs{\inn{Tx}g} \\
+  & = & \sup_{x \in B_X} \norm{Tx} \text{ by Theorem \ref{thm:hb-support} (ii)} \\
+  & = & \norm T
+\end{eqnarray*}
+
+\begin{rmks}~
+  \begin{itemize}
+    \item Hahn-Banach is crucial here. Without it, the dual could be $0$.
+    \item $\inn\cdot\cdot$ is linear in both arguments. This contrasts with the Hilbert space case where $\inn\cdot\cdot$ is conjugate-linear in one of the arguments. This comes from the conjugate-linearity of the identification $H^* \cong H$.
+    \item If $X, Y$ are Hilbert spaces and we identify $X, Y$ with $X^*, Y^*$, respectively, then $T^*$ is the adjoint of $T$.
+  \end{itemize}
+\end{rmks}
+
+\begin{eg}
+  Let $1 < p, q < \infty$, $p^{-1} + q^{-1} = 1$ and define $R : \ell_p \mor \ell_p$ to be the {\bf right shift operator} $(x_0, x_1, \dots) \mapsto (0, x_0, \dots)$. Then $R^* : \ell_q \mor \ell_q$ is the {\bf left shift operator} $(x_0, x_1, \dots) \mapsto (x_1, x_2, \dots)$.
+\end{eg}
+
+Some properties of the dual operator are
+\begin{enumerate}
+  \item $\id_X^* = \id_{X^*}$
+  \item $(S + T)^* + S^* + T^*$, $(\lambda T)^* = \lambda T^*$
+  \item $(ST)^* = T^*S^*$
+  \item $T \mapsto T^* : \mathcal B(X, Y) \mor \mathcal B(Y^*, X^*)$ is an {\it into} isomorphism.
+  \item The double dual of an operator commutes with the double dual embedding. \\
+    TODO: Insert commutative diagram
+    For all $x$,
+    $$\inn g{T^{**}\hat x} = \inn{T^*g}{\hat x} = \inn x{T^*g} = \inn{Tx}g = \inn g{\hat{Tx}}$$
+    So $T^{**}\hat x = \widehat{Tx}$.
+\end{enumerate}
+
+\begin{rmk}
+  From the above properties, if $X \sim Y$, then $X^* \sim Y^*$. Interestingly, if $X$ and $Y$ are reflexive, then we can deduce $X \sim Y$ from $X^* \sim Y^*$.
+\end{rmk}
+
+\subsection{Quotient spaces}
+
+Let $X$ be a normed space and $Y$ be a {\it closed} subspace.. Then the quotient space $X / Y$ becomes a normed space in the quotient norm:
+$$\norm{x + Y} = d(x, Y) = \inf_{y \in Y} \norm{x + y}$$
+The quotient map $q : X \mor X/Y$ is linear and bounded: $\norm{q(x)} \le \norm x$, so $\norm q \le 1$.
+
+$q$ maps the open unit ball $D_X$ onto $D_{X/Y}$. Indeed, if $x \in D_X$, then $\norm{q(x)} \le \norm x < 1$. Reciprocally, if $q(x) \in D_{X/Y}$, then there exists $y \in Y$ such that $\norm{x + y} < 1$. So $x + y \in D_X$ and $q(x + y) = q(x)$. It follows that $q$ is an open map and $\norm q = 1$.
+
+If $Z$ is another normed space, $T \in \mathcal B(X, Z)$ and $Y \subseteq \ker T$, then there exists a unique map $\tilde T$ is linear and $\tilde T(D_{X/Y}) = \tilde T(q(D_X)) = T(D_X)$. It follows that $\norm{\tilde T} = \norm T$.
+
+\begin{thm}
+  Let $X$ be a normed space. If $X^*$ is separable, then so is $X$.
+\end{thm}
+\begin{rmk}
+  The converse is false, as $X = \ell_1, X^* = \ell_\infty$ shows.
+\end{rmk}
+\begin{proof}
+  Since $X^*$ is separable, so is $S_{X^*}$. Let $f_n$ be a dense subset of $S_{X^*}$. For every $n$, find $x_n \in B_X$ such that $f_n(x_n) > \frac 12$. Let
+  $$Y = \overline{\Span\{x_n | n \in \N\}}$$
+  \begin{claim}
+    $Y = X$
+  \end{claim}
+  Then we're done since $Y$ is separable via $Y = \overline{\Span_\Q\{x_n | n \in \N\}}$.
+  \begin{proof}
+    Assume not. Then we can pick $g \in (X/Y)^*$, $\norm g = 1$ (by Theorem \ref{thm:hb-support} (ii)). Let $f = g \circ q$. Then $\norm f = \norm g = 1$, ie $f \in S_{X^*}$. Thus find $n$ such that $\norm{f - f_n} < \frac 14$, so that
+    $$\frac 14 > \norm{f - f_n}\norm{x_n} \ge \abs{(f - f_n)(x_n)} = \abs{f_n(x_n)} > \frac 12$$
+    contradiction.
+  \end{proof}
+\end{proof}
+
+\begin{thm}
+  Let $X$ be a separable normed space. Then $X$ embeds isometrically into $\ell_\infty$.
+\end{thm}
+\begin{proof}
+  Let $\{x_n | n \in \N\}$ be dense in $X$. For every $n$, find $f_n \in S_{X^*}$, $f_n(x_n) = \norm{x_n}$ (assuming $X \ne \{0\}$). Define $T : X \mor \ell_\infty$ by $(Tx)_n = f_n(x)$.
+
+  {\bf Well definition}
+  $$ \abs{(Tx)_n} = \abs{f_n(x)} \le \norm{f_n}\norm x = \norm x$$
+  Hence $\norm{Tx}_\infty \le \norm x < \infty$.
+
+  {\bf Linearity}
+  $$ (T(x + y))_n = f_n(x + y) = f_n(x) + f_n(y) = (Tx + Ty)_n$$
+  $$ (T(\lambda x))_n = f_n(\lambda x) = \lambda f_n(x)) = (\lambda Tx)_n$$
+  so $T(x + y) = Tx + Ty, T(\lambda x) = \lambda Tx$.
+
+  {\bf Isometry} \\
+  We already know $\norm{Tx}_\infty \le \norm x$. On the other hand, find $f$ a supporting functional for $x$ and $f_{n_k}$ a subsequence converging to $f$. Then
+  $$\norm{Tx}_\infty \ge \sup_k (Tx)_{n_k} = \sup_k \abs{f_{n_k}(x)} \ge \abs{f(x)} = \norm x$$
+\end{proof}
 
 \printindex
 \end{document}
