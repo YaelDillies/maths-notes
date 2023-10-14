@@ -102,9 +102,9 @@ $$\inn x f = |f(x)| \le \norm f\norm x$$
   A nonempty preorder in which all nonempty chains have an upper bound has a maximal element.
 \end{fact}
 
-\begin{thm}[Hahn-Banach, positive homogeneous version]\label{thm:hb-positive}
+\begin{nthm}[Hahn-Banach, positive homogeneous version]\label{thm:hb-positive}
   Let $X$ be a real vector space and $p : X \mor \R$ be positive homogeneous and subadditive. Let $Y$ be a subspace of $X$ and $g : Y \mor \R$ be linear such that $\for y \in Y, g(y) \le p(y)$. Then there exists $f : X \mor \R$ linear such that $f\restriction_Y = g$ and $\for x \in X, f(x) \le p(x)$.
-\end{thm}
+\end{nthm}
 \begin{proof}
   Let $P$ be the set of pairs $(Z, h)$ where $Z$ is a subspace of $X$ with $Y \subseteq Z$ and $h : Z \mor \R$ linear, $h\restriction_Y = g$ and $\for z \in Z, h(z) \le p(z)$. $P$ is nonempty since $(Y, g) \in P$, and is partially ordered by
   $$(Z_1, h_1) \le (Z_2, h_2) \iff Z_1 \subseteq Z_2 \land h_2\restriction_{Z_1} = h_1$$
@@ -144,9 +144,9 @@ $$\inn x f = |f(x)| \le \norm f\norm x$$
 
 \newlec
 
-\begin{thm}[Hahn-Banach, absolute homogeneous version]\label{thm:hb-absolute}
+\begin{nthm}[Hahn-Banach, absolute homogeneous version]\label{thm:hb-absolute}
   Let $X$ be a real of complex vector space and $p$ a seminorm on $X$. Let $Y$ be a subspace of $X$, $g$ a linear functional on $Y$ such that $\for y \in Y, |g(y)| \le p(y)$. Then there exists a linear functional $f$ on $X$ such that $f\restriction_Y = g$ and $\for x \in X, |f(x)| \le p(x)$.
-\end{thm}
+\end{nthm}
 \begin{proof}~\\
   {\bf Real case}
   $$\for y \in Y, g(y) \le |g(y)| \le p(y)$$
@@ -193,9 +193,9 @@ $$\inn x f = |f(x)| \le \norm f\norm x$$
   is an isometric isomorphism.
 \end{rmk}
 
-\begin{cor}\label{cor:hb-point}
+\begin{ncor}\label{cor:hb-point}
   Let $X$ be a $\K$-vector space, $p$ a seminorm on $X$, $x_0 \in X$. Then there exists a linear functional $f$ on $X$ such that $f(x_0) = p(x_0)$ and $\for x \in X, |f(x)| \le p(x)$.
-\end{cor}
+\end{ncor}
 \begin{proof}
   Let $Y = \Span(x_0)$,
   \begin{eqnarray*}
@@ -205,13 +205,13 @@ $$\inn x f = |f(x)| \le \norm f\norm x$$
   We see that $\for y \in Y, g(y) \le p(y)$. Hence find by Theorem \ref{thm:hb-absolute} a linear functional $f$ on $X$ such that $f\restriction_Y = g$ and $\for x \in X, |f(x)| \le p(x)$. We check that $f(x_0) = g(x_0) = p(x_0)$.
 \end{proof}
 
-\begin{thm}[Hahn-Banach, existence of support functionals]\label{thm:hb-support}
+\begin{nthm}[Hahn-Banach, existence of support functionals]\label{thm:hb-support}
   Let $X$ be a real or complex normed space. Then
   \begin{enumerate}
     \item If $Y$ is a subspace of $X$ and $g \in Y^*$, then there exists $f \in X^*$ such that $f\restriction_Y = g$ and $\norm f = \norm g$.
     \item Given $x_0 \ne 0$, there exists $f \in S_{X^*}$ such that $f(x_0) = \norm{x_0}$.
   \end{enumerate}
-\end{thm}
+\end{nthm}
 \begin{proof}~
   \begin{enumerate}
     \item Let $p(x) = \norm g \norm x$. Then $p$ is a seminorm on $X$ and
@@ -241,9 +241,9 @@ For $x \in X$, define $\hat x : X^* \mor \K$, the {\bf evaluation at $x$}, by $\
 
 The map $x \mapsto \hat x : X \mor X^{**}$ is called the {\bf canonical embedding} of $X$ into $X^{**}$.
 
-\begin{thm}\label{thm:can-emb}
+\begin{nthm}\label{thm:can-emb}
   The canonical embedding is an isometric embedding.
-\end{thm}
+\end{nthm}
 \begin{proof}~\\
   {\bf Linearity}
   \begin{eqnarray*}
@@ -283,9 +283,6 @@ The map $x \mapsto \hat x : X \mor X^{**}$ is called the {\bf canonical embeddin
   \item There are Banach spaces $X$ such that $X \cong X^{**}$ but $X$ is not reflexive, eg {\bf James' space}. Any isomorphism to the bidual is then necessarily not the canonical embedding.
   \end{itemize}
 \end{rmks}
-
-\clearpage
-\section{The dual of \texorpdfstring{$L_p(\mu)$ and $C(K)$}{Lp(mu) or C(K)}}
 
 \subsection{Dual operators}
 
@@ -362,9 +359,9 @@ $q$ maps the open unit ball $D_X$ onto $D_{X/Y}$. Indeed, if $x \in D_X$, then $
 
 If $Z$ is another normed space, $T \in \mathcal B(X, Z)$ and $Y \subseteq \ker T$, then there exists a unique map $\tilde T$ is linear and $\tilde T(D_{X/Y}) = \tilde T(q(D_X)) = T(D_X)$. It follows that $\norm{\tilde T} = \norm T$.
 
-\begin{thm}
+\begin{nthm}
   Let $X$ be a normed space. If $X^*$ is separable, then so is $X$.
-\end{thm}
+\end{nthm}
 \begin{rmk}
   The converse is false, as $X = \ell_1, X^* = \ell_\infty$ shows.
 \end{rmk}
@@ -382,9 +379,9 @@ If $Z$ is another normed space, $T \in \mathcal B(X, Z)$ and $Y \subseteq \ker T
   \end{proof}
 \end{proof}
 
-\begin{thm}
+\begin{nthm}
   Let $X$ be a separable normed space. Then $X$ embeds isometrically into $\ell_\infty$.
-\end{thm}
+\end{nthm}
 \begin{proof}
   Let $\{x_n | n \in \N\}$ be dense in $X$. For every $n$, find $f_n \in S_{X^*}$, $f_n(x_n) = \norm{x_n}$ (assuming $X \ne \{0\}$). Define $T : X \mor \ell_\infty$ by $(Tx)_n = f_n(x)$.
 
@@ -401,6 +398,220 @@ If $Z$ is another normed space, $T \in \mathcal B(X, Z)$ and $Y \subseteq \ker T
   We already know $\norm{Tx}_\infty \le \norm x$. On the other hand, find $f$ a supporting functional for $x$ and $f_{n_k}$ a subsequence converging to $f$. Then
   $$\norm{Tx}_\infty \ge \sup_k (Tx)_{n_k} = \sup_k \abs{f_{n_k}(x)} \ge \abs{f(x)} = \norm x$$
 \end{proof}
+
+\newlec
+
+\begin{rmks}~
+  \begin{itemize}
+    \item The result says that $\ell_\infty$ is isometrically universal for the class $\mathcal{SB}$ of separable Banach spaces.
+    \item There is a dual result: Every separable Banach space is a quotient of $\ell_1$.
+  \end{itemize}
+\end{rmks}
+
+\begin{nthm}[Vector-valued Liouville]
+  Lex $X$ be a complex Banach space, $f : \C \mor X$ holomorphic and bounded. Then $f$ is constant.
+\end{nthm}
+\begin{proof}
+  Find $M \ge 0$ such that $\for z \in \C, \abs{f(z)} \le M$. Fix $\phi \in X^*$. $\phi \circ f : \C \mor \C$ is
+
+  {\bf bounded}
+  $$\abs{\phi(f(z))} \le \norm\phi \norm{f(z)} \le M\norm\phi$$
+
+  {\bf holomorphic}
+  $$\frac{\phi(f(z)) - \phi(f(w))}{z - w} = \phi\left(\frac{f(z) - f(w)}{z - w}\right) \mor \phi(f'(z))$$
+
+  By scalar Liouville, $\phi \circ f$ is constant. For every $z \in \C, \phi \in X^*$, $\phi(f(z)) = \phi(f(0))$. Since $X^*$ separates points of $X$, $f(z) = f(0)$.
+\end{proof}
+
+\begin{rmk}
+  This is a typical example of how to transfer a scalar result to a vector-valued one: Prove the result once composed with any functional, then go back using Hahn-Banach.
+\end{rmk}
+
+\subsection{Locally convex spaces}
+
+\begin{defi}
+  A {\bf locally convex space} is a $\K$-vector space such that there exists a family $\mathcal P$ of seminorms on $X$ that separate points of $X$ in the sense that for all $x \ne 0$ there exists $p \in \mathcal P$ such that $p(x) \ne 0$.
+\end{defi}
+
+The family $\mathcal P$ defines a topology on $X$:
+$$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mathcal P \text{ finite}, \eps > 0, \{y \in X | \for p \in s, p(x) < \eps\} \subseteq U$$
+
+\begin{rmks}~
+
+  \begin{enumerate}
+    \item Addition and scalar multiplication are continuous.
+    \item The topology is Hausdorff as $\mathcal P$ separates points.
+    \item $x_n \mor x \iff \for p \in \mathcal P, p(x_n - x) \mor 0$
+    \item Let $Y$ be a subspace of $X$ and $\mathcal P_Y = \{p\restriction_Y | p \in \mathcal P\}$. Then $(Y, \mathcal P_Y)$ is a LCS and its topology is the subspace topology.
+    \item Let $\mathcal P, \mathcal Q$ be two families of seminorms on $X$ both separating points of $X$. We say $\mathcal P, \mathcal Q$ are {\bf equivalent}, write $\mathcal P \sim \mathcal Q$, if they induce the same topology on $X$. One interesting result is that
+    $$ (X, \mathcal P) \text{ metrisable} \iff \mathcal P \text{ equivalent to some countable family}$$
+    \item We make $\mathcal P$ part of the data here out of simplicity, but in grown up mathematics we instead assume that $X$ already comes with a topology and that this topology coincides with the one induced by $\mathcal P$.
+  \end{enumerate}
+\end{rmks}
+
+\begin{defi}
+  A {\bf Fréchet space} is a complete metrisable LCS.
+\end{defi}
+
+\begin{egs}~
+
+  \begin{enumerate}
+    \item A normed space is a LCS with $\mathcal P = \{\norm\cdot\}$.
+    \item Let $U \subseteq \C$ nonempty open. Let $\mathcal O(U) = \{f : U \mor \C | f \text{ holomorphic}\}$. For compact $K \subseteq U$, define $p_K(f) = \sup_{z \in K} \abs{f(z)}$. Let
+    $\mathcal P = \{p_K | K \subseteq U \text{ compact}\}$
+    Then $(\mathcal O(U), \mathcal P)$ is a LCS. If we replace $\{K \subseteq U \text{ compact}\}$ by a compact exhaustion of $U$, then we get a countable separating family equivalent to $\mathcal P$. So $(\mathcal O(U), \mathcal P)$ is metrisable. However it is not normable: no norm on $\mathcal O(U)$ induces the topology of $(\mathcal O(U), \mathcal P)$, which is the topology of uniform convergence. This is a consequence of Montel's theorem.
+    \item Fix $d \in \N, \Omega \subseteq \R^d$ a nonempty open set. Let
+    $$C^\infty(\Omega) = \{f : \Omega \mor \R | f \text{ infinitely differentiable}\}$$
+    Given a multi-index $\alpha \in \Z^d$, $\alpha$ defines a differential operator
+    $$D^\alpha = \left(\frac\partial{\partial x_1}\right)^{\alpha_1} \dots
+    \left(\frac\partial{\partial x_d}\right)^{\alpha_d}$$
+    For a compact $K \subseteq \Omega, \alpha \in \Z^d$, define
+    $$p_{K, \alpha}(f) = \sup_{z \in K}\abs{D^\alpha f(z)}$$
+    Let
+    $$\mathcal P = \{p_{K, \alpha} | K \subseteq U \text{ compact}, \alpha \in \Z^d\}$$
+    Then $(C^\infty, \mathcal P)$ is a LCS. It is in fact a non-normable Fréchet space.
+  \end{enumerate}
+\end{egs}
+
+\begin{nlemma}\label{lem:lcs-continuity}
+  Let $(X, \mathcal P), (Y, \mathcal Q)$ be LCS, $T : X \mor Y$ linear. TFAE
+  \begin{enumerate}
+    \item $T$ is continuous
+    \item $T$ is continuous at $0$
+    \item $\for q \in \mathcal Q, \exists s \subseteq \mathcal P \text{ finite}, C \ge 0, \for x \in X, q(Tx) \le C\max_{p \in s} p(x)$
+  \end{enumerate}
+\end{nlemma}
+\begin{proof}~\\
+  {\bf (i) $\iff$ (ii)} \\
+  Translation is continuous.
+
+  {\bf (ii) $\implies$ (iii)} \\
+  Given $q \in \mathcal Q$, let $V = \{y \in Y | q(y) \le 1\}$. Then $V$ is a neighborhood of $0$ in $Y$. So there exists $U$ neighborhood of $0$ in $X$ such that $T(U) \subseteq V$. WLOG
+  $$U = \{x \in X | \for p_K \in s, p_K(x) \le \eps\}$$
+  Let $p = \max_{p_K \in s} p_K(x)$. If $p(x) = 1$, then $p(\eps x) = \eps$, so $\eps x \in U$ and
+  $$q(T(\eps x)) \le 1$$
+  By homogeneity, $q(Tx) \le \frac 1\eps p(x)$ for all $x$ such that $p(x) > 0$. If $p(x) = 0$, then $p(\lambda x) = 0$ for all scalar $\lambda$. So $q(T(\lambda x)) \le 1$ for all $\lambda$. Hence $q(Tx) = 0 \le \frac 1\eps p(x)$.
+
+  {\bf (iii) $\implies$ (ii)} \\
+  Assume $t \subseteq \mathcal Q$ is finite, $\eps > 0$, and let $V = \{y \in Y | \for q \in t, q(y) \le \eps$ the corresponding neighborhood of $0$. For each $q \in t$, find $s_q \subseteq \mathcal P$ finite and $C_q$ so that $\for x \in X, q(Tx) \le C_q\max_{p \in s_q}p(x)$. Let
+  $$U = \left\{x \in X | \for q \in \mathcal Q, p \in s_q, p(x) \le \frac\eps{C_q}\right\}$$
+  Then $U$ is a neighborhood of $0$ and $T(U) \subseteq V$.
+\end{proof}
+
+\begin{defi}
+  Let $(X, \mathcal P)$ be a LCS. The {\bf dual space} of $X$ is the space of continuous linear functionals $X \mor \K$.
+\end{defi}
+
+\newlec
+
+\begin{nlemma}\label{lem:lcs-dual}
+  Let $f$ be a linear functional on a LCS $(X, \mathcal P)$. Then
+  $$f \in X^* \iff \ker f \text{ closed}$$
+\end{nlemma}
+\begin{proof}~\\
+  $\implies$ \\
+  $\ker f = f^{-1}(0)$ is closed since $f$ is continuous.
+  
+  $\impliedby$ \\
+  If $\ker f = 0$, then $f = 0$ is continuous. Else fix some $x_0 \nin \ker f$. Since $(\ker f)^c$ is open, find $s \subseteq \mathcal P$ finite, $\eps > 0$ such that
+  $$\underbrace{\{x \in X | \for p \in s, p(x - x_0) < \eps\}}_U \subseteq (\ker f)^c$$
+  Then $U$ is a neighborhood of $0$ and $(x_0 + U) \cap \ker f = \empty$. Note that $U$ is convex and {\bf balanced} ($x \in U, \abs\lambda \le 1 \implies \lambda x \in U$), hence so is $f(U)$ as $f$ is linear. \\
+  If $f(U)$ is unbounded, then it is the whole scalar field, hence so is $f(x_0 + U) = f(x_0) + f(U)$. But $0 \in \ker f$, contradicting disjointness. \\
+  So find $M$ such that $\abs{f(x)} < M$ for all $x \in U$. For all $\delta > 0$, $\frac\delta M U$ is a neighborhood of $0$ and $f\left(\frac\delta M U\right) \subseteq \{\lambda \in \K | \abs\lambda < \delta\}$. Thus $f$ is continuous.
+\end{proof}
+
+\begin{nthm}[Hahn-Banach]
+  Let $(X, \mathcal P)$ be a LCS.
+  \begin{enumerate}
+    \item Given a subspace $Y$ of $X$ and $x_0 \nin Y$, there exists $f \in X^*$ such that $f\restriction_Y = g$.
+    \item Given a closed subspace $Y$ of $X$ and $x_0 \nin Y$, there exists $f \in X^*$
+  \end{enumerate}
+\end{nthm}
+\begin{proof}~
+
+  \begin{enumerate}
+    \item By Lemma \ref{lem:lcs-continuity}, find $s \subseteq \mathcal P$ finite, $C \ge 0$ such that
+    $$\for y \in Y, \abs{g(y)} \le C\max_{p \in s}p(y)$$
+    Let $p(x) = C\max_{p \in s}p(x)$. Then $p$ is a seminorm on $X$ and $\for y \in Y, \abs{g(y)} \le p(y)$. By Theorem \ref{thm:hb-absolute}, find a linear functional $f$ on $X$ such that $f\restriction_Y = g, \for x \in X, \abs{f(x)} \le p(x)$. By Lemma \ref{lem:lcs-continuity}, $f \in X^*$.
+    \item Let $Z = \Span(Y \cup \{x_0\})$ and define a linear functional $g$ on $Z$ by
+    $$g(y + \lambda x_0) = \lambda, y \in Y, \lambda \in \K$$
+    Then $g\restriction_Y = 0, g(x_0) = 1 \ne 0$ and $\ker g = Y$ is closed, so $g \in Z^*$ by Lemma \ref{lem:lcs-dual}. By part (i), find $f \in X^*$ such that $f\restriction_Z = g$. This works.
+  \end{enumerate}
+\end{proof}
+
+\clearpage
+
+\section{The dual of \texorpdfstring{$L_p(\mu)$ and $C(K)$}{Lp(mu) or C(K)}}
+
+Let $(\Omega, \mathcal F, \mu)$ be measure space.
+
+$1 \le p < \infty$
+$$L_p(\mu) = \{f : \Omega \mor \K | f \text{ measurable and } \int_\Omega \abs f^p d\mu < \infty\}$$
+This is a normed space in the $L_p$-norm:
+$$\norm f_p = \left(\int_\Omega \abs f^p d\mu\right)^{\frac 1p}$$
+
+$p = \infty$ \\
+A measurable function $f : \Omega \mor \K$ is {\bf essentially bounded} if there exists $N \in \mathcal F$ such that $\mu(N) = 0$ and $f\restriction_{N^c}$ is bounded.
+$$L_p(\mu) = \{f : \Omega \mor \K | f \text{ measurable and essentially bounded}\}$$
+This is a normed space in the $L_\infty$-norm:
+$$\norm f_\infty = \esssup \abs f = \inf_{\abs f \le k \text{ ae}} k$$
+The inf is attained: there exists some $N \in \mathcal F, \mu(N) = 0$ such that $\norm f_\infty = \sup_{N^c} \abs f$.
+
+In all cases, we identify functions up to almost everywhere equality.
+
+\begin{nthm}
+  $L_p(\mu)$ is complete for $1 \le p \le infty$.
+\end{nthm}
+
+\begin{defi}[Complex measures]
+  A {\bf complex measure} on $\mathcal F$ is a countably additive set function $\nu : \mathcal F \mor \C$. \\
+  The {\bf total variation measure} $\abs\nu$ is defined by
+  $$\abs\nu(A) = \sup_{\substack{A_1, \dots, A_n \text{ measurable} \\ \text{partition of } A}} \sum_k \abs{\nu(A_k)}$$
+  $\abs\nu : \mathcal F \mor [0, \infty]$ is a positive measure. Later we'll see that $\abs\nu$ is a finite measure. \\
+  The {\bf total variation} of $\nu$ is $\norm\nu_1 = \abs\nu(\Omega)$.
+\end{defi}
+
+\begin{prop}
+  If $\nu$ is a complex measure on $\mathcal F$ and $A_n \in \mathcal F$ for all $n$, then
+  \begin{itemize}
+    \item If $A$ is monotone, then $\nu(\bigcup_n A_n) = \lim_{n \mor \infty} \nu(A_n)$.
+    \item If $A$ is antitone, then $\nu(\bigcap_n A_n) = \lim_{n \mor \infty} \nu(A_n)$.
+  \end{itemize}
+\end{prop}
+
+\begin{defi}[Signed measures]
+  A {\bf signed measure} on $\mathcal F$ is a countably additive set function $\nu : \mathcal F \mor \R$.
+\end{defi}
+
+\begin{nthm}\label{thm:hahn-decomp}
+  If $\nu$ is a signed measure, then there exists a measurable partition $\Omega = P \cup N$ such that for all $A \in \mathcal F$
+  \begin{eqnarray*}
+    A \subseteq P & \implies & \nu(A) \ge 0 \\
+    A \subseteq N & \implies & \nu(A) \le 0
+  \end{eqnarray*}
+\end{nthm}
+\begin{rmks}~
+  
+  \begin{enumerate}
+    \item This decomposition is called the {\bf Hahn decomposition} of $\nu$.
+    \item Define $\nu^+(A) = \nu(A \cap P), \nu^-(A) = -\nu(A \cap N)$. Then $\nu^+, \nu^-$ are finite positive measures such that $\nu = \nu^+ - \nu^-$. This determines $\nu^+, \nu^-$ uniquely and the decomposition composition $\nu = \nu^+ - \nu^-$ is called the {\bf Jordan decomposition} of $\nu$.
+    \item If $\nu$ is a complex measure on $\mathcal F$, then $\Re\nu, \Im\nu$ are signed measures with Jordan decomposition $\nu_1 - \nu_2, \nu_3 - \nu_4$ respectively. Hence $\nu = \nu_1 - \nu_2 + i\nu_3 - i\nu_4$ is the Jordan decomposition of $\nu$.
+    $$\nu_1, \nu_2, \nu_3, \nu_4 \le \abs\nu \le \nu_1 + \nu_2 + \nu_3 + \nu_4$$
+    So $\abs\nu$ is a finite measure.
+  \end{enumerate}
+\end{rmks}
+\begin{proof}[Sketch]
+  Define $\nu^+(A) = \sup_{\substack{B \in \mathcal F \\ B \subseteq A}} \nu(B)$. $\nu^+$ is nonnegative and finitely additive.
+
+  {\bf Key step: $\nu^+(\Omega) < \infty$} \\
+  By contradiction, construct inductively sequences $A_n, B_n$ such that
+  $$\nu^+(A_n) = \infty, \nu(B_n) > n$$
+  by taking $A_0 = \Omega, B_{n + 1} \subseteq A_n$ such that $\nu(B_n) > n$ (exists by continuity) and $A_{n + 1} = B_{n + 1}$ or $A_n \setminus B_{n + 1}$. This contradicts countable additivity.
+
+  Now find a sequence $A_n$ such that $\nu(A_n) > \nu^+(\Omega) - 2^{-n}$ and set $P = \liminf_n A_n, N = P^c$. Check that this works.
+\end{proof}
+
+\newlec
 
 \printindex
 \end{document}
