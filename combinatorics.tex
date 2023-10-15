@@ -61,25 +61,25 @@ This is best possible, as we see by taking $x_1 = \dots = x_n = 1$.
 Let $G$ be a bipartite graph with parts $U$ and $W$. A {\bf complete matching} from $U$ to $W$ is an injective function $f : U \mor W$ such that $\for u \in U, u \sim f(u)$. \\
 If $G$ has a complete matching, then certainly $\abs A \le \abs{\Gamma(A)}$. Surprisingly, this is enough.
 
-\begin{thm}[K\H onig-Egerv\'ary-Hall Theorem, Hall's Marriage Theorem]\label{thm:hall}
+\begin{nthm}[K\H onig-Egerv\'ary-Hall Theorem, Hall's Marriage Theorem]\label{thm:hall}
   $$G \text{ has a complete matching } \iff \for A \subseteq U, \abs A \le \abs{\Gamma(A)}$$
-\end{thm}
+\end{nthm}
 \begin{proof}
   Exercise
 \end{proof}
 
 Let $\mathcal F = (F_1, \dots, F_m)$ where the $F_i$ are finite sets. We say $a_1, \dots, a_m$ is a {\bf set of distinct representatives}, aka {\bf SDR} if they are distinct and $\for i, a_i \in F_i$. Certainly, if $\mathcal F$ has SDR, then $\abs I \le \abs{\bigcup_{i \in I} F_i}$ for all $I \subseteq [m]$.
 
-\begin{thm}
+\begin{nthm}
   $$\mathcal F \text{ is a SDR } \iff \for I \subseteq [m], \abs I \le \abs{\bigcup_{i \in I} F_i}$$
-\end{thm}
+\end{nthm}
 \begin{proof}
   Define a bipartite graph $G$ with parts $[m]$ and $\bigcup_i F_i$ by $i \sim a \iff a \in F_i$. For all $I \subseteq [m]$, $\abs I \le \abs{\bigcup_{i \in I} F_i} = \abs{\Gamma(I)}$, so Theorem \ref{thm:hall} applies.
 \end{proof}
 
-\begin{thm}
+\begin{nthm}
   If $G$ is a bipartite graph with parts $U$, $W$ such that $\deg(u) \ge \deg(w)$ for all $u \in U, w \in W$, then there is a complete matching from $U$ to $W$.
-\end{thm}
+\end{nthm}
 \begin{proof}
   Find $d$ such that $\deg(u) \ge d \ge \deg(w)$ for all $u \in U, w \in W$. For all $A \subseteq U$, we have
   $$d\abs A \le e(A, \Gamma(A)) \le d\abs{\Gamma(A)}$$
@@ -91,9 +91,9 @@ For $A \subseteq U, B \subseteq W$, define $w(A) = \frac{\abs A}{\abs U}, w(B) =
 Say a bipartite graph $G$ with parts $U, W$ is {\bf $(k, \ell)$-biregular} if
 $\deg(u) = k, \deg(w) = \ell$ for all $u \in U, w \in W$.
 
-\begin{lemma}
+\begin{nlemma}
   If $G$ is biregular with parts $U, W$ and $A \subseteq U$, then $w(A) \le w(\Gamma(A))$.
-\end{lemma}
+\end{nlemma}
 \begin{proof}
   First, $k\abs U = e(G) = \ell\abs W$. Second,
   $$k\abs A = e(A, \Gamma(A)) \le \ell\abs{\Gamma(A)}$$
@@ -102,21 +102,21 @@ $\deg(u) = k, \deg(w) = \ell$ for all $u \in U, w \in W$.
 
 \newlec
 
-\begin{cor}
+\begin{ncor}
   Let $G$  be a $(k, \ell)$-biregular graph with parts $U, W$. If $k \ge \ell$ (or equivalently $\abs U \le \abs W$), then there is a complete matching from $U$ to $W$.
-\end{cor}
+\end{ncor}
 
-\begin{cor}\label{cor:layer-inj}
+\begin{ncor}\label{cor:layer-inj}
   If $\abs{s - \frac n 2} \le \abs{r - \frac n 2}$, then there exists an injection $f : X^{(r)} \hookrightarrow X^{(s)}$ such that either
   \begin{itemize}
     \item $r \le s$ and $A \subseteq f(A)$ for all $A \in X^{(r)}$
     \item $s \le r$ and $f(A) \subseteq A$ for all $A \in X^{(r)}$
   \end{itemize}
-\end{cor}
+\end{ncor}
 
-\begin{thm}[Sperner, 1928]
+\begin{nthm}[Sperner, 1928]
   Let $\mathcal A \subseteq \mathcal P(X)$ be an antichain. Then $\abs{\mathcal A} \le \binom n{\floor{\frac n 2}}$
-\end{thm}
+\end{nthm}
 \begin{proof}
   A chain and an antichain can intersect in at most one element. If we manage to partition $\mathcal P(X)$ into $\binom n{\floor{\frac n 2}}$ chains, we win. \\
   But we can repeatedly use Corollary \ref{cor:layer-inj} to construct matchings $X^{(0)}$ to $X^{(1)}$, $X^{(1)}$ to $X^{(2)}$, ..., $X^{(\ceil{\frac n 2} - 1)}$ to $X^{(\ceil{\frac n 2})}$ and $X^{(n)}$ to $X^{(n - 1)}$, $X^{(n - 1)}$ to $X^{(n - 2)}$, ..., $X^{(\floor{\frac n 2} + 1)}$ to $X^{(\floor{\frac n 2})}$, then ``stack'' the matchings together to make chains (if an element of the middle layer). Each chain goes through $X^{(\floor{frac n 2})}$, so we made $\binom n {\floor{\frac n 2}}$.
@@ -124,9 +124,9 @@ $\deg(u) = k, \deg(w) = \ell$ for all $u \in U, w \in W$.
 
 We can now understand the observation of Erd\H os (1945) about Littlewood-Offord (1943).
 
-\begin{cor}
+\begin{ncor}
   Let $x_1, \dots, x_n \in \R$ be such that $\abs{x_i} \ge 1$. Then at most $\binom n{\floor{\frac n 2}}$ of the sums $\sum_i \eps_i x_i$, $\eps_i = \pm 1$ fall into the interior of an interval $I$ of length $2$.
-\end{cor}
+\end{ncor}
 \begin{proof}
   WLOG $\for i, x_i \ge 1$. Set $F_\eps = \{i | \eps_i = 1\}$. $\{F\eps | \sum_i \eps_i x_i \in I\}$ is an antichain (if $F_\eps \subsetneq F_{\eps'}$, then $\sum_i \eps'_i x_i \ge \sum_i \eps_i x_i + 2$, so both sums can't lie in $I$).
 \end{proof}
@@ -144,12 +144,10 @@ We can now understand the observation of Erd\H os (1945) about Littlewood-Offord
 
 TODO: Insert picture
 
-\begin{thm}
+\begin{nthm}
   Let $A$ be an antichain in a connected regular graded order $P$. Then $w(A) \le 1$.
-\end{thm}
+\end{nthm}
 \begin{proof}
-  Homework. Solution is written in white below: \\
-  \color{white}
   The regularity condition means that for each $i$ the bipartite graph $G_i$ with parts $P_{i - 1}, P_i$ and $x \sim y \iff x < y$ is $(p_{i - 1}, q)$-biregular. In particular, $w(A_i) \le w(\Gamma_{G_i}(A_i))$. \\
   Now, write $r$ the maximal rank of an element of $A$ and define
   $$B := A \setminus A_r \cup \Gamma_{G_r}(A_r)$$
@@ -162,6 +160,83 @@ TODO: Insert picture
     & = & w(B)
   \end{eqnarray*}
   We therefore have decreased the maximal rank without decreasing the weight. We can repeat the process until the antichain is contained in some $P_i$, in which case its weight is clearly at most $1$.
+\end{proof}
+
+\newlec
+
+Consider maximal chains in our regular graded order. Say there are $M$ of them. Each $x \in P_h$ lies in the same number of chains $m(x)$, namely $\frac m{\abs{P_h}}$.
+
+\begin{proof}[Second proof]
+  No two elements of $A$ lie in the same maximal chain. Hence
+  $$M \ge \sum_{x \in A} m(x) = \sum_{x \in A} \frac M{\abs{P_{\rank(x)}}} = Mw(A)$$
+\end{proof}
+
+The following is a corollary of the above, but we provide a proof using Katona's circle method.
+
+\begin{nthm}[Lubell-Yamamoto-Meshalkin Inequality]
+  If $\mathcal A \subseteq 2^{[n]}$ is an antichain, then $\sum_{A \in \mathcal A} {\binom n {\abs A}}^{-1} \le 1$
+\end{nthm}
+\begin{proof}
+  We say that $A \in 2^{[n]}$ is {\bf contained} in a permutation $\pi$ if $A = \{\pi_1, \dots, \pi_{\abs A}\}$. Every permutation contains at most one element of $\mathcal A$ and every $A \in \mathcal A$ is contained in $\abs A!(n - \abs A)!$ permutations.
+\end{proof}
+
+We say a chain $C_i \subseteq C_{i + 1} \subseteq \dots \subseteq$ is {\bf symmetric} if $\abs{C_j} = j$ for all $j$.
+
+\begin{egs}
+  $\{1\} \subseteq \{1, 4\} \subseteq \{1, 3, 4\} \subseteq \{1, 3, 4, 6\} \subseteq \{1, 3, 4, 5, 6\}$ and $\{2, 4, 5\}$ are symmetric chains in $2^{[6]}$. $\{2, 5, 6\} \subseteq \{2, 4, 5, 6\}$ is a symmetric in $2^{[7]}$ but not in any other $2^{[n]}$.
+\end{egs}
+
+\begin{nthm}[Partition into Symmetric Chains]
+  Every finite powerset can be partitioned into symmetric chains.
+\end{nthm}
+\begin{proof}
+  Induction on $n$:
+  \begin{itemize}
+    \item $\{\{\empty\}\}$ is a PSC for $n = 0$.
+    \item Assume we have a PSC for $n$. For every chain $\mathcal C = \{C_i, \dots, C_{n - i}\}$ in our PSC for $n$, add the following two chains to our PSC for $n + 1$:
+    \begin{eqnarray*}
+      \mathcal C' & = & \{C_i, \dots, C_{n - i}, C_{n - i} \cup \{n\}\} \\
+      \mathcal C'' & = & \{C_i \cup \{n\}, \dots, C_{n - i - 1} \cup \{n\}\}
+    \end{eqnarray*}
+    TODO: Insert figure
+  \end{itemize}
+\end{proof}
+
+The number of symmetric chains of length $n + 1 - 2i$ in a PSC is
+$$\binom n i - \binom n{i - 1}$$
+
+\begin{nthm}
+  Let $x_1, \dots, x_n$ be vectors of norm at least $1$ a normed space. For $A \subseteq [n]$, set $x_A = \sum_{i \in A} x_i$. Let $\mathcal A \subseteq 2^{[n]}$ such that
+  $$\for A, B \in \mathcal A, \norm{x_A - x_B} < 1$$
+  Then $\mathcal A \le \binom n{\floor{\frac n2}}$.
+\end{nthm}
+\begin{proof}
+  Call $\mathcal B \subseteq 2^{[n]}$ {\bf sparse} or {\bf scattered} if $\for A, B, \mathcal B, A \ne B, \norm{x_A - x_B} \ge 1$. $\mathcal A$ intersects every sparse family in at most one set, so we would be done if there existed a partition of $2^{[n]}$ into $\binom n{\floor{\frac n2}}$ sparse chains. This is the next theorem.
+\end{proof}
+
+\begin{nthm}[Kleitman]
+  $2^{[n]}$ has a partition into $\binom n{\floor{\frac n2}}$ sparse chains.
+\end{nthm}
+\begin{proof}
+  Induction on $n$:
+  \begin{itemize}
+    \item $\{\{\empty\}\}$ is a sparse partition for $n = 0$.
+    \item Assume we have a sparse partition for $n$. Let $f$ be a support functional at $x_n$ ($\for x, f(x) \le \norm x$, with equality if $x = x_n$). For every sparse family $\mathcal D = \{D_1, \dots, D_k\}$ in our sparse partition for $n$, find $i$ maximising $f(x_{D_i})$ and add the following two sparse families to our sparse partition for $n + 1$: 
+    \begin{eqnarray*}
+      \mathcal D' & = & \mathcal D \cup \{D_i \cup \{n\}\} \\
+      \mathcal D'' & = & \{D_j \cup \{n\} | j \ne i\}
+    \end{eqnarray*}
+    $\mathcal D''$ is clearly sparse. $\mathcal D'$ is also sparse because for all 
+    $D \in \mathcal D$
+    \begin{eqnarray*}
+      \norm{x_{D_i \cup \{n\}} - x_D}
+      & = & \norm{x_{D_i} + x_n - x_D} \\
+      & \ge & f(x_{D_i} + x_n - x_D) \\
+      & = & f(x_{D_i}) - f(x_D) + \norm{x_n} \\
+      & \ge & 1
+    \end{eqnarray*}
+    The number of sparse partitions of length $n + 1 - 2i$ is again $\binom ni - \binom n{i - 1}$.
+  \end{itemize}
 \end{proof}
 
 \newlec
