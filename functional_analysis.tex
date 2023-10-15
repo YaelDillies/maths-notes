@@ -520,15 +520,17 @@ $$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mathcal P \
   So find $M$ such that $\abs{f(x)} < M$ for all $x \in U$. For all $\delta > 0$, $\frac\delta M U$ is a neighborhood of $0$ and $f\left(\frac\delta M U\right) \subseteq \{\lambda \in \K | \abs\lambda < \delta\}$. Thus $f$ is continuous.
 \end{proof}
 
-\begin{nthm}[Hahn-Banach]
+\begin{nthm}[Hahn-Banach]\label{thm:hb-lcs}
   Let $(X, \mathcal P)$ be a LCS.
   \begin{enumerate}
-    \item Given a subspace $Y$ of $X$ and $x_0 \nin Y$, there exists $f \in X^*$ such that $f\restriction_Y = g$.
-    \item Given a closed subspace $Y$ of $X$ and $x_0 \nin Y$, there exists $f \in X^*$
+    \item Given a subspace $Y$ of $X$ and $g \in Y^*$, there exists $f \in X^*$ such that $f\restriction_Y = g$.
+    \item Given a closed subspace $Y$ of $X$ and $x_0 \nin Y$, there exists $f \in X^*$ such that $f\restriction_Y = 0$, $f(x_0) \ne 0$.
   \end{enumerate}
 \end{nthm}
+\begin{rmk}
+  This means that $X^*$ separates points of $X$.
+\end{rmk}
 \begin{proof}~
-
   \begin{enumerate}
     \item By Lemma \ref{lem:lcs-continuity}, find $s \subseteq \mathcal P$ finite, $C \ge 0$ such that
     $$\for y \in Y, \abs{g(y)} \le C\max_{p \in s}p(y)$$
