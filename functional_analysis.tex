@@ -52,11 +52,11 @@ Books relevant to the course are:
 We will use $\K$ to mean "either $\R$ or $\C$".
 
 For $X$ a normed space, we define
-\begin{eqnarray*}
-  B_X & = & \{x \in X | \norm x \le 1\} \\
-  S_X & = & \{x \in X | \norm x = 1\} \\
-  D_X & = & \{x \in X | \norm x < 1\}
-\end{eqnarray*}
+\begin{align*}
+  B_X & = \{x \in X \mid \norm x \le 1\} \\
+  S_X & = \{x \in X \mid \norm x = 1\} \\
+  D_X & = \{x \in X \mid \norm x < 1\}
+\end{align*}
 
 For $X, Y$ normed spaces, we write $X \sim Y$ if $X, Y$ are isomorphic, ie there
 exists a linear bijection $T : X \mor Y$ such that $T$ and $T^{-1}$ are continuous. We write $X \cong Y$ if $X, Y$ are isometrically isomorphic, ie there exists a surjective linear map $T : X \mor Y$ such that $\norm{T x} = \norm x$ for all $x$.
@@ -108,8 +108,8 @@ $$\inn x f = |f(x)| \le \norm f\norm x$$
 \begin{proof}
   Let $P$ be the set of pairs $(Z, h)$ where $Z$ is a subspace of $X$ with $Y \subseteq Z$ and $h : Z \mor \R$ linear, $h\restriction_Y = g$ and $\for z \in Z, h(z) \le p(z)$. $P$ is nonempty since $(Y, g) \in P$, and is partially ordered by
   $$(Z_1, h_1) \le (Z_2, h_2) \iff Z_1 \subseteq Z_2 \land h_2\restriction_{Z_1} = h_1$$
-  If $\{(Z_i, h_i) | i \in I\}$ is a chain with $I$ nonempty, then we can define
-  $$Z := \bigcup_{i \in I} Z_i, h\restriction_{Z_i} = h_i$$
+  If $\{(Z_i, h_i) \mid i \in I\}$ is a chain with $I$ nonempty, then we can define
+  $$Z := \Union_{i \in I} Z_i, h\restriction_{Z_i} = h_i$$
   The definition of $h$ makes sense thanks to the chain assumption. $(Z, h) \in P$ is therefore an upper bound for the chain. \\
   Hence find by Zorn a maximal element $(Z, h)$ of $P$. If $Z = X$, we won. So assume there is some $x \in X \ Z$. Let $W = \Span(Z \cup \{x\})$ and define $f : W \mor \R$ by
   $$f(z + \lambda x) = h(z) + \lambda\alpha$$
@@ -163,12 +163,12 @@ $$\inn x f = |f(x)| \le \norm f\norm x$$
   \begin{proof}~\\
     {\bf Uniqueness} \\
     If we have such $f$, then
-    \begin{eqnarray*}
+    \begin{align*}
       f(x)
-      & = & \Re f(x) + i\Im f(x) \\
-      & = & \Re f(x) - i\Re f(ix) \\
-      & = & h(x) - ih(ix)
-    \end{eqnarray*}
+      & = \Re f(x) + i\Im f(x) \\
+      & = \Re f(x) - i\Re f(ix) \\
+      & = h(x) - ih(ix)
+    \end{align*}
     {\bf Existence} \\
     Define $f(x) = h(x) - ih(ix)$. Then $f$ is real-linear and $f(ix) = if(x)$, so $f$ is complex-linear with $\Re f = h$.
   \end{proof}
@@ -176,15 +176,15 @@ $$\inn x f = |f(x)| \le \norm f\norm x$$
   $$\Re f\restriction_Y = h\restriction_Y = \Re g$$
   So, by uniqueness, $f\restriction_Y = g$. \\
   Given $x \in X$, find $\lambda$ with $|\lambda| = 1$ such that
-  \begin{eqnarray*}
+  \begin{align*}
     |f(x)|
-    & = & \lambda f(x) \\
-    & = & f(\lambda x) \\
-    & = & \Re f(\lambda x) \\
-    & = & h(\lambda x) \\
-    & \le & p(\lambda x) \\
-    & = & p(x)
-  \end{eqnarray*}
+    & = \lambda f(x) \\
+    & = f(\lambda x) \\
+    & = \Re f(\lambda x) \\
+    & = h(\lambda x) \\
+    & \le p(\lambda x) \\
+    & = p(x)
+  \end{align*}
 \end{proof}
 
 \begin{rmk}
@@ -198,10 +198,10 @@ $$\inn x f = |f(x)| \le \norm f\norm x$$
 \end{ncor}
 \begin{proof}
   Let $Y = \Span(x_0)$,
-  \begin{eqnarray*}
-    g : Y & \mor & \K \\
-    \lambda x_0 & \mapsto & \lambda p(x_0)
-  \end{eqnarray*}
+  \begin{align*}
+    g : Y & \mor \K \\
+    \lambda x_0 & \mapsto \lambda p(x_0)
+  \end{align*}
   We see that $\for y \in Y, g(y) \le p(y)$. Hence find by Theorem \ref{thm:hb-absolute} a linear functional $f$ on $X$ such that $f\restriction_Y = g$ and $\for x \in X, |f(x)| \le p(x)$. We check that $f(x_0) = g(x_0) = p(x_0)$.
 \end{proof}
 
@@ -246,10 +246,10 @@ The map $x \mapsto \hat x : X \mor X^{**}$ is called the {\bf canonical embeddin
 \end{nthm}
 \begin{proof}~\\
   {\bf Linearity}
-  \begin{eqnarray*}
-    \widehat{x + y}(f) & = & f(x + y) = f(x) + f(y) = \hat x(f) + \hat y(f) \\
-    \widehat{\lambda x}(f) & = & f(\lambda x) = \lambda f(x) = \lambda \hat x(f)
-  \end{eqnarray*}
+  \begin{align*}
+    \widehat{x + y}(f) & = f(x + y) = f(x) + f(y) = \hat x(f) + \hat y(f) \\
+    \widehat{\lambda x}(f) & = f(\lambda x) = \lambda f(x) = \lambda \hat x(f)
+  \end{align*}
   {\bf Isometry} \\
   If $x \ne 0$, there exists a support functional $f$ for $x$. Then
   $$ \norm{\hat x} \ge |\hat x(f)| = |f(x)| = \norm x$$
@@ -289,36 +289,36 @@ The map $x \mapsto \hat x : X \mor X^{**}$ is called the {\bf canonical embeddin
 \newlec
 
 Let $X, Y$ be normed spaces. Recall
-$$\mathcal B(X, Y) = \{T : X \mor Y | T \text{ linear, bounded}\}$$
+$$\mathcal B(X, Y) = \{T : X \mor Y \mid T \text{ linear, bounded}\}$$
 This is a normed space in the operator norm:
 $$\norm T = \sup_{x \in B_X} \norm{Tx}$$
 If $Y$ is complete, then so is $\mathcal B(X, Y)$. For $T \in \mathcal B(X, Y)$, the {\bf dual operator} of $T$ is the map $T^* : Y^* \mor X^*$ given by $T^*g = g \circ T$. In bracket notation $\inn x{T^*g} = \inn{Tx} g$ for $x \in X, g \in Y^*$.
 
 {\bf $T^*$ is linear}
-\begin{eqnarray*}
+\begin{align*}
   \inn x {T^*(g + h)}
-  & = & \inn{Tx}{g + h} \\
-  & = & \inn{Tx}g + \inn{Tx}h \\
-  & = & \inn x{T^*g} + \and x{T^* h} \\
-  & = & \inn x{T^*g + T^*h}
-\end{eqnarray*}
-\begin{eqnarray*}
+  & = \inn{Tx}{g + h} \\
+  & = \inn{Tx}g + \inn{Tx}h \\
+  & = \inn x{T^*g} + \and x{T^* h} \\
+  & = \inn x{T^*g + T^*h}
+\end{align*}
+\begin{align*}
   \inn x {T^*(\lambda g)}
-  & = & \inn{Tx}{\lambda g} \\
-  & = & \lambda \inn{Tx}g \\
-  & = & \lambda \inn x{T^*g} \\
-  & = & \inn x{\lambda T^*g}
-\end{eqnarray*}
+  & = \inn{Tx}{\lambda g} \\
+  & = \lambda \inn{Tx}g \\
+  & = \lambda \inn x{T^*g} \\
+  & = \inn x{\lambda T^*g}
+\end{align*}
 
 {\bf $T^*$ is bounded}
-\begin{eqnarray*}
+\begin{align*}
   \norm{T^*}
-  & = & \sup_{g \in B_{Y^*}} \norm{T^*g} \\
-  & = & \sup_{g \in B_{Y^*}} \sup_{x \in B_X} \abs{\inn x{T^*g}} \\
-  & = & \sup_{x \in B_X} \sup_{g \in B_{Y^*}} \abs{\inn{Tx}g} \\
-  & = & \sup_{x \in B_X} \norm{Tx} \text{ by Theorem \ref{thm:hb-support} (ii)} \\
-  & = & \norm T
-\end{eqnarray*}
+  & = \sup_{g \in B_{Y^*}} \norm{T^*g} \\
+  & = \sup_{g \in B_{Y^*}} \sup_{x \in B_X} \abs{\inn x{T^*g}} \\
+  & = \sup_{x \in B_X} \sup_{g \in B_{Y^*}} \abs{\inn{Tx}g} \\
+  & = \sup_{x \in B_X} \norm{Tx} \text{ by Theorem \ref{thm:hb-support} (ii)} \\
+  & = \norm T
+\end{align*}
 
 \begin{rmks}~
   \begin{itemize}
@@ -367,11 +367,11 @@ If $Z$ is another normed space, $T \in \mathcal B(X, Z)$ and $Y \subseteq \ker T
 \end{rmk}
 \begin{proof}
   Since $X^*$ is separable, so is $S_{X^*}$. Let $f_n$ be a dense subset of $S_{X^*}$. For every $n$, find $x_n \in B_X$ such that $f_n(x_n) > \frac 12$. Let
-  $$Y = \overline{\Span\{x_n | n \in \N\}}$$
+  $$Y = \bar{\Span\{x_n \mid n \in \N\}}$$
   \begin{claim}
     $Y = X$
   \end{claim}
-  Then we're done since $Y$ is separable via $Y = \overline{\Span_\Q\{x_n | n \in \N\}}$.
+  Then we're done since $Y$ is separable via $Y = \bar{\Span_\Q\{x_n \mid n \in \N\}}$.
   \begin{proof}
     Assume not. Then we can pick $g \in (X/Y)^*$, $\norm g = 1$ (by Theorem \ref{thm:hb-support} (ii)). Let $f = g \circ q$. Then $\norm f = \norm g = 1$, ie $f \in S_{X^*}$. Thus find $n$ such that $\norm{f - f_n} < \frac 14$, so that
     $$\frac 14 > \norm{f - f_n}\norm{x_n} \ge \abs{(f - f_n)(x_n)} = \abs{f_n(x_n)} > \frac 12$$
@@ -383,7 +383,7 @@ If $Z$ is another normed space, $T \in \mathcal B(X, Z)$ and $Y \subseteq \ker T
   Let $X$ be a separable normed space. Then $X$ embeds isometrically into $\ell_\infty$.
 \end{nthm}
 \begin{proof}
-  Let $\{x_n | n \in \N\}$ be dense in $X$. For every $n$, find $f_n \in S_{X^*}$, $f_n(x_n) = \norm{x_n}$ (assuming $X \ne \{0\}$). Define $T : X \mor \ell_\infty$ by $(Tx)_n = f_n(x)$.
+  Let $\{x_n \mid n \in \N\}$ be dense in $X$. For every $n$, find $f_n \in S_{X^*}$, $f_n(x_n) = \norm{x_n}$ (assuming $X \ne \{0\}$). Define $T : X \mor \ell_\infty$ by $(Tx)_n = f_n(x)$.
 
   {\bf Well definition}
   $$ \abs{(Tx)_n} = \abs{f_n(x)} \le \norm{f_n}\norm x = \norm x$$
@@ -434,7 +434,7 @@ If $Z$ is another normed space, $T \in \mathcal B(X, Z)$ and $Y \subseteq \ker T
 \end{defi}
 
 The family $\mathcal P$ defines a topology on $X$:
-$$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mathcal P \text{ finite}, \eps > 0, \{y \in X | \for p \in s, p(x) < \eps\} \subseteq U$$
+$$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mathcal P \text{ finite}, \eps > 0, \{y \in X \mid \for p \in s, p(x) < \eps\} \subseteq U$$
 
 \begin{rmks}~
 
@@ -442,7 +442,7 @@ $$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mathcal P \
     \item Addition and scalar multiplication are continuous.
     \item The topology is Hausdorff as $\mathcal P$ separates points.
     \item $x_n \mor x \iff \for p \in \mathcal P, p(x_n - x) \mor 0$
-    \item Let $Y$ be a subspace of $X$ and $\mathcal P_Y = \{p\restriction_Y | p \in \mathcal P\}$. Then $(Y, \mathcal P_Y)$ is a LCS and its topology is the subspace topology.
+    \item Let $Y$ be a subspace of $X$ and $\mathcal P_Y = \{p\restriction_Y \mid p \in \mathcal P\}$. Then $(Y, \mathcal P_Y)$ is a LCS and its topology is the subspace topology.
     \item Let $\mathcal P, \mathcal Q$ be two families of seminorms on $X$ both separating points of $X$. We say $\mathcal P, \mathcal Q$ are {\bf equivalent}, write $\mathcal P \sim \mathcal Q$, if they induce the same topology on $X$. One interesting result is that
     $$ (X, \mathcal P) \text{ metrisable} \iff \mathcal P \text{ equivalent to some countable family}$$
     \item We make $\mathcal P$ part of the data here out of simplicity, but in grown up mathematics we instead assume that $X$ already comes with a topology and that this topology coincides with the one induced by $\mathcal P$.
@@ -457,18 +457,18 @@ $$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mathcal P \
 
   \begin{enumerate}
     \item A normed space is a LCS with $\mathcal P = \{\norm\cdot\}$.
-    \item Let $U \subseteq \C$ nonempty open. Let $\mathcal O(U) = \{f : U \mor \C | f \text{ holomorphic}\}$. For compact $K \subseteq U$, define $p_K(f) = \sup_{z \in K} \abs{f(z)}$. Let
-    $\mathcal P = \{p_K | K \subseteq U \text{ compact}\}$
+    \item Let $U \subseteq \C$ nonempty open. Let $\mathcal O(U) = \{f : U \mor \C \mid f \text{ holomorphic}\}$. For compact $K \subseteq U$, define $p_K(f) = \sup_{z \in K} \abs{f(z)}$. Let
+    $\mathcal P = \{p_K \mid K \subseteq U \text{ compact}\}$
     Then $(\mathcal O(U), \mathcal P)$ is a LCS. If we replace $\{K \subseteq U \text{ compact}\}$ by a compact exhaustion of $U$, then we get a countable separating family equivalent to $\mathcal P$. So $(\mathcal O(U), \mathcal P)$ is metrisable. However it is not normable: no norm on $\mathcal O(U)$ induces the topology of $(\mathcal O(U), \mathcal P)$, which is the topology of uniform convergence. This is a consequence of Montel's theorem.
     \item Fix $d \in \N, \Omega \subseteq \R^d$ a nonempty open set. Let
-    $$C^\infty(\Omega) = \{f : \Omega \mor \R | f \text{ infinitely differentiable}\}$$
+    $$C^\infty(\Omega) = \{f : \Omega \mor \R \mid f \text{ infinitely differentiable}\}$$
     Given a multi-index $\alpha \in \Z^d$, $\alpha$ defines a differential operator
     $$D^\alpha = \left(\frac\partial{\partial x_1}\right)^{\alpha_1} \dots
     \left(\frac\partial{\partial x_d}\right)^{\alpha_d}$$
     For a compact $K \subseteq \Omega, \alpha \in \Z^d$, define
     $$p_{K, \alpha}(f) = \sup_{z \in K}\abs{D^\alpha f(z)}$$
     Let
-    $$\mathcal P = \{p_{K, \alpha} | K \subseteq U \text{ compact}, \alpha \in \Z^d\}$$
+    $$\mathcal P = \{p_{K, \alpha} \mid K \subseteq U \text{ compact}, \alpha \in \Z^d\}$$
     Then $(C^\infty, \mathcal P)$ is a LCS. It is in fact a non-normable Fréchet space.
   \end{enumerate}
 \end{egs}
@@ -486,15 +486,15 @@ $$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mathcal P \
   Translation is continuous.
 
   {\bf (ii) $\implies$ (iii)} \\
-  Given $q \in \mathcal Q$, let $V = \{y \in Y | q(y) \le 1\}$. Then $V$ is a neighborhood of $0$ in $Y$. So there exists $U$ neighborhood of $0$ in $X$ such that $T(U) \subseteq V$. WLOG
-  $$U = \{x \in X | \for p_K \in s, p_K(x) \le \eps\}$$
+  Given $q \in \mathcal Q$, let $V = \{y \in Y \mid q(y) \le 1\}$. Then $V$ is a neighborhood of $0$ in $Y$. So there exists $U$ neighborhood of $0$ in $X$ such that $T(U) \subseteq V$. WLOG
+  $$U = \{x \in X \mid \for p_K \in s, p_K(x) \le \eps\}$$
   Let $p = \max_{p_K \in s} p_K(x)$. If $p(x) = 1$, then $p(\eps x) = \eps$, so $\eps x \in U$ and
   $$q(T(\eps x)) \le 1$$
   By homogeneity, $q(Tx) \le \frac 1\eps p(x)$ for all $x$ such that $p(x) > 0$. If $p(x) = 0$, then $p(\lambda x) = 0$ for all scalar $\lambda$. So $q(T(\lambda x)) \le 1$ for all $\lambda$. Hence $q(Tx) = 0 \le \frac 1\eps p(x)$.
 
   {\bf (iii) $\implies$ (ii)} \\
-  Assume $t \subseteq \mathcal Q$ is finite, $\eps > 0$, and let $V = \{y \in Y | \for q \in t, q(y) \le \eps$ the corresponding neighborhood of $0$. For each $q \in t$, find $s_q \subseteq \mathcal P$ finite and $C_q$ so that $\for x \in X, q(Tx) \le C_q\max_{p \in s_q}p(x)$. Let
-  $$U = \left\{x \in X | \for q \in \mathcal Q, p \in s_q, p(x) \le \frac\eps{C_q}\right\}$$
+  Assume $t \subseteq \mathcal Q$ is finite, $\eps > 0$, and let $V = \{y \in Y \mid \for q \in t, q(y) \le \eps$ the corresponding neighborhood of $0$. For each $q \in t$, find $s_q \subseteq \mathcal P$ finite and $C_q$ so that $\for x \in X, q(Tx) \le C_q\max_{p \in s_q}p(x)$. Let
+  $$U = \left\{x \in X \mid \for q \in \mathcal Q, p \in s_q, p(x) \le \frac\eps{C_q}\right\}$$
   Then $U$ is a neighborhood of $0$ and $T(U) \subseteq V$.
 \end{proof}
 
@@ -514,10 +514,10 @@ $$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mathcal P \
   
   $\impliedby$ \\
   If $\ker f = 0$, then $f = 0$ is continuous. Else fix some $x_0 \nin \ker f$. Since $(\ker f)^c$ is open, find $s \subseteq \mathcal P$ finite, $\eps > 0$ such that
-  $$\underbrace{\{x \in X | \for p \in s, p(x - x_0) < \eps\}}_U \subseteq (\ker f)^c$$
+  $$\underbrace{\{x \in X \mid \for p \in s, p(x - x_0) < \eps\}}_U \subseteq (\ker f)^c$$
   Then $U$ is a neighborhood of $0$ and $(x_0 + U) \cap \ker f = \empty$. Note that $U$ is convex and {\bf balanced} ($x \in U, \abs\lambda \le 1 \implies \lambda x \in U$), hence so is $f(U)$ as $f$ is linear. \\
   If $f(U)$ is unbounded, then it is the whole scalar field, hence so is $f(x_0 + U) = f(x_0) + f(U)$. But $0 \in \ker f$, contradicting disjointness. \\
-  So find $M$ such that $\abs{f(x)} < M$ for all $x \in U$. For all $\delta > 0$, $\frac\delta M U$ is a neighborhood of $0$ and $f\left(\frac\delta M U\right) \subseteq \{\lambda \in \K | \abs\lambda < \delta\}$. Thus $f$ is continuous.
+  So find $M$ such that $\abs{f(x)} < M$ for all $x \in U$. For all $\delta > 0$, $\frac\delta M U$ is a neighborhood of $0$ and $f\left(\frac\delta M U\right) \subseteq \{\lambda \in \K \mid \abs\lambda < \delta\}$. Thus $f$ is continuous.
 \end{proof}
 
 \begin{nthm}[Hahn-Banach]\label{thm:hb-lcs}
@@ -548,13 +548,13 @@ $$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mathcal P \
 Let $(\Omega, \mathcal F, \mu)$ be measure space.
 
 $1 \le p < \infty$
-$$L_p(\mu) = \{f : \Omega \mor \K | f \text{ measurable and } \int_\Omega \abs f^p d\mu < \infty\}$$
+$$L_p(\mu) = \{f : \Omega \mor \K \mid f \text{ measurable and } \int_\Omega \abs f^p d\mu < \infty\}$$
 This is a normed space in the $L_p$-norm:
 $$\norm f_p = \left(\int_\Omega \abs f^p d\mu\right)^{\frac 1p}$$
 
 $p = \infty$ \\
 A measurable function $f : \Omega \mor \K$ is {\bf essentially bounded} if there exists $N \in \mathcal F$ such that $\mu(N) = 0$ and $f\restriction_{N^c}$ is bounded.
-$$L_p(\mu) = \{f : \Omega \mor \K | f \text{ measurable and essentially bounded}\}$$
+$$L_p(\mu) = \{f : \Omega \mor \K \mid f \text{ measurable and essentially bounded}\}$$
 This is a normed space in the $L_\infty$-norm:
 $$\norm f_\infty = \esssup \abs f = \inf_{\abs f \le k \text{ ae}} k$$
 The inf is attained: there exists some $N \in \mathcal F, \mu(N) = 0$ such that $\norm f_\infty = \sup_{N^c} \abs f$.
@@ -576,7 +576,7 @@ In all cases, we identify functions up to almost everywhere equality.
 \begin{prop}
   If $\nu$ is a complex measure on $\mathcal F$ and $A_n \in \mathcal F$ for all $n$, then
   \begin{itemize}
-    \item If $A$ is monotone, then $\nu(\bigcup_n A_n) = \lim_{n \mor \infty} \nu(A_n)$.
+    \item If $A$ is monotone, then $\nu(\Union_n A_n) = \lim_{n \mor \infty} \nu(A_n)$.
     \item If $A$ is antitone, then $\nu(\bigcap_n A_n) = \lim_{n \mor \infty} \nu(A_n)$.
   \end{itemize}
 \end{prop}
@@ -587,10 +587,10 @@ In all cases, we identify functions up to almost everywhere equality.
 
 \begin{nthm}\label{thm:hahn-decomp}
   If $\nu$ is a signed measure, then there exists a measurable partition $\Omega = P \cup N$ such that for all $A \in \mathcal F$
-  \begin{eqnarray*}
-    A \subseteq P & \implies & \nu(A) \ge 0 \\
-    A \subseteq N & \implies & \nu(A) \le 0
-  \end{eqnarray*}
+  \begin{align*}
+    A \subseteq P & \implies \nu(A) \ge 0 \\
+    A \subseteq N & \implies \nu(A) \le 0
+  \end{align*}
 \end{nthm}
 \begin{rmks}~
   
@@ -612,6 +612,299 @@ In all cases, we identify functions up to almost everywhere equality.
 
   Now find a sequence $A_n$ such that $\nu(A_n) > \nu^+(\Omega) - 2^{-n}$ and set $P = \liminf_n A_n, N = P^c$. Check that this works.
 \end{proof}
+
+\newlec
+
+\begin{defi}[Absolute continuity]
+  Let $(\Omega, \mathcal F, \mu)$ be a measure space and $\nu : \mathcal F \mor \C$ a complex measure. $\nu$ is {\bf absolutely continuous} with respect to $\mu$, written $\nu \ll \mu$, if $\for A \in \mathcal F, \mu(A) = 0 \implies \nu(A) = 0$.
+\end{defi}
+
+\begin{rmks}~
+  \begin{itemize}
+    \item $\nu \ll \mu \implies \abs\nu \ll \mu$, so if $\nu$ has Jordan decomposition $\nu = \nu_1 - \nu_2 + i\nu_3 - i\nu_4$ then $\nu_1, \nu_2, \nu_3, \nu_4 \ll \mu$.
+    \item If $\nu \ll \mu$, then $\for \eps > 0, \exists \delta > 0, \for A \in \mathcal F, \mu(A) < \delta \implies \abs{\nu(A)} < \eps$.
+  \end{itemize}
+\end{rmks}
+
+\begin{eg}
+  Let $f \in L_1(\mu)$. Define $\nu(A) = \int_A f d\mu$ for $A \in \mathcal F$. By Dominated Convergence, $\nu$ is a complex measure and $\mu(A) = 0 \implies \nu(A) = 0$. So $\nu \ll \mu$.
+\end{eg}
+
+\begin{defi}
+  $A \in \mathcal F$ is {\bf $\sigma$-finite} if there exists $A_n$ with $\mu(A_n) < \infty$ such that $A = \Union_n A_n$. Say $\mu$ is {\bf $\sigma$-finite} if $\Omega$ is $\sigma$-finite.
+\end{defi}
+
+\begin{nthm}[Radon-Nikodym]\label{thm:rn}
+  Let $\mu$ be a $\sigma$-finite measure and $\nu$ a complex measure such that $\nu \ll \mu$. Then there exists a unique $f \in L_1(\mu)$ such that, for all $A \in \mathcal F$, $\nu(A) = \int_A f d\mu$. Moreover, $f$ takes values in $\C$/$\R$/$\R^+$ depending on where $\nu$ is valued.
+\end{nthm}
+\begin{proof}~\\
+  {\bf Uniqueness} \\
+  standard
+
+  {\bf Existence} \\
+  $\nu$ is a finite measure (by the Jordan decomposition). WLOG $\mu$ is a finite measure (by $\sigma$-finiteness). Let
+  $$\mathcal H = \curlybrack{h : \Omega \mor \R^+ \,\middle|\, h \text{ integrable}, \for A \in \mathcal F, \int_A h d\mu \ll \nu(A)}$$
+  $\mathcal H \ne \emptyset$ (eg $0 \in \mathcal H$). Let $\alpha = \sup_{h \in \mathcal H} \int_\Omega h d\mu$. We see $0 \le \alpha \le \nu(\Omega)$.
+
+  {\bf Claim} \\
+  There exists $f \in \mathcal H$ such that $\alpha = \int_\Omega f d\mu$.
+
+  {\bf Idea} \\
+  If $\int_A fd\mu < \nu(A)$, then $f + \frac 1 n 1_A \in \mathcal H$ (morally, not literally), contradicting the definition of $\alpha$.
+
+  Pick that $f$. Define $\nu_n(A) = \nu(A) - \int_A fd\mu - \frac 1n \mu(A)$. $\nu_n$ has Hahn decomposition $\Omega = P_n \cup N_n$. Then $f + \frac 1n P_n \in \mathcal H$. By definition of $\alpha$, $\mu(P_n) = 0$. Since $\nu \ll \mu$, $\nu(P_n) = 0$. Let $P = \Union_n P_n, N = \Inter_n N_n$. Then $\Omega = P \cup N, \mu(P) = \nu(P) = 0$. For $A \in \mathcal F$,
+  \begin{align*}
+    A \subseteq P & \implies \int_A fd\mu = \nu(A) = 0 \\
+    A \subseteq N & \implies \for n, \nu_n \le 0 \implies \int_A fd\mu \ge \nu(A)
+  \end{align*}
+\end{proof}
+
+\begin{rmks}~
+  \begin{itemize}
+    \item Without assuming $\nu \ll \mu$, the proof shows there is a decomposition $\nu = \nu_1 + \nu_2$ where $\nu_1(A) = \int_A fd\mu$ and $\nu_2 \perp \mu$ ({\bf orthogonal}, ie there exists a measurable decomposition $\Omega = P \cup N$ such that $\mu(P) = 0, \abs{\nu_2}(N) = 0$). $\nu = \nu_1 + \nu_2$ is the {\bf Lebesgue decomposition} of $\nu$.
+    \item The unique $f$ in Theorem \ref{thm:rn} is the {\bf Radon-Nikodym derivative} of $\nu$ with respect to $\mu$, denoted $\frac{d\nu}{d\mu}$. The result says
+    $$\nu(A) = \int_\Omega 1_A d\nu = \int_A \frac{d\nu}{d\mu} d\mu = \int_\Omega 1_A \frac{d\nu}{d\mu} d\mu$$
+    Hence a measurable function $g$ is $\nu$-integrable iff $g\frac{d\nu}{d\mu}$ is $\mu$-integrable and then
+    $$\int_\Omega f d\nu = \int_\Omega g \frac{d\nu}{d\mu} d\mu$$
+  \end{itemize}
+\end{rmks}
+
+\subsection{Dual space of \texorpdfstring{$L_p(\mu)$}{Lp(mu)}}
+
+Let $(\Omega, \mathcal F, \mu)$ be a measure space, $1 \le p < \infty, 1 < q \le \infty$ such that $p^{-1} + q^{-1} = 1$. For $g \in L_q$, define $\phi_g : L_p \mor \K$ by $\phi_g(f) = \int_\Omega fg d\mu$. By Hölder, $fg \in L_1$, and $\abs{\phi_g(f)} \le \norm f_p \norm g_q$. So $\phi_g$ is well-defined, linear and bounded with $\norm{\phi_g} \le \norm g_q$. Hence $\phi_g \in L_p^*$ and $\phi : L_q \mor L_p^*$ is linear and bounded with $\norm\phi \le 1$.
+
+\begin{nthm}\label{thm:lp-dual}~
+  \begin{enumerate}
+    \item If $1 < p < \infty$, then $\phi$ is an isometric isomorphism. So $L_p^* \cong L_q$.
+    \item If $p = 1$ and $\mu$ is $\sigma$-finite, then $\phi$ is an isometric isomorphism. So $L_1^* \cong L_\infty$.
+  \end{enumerate}
+\end{nthm}
+\begin{proof}~
+  \begin{enumerate}
+    \item {\bf $\phi$ is isometric} \\
+    Let $g \in L_1$. We know $\norm{\phi_g} \le \norm g_q$. Let $\lambda$ be a measurable function with $\abs\lambda = 1, \lambda g = \abs g$. let $f = \lambda\abs g^{q - 1}$. Then
+    $$\norm f_p^p = \int_\Omega \abs g^{pq - p} d\mu = \int_\Omega \abs g^q d\mu = \norm g_q^q$$
+    So $f \in L_p$ and $\norm f_p = \norm g_q^{\frac qp}$. Then
+    $$\norm q_q^{\frac qp}\norm{\phi_g} \ge \abs{\phi_g(f)} = \int_\Omega \abs g^q d\mu = \norm g_q^q$$
+    So $\norm{\phi_g} \ge \norm g_q^{q - \frac qp} = \norm g_q$.
+
+    {\bf $\phi$ is onto} \\
+    Fix $\psi \in L_p^*$. We seek $g \in L_q$ such that $\psi = \phi_g$. Idea: We want $\psi(1_A) = \int_A g d\mu$.
+
+    {\bf Case 1: $\mu$ is finite} \\
+    For $A \in \mathcal F$, $1_A \in L_p$, so define $\nu(A) = \psi(1_A)$. $\nu(\empty) = 0$ and, if $A = \Union_p A_n \in \mathcal F$, then $\sum_k 1_{A_k} = 1_A$ in $L_p$, so
+    $$\sum_k \nu(A_k) = \sum_k \psi(1_{A_k}) = \psi(1_A)$$
+    Hence $\nu$ is a complex measure. \\
+    If $A \in \mathcal F, \mu(A) = 0$, then $1_A = 0$ ae in $L_p$, so $\nu(A) = \psi(1_A) = 0$. Hence $\nu \ll \mu$. \\
+    By Theorem \ref{thm:rn}, find $g \in L_1$ such that $\for A \in \mathcal F, \nu(A) = \int_A g d\mu$. Hence
+    \begin{align*}
+      \psi(1_A) & = \int_\Omega 1_A g d\mu \text{ for all } A \in \mathcal F \\
+      \psi(f) & = \int_\Omega fg d\mu \text{ for all simple function } f
+    \end{align*}
+    Given $f \in L_\infty$, find simple functions $f_n$ tending to $f$ in $L_\infty$. So $\psi(f_n) \mor \psi(f)$ and $f_ng \mor fg$ (by Hölder for $\infty, 1$), meaning that
+    $$\psi(f) = \int_\Omega fg d\mu \text{ for all } f \in L_\infty$$
+    For $n \in \N$, let $A = \{\abs g \le n\}$ and $f_n = \lambda 1_{A_n} \abs g^{q - 1}$ where $\abs\lambda = 1, \lambda g = \abs g$. As $f_n \in L_\infty$,
+    $$\int_\Omega f_ng d\mu = \int_{A_n} \abs g^q d\mu = \psi(f_n)$$
+    So $\left(\int_A \abs g^q d\mu\right)^{q^{-1}} \le \norm\psi$. By Monotone Convergence, $g \in L_q$. \\
+    Given $f \in L_p$, find simple functions $f_n$ tending to $f$ in $L_p$. So $\psi(f_n) \mor \psi(f)$ and $f_ng \mor fg$ in $L_1$ (by Hölder for $p, q$). Hence $\psi(f) = \int_\Omega fg d\mu$, as wanted.
+
+    Before going onto Case 2, for $A \in \mathcal F$, let $\mathcal F_A = \{B \in \mathcal F \mid B \subseteq A\}$ and $\mu_A = \mu\restriction_{\mathcal F_A}$ so that $(A, \mathcal F_A, \mu_A)$ is a measure space. Then $L_p(\mu_A) \subseteq L_p(\mu)$ (by extending $f \in L_p(\mu_A)$ by $0$ outside $A$). Let $\psi_A = \psi\restriction_{L_p(\mu_A)}$.
+
+    \newlec
+
+    \begin{claim}
+      If $A, B \in \mathcal F$ are disjoint, then
+      $$\norm{\psi_{A \cup B}} = \left(\norm{\psi_A}^q + \norm{\psi_B}^q\right)^{\frac 1q}$$
+    \end{claim}
+    \begin{proof}
+      \begin{align*}
+        \left(\norm{\psi_A}^q + \norm{\psi_B}^q\right)^{\frac 1q}
+        & = \sup_{\substack{a, b \ge 0 \\ a^p + b^p \le 1}} a\norm{\psi_A} + b\norm{\psi_B} \\
+        & = \sup_{\substack{a, b \ge 0 \\ a^p + b^p \le 1 \\ f \in B_{L_p(\mu_A)} \\ g \in B_{L_p(\mu_B)}}} a\abs{\psi_A(f)} + b\abs{\psi_B(g)} \\
+        & = \sup_{\substack{\abs a^p + \abs b^p \le 1 \\ f \in B_{L_p(\mu_A)} \\ g \in B_{L_p(\mu_B)}}} \underbrace{\abs{a\psi_A(f) + b\psi_B(g)}}_{\psi_{A \cup B}(af + bg)} \\
+        & = \sup_{h \in L_p(\mu_{A \cup B})} \abs{\psi_{A \cup B}(h)} \\
+        & = \norm{\psi_{A \cup B}}
+      \end{align*}
+    \end{proof}
+
+    {\bf Case 2: $\mu$ is $\sigma$-finite} \\
+    Find a measurable partition $\Omega = \Union_n A_n$ such that $\mu(A_n) < \infty$. By Case 1, find, for each $n$, $g_n \in L_q(A_n)$ such that $\psi_{A_n} = \phi_{g_n}$, ie
+    $$\psi(f) = \int_{A_n} fg_n d\mu \text{ for all } f \in L_q(\mu_{A_n})$$
+    If we define $g$ on $\Omega$ by $g = g_n$ on $A_n$, then $g \in L_q$ and
+    $$\psi(f) = \phi_g(f) \text{ for all } f \in L_p(\mu_{A_n})$$
+    Hence $\psi = \phi_g$ on $\bar{\Span}\Union_n L_p(\mu_{A_n}) = L_p(\mu)$.
+
+    {\bf Case 3: General $n$} \\
+    First observe that, for $f \in L_p(\mu)$, $\{f \ne 0\}$ is $\sigma$-finite. Indeed,
+    $$\{f \ne 0\} = \Union_n \curlybrack{\frac 1n < \abs f}$$
+    and
+    $$\mu\curlybrack{\frac 1n < \abs f} \le \abs{n ^ p} \norm f_p^p < \infty \text{ by Markov}$$
+    Choose $f_n \in B_{L_p}$ such that $\psi(f_n) \mor \norm\psi$. Then $A = \Union_n\{f_n \ne 0\}$ is $\sigma$-finite and $\norm{\psi_A} = \norm\psi$. By the claim,
+    $$\norm\psi = \left(\norm{\psi_A}^q + \norm{\psi_{A^c}}^q\right)^{\frac 1q}$$
+    So $\Psi_{A^c} = 0$. By Case 2, find $g \in L_q(\mu_A) \subseteq L_q(\mu)$ such that $\psi_A = \phi_g$, so that
+    $$\psi(f) = \psi_A{f\restriction_A} + \psi{A^c}(f\restriction{A^c}) = \int_A fg d\mu + 0 = \int_\Omega fg d\mu$$
+    \item {\bf $p = 1, \mu$ is $\sigma$-finite} \\
+    {\bf $\phi$ is isometric} \\
+    Let $g \in L_\infty$. We know $\norm{\phi_g} \le \norm g_\infty$ (by Hölder) Fix $s < \norm g_\infty$. Then $\mu\{s < \abs g\} > 0$. Since $\mu$ is $\sigma$-finite, find $A \subseteq \{s < \abs g\}$ such that $0 < \mu(A) < \infty$. Choose a measurable function $\lambda$ such that $\abs\lambda = 1, \lambda g = \abs g$. Then $\lambda 1_A \in L_1, \norm{\lambda 1_A}_1 = \mu(A)$. Now,
+    $$\mu(A)\norm{\phi_g} \ge \abs{\phi_g(\lambda 1_A)} = \int_A \abs g d\mu \ge s\mu(A)$$
+    So $\norm{\phi_g} \ge s$. Taking the sup, $\norm{\phi_g} \ge \norm g_\infty$.
+
+    {\bf $\phi$ is onto} \\
+    Fix $\psi \in L_q^*$. We seek $g \in L_\infty$ such that $\psi = \phi_g$.
+
+    {\bf Case 1: $\mu$ is finite} \\
+    Define $\nu(A) = \psi(1_A)$ for all $A \in \mathcal F$. Follow the same steps as for $1 < p < \infty$.
+
+    {\bf Case 2: $\mu$ is $\sigma$-finite} \\
+    This time, prove that
+    $$\norm{\psi_{A \cup B}} = \max(\norm{\psi_A}, \norm{\psi_B})$$
+    for all $A, B \in \mathcal F$ disjoint and proceed as before.
+  \end{enumerate}
+\end{proof}
+
+\begin{ncor}
+  For $1 < p < \infty$, $L_p(\mu)$ is reflexive.
+\end{ncor}
+\begin{proof}
+  Let $\psi \in L_p^{**}$. Then $g \mapsto \inn{\phi_g}\psi : L_q \mor \K$ is in $L_q^*$. By Theorem \ref{thm:lp-dual}.i, find $f \in L_p$ such that
+  $$\inn{\phi_g}\psi = \int_\Omega fg d\mu \inn f{\psi_g} = \inn{\phi_g}{\hat f}$$
+  Since $L_p^* = \{\phi_g \mid g \in L_q\}$, this proves $\psi = \hat f$.
+\end{proof}
+
+\clearpage
+
+\subsection{Dual space of \texorpdfstring{$C(K)$}{C(K)}}
+
+Throughout, $K$ will be a compact Hausdorff topological space. Define
+\begin{align*}
+  C(K) & = \{f : K \mor \C \mid f \text{ continuous}\} \\
+  C^\R(K) & = \{f : K \mor \R \mid f \text{ continuous}\} \\
+  C^+(K) & = \{f : K \mor \R^+ \mid f \text{ continuous}\} \\
+  M(K) & = C(K)^* \\
+  M^\R(K) & = \{\phi \in M(K) \mid \for f \in C^\R(K), \phi(f) \in \R\} \\
+  M^+(K) & = \{\phi : C(K) \mor \C \mid \phi \text{ is $\R$-linear}, \for f \in C^+(K), 0 \le \phi(f) \in \R\}
+\end{align*}
+
+$C(K), C^\R(K)$ are complex/real Banach spaces in the sup norm: $\norm f_\infty = \sup_K \abs f$. $M(K)$ is a complex Banach space in the operator norm. $M^\R(K)$ is a closed real-linear subspace of $M(k)$. Elements of $M^+(K)$ are called {\bf positive linear functionals}.
+
+\begin{aim}
+  Identify $M(K), M^\R(K)$.
+\end{aim}
+
+\newlec
+
+The next lemma tells us that it's enough to understand $M^+(K)$.
+
+\begin{nlemma}~
+  \begin{enumerate}
+    \item For all $\phi \in M(K)$, there are unique $\phi_1, \phi_2 \in M^\R(K)$ such that $\phi = \phi_1 + i\phi_2$.
+    \item $\phi \mapsto \phi\restriction_{C^\R(K)} : M^\R(K) \mor C^\R(K)^*$ is an isometric isomorphism.
+    \item $M^+(K) \subseteq M(K)$ and $M^+(K) = \{\phi \in M(K) \mid \norm\phi = \phi(1)\}$
+    \item For all $\phi \in M^\R(K)$, there are unique $\phi^+, \phi^- \in M^+(K)$ such that $\phi = \phi^+ - \phi^-$ and $\norm\phi = \norm{\phi^+} + \norm{\phi^-}$.
+  \end{enumerate}
+\end{nlemma}
+\begin{proof}~
+  \begin{enumerate}
+    \item Let $\phi \in M(K)$. Then $\bar\phi$ sending $f \mapsto \phi(\bar f)$ is in $M(K)$ as well and $\phi \in M^\R(K) \iff \bar\phi = \phi$.
+
+    {\bf Uniqueness} \\
+    Assume $\phi = \phi_1 + i\phi_2$ where $\phi_1, \phi_2 \in M^\R(K)$. Then $\bar\phi = \phi_1 - i\phi_2$, so
+    $$\phi_1 = \frac{\phi + \bar\phi}2, \phi_2 = \frac{\phi - \bar\phi}{2i}$$
+
+    {\bf Existence} \\
+    Check that the above works
+    \item Let $\phi \in M^\R(K)$. We show $\norm{\phi\restriction_{C^\R(K)}} = \norm\phi$. Clearly, $\norm{\phi\restriction_{C^\R(K)}} \le \norm\phi$. Let $f \in B_{C(K)}$. Choose $\lambda \in \C, \abs\lambda = 1, \lambda\phi(f) = \abs{\phi(f)}$, so that
+    \begin{align*}
+      \abs{\phi(f)}
+      & = \lambda\phi(f) \\
+      & = \phi(\lambda f) \\
+      & = \phi(\Re(\lambda f)) + \cancelto 0{\phi(\Im(\lambda f))} \\
+      & \le \norm{\phi\restriction_{C^\R(K)}} \norm{\Re(\lambda f)}_\infty \\
+      & \le \norm{\phi\restriction_{C^\R(K)}}
+    \end{align*}
+    Hence $\norm\phi \le \norm{\phi\restriction_{C^\R(K)}}$. \\
+    Finally, given $\psi \in C^\R(K)$, define $\phi(f) = \psi(\Re f) + i\psi(\Im f)$. Then $\phi \in M(K)$ and $\phi\restriction_{C^\R(K)} = \psi$.
+    \item {\bf $M^+(K) \subseteq M(K)$} \\
+    Let $\phi \in M^+(K)$. For $f \in B_{C^\R(K)}$, we have $1 \pm f \ge 0$, so $\phi(1 \pm f \ge 0$. Hence $\phi(f) \in \R$ and $\abs{\phi(f)} \le \phi(1)$. So $\phi\restriction_{C^\R(K)} \in C^\R(K)^*$ and $\norm{\phi\restriction_{C^\R(K)}} = \phi(1)$. By (ii), $\phi \in M(K), \norm\phi = \phi(1)$.
+
+    {\bf $M^+(K) = \{\phi \in M(K) \mid \norm\phi = \phi(1)$} \\
+    We have already checked one inclusion. Let $\phi \in M(K)$ with $\norm\phi = \phi(1)$. WLOG $\norm\phi = \phi(1) = 1$. Let $f \in B_{C^\R(K)}$ and write $\phi(f) = a + ib$ where $a, b \in \R$. We want $b = 0$. For $t \in \R$,
+    \begin{align*}
+      \abs{\phi(f + it)}^2
+      & = a^2 + (b + t)^2 = a^2 + b^2 + t^2 + 2bt \\
+      & \le \norm{f + it}_\infty \le 1 + t^2
+    \end{align*}
+    So $b = 0$. \\
+    Given $f \in C^+(K)$ with $0 \le f \le 1$, we have $-1 \le 2f - 1 \le 1$, so $\abs{\phi(2f - 1)} \le \norm{2f - 1}_\infty \le 1$, ie $-1 \le 2\phi(f) - 1 \le 1$. So $\phi(f) \ge 0$.
+    \item Let $\phi \in M^\R(K)$. Assume for a moment that $\phi = \psi_1 - \psi_2$ where $\psi_1, \psi_2 \in M^+(K)$. For $f, g \in C^+(K)$ with $0 \le g \le f$, we have $\psi_1(f) \ge \psi_1(g) = \phi(g) + \psi_2(g) \ge \phi(g)$. So
+    $$\psi_1(f) \ge \sup_{0 \le g \le f} \phi(g)$$
+    For $f \in C^+(K)$, define
+    $$\phi^+(f) = \sup_{0 \le g \le f} \phi(g)$$
+    Observe that $\phi^+ \ge 0, \phi^+(f) \le \norm\phi \norm f_\infty, \phi^+(f) \ge \phi(f), \phi^+$ is linear. \\
+    Next, for $f \in C^\R(K)$, write $f = f_1 - f_2$ where $f_1, f_2 \in C^+(K)$ and define $\phi^+(f) = \phi^+(f_1) - \phi^+(f_2)$. This is well-defined and $\R$-linear. Then $\phi$ is $\C$-linear since $\phi^+(f) \ge 0$. For all $f \in C^+(K)$ and $\phi^+ \in M^+(K)$. \\
+    Define $\phi^- = \phi^+ - \phi$. For $f \in C^+(K)$, $\phi^+(f) \ge \phi(f)$, so $\phi^-(f) \ge 0$, namely $\phi^- \in M^+(K)$. \\
+    We now see that $\norm\phi \le \norm{\phi^+} + \norm{\phi^-}$.
+    Given $f \in C^+(K), 0 \le f \le 1$, we have $-1 \le 2f - 1 \le 1$, so
+    $$2\phi(f) - \phi(1) = \phi(2f - 1) \le \norm\phi$$
+    Taking the sup over $f$, we thus check that
+    $$\norm{\phi^+} + \norm{\phi^-} = \phi^+(1) + \phi^-(1) = 2\phi^+(1) - \phi(1) \le norm\phi$$
+
+    {\bf Uniqueness} \\
+    Assume $\phi = \psi_1 - \psi_2, \psi_1, \psi_2 \in M^+(K), \norm\phi = \norm{\psi_1} + \norm{\psi_2}$. From the initial observation, $\psi_1 \ge \phi^+$, hence $\psi_2 = \psi_1 - \phi \ge \phi^+ - \phi = \phi^-$. Therefore $\psi_1 - \phi^+, \psi_2 - \phi^- \in M^+(K)$. By (iii),
+    $$\norm{\psi_1 - \phi^+} + \norm{\psi_2 - \phi^-} = \psi_1(1) - \phi^+(1) + \psi_2(1) - \phi^-(1) = \norm\phi - \norm\phi = 0$$
+    Hence $\psi_1 = \phi^+, \psi_2 = \phi^-$.
+  \end{enumerate}
+\end{proof}
+
+{\bf Topological preliminaries}
+\begin{enumerate}
+  \item $K$ being compact Hausdorff, it is {\bf normal}: given disjoint closed sets $E, F$ in $K$, there are disjoint open sets $U, V$ such that $E \subseteq U, F \subseteq V$. Equivalently, given $E \subseteq U \subseteq K$, $E$, closed, $U$ open, there exists $V$ open such that $E \subseteq V \subseteq \bar V \subseteq U$.
+  \item Urysohn says: given disjoint closed sets $E, F$, there is a continuous function $f : K \mor [0, 1]$ such that $f = 0$ on $E$, $f = 1$ on $F$.
+  \item Write $f \prec U$ to mean that $U$ is an open set, $f$ is continuous and $\supp f \subseteq U$. Write $E \prec f$ to mean that $E$ is closed, $f$ is continuous and $f = 1$ on $E$.
+  \item Urysohn then becomes: Given $E \subseteq U$, there exists $f$ such that $E \prec f \prec U$.
+\end{enumerate}
+
+\begin{nlemma}
+  Let $E$ closed, $U_1, \dots, U_n$ open such that $E \subseteq \Union_n U_n$. Then
+  \begin{enumerate}
+    \item There exist open sets $V_j$ such that $\bar{V_j} \subseteq U_j$ and $E \subseteq \Union_j V_j$.
+    \item There exist $f_j \prec U_j$ such that $0 \le \sum_j f_j \le 1$ and $\sum_j f_j = 1$ on $E$.
+  \end{enumerate}
+\end{nlemma}
+\begin{proof}
+  \begin{enumerate}
+    \item Induction on $n$:
+    {\bf $n = 0$} \\
+    Obvious.
+
+    {\bf $n > 0$} \\
+    $E \setminus U_n \subseteq \Union_{j < n} U_j$ so, by induction, find open sets $V_j$ such that $\bar{V_j} \subseteq U_j$ for all $j < n$ and $E \setminus U_n \subseteq \Union_{j < n} U_j$. So $\underbrace{E \setminus \Union_{j < n} V_j}_{\text{closed}} \subseteq \underbrace{U_n}_{\text{open}}$. By Urysohn, find an open $V_n$ such that
+    $$E \setminus \Union_{j < n} V_j \subseteq V_n \subseteq \bar{V_n} \subseteq U_n$$
+    \item Find the $V_j$ as in $(i)$ for $1 \le j \le n$ and by Urysohn find $h_j$ such that $\bar{V_j} \prec h_j U_j$. By Urysohn again, find $h_0$ such that $\left(\Union_j U_j\right)^c \prec h_0 \prec E^c$. Let $h = \sum_{j = 0}^n h_j \ge 1$ and $f_j = \frac{h_j}h$ for $1 \le j \le n$. Then $0 \le \sum_{j = 1}^n \le 1$, $f_j \prec U_j$ and $\sum_{j = 1}^n f_j = 1$ on $E$.
+  \end{enumerate}
+\end{proof}
+
+\begin{defi}[Borel measures]
+  Let $X$ be a Hausdorff space and $\mathcal G$ its family of open sets. The {\bf Borel $\sigma$-algebra} is $\mathcal B := \sigma(\mathcal G)$, the $\sigma$-algebra generated by open sets. Elements of $\mathcal B$ are called {\bf Borel sets}. A {\bf Borel measure} on $X$ is a measure $\mu$ on $\mathcal B$. We say $\mu$ is {\bf regular} if
+  \begin{enumerate}
+    \item $\mu(E) < \infty$ for all compact $E \subseteq X$
+    \item $\mu(A) = \inf_{\substack{U \text{ open} \\ A \subseteq U}} \mu(A)$ for all Borel set $A$
+    \item $\mu(U) = \sup_{\substack{E \text{ compact} \\ E \subseteq U}} \mu(E)$ for all open $U$
+  \end{enumerate}
+  A complex Borel measure $\nu$ is {\bf regular} if $\abs\nu$ is regular.
+\end{defi}
+
+If $X$ is compact and $\mu$ is a Borel measure on $X$, then
+\begin{align*}
+  \mu \text{ regular}
+  & \iff \mu(X) < \infty \text{ and } \for A \in \mathcal B, \mu(A) = \inf_{\substack{U \text{ open} \\ A \subseteq U}} \mu(U) \\
+  & \iff \mu(X) < \infty \text{ and } \for A \in \mathcal B, \mu(A) = \sup_{\substack{E \text{ closed} \\ E \subseteq A}} \mu(E)
+\end{align*}
+
+\begin{defi}[Integration with respect to a complex measure]
+  Let $\Omega$ be a set, $\mathcal F$ a $\sigma$-algebra on $\Omega$, $\nu$ a complex measure on $\mathcal F$. Write $\nu = \nu_1 - \nu_2 + i\nu_3 - i\nu_4$ the Jordan decomposition. Say a measurable function is {\bf $\nu$-integrable} if $f$ is $\abs\nu$-integrable, or equivalently if $f$ is $\nu_1, \nu_2, \nu_3, \nu_4$-integrable. Define
+  $$int_\Omega f d\nu = \int_\Omega f d\nu_1 - \int_\Omega f d\nu_2 + i\int_\Omega f d\nu_3 - i\int_\Omega f d\nu_4$$
+\end{defi}
 
 \newlec
 
