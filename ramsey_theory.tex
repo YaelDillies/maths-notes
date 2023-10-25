@@ -45,8 +45,8 @@
     \item For $X$ a set, $r \in \N$, $X^{(r)} = \{S \subseteq X | |S| = r\}$
     \item $\chi$ for a $k$-coloring of the edges of $K_n$
       \begin{align*}
-        & \chi : E(K_n) \mor [k] & \\
-        & \chi : E(K_n) \mor \{\text{red}, \text{blue}\} & (\text{if } k = 2)
+        \chi : E(K_n) \mor & [k] \\
+        \chi : E(K_n) \mor & \{\text{red}, \text{blue}\} & (\text{if } k = 2)
       \end{align*}
   \end{itemize}
 \end{notation}
@@ -124,16 +124,16 @@ This polynomial lower bound is eons away from our exponential upper bound. For q
 \end{fact}
 \begin{proof}
   Let $n = \ceil{\frac{k - 1}{e\sqrt 2}2^{\frac k 2}}$ and $\chi$ be a random red/blue edge coloring of $K_n$ (each edge is independently colored red or blue with probability $\frac 1 2$). We see that
-  \begin{eqnarray*}
+  \begin{align*}
     \P(\chi \text{ contains a monochromatic } K_k)
-    & = & \P\left(\bigcup_{S \in [n]^{(k)}} \{S \text{ monochromatic}\}\right) \\
-    & \le & \binom n k \P([k] \text{ monochromatic}) \\
-    & = & \binom n k 2^{-\binom k 2 + 1} \\
-    & \le & 2 \left(\frac{en}k\right)^k 2^{-\frac{k(k - 1)}2} \\
-    & = & 2 \left(\frac{en}k 2^{-\frac{k - 1}2}\right)^k \\
-    & \le & 2\left(1 - \frac 1 k\right)^k \\
-    & < & 1
-  \end{eqnarray*}
+    & = \P\left(\bigcup_{S \in [n]^{(k)}} \{S \text{ monochromatic}\}\right) \\
+    & \le \binom n k \P([k] \text{ monochromatic}) \\
+    & = \binom n k 2^{-\binom k 2 + 1} \\
+    & \le 2 \left(\frac{en}k\right)^k 2^{-\frac{k(k - 1)}2} \\
+    & = 2 \left(\frac{en}k 2^{-\frac{k - 1}2}\right)^k \\
+    & \le 2\left(1 - \frac 1 k\right)^k \\
+    & < 1
+  \end{align*}
   Hence
   $$2^{\frac k 2} \le R(k) \le 4^k$$
 \end{proof}
@@ -172,20 +172,20 @@ $$R(3, k) \le \binom{k + 1}2 \le (k + 1)^2$$
   Take $n = \left(\frac k{\log k}\right)^{\frac 32}, p = n^{-\frac 23} = \frac{\log k}k$. Now sample $G \sim G(n, p)$ and define $\tilde G$ to be $G$ with one vertex removed from each triangle and independent set of size $k$. By construction, $K_3 \not\subseteq \tilde G$ and $\alpha(\tilde G) < k$. We will show $\E[\abs{\tilde G}] \ge \frac n2$ using
   $$\abs{\tilde G} \ge n - \#\text{triangles in } G - \#\text{independent sets of size $k$ in } G$$
   First,
-  \begin{eqnarray*}
+  \begin{align*}
     \E[\#\text{triangles in } G]
-    & = & \sum_{T \in [n]^(3)} \P(T \text { triangle in } G) \\
-    & = & \binom n3 p^3 \le \frac{(np)^3}6 = \frac n6
-  \end{eqnarray*}
+    & = \sum_{T \in [n]^(3)} \P(T \text { triangle in } G) \\
+    & = \binom n3 p^3 \le \frac{(np)^3}6 = \frac n6
+  \end{align*}
   Second,
-  \begin{eqnarray*}
+  \begin{align*}
     \E[\#\text{independent sets of size $k$ in } G]
-    & = & \binom nk (1 - p)^{\binom k2} \\
-    & \le & \left(\frac{en}k\right)^k e^{-p\binom k2} \\
-    & \sim & \left(\frac{en}k e^{-\frac{pk}2}\right)^k \\
-    & = & \left(\frac{ek^{\frac 32}}{k\log^{\frac 32} k} e^{-\frac{\log k}2}\right)^k \\
-    & = & \left(\frac e{\log^{\frac 32} k}\right)^k \longrightarrow 0
-  \end{eqnarray*}
+    & = \binom nk (1 - p)^{\binom k2} \\
+    & \le \left(\frac{en}k\right)^k e^{-p\binom k2} \\
+    & \sim \left(\frac{en}k e^{-\frac{pk}2}\right)^k \\
+    & = \left(\frac{ek^{\frac 32}}{k\log^{\frac 32} k} e^{-\frac{\log k}2}\right)^k \\
+    & = \left(\frac e{\log^{\frac 32} k}\right)^k \longrightarrow 0
+  \end{align*}
   Hence, for large enough $k$,
   $$\E[\abs{\tilde G}] \ge n - \frac n6 - 1 \ge \frac n2 = \frac 12 \left(\frac k{\log k}\right)^{\frac 32}$$
   By adjusting $c > 0$, we have proved the theorem.
@@ -210,12 +210,12 @@ We are being wasteful here. Why throw an entire vertex away when we could get aw
   Note that
   $$1_{\Eps_t} \le \frac 1{t!} \sum_{\substack{i \in [m]^t \\ A_{i_1}, \dots, A_{i_t}\text{ independent}}} 1_{A_{i_1}} \dots 1_{A_{i_t}}$$
   So
-  \begin{eqnarray*}
+  \begin{align*}
     \P(\Eps_t)
-    & \le & \frac 1{t!} \sum_{\substack{i \in [m]^t \\ A_{i_1}, \dots, A_{i_t}\text{ independent}}} \P(A_{i_1}) \dots \P(A_{i_t}) \\
-    & \le & \frac 1{t!} \sum_{i \in [m]^t} \P(A_{i_1}) \dots \P(A_{i_t}) \\
-    & = & \frac 1{t!} \left(\sum_{i = 1}^m \P(A_i)\right)^t
-  \end{eqnarray*}
+    & \le \frac 1{t!} \sum_{\substack{i \in [m]^t \\ A_{i_1}, \dots, A_{i_t}\text{ independent}}} \P(A_{i_1}) \dots \P(A_{i_t}) \\
+    & \le \frac 1{t!} \sum_{i \in [m]^t} \P(A_{i_1}) \dots \P(A_{i_t}) \\
+    & = \frac 1{t!} \left(\sum_{i = 1}^m \P(A_i)\right)^t
+  \end{align*}
 \end{proof}
 
 \newlec
@@ -228,23 +228,23 @@ We are being wasteful here. Why throw an entire vertex away when we could get aw
   We fix $n = \left(\frac{c_1 k}{\log k}\right)^2, p = c_2n^{-\frac 12} = \frac{c_2}{c_1}\frac{\log k}k$. Let $G \sim G(n, p), \mathcal T$ a maximal collection of edge-disjoint triangles in $G$, $\tilde G$ be $G$ with all edges of $\mathcal T$ removed. Note, $\tilde G$ contains no triangle. We show
   $$\P(\alpha(\tilde G) \ge k) < 1$$
   Let $Q$ be the event that every set of $k$ vertices of $G$ contains $\ge \frac{pk^2}8$ edges. Setting $\frac{c_2}{c_1} = 48$, we get
-  $$pk = \frac{c_2}{c_1}\frac{\log k}k k = 48\log k > 16\log n$$ By the lemma, we know so that $\P(Q) = 1 - o(1)$ by the lemma. Now note that
+  $$pk = \frac{c_2}{c_1}\frac{\log k}k k = 48\log k > 16\log n$$ By the lemma, we know so that $\P(Q) = 1 + o(1)$ by the lemma. Now note that
   $$\P(\alpha(\tilde G) \ge k) \le \P(\alpha(\tilde G) \ge k, Q) + \cancelto 0{\P(Q^c)}$$
   So we focus on $\P(\alpha(\tilde G) \ge k, Q)$. Set $t = \frac{pk^2}{24}$.
-  \begin{eqnarray*}
+  \begin{align*}
     \P(\alpha(\tilde G) \ge k, Q)
-    & \le & \P\left(\exists S \in [n]^{(k)}, \mathcal T \text{ meets $S$ in } \ge \frac{pk^2}8\right) \\
-    & \le & \binom n k \P\left(\underbrace{\substack{\text{at least $t$ triangles of $\mathcal T$} \\ \text{meet $[k]$ in at least two vertices}}}_B\right)
-  \end{eqnarray*}
+    & \le \P\left(\exists S \in [n]^{(k)}, \mathcal T \text{ meets $S$ in } \ge \frac{pk^2}8\right) \\
+    & \le \binom n k \P\left(\underbrace{\substack{\text{at least $t$ triangles of $\mathcal T$} \\ \text{meet $[k]$ in at least two vertices}}}_B\right)
+  \end{align*}
   Let $\{T_i\}$ be the collection of triangles in $K_n$ that meet $[k]$ in at least two vertices. Let $A_i = \{T_i \subseteq G\}$. Note that if $T_{i_1}, \dots, T_{i_k}$ are edge-disjoint, then $A_{i_1}, \dots, A_{i_k}$ are independent. So
-  \begin{eqnarray*}
+  \begin{align*}
     \P(B)
-    & \le & \P(\Eps_t) \\
-    & \le & \frac 1{t!}\left(\sum_{\substack{T_i \subseteq K_n \text{ intersects } [k] \\ \text{ in at least two vertices}}} \P(T_i \subseteq G)\right)^t \\
-    & \le & \frac 1{t!} (k^2np^3)^t \\
+    & \le \P(\Eps_t) \\
+    & \le \frac 1{t!}\left(\sum_{\substack{T_i \subseteq K_n \text{ intersects } [k] \\ \text{ in at least two vertices}}} \P(T_i \subseteq G)\right)^t \\
+    & \le \frac 1{t!} (k^2np^3)^t \\
     & \le \left(\frac{ek^2np^3}t\right)^t \\
-    & = & (24enp^2)^t = (24ec_2^2)^t = e^{-t}
-  \end{eqnarray*}
+    & = (24enp^2)^t = (24ec_2^2)^t = e^{-t}
+  \end{align*}
   by choosing $c_2 = \frac 1{\sqrt{24} e}$. To finish, observe that
   $$t = \frac{pk^2}{24} = 2k\log k \ge k\log n$$
   Hence
@@ -252,7 +252,7 @@ We are being wasteful here. Why throw an entire vertex away when we could get aw
 \end{proof}
 
 
-\section{Large deviation inequalities}
+\subsection{Large deviation inequalities}
 
 Let $Z$ be a gaussian random variable.
 $$\P(Z - \E[Z] \ge t) \le e^{\frac{-t}{2\Var Z}}$$
@@ -266,6 +266,219 @@ Let $X_1, \dots, X_n$ be iid Bernoulli random variables. We denote this $X_i \si
   Let $X_1, \dots, X_n \sim \Ber(p)$. Then
   $$\P\left(\abs{S_n - pn} \ge t\right) \le 2\exp\left(\underbrace{-\frac t{2pn}}_{\text{meat}} + \underbrace{\frac{t^3}{(pn)^2}}_{\text{error term}}\right)$$
 \end{thm}
+
+\newlec
+
+\begin{proof}[Proof of the $\frac{pk^8}8$ lemma]
+  \begin{align*}
+    \P(G \text{ fails the statement})
+    & = \P\left(\exists S \in [n]^{(k)}, e(G[s]) < \frac{pk^2}8\right) \\
+    & \le \binom nk \P\left(e(G[[k]]) < \frac{pk^2}8\right) \\
+    & \le \binom nk \P\left(\frac{pk^2}4 < \abs{e(G[[k]]) - p\binom k2}\right)
+  \end{align*}
+  We are now done by Chernoff. TODO: Are we really? The numbers don't seem to work out.
+\end{proof}
+
+\subsection{The Local Lemma}
+
+The probabilistic method is like finding the hay in the hay stack. What if we want to find the needle?
+
+\begin{defi}
+  Let $\mathcal F = \{A_1, \dots, A_n\}$ be a family of events in a probability space. A {\bf dependency graph} $\Gamma$ is a graph with vertices $\mathcal F$ such that the event $A_i$ is independent of $\sigma(A_j \mid j \not\sim i)$ for all $i \in [n]$.
+\end{defi}
+
+\begin{rmks}~
+  \begin{itemize}
+    \item A dependency graph is not unique.
+    \item The complete graph is always a dependency graph.
+    \item The empty graph is a dependency graph iff the $A_i$ are globally independent.
+  \end{itemize}
+\end{rmks}
+
+\begin{thm}[The Local Lemma, symmetric version]
+  Let $\mathcal F = \{A_1, \dots, A_n\}$ be a family of events in a probability space, let $\Gamma$ be a dependency graph for $\mathcal F$ with maximum degree $\Delta$. If $\P(A_i) \le \frac 1{e(\Delta + 1)}$ for all $i$, then
+  $$\P\left(\Inter_i A_i^c\right) > 0$$
+\end{thm}
+
+\begin{thm}[Spencer]
+  $$R(k) \ge (1 + o(1)) \frac{\sqrt 2k}e 2^{\frac k2}$$
+\end{thm}
+\begin{proof}
+  Let $n = (1 - \eps)\frac{\sqrt 2k}e2^{\frac k2}$ for some $\eps > 0$. Let $\chi$ be a random edge-coloring of $K_n$ uniformly over all colorings. Define, for $S \in [n]^{(k)}$, the event
+  $$A_S = \{S \text{ is monochromatic in } \Z\}$$
+  Note we want $\P\left(\Inter_{S \in [n]^{(k)}} A_S^c\right) > 0$. Define the dependency graph $\Gamma$ by
+  $$S \sim T \iff 1 < \abs{S \inter T} < k$$
+  The maximum degree of $\Gamma$ Is
+  $$\Delta = \sum_{t = 2}^{k - 1}\binom kt\binom{n - k}{k - t} = \binom nk - k\binom{n - k}{k - 1} - \binom{n - k}k - 1$$
+  To apply the Local Lemma, we just check
+  $$\P(A_S) = 2^{-\frac k2 + 1} \le \frac 1{e(\Delta + 1)}$$
+\end{proof}
+
+\begin{thm}[Lopsided Local Lemma]
+  Let $\mathcal F = \{A_1, \dots, A_n\}$ be a family of events on a probability space, $\Gamma$ a dependency graph for $\mathcal F$, $0 \le x_1, \dots, x_n < 1$ satisfying
+  $$\P(A_i) \le x_i \prod_{j \sim i}(1 - x_j)$$
+  Then
+  $$\P\left(\Inter_i A_i^c\right) \ge \prod_i (1 - x_i) > 0$$
+\end{thm}
+
+\begin{thm}[Erd\H os, 1961]
+  $$R(3, k) \ge c\left(\frac k{\log k}\right)^2$$
+  for some $c > 0$.
+\end{thm}
+\begin{proof}
+  Let $n = \eps^4\left(\frac k{\log k}\right)^2, p = \frac\eps{\sqrt n} = \frac{\log k}{\eps k}, G \sim G(n, p)$. For all $T \in [n]^{(3)}$ and $I \in [n]^{(k)}$, define $A_T = \{T \subseteq G\}$ and $B_I = \{I \text{ independent in }B\}$. We want
+  $$\P\left(\Inter_{T \in [n]^{(3)}} A_T^c \inter \Inter_{I \in [n]^{(k)}} B_I^c\right) > 0$$
+  Let $\mathcal A = \{A_T\}, \mathcal B = \{B_I\}$. Define $\Gamma$ so that \begin{align*}
+    T \sim T' & \iff \abs{T \inter T'} = 2 \\
+    T \sim I & \iff 2 \le \abs{I \inter T} \\
+    I \sim I' & \iff 2 \le \abs{I \inter I'} < k
+  \end{align*}
+  $A_T$ has at most $3n$ neighbors in $\mathcal A$ and $3n^{k - 2}$ neighbors in $\mathcal B$. $B_I$ has at most $k^2n$ neighbors in $\mathcal A$ and $k^2n^{k - 2}$ neighbors in $\mathcal B$. We now define $x_T = 3p^3, x_I = n^{-k}$. We have check
+  \begin{enumerate}
+    \item $p^3 = \P(A_T) \le x_T \prod_{\abs{T \inter T'} = 2} (1 - x_T) \prod_{\abs{I \inter T} \ge 2} (1 - x_I) = 3p^3 (1 - 3p^3)^{3n}(1 - n^{-k})^{3n^{k - 2}}$
+    Indeed,
+    $$(1 - 3p^3)^{3n}(1 - n^{-k})^{3n^{k - 2}} \ge \exp(-18p^3n - 6n^{-2}) = \exp(-18\eps^2 p - 6n^{-2}) \mor 1$$
+
+\newlec
+
+    \item $(1 - p)^{\binom k2} = \P(B_I) \le x_I \prod_{\abs{T \inter I} \ge 2}(1 - x_T) \prod_{2 \le \abs{I \inter I'} < k} (1 - x_{I'}) = n^{-k}(1 - n^{-k})^{k^2k^{k - 2}}(1 - 3p^3)^{k^2n}$
+    \begin{align*}
+      n^{-k}(1 - n^{-k})^{k^2n^{k - 2}}(1 - 3p^3)^{k^2n}
+      & \ge \exp(-k\log n - 2k^2n^{-2} - 6k^2p^3n) \\
+      & \ge \exp(-2k\log k - 6k^2p\eps^2 + o(1)) \\
+      & \ge \exp\left(-\frac{k\log k}{4\eps} + o(1)\right) \\
+      & \ge \exp\left(-p\binom k2\right) \\
+      & \ge (1 - p)^{\binom k2}
+    \end{align*}
+  \end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of the Local Lemma]
+  Applying $\P(A \inter B) = \P(A) \P(B \mid A)$ repeatedly, write
+  \begin{align*}
+    \P\left(\Inter_{i = 1}^n A_i\right)
+    & = \prod_{i = 1}^n \P(A_i^c \mid A_1^c \inter \dots \inter A_{i - 1}^c) \\
+    & = \prod_{i = 1}^n (1 - \P(A_i \mid A_1^c \inter \dots \inter A_{i - 1}^c))
+  \end{align*}
+  It is enough to show that $\P(A_i \mid A_1^c \inter \dots \inter A_{i - 1}^c) \le x_i$. We prove
+  $$\P(A_i \mid \Inter_{j \in S} A_j^c)$$
+  for all $S \subseteq [n]$ by induction:
+  \begin{itemize}
+    \item $S = \emptyset$. Done by assumption.
+    \item Write
+    $$I = \Inter_{\substack{j \in S \\ j \not\sim i}} A_j^c, D = \Inter_{\substack{j \in S \\ j \sim i}} A_j^c$$
+    So
+    \begin{align*}
+      \P(A_i \mid I \inter D)
+      & = \frac{\P(A_i \inter I \inter D)}{\P(I \inter D)} \\
+      & \le \frac{\P(A_i \inter I)}{\P(I \inter D)} \\
+      & = \frac{\P(A_i)\P(I)}{\P(I \inter D)} \\
+      & = \frac{\P(A_i)}{\P(D \mid I)}
+    \end{align*}
+    Now, write $D = A_{i_1}^c \inter \dots \inter A_{i_m}^c$ and
+    \begin{align*}
+    \P(D \mid I)
+    & = \prod_{j = 1}^m (1 - \P(A_{i_j} \mid I \inter A_{i_1}^c \inter \dots \inter A_{i_{j - 1}}^c)) \\
+    & \ge \prod_{j = 1}^m (1 - x_{i_j}) \\
+    & \ge \prod_{j \sim i} (1 - x_j)
+    \end{align*}
+  \end{itemize}
+\end{proof}
+
+\begin{thm}[Lovasz Local Lemma, symmetric version]
+  For $\mathcal F = \{A_1, \dots, A_n\}$, $\Gamma$ a dependency graph with maximum degree $\Delta$, if $\P(A_i) \le \frac 1{\Delta + 1}$ for all $i$, then
+  $$\P\left(\Inter_i A_i^c\right) \ge \left(1 - \frac 1{e(\Delta + 1)}\right)^n > 0$$
+\end{thm}
+\begin{proof}
+  We use the Lopsided Local Lemma with $x_i = \frac 1{e(\Delta + 1)}$. Note
+  $$x_i \prod_{j \sim i} = \frac 1{\Delta + 1}\left(1 - \frac 1{\Delta + 1}\right)^\Delta \ge \frac 1{e(\Delta + 1)} \ge \P(A_i)$$
+  So Lopsided Local Lemma applies.
+\end{proof}
+
+We now know
+$$\frac{ck^2}{(\log k)^2} \le R(3, k) \le (k + 1)^2$$
+
+\begin{thm}[State of the art on $R(3, k)$]
+  $$\underbrace{\left(\frac 14 + o(1)\right)\frac{k^2}{\log k}}_{\substack{\text{Fiz Pontiveros} \\ \text{Griffiths} \\ \text{Morris}} + \substack{\text{Bohman} \\ \text{Keevash}}} \le R(3, k) \le \underbrace{(1 + o(1))\frac{k^2}{\log k}}_{\substack{\text{Ajtai} \\ \text{Komlós} \\ \text{Szemerédi}} + \text{Shearer}}$$
+\end{thm}
+
+\clearpage
+
+\subsection{Upper bounds on \texorpdfstring{$R(3, k)$}{R(3, k)}}
+
+\newlec
+
+\begin{thm}[Ajtai, Komlós, Szemerédi]
+  $$R(3, k) \le c \frac{k^2}{\log k}$$
+  for some $c > 0$. In fact, we will see $c = 1 + o(1)$.
+\end{thm}
+
+\begin{thm}[Ajtai, Komlós, Szemerédi]
+  Let $G$ be a triangle-free graph on $n$ vertices with maximum degree $\Delta$. Then
+  $$\alpha(G) \ge c \frac n\Delta \log\Delta$$
+  for some absolute constant $c > 0$.
+\end{thm}
+
+\begin{rmk}
+  For general graphs, we know $\alpha(G) \ge \frac n{\chi(G)} \ge \frac n{d + 1}$ by the naïve greedy algorithm and this is basically best possible. The extra $\log d$ factor will come from tracking how sparse our graph is becoming as we remove vertices from it.
+\end{rmk}
+
+We apply a random greedy algorithm to prove the following theorem due to Shearer.
+
+Define
+$$f(x) = \frac{x \log x - x + 1}{(x - 1)^2}$$
+extending continuously to $[0, 1]$ by $f(0) = 1, f(1) = \frac 12$. We remark that
+\begin{itemize}
+  \item $f$ is continuous and differentiable.
+  \item $f$ is antitone and convex.
+  \item $0 < f(x) < 1$
+  \item $(x + 1)f(x) = 1 + (x - x^2)f(x)$
+\end{itemize}
+
+
+\begin{thm}[Shearer]
+  Let $G$ be a triangle-free graph on $n$ vertices with average degree $d > 0$.
+  Then
+  $$\alpha(G) \ge nf(d) \ge (1 + o(1)) \frac n\Delta \log\Delta$$
+\end{thm}
+\begin{proof}
+  Induction on $n$.
+
+  Let $x$ a vertex to be chosen later and $G' := G - x - N(x)$. Writing $d'$ the average degree of $G'$ and applying induction to $G'$, we get
+  \begin{align*}
+    \alpha(G)
+    & \ge 1 + \alpha(G') \\
+    & \ge 1 + (n - \deg x - 1)f(d') \\
+    & \ge 1 + (n - \deg x - 1)(f(d) + (d - d')f'(d)) \\
+    & = nf(d) + 1 - (\deg x + 1)f(d) + (d\deg x + d + n(d - d') - d'\deg x - d')f'(d) \\
+    & = nf(d) + 1 - (\deg x + 1)f(d) + \left(d\deg x + d - 2\sum_{y \sim x} \deg y\right)f'(d)
+  \end{align*}
+  where we used that $N(x)$ is an independent set to get that
+  \begin{align*}
+    n(d - d')
+    & = n \left(\frac{2e(G)}n - \frac{2e(G')}{n - \deg x - 1}\right) \\
+    & = 2(e(G) - e(G')) - (\deg x + 1)d' \\
+    & = 2\sum_{y \sim x} \deg y - (\deg x + 1)d'
+  \end{align*}
+  So we want to choose $x$ such that
+  $$(\deg x + 1)f(d) \le 1 + (d\deg x + d - 2\sum_{y \sim x} \deg y)f'(d)$$
+  We average over $x$:
+  \begin{align*}
+    \E_x \lhs & = (d + 1)f(d) \\
+    \E_x \rhs & = 1 + (d^2 + d - 2\E_x\sum_{y \sim x} \deg y)f'(d)
+  \end{align*}
+  Notice that
+  $$\E_x\sum_{y \sim x} \deg y = \frac 1n \sum x\sum_{y \sim x} \deg y = \frac 1n \sum_x \deg x^2 \ge \left(\frac 1n\sum_x \deg x\right)^2$$
+  Since $f'(d) \le 0$, we get
+  $$\E_x \rhs \ge 1 + (d^2 + d - 2d^2)f'(d) = 1 + (d - d^2)f'(d) = (d + 1)f(d) = \E_x \lhs$$
+  So such $x$ exists.
+\end{proof}
+
+\begin{proof}[Proof of the AKS bound using Shearer]
+  Let $G$ be a graph on $n$ vertices with neither a triangle nor an independent set of size $k$. By triangle freeness, the maximum degree $\Delta$ is strictly less than $k$. By AKS, there is an independent set of size $(1 + o(1))\frac nk \log k$. So
+  $$(1 + o(1))\frac nk \log k \le \alpha(G) < k$$
+  So $n \le (1 + o(1)) \frac{k^2}{\log k}$
+\end{proof}
 
 \newlec
 
