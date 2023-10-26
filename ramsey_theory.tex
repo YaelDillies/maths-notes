@@ -482,5 +482,58 @@ extending continuously to $[0, 1]$ by $f(0) = 1, f(1) = \frac 12$. We remark tha
 
 \newlec
 
+\begin{proof}[Second proof of AKS]
+  Let $I$ be an independent set in $G$ sampled uniformly among all independent sets of $G$. We will show
+  $$\E\abs I \ge c\frac nd\log n$$
+  Let $v$ be a vertex. We define the random variable
+  $$X_v = d1_{v \in I} + \abs{N(v) \inter I}$$
+  For any independent set $I$,
+  $$\sum_v X_v \le 2d\abs I$$
+  So
+  $$\sum_v \E_I X_v \le 2d \E_I \abs I$$
+  So we want to show that $\E_I X_v \ge c \log d$ for all $v$. \\
+  Let $G' = G - v - N(v)$, find $J$ an independent set in $G'$ minimising $\E_I[X_v \mid I \setminus (N(v) \union \{v\})]$ and let $F = \{w \in N(v) \mid N(w) \inter J = \emptyset\}$ and $t = \abs F$. Note carefully that $I \inter (F \union \{v\})$ is uniform over all independent sets in $G[F \union {v}]$, and that the independent sets of $G[F \union {v}]$ are exactly $\{v\}$ and the $2^t$ subsets of $F$. Hence
+  \begin{align*}
+    \E_I X_v
+    & \ge \E_I[X_v \mid I \setminus (N(v) \union \{v\}) = J] \\
+    & = \E_{I \subseteq F \union \{v\}} X_v \\
+    & = \frac 1{2^t + 1}d + \frac{2^t}{2^t + 1}\frac t2 \\
+    & \ge c \log d
+  \end{align*}
+  for some $c > 0$ by optimising over $t$.
+\end{proof}
+
+\begin{thm}[Ajtai-Komlós-Szemerédi]
+  Let $\ell \in \N$. Then for sufficiently large $k \in \N$ we have
+  $$R(\ell, k) \le \left(\frac 4{\log k}\right)^{\ell - 2}k^{\ell - 1}$$
+\end{thm}
+
+We have seen that the power of $k$ is correct for $\ell = 3$. As of recently, we also know that it is correct for $\ell = 4$.
+
+\clearpage
+
+\section{Hypergraph Ramsey Numbers}
+
+We define $K_n^{(r)}$ to be the {\bf complete $r$-uniform hypergraph} on $n$ vertices. The {\bf $r$-uniform hypergraph Ramsey number} $R^{(r)}(\ell, k)$ is the minimal $n$ such that every edge coloring of $K_n^{(r)}$ contains either a blue $K_\ell^{(r)}$ or a red $K_k^{(r)}$. As before, the {\bf hypergraph diagonal Ramsey number} is $R^{(r)}(k) = R^{(r)}(k, k)$.
+
+\begin{thm}[Erd\H os-Hajnal]
+  $$R^{(3)}(\ell, k) \le 2^{\binom{R(\ell - 1, k - 1)}2}$$
+  Eg $R^{(3)}(k) \le 2^{16^k}$.
+\end{thm}
+\begin{proof}
+  Let $t = R(\ell - 1, k - 1)$ and $n = 2^{\binom t2}$. Let $\chi$ be a red/blue edge coloring of $K_n^{(3)}$. Let $v_1, v_2 \in [n]$. Define
+  $$A_{1, 2} = \{w \in [n] \mid \chi({v_1, v_2, w}) = c_{1, 2}\}$$
+  where $c_{1, 2}$ is the {\bf majority color}, chosen so that
+  $$\abs{A_{1, 2}} \ge \frac n2 - 1$$
+  Let $v_3 \in A_{1, 2}$. Define
+  $$A_{1, 3} = \{w \in A_{1, 2} \mid \chi({v_1, v_3, w}) = c_{1, 3}\}$$
+  where $c_{1, 3}$ is the majority color. Now define
+  $$A_{2, 3} = \{w \in A_{1, 3} \mid \chi({v_2, v_3, w}) = c_{2, 3}\}$$
+  where $c_{2, 3}$ is the majority color, and so on... \\
+  After $t$ steps, our world has size $\abs{A_{t - 1, t}} \ge n2^{-\binom t2} \ge 1$. We thus have $\{v_1, \dots, v_t\}$ such that $\chi(\{v_i, v_j, v_k\}) = c_{i, j}$ if $k > i, j$. $c$ is a coloring of $\{v_1, \dots, v_t\}^{(2)}$. By definition of Ramsey, we're done.
+\end{proof}
+
+\newlec
+
 \printindex
 \end{document}
