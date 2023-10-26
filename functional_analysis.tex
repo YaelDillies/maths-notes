@@ -795,7 +795,7 @@ $C(K), C^\R(K)$ are complex/real Banach spaces in the sup norm: $\norm f_\infty 
 
 The next lemma tells us that it's enough to understand $M^+(K)$.
 
-\begin{nlemma}~
+\begin{nlemma}\label{lem:m-real-pos}~
   \begin{enumerate}
     \item For all $\phi \in M(K)$, there are unique $\phi_1, \phi_2 \in M^\R(K)$ such that $\phi = \phi_1 + i\phi_2$.
     \item $\phi \mapsto \phi\restriction_{C^\R(K)} : M^\R(K) \mor C^\R(K)^*$ is an isometric isomorphism.
@@ -847,7 +847,7 @@ The next lemma tells us that it's enough to understand $M^+(K)$.
     Given $f \in C^+(K), 0 \le f \le 1$, we have $-1 \le 2f - 1 \le 1$, so
     $$2\phi(f) - \phi(1) = \phi(2f - 1) \le \norm\phi$$
     Taking the sup over $f$, we thus check that
-    $$\norm{\phi^+} + \norm{\phi^-} = \phi^+(1) + \phi^-(1) = 2\phi^+(1) - \phi(1) \le norm\phi$$
+    $$\norm{\phi^+} + \norm{\phi^-} = \phi^+(1) + \phi^-(1) = 2\phi^+(1) - \phi(1) \le \norm\phi$$
 
     {\bf Uniqueness} \\
     Assume $\phi = \psi_1 - \psi_2, \psi_1, \psi_2 \in M^+(K), \norm\phi = \norm{\psi_1} + \norm{\psi_2}$. From the initial observation, $\psi_1 \ge \phi^+$, hence $\psi_2 = \psi_1 - \phi \ge \phi^+ - \phi = \phi^-$. Therefore $\psi_1 - \phi^+, \psi_2 - \phi^- \in M^+(K)$. By (iii),
@@ -864,14 +864,14 @@ The next lemma tells us that it's enough to understand $M^+(K)$.
   \item Urysohn then becomes: Given $E \subseteq U$, there exists $f$ such that $E \prec f \prec U$.
 \end{enumerate}
 
-\begin{nlemma}
+\begin{nlemma}\label{lem:partition-of-unity}
   Let $E$ closed, $U_1, \dots, U_n$ open such that $E \subseteq \Union_n U_n$. Then
   \begin{enumerate}
     \item There exist open sets $V_j$ such that $\bar{V_j} \subseteq U_j$ and $E \subseteq \Union_j V_j$.
     \item There exist $f_j \prec U_j$ such that $0 \le \sum_j f_j \le 1$ and $\sum_j f_j = 1$ on $E$.
   \end{enumerate}
 \end{nlemma}
-\begin{proof}
+\begin{proof}~
   \begin{enumerate}
     \item Induction on $n$:
     {\bf $n = 0$} \\
@@ -880,7 +880,7 @@ The next lemma tells us that it's enough to understand $M^+(K)$.
     {\bf $n > 0$} \\
     $E \setminus U_n \subseteq \Union_{j < n} U_j$ so, by induction, find open sets $V_j$ such that $\bar{V_j} \subseteq U_j$ for all $j < n$ and $E \setminus U_n \subseteq \Union_{j < n} U_j$. So $\underbrace{E \setminus \Union_{j < n} V_j}_{\text{closed}} \subseteq \underbrace{U_n}_{\text{open}}$. By Urysohn, find an open $V_n$ such that
     $$E \setminus \Union_{j < n} V_j \subseteq V_n \subseteq \bar{V_n} \subseteq U_n$$
-    \item Find the $V_j$ as in $(i)$ for $1 \le j \le n$ and by Urysohn find $h_j$ such that $\bar{V_j} \prec h_j U_j$. By Urysohn again, find $h_0$ such that $\left(\Union_j U_j\right)^c \prec h_0 \prec E^c$. Let $h = \sum_{j = 0}^n h_j \ge 1$ and $f_j = \frac{h_j}h$ for $1 \le j \le n$. Then $0 \le \sum_{j = 1}^n \le 1$, $f_j \prec U_j$ and $\sum_{j = 1}^n f_j = 1$ on $E$.
+    \item Find the $V_j$ as in $(i)$ for $1 \le j \le n$ and by Urysohn find $h_j$ such that $\bar{V_j} \prec h_j \prec U_j$. By Urysohn again, find $h_0$ such that $\left(\Union_j U_j\right)^c \prec h_0 \prec E^c$. Let $h = \sum_{j = 0}^n h_j \ge 1$ and $f_j = \frac{h_j}h$ for $1 \le j \le n$. Then $0 \le \sum_{j = 1}^n \le 1$, $f_j \prec U_j$ and $\sum_{j = 1}^n f_j = 1$ on $E$.
   \end{enumerate}
 \end{proof}
 
@@ -903,8 +903,173 @@ If $X$ is compact and $\mu$ is a Borel measure on $X$, then
 
 \begin{defi}[Integration with respect to a complex measure]
   Let $\Omega$ be a set, $\mathcal F$ a $\sigma$-algebra on $\Omega$, $\nu$ a complex measure on $\mathcal F$. Write $\nu = \nu_1 - \nu_2 + i\nu_3 - i\nu_4$ the Jordan decomposition. Say a measurable function is {\bf $\nu$-integrable} if $f$ is $\abs\nu$-integrable, or equivalently if $f$ is $\nu_1, \nu_2, \nu_3, \nu_4$-integrable. Define
-  $$int_\Omega f d\nu = \int_\Omega f d\nu_1 - \int_\Omega f d\nu_2 + i\int_\Omega f d\nu_3 - i\int_\Omega f d\nu_4$$
+  $$\int_\Omega f d\nu = \int_\Omega f d\nu_1 - \int_\Omega f d\nu_2 + i\int_\Omega f d\nu_3 - i\int_\Omega f d\nu_4$$
 \end{defi}
+
+\newlec
+
+\begin{prop}~
+  \begin{enumerate}
+    \item $\int_\Omega d\nu = \nu(A)$ for all $A \in \mathcal F$.
+    \item Linearity: If $f, g : \Omega \mor \C$ are $\nu$-integrable and $\lambda \in \C$, then
+    $$\int_\Omega f + g d\nu = \int_\Omega fd\nu + \int_\Omega gd\nu, \int_\Omega \lambda fd\nu = \lambda \int_\Omega fd\nu$$
+  \item Dominated Convergence: Let $f_n, f, g$ be measurable functions $\Omega \mor \C$ such that $f_n \mor f$ ae (with respect to $\abs\nu$), $g \in L_1$ and $\for n, f_n \le g$ ae. Then $f$ is $\nu$-integrable and $\int_\Omega f_n d\nu \mor \int_\Omega f d\nu$
+  \item $\abs{\int_\Omega f d\nu} \le \int_\Omega \abs f d\abs\nu$ for all $\nu$-integrable $f$. This is true for simple functions by properties 1 and 2. For general $f$, use Dominated Convergence.
+  \end{enumerate}
+\end{prop}
+
+Let $\nu$ be a complex Borel measure on $K$. Then for $f \in C(K)$ we have
+$$\int_K \abs f d\abs\nu \le \norm f_\infty \abs\nu(K) = \norm f_\infty \norm\nu_1$$
+So $f$ is $\nu$-integrable. Define $\phi : C(K) \mor \C$ by $\phi(f) = \int_\Omega f d\nu$. Then $\phi \in M(K)$ and $\norm\phi \le \norm\nu_1$. If $\nu$ is a signed measure, then $\phi \in M^\R(K)$. If $\nu$ is a positive measure, then $\phi \in M^+(K)$.
+
+\begin{nthm}[Riesz Representation Theorem]\label{thm:riesz-rep}
+  For every $\phi \in M^+(K)$, there exists a unique regular Borel measure $\mu$ on $K$ that represents $\phi$: $\phi(f) = \int_K f d\mu$ for all $f \in C(K)$. Moreover, $\norm\phi = \mu(K) = \norm\mu_1$.
+\end{nthm}
+\begin{proof}~\\
+  {\bf Uniqueness} \\
+  Assume $\mu_1, \mu_2$ both represent $\phi$. Let $E \subseteq U \subseteq K$ where $E$ closed, $U$ open. By Urysohn, find $f$ such that $E \prec f \prec U$. Now,
+  $$\mu_1(E) \le \int_K f d\mu_1 = \phi(f) = \int_K f d\mu_2 \le \mu_2(U)$$
+  Taking the inf over $U$, we get $\mu_1(E) \le \mu_2(E)$. By symmetry, $\mu_1(E) = \mu_2(E)$. By regularity, $\mu_1 = \mu_2$.
+
+  {\bf Existence} \\
+  For $U$ open, define $\mu^*(U) = \sup_{f \prec U} \phi(f)$. Note that
+  $$\mu^*(U) \ge 0, \mu \text{ monotone}, \mu^*(K) = \phi(1)$$
+  It follows that, for $V$ open, $\mu^*(V) = \inf_{U \supseteq V} \mu^*(U)$. Hence extend the definition of $\mu^*$ to
+  $$\mu^*(A) = \inf_{U \supseteq A} \mu^*(U)$$
+  We will show that $\mu^*$ is an outer measure.
+  \begin{itemize}
+    \item $\mu(\emptyset) = 0$
+    \item If $A \subseteq B$, then $\mu^*(A) \le \mu^*(B)$.
+    \item Do we have $\mu^*\left(\Union_n A_n\right) = \sum_n \mu^*(A_n)$? \\
+    First assume that the $A_n = U_n$ are open. Let $U = \Union_n U_n$. Assume $f \prec U$ and let $E = \supp f$. $E \subseteq \Union_n U_n$, so by compactness find $N$ such that $E \subseteq \Union_{n = 1}^N U_n$. By Lemma \ref{lem:partition-of-unity}, find $h_n \prec U_n$ with $\sum_{n = 1}^N h_n \le 1$ and $\sum_{n = 1}^N h_n = 1$ on $E$. So $f = \sum_{n = 1}^N fh_n$ and
+    \begin{align*}
+      \phi(f)
+      & = \sum_{n = 1}^N \phi(fh_n) \\
+      & \le \sum_{n = 1}^N \mu^*(U_j) \text{ as } fh_n \prec U_n \\
+      & \le \sum_n \mu^*(U_n)
+    \end{align*}
+    Taking the sup over $f$, we get $\mu^*(U) \le \sum_n \mu^*(U_n)$. It follows that
+    $$\mu^*(\Union_n A_n) \le \sum_n \mu^*(A_n)$$
+    We now let $\mathcal M$ be the set of $\mu^*$-measurable sets. Then $\mathcal M$ is a $\sigma$-algebra and $\mu^*\restriction_{\mathcal M}$ is a measure on $\mathcal M$. \\
+    To restrict it further to a Borel, we now show that $\mathcal B \subseteq \mathcal M$. It's enough to show that $\mathcal G \subseteq \mathcal M$. \\
+    Let $U$ open. We need
+    $$\mu^*(A) \ge \mu^*(A \inter U) + \mu^*(A \setminus U) \text{ for all } A$$
+    First, let $A = V \in \mathcal G$. Fix $f \prec V \inter U$ and $g \prec V \setminus \supp f$. Then $f + g \prec V$, thus
+    $$\mu^*(V) \ge \phi(f + g) = \phi(f) + \phi(g)$$
+    Taking the sup over $g$,
+    $$\mu^*(V) \ge \phi(f + g) = \phi(f) + \mu^*(V \setminus \supp f) \ge \phi(f) + \mu^*(V \setminus U)$$
+    Taking the sup over $f$,
+    $$\mu^*(V) \ge \mu^*(V \inter U) + \mu^*(V \setminus U)$$
+    Now let $A$ be arbitrary. Fix $V$ open such that $A \subseteq V$. then
+    $$\mu^*(V) \ge \mu^*(V \inter U) + \mu^*(V \setminus U) \ge \mu^*(A \inter U) + \mu^*(A \setminus U)$$
+    Taking the inf over $V$,
+    $$\mu^*(A) \ge \mu^*(A \inter U) + \mu^*(A \setminus U)$$
+    Now, $\mu := \mu^*\restriction_{\mathcal B}$ is a Borel measure on $K$. We have
+    $$\mu(K) = \phi(1) = \norm\phi < \infty$$
+    and by definition $\mu$ is regular. It remains to show that $\phi(f) = \int_K f d\mu$ for all $f \in C(K)$. It is enough to check that for $f \in C^\R(K)$ and enough to check that $\phi(f) \le \int_K f d\mu$ (apply this to $-f$). \\
+    Fix $0 < a < b$ in $\R$ such that $\phi(1) \in [a, b]$. Let $\eps > 0$. Choose $0 \le y_0 < a \le y_1 < \dots < y_n = b$ such that
+    $$y_j < y_{j - 1} + \eps$$
+    Let $A_j = f^{-1}\mathopen]y_{j - 1}, y_j\mathclose]$. Those sets form a measurable partition of $K$. Choose closed sets $E_j$ and open sets $U_j$ such that $E_j \subseteq A_j \subseteq U_j$ and $\mu(U_j \setminus E_j) < \frac\eps n$ (by regularity) and $f(U_j) \subseteq \mathopen]y_{j - 1}, y_j\mathclose]$. By Lemma \ref{lem:partition-of-unity}, find $h_j \prec U_j$ for each $j$ such that $\sum_j h_j = 1$. Now,
+    \begin{align*}
+      \phi(f)
+      & = \sum_j \phi(f_j) \\
+      & \le \sum_j (y_j + \eps)\phi(h_j) \\
+      & \le \sum_j (y_{j - 1} + 2\eps)\left(\mu(E_j) + \frac\eps n\right) \\
+      & = \sum_j y_{j - 1}\mu(E_j) + \underbrace{\sum_j (b + \eps) + 2\eps\mu(K) + 2\eps^2}_{o(1)} \\
+      & = \int_K \sum_j y_{j - 1}1_{E_j} d\mu + o(1)
+      & \le \int_K f d\mu + o(1)
+    \end{align*}
+    since $f \le y_j + \eps$ on $U_j$, $h_j \prec U_j$ and $\phi \in M^+(K)$. So $\phi(f) \le \int_K f d\mu$.
+  \end{itemize}
+\end{proof}
+
+\newlec
+
+\begin{ncor}
+  For every $\phi \in M(K)$, there exists a unique regular complex Borel measure $\nu$ on $K$ that represents $\phi$: $\phi(f) = \int_K f d\nu$ for all $f \in C(K)$. Moreover, $\norm\phi = \norm\nu_1$ and if $\phi \in M^\R(K)$ then $\nu$ is a signed measure.
+\end{ncor}
+\begin{proof}~\\
+  {\bf Existence} \\
+  Apply Lemma \ref{lem:m-real-pos} and Theorem \ref{thm:riesz-rep} to obtain a regular complex Borel measure representing $\phi$. We now want $\norm\phi = \norm\nu_1$. \\
+  We already know $\norm\phi \le \norm\nu_1$. Take a measurable partition $K = \Union_{j = 1}^n A_j$. Fix $\eps > 0$ and closed sets $E_j$, open sets $U_j$ such that $E_j \subseteq A_j \subseteq U_j$, $\abs\nu(U_j \setminus E_j) < \frac\eps n$ ($\nu$ is regular). We can also assume $U_i \subseteq \Inter_{j \ne i} E_j^c$. Fix $\lambda_j \in \C$ such that $\abs{\lambda_j} = 1, \lambda_j\nu(E_j) = \abs{\nu(E_j)}$. By Lemma \ref{lem:partition-of-unity}, find $h_j \prec U_j$ such that $\sum_{j = 1}^n h_j = 1$. Then $E_j \prec h_j$, hence
+  \begin{align*}
+    \abs{\int_K \left(\sum_{j = 1}^n \lambda_j 1_{E_j} - \sum_{j = 1}^n \lambda_jh_j\right) d\nu}
+    & \le \sum_{j = 1}^n \int_K \abs{1_{E_j} - h_j} d\abs\nu \\
+    & \le \sum_{j = 1}^n \abs\nu(U_j \setminus E_j) < \eps
+  \end{align*}
+  Now,
+  \begin{align*}
+    \sum_{j = 1}^n \abs{\nu(A_j)}
+    & \le \sum_{j = 1}^n \abs{\nu(E_j)} + \eps \\
+    & = \sum_{j = 1}^n \lambda_j\nu(E_j) + \eps \\
+    & = \int_K \sum_{j = 1}^n \lambda_j1_{E_j} d\nu + \eps \\
+    & \le \abs{\int_K \sum_{j = 1}^n \lambda_jh_j d\nu} + 2\eps \\
+    & \le \abs{\phi\left(\sum_{j = 1}^n \lambda_jh_j\right)} + 2\eps \\
+    & \le \norm\phi \norm{\sum_{j = 1}^n \lambda_jh_j}_\infty + 2\eps \\
+    & \le \norm\phi + 2\eps
+  \end{align*}
+  It follows that $\norm\nu_1 \le \norm\phi$.
+\end{proof}
+
+\begin{ncor}
+  The space of regular real (resp. complex) Borel measures on $K$ is a real (resp. complex) Banach space in $\norm\cdot_1$ isomorphic to $M^\R(K)$ (resp. $M(K)$).
+\end{ncor}
+
+\clearpage
+
+\section{Weak topologies}
+Let $X$ be a set and $\mathcal F$ a set of functions on $X$ such that each $f \in \mathcal F$ is a function $X \mor Y_f$ where $Y_f$ is a topological space. The {\bf weak topology $\sigma(X, \mathcal F)$ on $X$ generated by $\mathcal F$} is the smallest topology on $X$ that makes each $f \in \mathcal F$ continuous.
+
+\begin{rmks}~
+  \begin{enumerate}
+    \item $S = \{f^{-1}(U) \mid f \in \mathcal F, U \subseteq Y_f \text{ open}\}$ is a subbase of $\sigma(X, \mathcal F)$. So
+    \begin{align*}
+      V \subseteq X \text{ open}
+      & \iff \for x \in V, \exists F \subseteq \mathcal F \text{ finite}, \for f \in F, U_f \subseteq Y_f \text{ and } x \in \Inter_{f \in F} f^{-1}(U_f) \subseteq V \\
+      & \iff \for x \in V, \exists F \subseteq \mathcal F \text{ finite}, \text{ open neighborhoods } U_f \text{ of } f(x), \Inter_{f \in F} U_f \subseteq V
+    \end{align*}
+    \item More generally, if $S_f$ is a subbase in $Y_f$, then $\{f^{-1}(U) \mid f \in \mathcal F, U \in S_f\}$ is a subbase of $\sigma(X, \mathcal F)$.
+    \item If $Y_f$ is Hausdorff for all $f \in \mathcal F$ and {\bf $\mathcal F$ separates points of $X$} ($\for x \ne y, \exists f \in \mathcal F, f(x) \ne f(y)$), then $\sigma(X, \mathcal F)$ is Hausdorff.
+    \item Let $Y \subseteq X, \mathcal F_Y = {f\restriction_Y \mid f \in \mathcal F}$. Then $\sigma(Y, \mathcal F_Y) = \sigma(X, \mathcal F)\restriction_Y$.
+    \item {\bf Universal property}: Let $Z$ be a topological space and $g : Z \mor X$. then
+    $$g \text{ continuous} \iff \for f \in \mathcal F, f \circ g : Z \mor Y_f \text{ continuous}$$
+  \end{enumerate}
+\end{rmks}
+
+\begin{egs}~
+  \begin{enumerate}
+    \item Let $X$ be a topological space, $Y \subseteq X$ and $\iota : Y \mor X$ the inclusion map. Then $\sigma(Y, {\iota})$ is the subspace topology on $Y$.
+    \item Let $\Gamma$ be a set, $X_\gamma$ a topological space for each $\gamma \in \Gamma$, $X = \prod_{\gamma \in \Gamma} X_\gamma$. For each $\gamma$, we have $\pi_\gamma : X \mor X_\gamma$ sending $x \mapsto x_\gamma$, the {\bf evaluation map at $\gamma$}, or {\bf projection onto $X_\gamma$}. The weak topology $\sigma(X, \{\pi_\gamma \mid \gamma \in \Gamma\})$ is called the {\bf product topology} on $X$.
+    $$V \subseteq X \text{ open} \iff \substack{\for x \in V, \exists s \subseteq \Gamma \text{ finite}, U_\gamma \text{ neighborhood of } x_\gamma, \\ \{y \mid \for \gamma \in s, y_\gamma \in U_\gamma\} \subseteq V}$$
+  \end{enumerate}
+\end{egs}
+
+\begin{nprop}
+  Let $X$ be a set. For each $n$, let $(Y_n, d_n)$ be a metric space and $f_n : X \mor Y_n$ be a separating family of functions. Then $\sigma(X, \{f_n \mid n \in \N\})$ is metrisable.
+\end{nprop}
+\begin{proof}
+  Call $\sigma := \sigma(X, \{f_n \mid n \in \N\})$. Define
+  $$d(x, y) = \sum_{n = 0}^\infty 2^{-n}\min(d(f_n(x), f_n(y)), 1)$$
+  This is a metric on $X$. Given $0 < \eps < 1$, if $d(x, y) < 2^{-n}\eps$, then $d(f_n(x), f_n(y)) < \eps$. So each $f_n$ is continuous with respect to the topology $\tau$ induced by that metric. Hence $\sigma \subseteq \tau$. \\
+  Reciprocally, $y \mapsto d(x, y)$ is $\sigma$-continuous for each $x$ by the Weierstrass M-test since
+  $$y \mapsto 2^{-n}\min(d(f_n(x), f_n(y)), 1)$$
+  is $\sigma$-continuous for each $n$.
+\end{proof}
+
+\begin{nthm}[Tychonoff]
+  The product of compact topological spaces is compact.
+\end{nthm}
+\begin{proof}
+  Assume each $X_\gamma$ is compact. Let $\mathcal E$ be a family of closed subsets with the FIP (finite intersection property). We want $\Inter_{E \in \mathcal E} E \ne \emptyset$. \\
+  By Zorn, find a maximal family $\mathcal A$ of sets in $X$ such that $\mathcal E \subseteq \mathcal A$ and $\mathcal A$ has the FIP. We will show that $\Inter_{A \in \mathcal A} \bar A \ne \emptyset$. Maximality of $\mathcal A$ means that
+  \begin{itemize}
+    \item $\mathcal A$ is closed under finite intersections.
+    \item If $B$ intersects every $A \in \mathcal A$, then $B \in \mathcal A$.
+  \end{itemize}
+  For each $\gamma \in \Gamma$, $\{\pi_\gamma(A) \mid A \in \mathcal A\}$ has the FIP, hence find by compactness of $X_\gamma$ some $x_\gamma \in \Inter_{A \in \mathcal A} \overline{\pi_\gamma(A)}$. \\
+  We show that all neighborhoods of $x$ are in $\mathcal A$. Then $\for A \in \mathcal A, x \in \bar A$. \\
+  It's enough to show it for neighborhoods of the form $U = \Inter_{\gamma \in s} \pi_\gamma^{-1}(U_\gamma)$ for some $s \subseteq \Gamma$ finite where each $U_\gamma$ is a neighborhood of $x_\gamma$. For such $U$, we see that $\pi_\gamma^{-1}(U_\gamma)$ intersects every $A \in \mathcal A$, so $\pi_\gamma^{-1}(U_\gamma)$ by the second remark. Hence $U \in \mathcal A$ by the first remark.
+\end{proof}
 
 \newlec
 
