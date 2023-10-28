@@ -70,6 +70,7 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \newtheorem*{lemma}{Lemma}
 \newtheorem*{notation}{Notation}
 \newtheorem*{prop}{Proposition}
+\newtheorem*{properties}{Properties}
 \newtheorem*{question}{Question}
 \newtheorem*{rrule}{Rule}
 \newtheorem*{thm}{Theorem}
@@ -90,7 +91,7 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \let\oldemptyset\emptyset
 \let\emptyset\varnothing
 
-% Special sets
+% Letter shorthands
 \newcommand{\C}{\mathbb C}
 \newcommand{\E}{\mathbb E}
 \newcommand{\K}{\mathbb K}
@@ -99,6 +100,19 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \newcommand{\Q}{\mathbb Q}
 \newcommand{\R}{\mathbb R}
 \newcommand{\Z}{\mathbb Z}
+\newcommand{\mcA}{\mathcal A}
+\newcommand{\mcB}{\mathcal B}
+\newcommand{\mcE}{\mathcal E}
+\newcommand{\mcF}{\mathcal F}
+\newcommand{\mcG}{\mathcal G}
+\newcommand{\mcH}{\mathcal H}
+\newcommand{\mcM}{\mathcal M}
+\newcommand{\mcO}{\mathcal O}
+\newcommand{\mcP}{\mathcal P}
+\newcommand{\mcQ}{\mathcal Q}
+\newcommand{\mcT}{\mathcal T}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Eps}{\mathcal E}
 
 \newcommand{\curlybrack}[1]{\left\{ #1\right\}}
 \newcommand{\abs}[1]{\left\lvert #1\right\rvert}
@@ -107,8 +121,7 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \newcommand{\floor}[1]{\left\lfloor #1\right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil #1\right\rceil}
 
-\newcommand{\eps}{\varepsilon}
-\newcommand{\Eps}{\mathcal E}
+\newcommand{\imp}{\implies}
 \newcommand{\for}{\forall}
 \newcommand{\mor}{\rightarrow}
 \newcommand{\nin}{\notin}
@@ -116,7 +129,8 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \newcommand{\inter}{\cap}
 \newcommand{\Union}{\bigcup}
 \newcommand{\Inter}{\bigcap}
-\newcommand{\Span}{\mathrm{Span}}
+\newcommand{\wtendsto}{\overset w\mor}
+\newcommand{\wstartendsto}{\overset{w*}\mor}
 \renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
 \renewcommand{\bar}[1]{\overline{#1}}
 
@@ -137,6 +151,7 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \DeclareMathOperator{\esssup}{ess sup}
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Span}{Span}
 
 \definecolor{lblue}{rgb}{0., 0.05, 0.6}
 \definecolor{mblue}{rgb}{0.2, 0.3, 0.8}
