@@ -68,10 +68,10 @@ If $G$ has a complete matching, then certainly $\abs A \le \abs{\Gamma(A)}$. Sur
   Exercise
 \end{proof}
 
-Let $\mathcal F = (F_1, \dots, F_m)$ where the $F_i$ are finite sets. We say $a_1, \dots, a_m$ is a {\bf set of distinct representatives}, aka {\bf SDR} if they are distinct and $\for i, a_i \in F_i$. Certainly, if $\mathcal F$ has SDR, then $\abs I \le \abs{\bigcup_{i \in I} F_i}$ for all $I \subseteq [m]$.
+Let $\mcF = (F_1, \dots, F_m)$ where the $F_i$ are finite sets. We say $a_1, \dots, a_m$ is a {\bf set of distinct representatives}, aka {\bf SDR} if they are distinct and $\for i, a_i \in F_i$. Certainly, if $\mcF$ has SDR, then $\abs I \le \abs{\bigcup_{i \in I} F_i}$ for all $I \subseteq [m]$.
 
 \begin{nthm}
-  $$\mathcal F \text{ is a SDR } \iff \for I \subseteq [m], \abs I \le \abs{\bigcup_{i \in I} F_i}$$
+  $$\mcF \text{ is a SDR } \iff \for I \subseteq [m], \abs I \le \abs{\bigcup_{i \in I} F_i}$$
 \end{nthm}
 \begin{proof}
   Define a bipartite graph $G$ with parts $[m]$ and $\bigcup_i F_i$ by $i \sim a \iff a \in F_i$. For all $I \subseteq [m]$, $\abs I \le \abs{\bigcup_{i \in I} F_i} = \abs{\Gamma(I)}$, so Theorem \ref{thm:hall} applies.
@@ -91,7 +91,7 @@ For $A \subseteq U, B \subseteq W$, define $w(A) = \frac{\abs A}{\abs U}, w(B) =
 Say a bipartite graph $G$ with parts $U, W$ is {\bf $(k, \ell)$-biregular} if
 $\deg(u) = k, \deg(w) = \ell$ for all $u \in U, w \in W$.
 
-\begin{nlemma}
+\begin{nlemma}\label{lem:weight-biregular}
   If $G$ is biregular with parts $U, W$ and $A \subseteq U$, then $w(A) \le w(\Gamma(A))$.
 \end{nlemma}
 \begin{proof}
@@ -115,10 +115,10 @@ $\deg(u) = k, \deg(w) = \ell$ for all $u \in U, w \in W$.
 \end{ncor}
 
 \begin{nthm}[Sperner, 1928]
-  Let $\mathcal A \subseteq \mathcal P(X)$ be an antichain. Then $\abs{\mathcal A} \le \binom n{\floor{\frac n 2}}$
+  Let $\mcA \subseteq \mcP(X)$ be an antichain. Then $\abs{\mcA} \le \binom n{\floor{\frac n 2}}$
 \end{nthm}
 \begin{proof}
-  A chain and an antichain can intersect in at most one element. If we manage to partition $\mathcal P(X)$ into $\binom n{\floor{\frac n 2}}$ chains, we win. \\
+  A chain and an antichain can intersect in at most one element. If we manage to partition $\mcP(X)$ into $\binom n{\floor{\frac n 2}}$ chains, we win. \\
   But we can repeatedly use Corollary \ref{cor:layer-inj} to construct matchings $X^{(0)}$ to $X^{(1)}$, $X^{(1)}$ to $X^{(2)}$, ..., $X^{(\ceil{\frac n 2} - 1)}$ to $X^{(\ceil{\frac n 2})}$ and $X^{(n)}$ to $X^{(n - 1)}$, $X^{(n - 1)}$ to $X^{(n - 2)}$, ..., $X^{(\floor{\frac n 2} + 1)}$ to $X^{(\floor{\frac n 2})}$, then ``stack'' the matchings together to make chains (if an element of the middle layer). Each chain goes through $X^{(\floor{frac n 2})}$, so we made $\binom n {\floor{\frac n 2}}$.
 \end{proof}
 
@@ -138,7 +138,7 @@ We can now understand the observation of Erd\H os (1945) about Littlewood-Offord
     \item if $x < y$, $x \in P_i$, $y \in P_j$, $i + 2 \le j$, then there exists $z$ such that $x < z < y$.
   \end{itemize}
   For $a \in P$, we call the unique $i$ for which $a \in P_i$ the {\bf grade} or {\bf rank} of $a$. \\
-  A graded order is {\bf regular} if for every $i$ there exists $p_i$ such that every $x \in P_i$ is less than exactly $p_k$ elemenets of $P_{i + 1}$. \\
+  A graded order is {\bf regular} if for every $i$ there exists $p_i$ such that every $x \in P_i$ is less than exactly $p_k$ elements of $P_{i + 1}$. \\
   For $A \subseteq P$, define $A_i = A \cap P_i$ and $w(A) = \sum_i \frac{\abs{A_i}}{\abs{P_i}}$.
 \end{defi}
 
@@ -152,13 +152,13 @@ TODO: Insert picture
   Now, write $r$ the maximal rank of an element of $A$ and define
   $$B := A \setminus A_r \cup \Gamma_{G_r}(A_r)$$
   The fact that $A$ is an antichain means that $B$ is an antichain as well and $\Gamma_{G_r}(A_r)$ is disjoint from $A_{r - 1}$. Hence
-  \begin{eqnarray*}
+  \begin{align*}
     w(A)
-    & = & w(A_r) + w(A_{r - 1}) + \sum_{i < r - 1} w(A_i) \\
-    & \le & w(\Gamma_{G_r}(A_r)) + w(A_{r - 1}) + \sum_{i < r - 1} w(A_i) \\
-    & = & w(B_{r - 1}) + \sum_{i < r - 1} w(B_i) \\
-    & = & w(B)
-  \end{eqnarray*}
+    & = w(A_r) + w(A_{r - 1}) + \sum_{i < r - 1} w(A_i) \\
+    & \le w(\Gamma_{G_r}(A_r)) + w(A_{r - 1}) + \sum_{i < r - 1} w(A_i) \\
+    & = w(B_{r - 1}) + \sum_{i < r - 1} w(B_i) \\
+    & = w(B)
+  \end{align*}
   We therefore have decreased the maximal rank without decreasing the weight. We can repeat the process until the antichain is contained in some $P_i$, in which case its weight is clearly at most $1$.
 \end{proof}
 
@@ -174,10 +174,10 @@ Consider maximal chains in our regular graded order. Say there are $M$ of them. 
 The following is a corollary of the above, but we provide a proof using Katona's circle method.
 
 \begin{nthm}[Lubell-Yamamoto-Meshalkin Inequality]
-  If $\mathcal A \subseteq 2^{[n]}$ is an antichain, then $\sum_{A \in \mathcal A} {\binom n {\abs A}}^{-1} \le 1$
+  If $\mcA \subseteq 2^{[n]}$ is an antichain, then $\sum_{A \in \mcA} {\binom n {\abs A}}^{-1} \le 1$
 \end{nthm}
 \begin{proof}
-  We say that $A \in 2^{[n]}$ is {\bf contained} in a permutation $\pi$ if $A = \{\pi_1, \dots, \pi_{\abs A}\}$. Every permutation contains at most one element of $\mathcal A$ and every $A \in \mathcal A$ is contained in $\abs A!(n - \abs A)!$ permutations.
+  We say that $A \in 2^{[n]}$ is {\bf contained} in a permutation $\pi$ if $A = \{\pi_1, \dots, \pi_{\abs A}\}$. Every permutation contains at most one element of $\mcA$ and every $A \in \mcA$ is contained in $\abs A!(n - \abs A)!$ permutations.
 \end{proof}
 
 We say a chain $C_i \subseteq C_{i + 1} \subseteq \dots \subseteq$ is {\bf symmetric} if $\abs{C_j} = j$ for all $j$.
@@ -193,11 +193,11 @@ We say a chain $C_i \subseteq C_{i + 1} \subseteq \dots \subseteq$ is {\bf symme
   Induction on $n$:
   \begin{itemize}
     \item $\{\{\empty\}\}$ is a PSC for $n = 0$.
-    \item Assume we have a PSC for $n$. For every chain $\mathcal C = \{C_i, \dots, C_{n - i}\}$ in our PSC for $n$, add the following two chains to our PSC for $n + 1$:
-    \begin{eqnarray*}
-      \mathcal C' & = & \{C_i, \dots, C_{n - i}, C_{n - i} \cup \{n\}\} \\
-      \mathcal C'' & = & \{C_i \cup \{n\}, \dots, C_{n - i - 1} \cup \{n\}\}
-    \end{eqnarray*}
+    \item Assume we have a PSC for $n$. For every chain $\mcC = \{C_i, \dots, C_{n - i}\}$ in our PSC for $n$, add the following two chains to our PSC for $n + 1$:
+    \begin{align*}
+      \mcC' & = \{C_i, \dots, C_{n - i}, C_{n - i} \cup \{n\}\} \\
+      \mcC'' & = \{C_i \cup \{n\}, \dots, C_{n - i - 1} \cup \{n\}\}
+    \end{align*}
     TODO: Insert figure
   \end{itemize}
 \end{proof}
@@ -206,13 +206,15 @@ The number of symmetric chains of length $n + 1 - 2i$ in a PSC is
 $$\binom n i - \binom n{i - 1}$$
 
 \begin{nthm}
-  Let $x_1, \dots, x_n$ be vectors of norm at least $1$ a normed space. For $A \subseteq [n]$, set $x_A = \sum_{i \in A} x_i$. Let $\mathcal A \subseteq 2^{[n]}$ such that
-  $$\for A, B \in \mathcal A, \norm{x_A - x_B} < 1$$
-  Then $\mathcal A \le \binom n{\floor{\frac n2}}$.
+  Let $x_1, \dots, x_n$ be vectors of norm at least $1$ a normed space. For $A \subseteq [n]$, set $x_A = \sum_{i \in A} x_i$. Let $\mcA \subseteq 2^{[n]}$ such that
+  $$\for A, B \in \mcA, \norm{x_A - x_B} < 1$$
+  Then $\mcA \le \binom n{\floor{\frac n2}}$.
 \end{nthm}
 \begin{proof}
-  Call $\mathcal B \subseteq 2^{[n]}$ {\bf sparse} or {\bf scattered} if $\for A, B, \mathcal B, A \ne B, \norm{x_A - x_B} \ge 1$. $\mathcal A$ intersects every sparse family in at most one set, so we would be done if there existed a partition of $2^{[n]}$ into $\binom n{\floor{\frac n2}}$ sparse chains. This is the next theorem.
+  Call $\mcB \subseteq 2^{[n]}$ {\bf sparse} or {\bf scattered} if $\for A, B, \mcB, A \ne B, \norm{x_A - x_B} \ge 1$. $\mcA$ intersects every sparse family in at most one set, so we would be done if there existed a partition of $2^{[n]}$ into $\binom n{\floor{\frac n2}}$ sparse chains. This is the next theorem.
 \end{proof}
+
+\newlec
 
 \begin{nthm}[Kleitman]
   $2^{[n]}$ has a partition into $\binom n{\floor{\frac n2}}$ sparse chains.
@@ -221,22 +223,419 @@ $$\binom n i - \binom n{i - 1}$$
   Induction on $n$:
   \begin{itemize}
     \item $\{\{\empty\}\}$ is a sparse partition for $n = 0$.
-    \item Assume we have a sparse partition for $n$. Let $f$ be a support functional at $x_n$ ($\for x, f(x) \le \norm x$, with equality if $x = x_n$). For every sparse family $\mathcal D = \{D_1, \dots, D_k\}$ in our sparse partition for $n$, find $i$ maximising $f(x_{D_i})$ and add the following two sparse families to our sparse partition for $n + 1$: 
-    \begin{eqnarray*}
-      \mathcal D' & = & \mathcal D \cup \{D_i \cup \{n\}\} \\
-      \mathcal D'' & = & \{D_j \cup \{n\} | j \ne i\}
-    \end{eqnarray*}
-    $\mathcal D''$ is clearly sparse. $\mathcal D'$ is also sparse because for all 
-    $D \in \mathcal D$
-    \begin{eqnarray*}
+    \item Assume we have a sparse partition for $n$. Let $f$ be a support functional at $x_n$ ($\for x, f(x) \le \norm x$, with equality if $x = x_n$). For every sparse family $\mcD = \{D_1, \dots, D_k\}$ in our sparse partition for $n$, find $i$ maximising $f(x_{D_i})$ and add the following two sparse families to our sparse partition for $n + 1$: 
+    \begin{align*}
+      \mcD' & = \mcD \cup \{D_i \cup \{n\}\} \\
+      \mcD'' & = \{D_j \cup \{n\} | j \ne i\}
+    \end{align*}
+    $\mcD''$ is clearly sparse. $\mcD'$ is also sparse because for all 
+    $D \in \mcD$
+    \begin{align*}
       \norm{x_{D_i \cup \{n\}} - x_D}
-      & = & \norm{x_{D_i} + x_n - x_D} \\
-      & \ge & f(x_{D_i} + x_n - x_D) \\
-      & = & f(x_{D_i}) - f(x_D) + \norm{x_n} \\
-      & \ge & 1
-    \end{eqnarray*}
+      & = \norm{x_{D_i} + x_n - x_D} \\
+      & \ge f(x_{D_i} + x_n - x_D) \\
+      & = f(x_{D_i}) - f(x_D) + \norm{x_n} \\
+      & \ge 1
+    \end{align*}
     The number of sparse partitions of length $n + 1 - 2i$ is again $\binom ni - \binom n{i - 1}$.
   \end{itemize}
+\end{proof}
+
+\clearpage
+
+\subsection{Around the Erd\H os-Ko-Rado theorem}
+
+Erd\H os-Ko-Rado says that if $\mcA \subseteq X^{(r)}$ is intersecting, then $\abs{\mcA} \le \binom{n - 1}{r - 1}$.
+
+\newlec
+
+\begin{defi}[Katona's circle method]
+  We consider a cyclic order on $X$, namely an equivalence $\pi : [n] \simeq X$, where $\abs X = n$ and $\pi, \pi'$ are identified if they differ by a shift. An {\bf arc} is a set of consecutive elements, namely a set of the form $\{\pi_a, \dots, \pi_b\}$ (with wrap-around allowed).
+  
+  TODO: Insert picture
+  
+  For $\pi$ a cyclic order and $\mcA$ a set family, we write $\mcA_\pi$ the $\pi$-arcs of $\mcA$.
+
+  There are $(n - 1)!$ cyclic orders. Every cyclic order $\pi$ supports exactly $n$ arcs of size $r$, and every set $A$ of size $r$ is an arc of exactly $r!(n - r)!$ cyclic orders.
+\end{defi}
+
+\begin{nlemma}\label{lem:arc-antichain}
+  Let $\mcA \subseteq X^{(\le \frac n2)}$ be an intersecting antichain of arcs in a cyclic order $\pi$. then
+  $$\abs{\mcA} \le \min_{A \in \mcA} \abs A$$
+\end{nlemma}
+\begin{proof}
+  WLOG $\pi_1, \dots, \pi_k$ is the shortest arc, $\mcA$ is nonempty and $k \ge 2$. For every $i \in [k]$, at most one arc separates $x_i$ and $x_{i + 1}$. Therefore $\abs{\mcA} - 1 \le k - 1$, namely $\abs{\mcA} \le k$.
+\end{proof}
+
+\begin{nthm}
+  Let $\mcA \subseteq X^{(\le \frac n2)}$ be an intersecting antichain. Then
+  $$\sum_{A \in \mcA} \binom{n - 1}{\abs A - 1}^{-1} \le 1$$
+\end{nthm}
+\begin{proof}
+  Consider the bipartite graph with parts $\mcA$ and the cyclic orders of $X$. Connect $A \in \mcA$ to a cyclic order $\pi$ if $A$ is a $\pi$-arc. Make the weight of the edge be $\abs A^{-1}$. Then every $A \in \mcA$ has total weight $(\abs A - 1)!(n - \abs A)!$ while each $\pi$ has weight
+  $$\sum_{A in \mcA_\pi} \abs A^{-1} \le \frac{\abs{\mcA_\pi}}{\min_{A \in \mcA} \abs A} \le 1$$
+  by Lemma \ref{lem:arc-antichain}. So
+  $$\sum_{A \in \mcA} (\abs A - 1)!(n - \abs A)! \le (n - 1)!$$
+\end{proof}
+
+\begin{nthm}
+  Let $r \le \frac n2$ and $\mcA \subseteq X^{(\le r)}$ be an intersecting antichain. Then $\abs{\mcA} \le \binom{n - 1}{r - 1}$.
+\end{nthm}
+\begin{proof}
+  $$\frac{\abs{\mcA}}{\binom{n - 1}{r - 1}} \le \sum_{A \in \mcA} \binom{n - 1}{\abs A - 1}^{-1} \le 1$$
+\end{proof}
+
+$\mcA$ being intersecting is the same as $\abs{A \inter B} \ge 1$ for all $A, B \in \mcA$. We say $\mcA$ is {\bf $\ell$-intersecting} if $\abs{A \inter B} \ge \ell$ for all $A, B \in \mcA$.
+
+We know the size of an intersecting antichain in $X^{(r)}$ is maximised by taking all sets of size $r$ containing a fixed element $x$. We would hope that the size of an $\ell$-intersecting antichain in $X^{(r)}$ is maximised by taking all sets of size $r$ containing a fixed set $R$ of size $\ell$ (which would give $\binom{n - \ell}{r - \ell}$ as an upper bound). This is however not true for small $n$. The reason is that it might be better to make $R$ a bit bigger than $\ell$ and in return ask for the sets in the antichain to intersect $R$ into a bit more than $\ell$ elements (rather than containing it).
+
+Precisely, pick your favorite number $t$ and your favorite set $R$ of size $\ell + 2t$. Now define
+$$\mcF_t = \{A \in X^{(r)} \mid \abs{A \inter R} \ge \ell + t\}$$
+For every $A, B \in \mcF$,
+$$\abs{A \inter B} \ge \abs{A \inter B \inter R} = \abs{A \inter R} + \abs{B \inter R} - \abs{(A \union B) \inter R} \ge 2\ell + 2t - (\ell + 2t) = \ell$$
+So $\mcF_t$ is $\ell$-intersecting. On the other hand,
+$$\abs{F_t} > \binom{n - \ell}{r - \ell}$$
+for values of $n$ on the same order of magnitude as $r$ and $\ell$.
+
+\begin{nthm}
+  Let $1 \le \ell < r$ be fixed. If $n$ is large enough and $\mcA \subseteq X^{(r)}$ is an $\ell$-intersecting family, then $\abs{\mcA} \le \binom{n - \ell}{r - \ell}$.
+\end{nthm}
+\begin{proof}
+  We may assume $\mcA$ is maximal. In particular, find $A_1, A_2 \in \mcA$ such that
+  $$\abs{A_1 \inter A_2} = \ell$$
+  If $\abs{\Inter_{A \in \mcA} A} \ge \ell$, we're done. So find some $A_3 \in \mcA$ such that
+  $$\abs{A_1 \inter A_2 \inter A_3} < \ell$$
+  Set $U = A_1 \union A_2 \union A_3$. $\abs U \le 3r$ and every element of $\mcA$ intersects $U$ in at least $\ell + 1$ elements. Hence
+  $$\abs\mcA \le \binom{3r}{\ell + 1}\binom n{r - (\ell + 1)} \le \binom{n - \ell}{r - \ell}$$
+  for large enough $n$.
+\end{proof}
+
+\newlec
+
+What if $2r \ge n$ and $\mcF \subseteq X^{(r)}$ is such that $A \union B \ne X$ for all $A, B \in \mcF$? This is just Erd\H os-Ko-Rado again by taking complements: $\{A^c \mid A \in \mcF\} \subseteq X^{(n - r)}$ is an intersecting antichain with $2(n - r) \le n$, so
+$$\abs{\mcF} = \abs{\{A^c \mid A \in \mcF\}} \le \binom{n - 1}{(n - r) - 1} = \binom{n - 1}r$$
+
+What happens now if $kr \ge n$ and no $k$ sets in $\mcF$ have union $X$? For $k = 2$, this is Erd\H os-Ko-Rado. We can take $\mcF = (\{1\}^c)^{(r)}$ to achieve
+$$\abs\mcF \le \binom{n - 1}r$$
+
+\begin{nthm}[Frankl]\label{thm:k-unioning}
+  Let $k, r, n$ be such that $n \le kr$ and $\mcF \subseteq X^{(r)}$ be such that no union of $k$ sets in $\mcF$ is $X$. then
+  $$\abs{\mcF} \le \binom{n - 1}r$$
+  This bound is sharp.
+\end{nthm}
+\begin{proof}
+  Every $F \in \mcF$ is an arc in exactly $r!(n - r)!$ cyclic orders. If we knew that each cyclic order supports at most $n - r$ elements of $\mcF$, we would get
+  $$\abs\mcF n!(n - r)! = \#\{(f, \pi) \mid f \in \mcF_\pi\} \le (n - 1)!(n - r)$$
+  namely $\abs\mcF \le \binom{n - 1}r$. So let's prove that. \\
+  Assume $\pi$ is a cyclic order. WLOG, assume $\doublesqbrack{n - r + 1, n} \in \mcF$. Define
+  $$K = \{\text{endpoint of } F \mid F \in \mcF_\pi\} \union \doublesqbrack{n + 1, kr}$$
+  For each $0 < j \le r$, we know that $\{j, j + k, \dots, j + (r - 1)k\} \not\subseteq K$ as otherwise the corresponding arcs would cover $X$. Hence
+  $$\abs{\mcF_\pi} = \abs K + n - kr \le (k - 1)r + n - kr = n - r$$
+\end{proof}
+
+\begin{ncor}
+  Let $k, r, n$ be such that $r \le \frac{k - 1}k n$ and $\mcA \subseteq X^{(r)}$ be a $k$-intersecting family. Then $\abs\mcA \le \binom{n - 1}{r - 1}$.
+\end{ncor}
+\begin{proof}
+  Set $\mcF = \{A^c \mid A \in \mcA\}$. Then Theorem \ref{thm:k-unioning} applies and gives
+  $$\abs\mcA = \abs\mcF \le \binom{n - 1}{n - r} = \binom{n - 1}{r - 1}$$
+\end{proof}
+
+\clearpage
+
+\subsection{The Vertex Isoperimetric Problem in the Cube and the Kruskal-Katona Theorem}
+
+We are interested in the isoperimetric problem in the discrete cube.
+
+Define $Q_n$ to be the graph with vertices $2^{[n]}$ and
+$$x \sim y \iff \abs{x \symdif y} = 1$$
+$\abs{x \symdif y}$ is more generally the distance between $x$ and $y$ in $Q_n$. Given $A \subseteq Q_n$, write
+$$N(A) = A \union \Gamma(A) = \{x \in Q_n \mid d(x, A) \le 1\}$$
+the {\bf neighborhood} of $A$.
+
+\begin{question}
+  How large is $\abs{N(A)}$ when $\abs A = \alpha$?
+\end{question}
+
+Our life will be made incredibly easier here by the fact that the extremal $A$ are {\it nested}. That is to say we will find $I_0 \subseteq I_1 \subseteq \dots$ such that $\abs{I_\alpha} = \alpha$ and $\abs{N(A)} \ge \abs{N(I_\alpha)}$ for all $A$ of size $\alpha$.
+
+This is to compare to the usual isoperimetric inequality in $\R^d$, where the extremal sets (ie balls) are also nested. In both cases, this means we can make any set look more and more like an extremal set by {\it thickening} or {\it compressing} it.
+
+TODO: Insert potatoes
+
+\newlec
+
+A nested sequence of sets is equivalent to the sequence of initial segments of some order. What order do we want here?
+
+For $x, y \in X^{(r)}$, say $x$ is less than $y$ in the {\bf lexicographic order}, written $x \lexlt y$, if $\min(x \symdif y) \in x$. The slogan is ``Keep small elements small''. For $n = 5, r = 3$, the lex order is
+$$123 < 124 < 125 < 134 < 135 < 145 < 234 < 235 < 245 < 345$$
+We extend the lex orders on the $X^{(r)}$ to the {\bf simplicial order} on $Q_n$ by
+$$x < y \iff \abs x < \abs y \text{ or } \abs x = \abs y \text{ and x } \lexlt y$$
+The simplicial order on $Q_5$ starts
+$$\emptyset, 1, 2, 3, 4, 5, 12, 13, 14, 15, 23, \dots$$
+
+\begin{defi}
+  For $A \subseteq Q_n$, define
+  \begin{align*}
+    A_+^{(i)} & = \{x \mid i \nin x, x \union \{i\} \in A\} \\
+    A_-^{(i)} & = \{x \mid i \nin x, x \in A\}
+  \end{align*}
+  The {\bf $i$-compression} of $A$ is the set $B$ such that $B_\pm^{(i)}$ are the initial segments in the simplicial order with $\abs{B_\pm^{(i)}} = \abs{A_\pm^{(i)}}$.
+\end{defi}
+
+\begin{nlemma}\label{lem:card-nhds-compress}
+  $$\abs{N(C_i(A))} \le \abs{N(A)}$$
+\end{nlemma}
+\begin{proof}
+  Write $B = C_i(A)$.
+  \begin{align*}
+    \abs{N(B)}
+    & = \abs{N(B)_+^{(i)}} + \abs{N(B)_-^{(i)}} \\
+    & = \abs{N\left(B_+^{(i)}\right) \union B_-^{(i)}} + \abs{N\left(B_-^{(i)}\right) \union B_+^{(i)}} \\
+    & = \max\left(\abs{N\left(B_+^{(i)}\right)}, \abs{B_-^{(i)}}\right) + \max\left(\abs{N\left(B_-^{(i)}\right)}, \abs{B_+^{(i)}}\right) \text{ by nestedness} \\
+    & = \max\left(\abs{N\left(C_i\left(A_+^{(i)}\right)\right)}, \abs{A_-^{(i)}}\right) + \max\left(\abs{N\left(C_i\left(A_-^{(i)}\right)\right)}, \abs{A_+^{(i)}}\right) \\
+    & \le \max\left(\abs{N\left(A_+^{(i)}\right)}, \abs{A_-^{(i)}}\right) + \max\left(\abs{N\left(A_-^{(i)}\right)}, \abs{A_+^{(i)}}\right) \\
+    & = \abs{N(A)_+^{(i)}} + \abs{N(A)_-^{(i)}} \\
+    & = \abs{N(A)}
+  \end{align*}
+\end{proof}
+
+\begin{nlemma}\label{lem:eventually-compress}
+  For every $A \subseteq Q_n$, there exists a {\bf compressed set} $B$ (namely $C_i(B) = B$ for all $i$) such that $\abs B = \abs A$ and $\abs{N(B)} \le \abs{N(A)}$.
+\end{nlemma}
+\begin{proof}
+  Repeatedly $i$-compress $A$ for various $i$. This must terminate since $i$-compressing reduces $A$ in the lex order on $Q_n^{(\abs A)}$. (Warning, we're taking the lex order of the simplicial order here!)
+\end{proof}
+
+\newlec
+
+We would be extremely lucky if the only compressed sets were initial segments of the simplicial order. We are merely incredibly lucky and there is exactly one exceptional set which is compressed but not an initial segment.
+
+Define the {\bf half-space} $H_n = I_{2^{n - 1}}$, and the {\bf exceptional set} $E_n = H_n \setminus \{\max H_n\} \union \{\min H_n^c\}$ which is $H_n$ with its last element $\max H_n$ replaced by $\min H_n^c$, the next element in the simplex order (which also happens to be the complement of $\max H_n$).
+\begin{itemize}
+  \item If $n = 2k + 1$, then $H_n = X^{(\le k)}$ and
+  $$E_n = H_n \setminus \{\{k + 2, \dots, 2k + 1\}\} \union \{\{1, \dots, k + 1\}\}$$
+  \item If $n = 2k$, then $H_n = X^{(\le k - 1)} \union \{x \union \{1\} \mid  x \in (\{1\}^c)^{(k - 1)}\}$ and
+  $$E_n = H_n \setminus \{\{1, k + 2, \dots, 2k\}\} \union \{\{2, \dots, k + 1\}\}$$
+\end{itemize}
+
+In both cases, $E_n$ is compressed but not an initial segment.  We also notice that the element we remove is the complement of the element we add.
+
+\begin{nlemma}\label{lem:exceptional-set}
+  If $A \subseteq Q_n$ is compressed but not an initial segment, then $A = E_n$.
+\end{nlemma}
+\begin{proof}
+  For every $x \nin A, y \in A$ such that $x < y$, we see that $i \in x \iff i \nin x$ for all $i$ as otherwise $A$ wouldn't be $i$-compressed. Hence $x$ and $y$ are complements. In particular, such $x$ and $y$ are unique. Since $A$ is not an initial segment, such $x$ and $y$ exist. So
+  $$A = \text{initial segment} \setminus \{\text{last}\} \union \{\text{next}\}$$
+  where $\text{last}^c = \text{next}$. But there is only one element which follows its complement in the lex order. So $A = E_n$ as claimed.
+\end{proof}
+
+\begin{rmk}
+  $$\abs{N(E_n)} = \abs{N(H_n)} + \floor{\frac{n - 1}2}$$
+\end{rmk}
+
+\begin{nthm}[Vertex Isoperimetric Inequality]
+  If $A \subseteq Q_n$, then $\abs{N(A)} \ge \abs{N(I_{\abs A})}$.
+\end{nthm}
+\begin{proof}
+  Apply Lemmas \ref{lem:card-nhds-compress}, \ref{lem:eventually-compress}, \ref{lem:exceptional-set}.
+\end{proof}
+
+\begin{defi}
+  For $\mcA \subseteq \mcP(X)$, define the {\bf lower shadow} of $\mcA$
+  $$\underline\partial\mcA = \{A \setminus \{a\} \mid a \in A \in \mcA\}$$
+  and the {\bf upper shadow} of $\mcA$
+  $$\overline\partial\mcA = \{A \union \{a\} \mid a \nin A \in \mcA\}$$
+\end{defi}
+
+TODO: Insert graded potato
+
+\begin{question}
+  How large is $\abs{\mcA}$ when $\mcA \subseteq X^{(r)}$ and $\abs\mcA = a$?
+\end{question}
+
+From Lemma \ref{lem:weight-biregular}, we know the bound $\abs{\underline\partial\mcA} \ge \frac r{n - r + 1}\abs\mcA$, but we can do much better now that we have the vertex isoperimetric inequality. Indeed,
+$$N\left(X^{(\ge + 1)} \union \mcA\right) = X^{(\ge r)} \union \underline\partial\mcA$$
+and $X^{(\ge r)}$ is disjoint from $\underline\partial\mcA$.
+
+TODO: Insert graded potato
+
+\newlec
+
+Recall we defined $x \lexlt y$ to mean $\min(x \symdif y) \in x$. Define the {\bf colexicographic order} by
+$$x \colexlt y \iff \max(x \symdif y) \in y$$
+The slogan this time is ``Keep big elements small''. The colex order for $n = 5, r = 3$ is
+$$123, 124, 134, 234, 125, 135, 235, 145, 245, 345$$
+colexicographic order is dual to the lexicographic order in the sense that
+$$x \colexlt y \iff y^c \lexlt x^c$$
+Since we have proved the vertex isoperimetric inequality for the lex order, we will reuse it rather than the colex order (hence we bound $\overline\partial$ instead of $\underline\partial$). Define
+\begin{align*}
+  I_\alpha^{(r)} & = \text{initial segment of size $\alpha$ in $X^{(r)}$ in colex} \\
+  J_\alpha^{(r)} & = \text{initial segment of size $\alpha$ in $X^{(r)}$ in lex}
+\end{align*}
+We observe that initial segments of the simplicial order are of the form $X^{(\le r - 1)} \union J_a^{(r)}$.
+
+\begin{nthm}[Kruskal 1963, Katona 1968]
+  If $\mcA \subseteq X^{(r)}$, then $\abs{\underline\partial\mcA} \ge \abs{\underline\partial I_{\abs\mcA}^{(r)}}$.
+\end{nthm}
+\begin{proof}
+  By taking complements, we will instead prove the analogous statement for the upper shadow.
+  \begin{align*}
+    \abs{X^{(\le r)}} + \abs{\overline\partial\mcA}
+    & = \abs{X^{(\le r)} \union \overline\partial\mcA} \\
+    & = \abs{N\left(X^{(\le r - 1)} \union \mcA\right)} \\
+    & \ge \abs{N\left(X^{(\le r - 1)} \union J_{\abs\mcA}^{(r)}\right)} \text{ by the vertex isoperimetric inequality} \\
+    & = \abs{X^{(\le r)} \union \overline\partial J_{\abs\mcA}^{(r)}} \\
+    & = \abs{X^{(\le r)}} + \abs{\overline\partial J_{\abs\mcA}^{(r)}}
+  \end{align*}
+  So $\abs{\overline\partial\mcA} \ge \abs{\overline\partial J_{\abs\mcA}^{(r)}}$.
+\end{proof}
+
+\clearpage
+
+\subsection{Sums of sets}
+
+Let $G$ be an additive abelian group, $A, B \subseteq G$. Define
+$$A + B = \{a + b \mid a \in A, b \in B\}$$
+This is called {\bf pointwise addition} of sets or the {\bf Minkowski sum}.
+
+\begin{nthm}[Brunn-Minkowski]
+  Let $A, B \subseteq \R^n$ be compact sets. Then
+  $$\abs{A + B}^{\frac 1n} \ge \abs A^{\frac 1n} + \abs B^{\frac 1n}$$
+\end{nthm}
+\begin{proof}[Sketch proof]
+  Assuming our sets are nice, eg they are finite disjoint unions of rectangles, then the question becomes combinatorial.
+\end{proof}
+
+If $A, B$ are finite nonempty sets of integers, say $A = \{a_1, \dots, a_k\}, a_1 < \dots < a_k$ and $B = \{b_1, \dots, b_\ell\}, b_1 < \dots < b_\ell$, then $\abs{A + B} \ge \abs A + \abs B - 1$ as
+$$a_1 + b_1 < \dots < a_1 + b_\ell < \dots < a_k + b_\ell$$
+are $k + \ell - 1$ distinct elements of $A + B$.
+
+If $A, B$ are finite nonempty sets in a finite abelian group $G$ such that $\abs A + \abs B > \abs G$, then $A + B = G$. Indeed, for every $x \in G$, we have $\abs{x - A} + \abs B > \abs G$, so there must be some $b \in (x - A) \inter B$. Writing $b = x - a$ for some $a \in A$, we see that $x = a + b \in A + B$.
+
+\newlec
+
+\begin{nthm}[Cauchy 1813, Davenport 1935]\label{thm:cd}
+  If $p$ is prime and $A, B$ are finite nonempty sets in $\Z/p\Z$ such that $\abs A + \abs B \le p + 1$, then
+  $$\abs{A + B} \ge \abs A + \abs B - 1$$
+\end{nthm}
+\begin{proof}
+  Apply induction on $\abs A$.
+  \begin{itemize}
+    \item If $\abs A = 1$, say $A = \{a\}$, then
+    $$\abs{A + B} = \abs{a + B} = \abs B = \abs A + \abs B - 1$$
+    \item If $\abs A \ge 2$, we may assume $0 \in A \inter B$ and find some $a \ne 0$ such that $a \in A$. Since $a, 2a, \dots, pa$ are all distinct elements of $\Z/p\Z$, and $\abs B \le p + 1 - \abs A < p$, we can find some $k$ such that $ka \in B$ but $(k + 1)a \nin B$. Shifting $B$ by $ka$, we may assume $0 \in A \inter B, a \in A \ B$, so that $1 \le \abs{A \inter B} < \abs A$. By induction hypothesis and observing that $A \union B + A \inter B \subseteq A + B$,
+    $$\abs{A + B} \ge \abs{A \union B + A \inter B} \ge \abs{A \union B} + \abs{A \inter B} - 1 = \abs A + \abs B - 1$$
+  \end{itemize}
+\end{proof}
+
+\begin{ncor}\label{cor:cd-n-ary}
+  Let $A_1, \dots, A_k$ be nonempty sets in $\Z/p\Z$ for $p$ prime. Then
+  $$\abs{A_1 + \dots + A_k} \ge \min(\abs{A_1} + \dots + \abs{A_k} - (k - 1), p)$$
+\end{ncor}
+\begin{proof}
+  Trivial induction on $k$ from Theorem \ref{thm:cd}.
+\end{proof}
+
+\begin{nthm}[Macbeath 1953, Kneser 1955]
+  Let $A, B$ be nonempty subsets of a finite abelian group $G$ such that $\abs A + \abs B \le \abs G$. Then $G$ has a proper subgroup $H$ such that
+  $$\abs{A + B} \ge \abs A + \abs B - \abs H$$
+\end{nthm}
+\begin{proof}
+  Induction on $\abs B$.
+  \begin{itemize}
+    \item If $\abs B = 1$, say $B = \{b\}$, then one can take $H = \{0\}$ so that
+    $$\abs{A + B} = \abs{A + b} = \abs A = \abs A + \abs B - \abs H$$
+    \item If $ \abs B \ge 1$, we may assume $0 \in A \inter B$. We will have two cases. The first one is essentially trivial while the second one is the heart of the proof.
+    
+    {\bf Case 1: $A + B - B = A$} \\
+    Set $H = \langle B\rangle$.
+    $$\abs{A + B} \ge \abs A \ge \abs A + \abs B - \abs H$$
+    and $H \ne G$ since $A + H = A \ne G$.
+
+    {\bf Case 2: $A + B - B \ne A$} \\
+    Find $a \in A$ and $b, c \in B$ such that $a + b - c \nin A$. Set $d = a - c$.
+    \begin{claim}
+      $$1 \le \abs{A \inter (B + d)} < \abs B$$
+    \end{claim}
+    \begin{proof}
+      $b + d \in B + d$ but $b + d = a + b - c \nin A$, so $\abs{A \inter (B + d)} < \abs{B + d} < \abs B$. On the other hand, $a = c + d \in A \inter (B + d)$.
+    \end{proof}
+    Hence by the induction hypothesis, find some strict subgroup $H$ such that
+    $$\abs{A \union (B + d) + A \inter (B + d)} \ge \abs{A \union (B + d)} + \abs{A \inter (B + d)} - \abs H$$
+    Since $A \union (B + d) + A \inter (B + d) \subseteq A + B + d$, we get
+    \begin{align*}
+      \abs{A + B}
+      & = \abs{A + B + d} \\
+      & \ge \abs{A \union (B + d) + A \inter (B + d)} \\
+      & \ge \abs{A \union (B + d)} + \abs{A \inter (B + d)} - \abs H \\
+      & = \abs A + \abs{B + d} - \abs H \\
+      & = \abs A + \abs B - \abs H \\
+    \end{align*}
+  \end{itemize}
+\end{proof}
+
+\newlec
+
+\begin{nthm}[Erd\H os-Ginzburg-Ziv, 1961]
+  Let $a_1, \dots, a_{2n - 1} \in \Z/n\Z$. Then there exists a subsequence of length $n$ summing to $0$.
+\end{nthm}
+\begin{proof}~\\
+  {\bf Case 1: $n = p$ is prime} \\
+  Write $0 \le a_1, \dots \le a_{2p - 1} < p$. If $a_i = \dots, a_{i + p - 1}$, then their sum is $0$. Otherwise, set $A_i = \{a_i, a_{i + p - 1}\}$ for $i = 1, \dots, p - 1$ and $A_p = \{a_{2p - 1}\}$. Then Corollary \ref{cor:cd-n-ary} gives us
+  $$\abs{A_1 + \dots + A_p} \ge \min(2p - 1 - (p - 1), p) = p$$
+  Hence every $b \in \Z/p\Z$, in particular $0$, is the sum of a subsequence of length $p$.
+
+  {\bf Case 2: $n$ is composite} \\
+  Instead of looking at sequences in $\Z/n\Z$ which sum to $0$, look at sets in $\Z$ whose sum is divisible by $n$. Induction on the number of prime factors. \\
+  We know the result for $n$ a prime, so write $n = ab$ where $a, b < n$ and assume the result for $a$ and $b$. By induction hypothesis for $b$, repeatedly pick sets $S_1, \dots S_{2a - 1}$ of size $b$ whose sum is divisible by $b$. This is possible since after having picked $k \le 2a - 2$ such sets, there are $2n - 1 - kb \ge 2n - 1 - (2a - 2)b = 2b - 1$ elements left. Now, apply the induction hypothesis for $a$ on
+  $$\frac{S_1}b, \dots + \frac{S_{2a + 1}}b$$
+  to find $i_1, \dots, i_a$ such that
+  $$\frac{S_{i_1}}b + \dots + \frac{S_{i_a}}b$$
+  is divisible by $a$. But then $S_{i_1} + \dots + S_{i_a}$ is divisible by $n$.
+\end{proof}
+\begin{rmk}
+  This is sharp since no subsequence of length $n$ sums to $0$ in
+  $$\underbrace{0, \dots, 0}_{n - 1}, \underbrace{1, \dots, 1}_{n - 1}$$
+\end{rmk}
+
+\clearpage
+
+\section{Polynomials in Combinatorics}
+
+\subsection{Alon's Combinatorial Nullstellensatz}
+
+Let $\F$ be a field, sometimes algebraically closed, often finite. Write
+$$\F[X] = \F[X_1, \dots, X_n]$$
+
+\begin{thm}[Hilbert's Nullstellensatz]
+  Let $\F$ be an algebraically closed field and $I$ be an ideal of $\F[X]$. Write
+  $$V(I) = \{x \in \F^n \mid \for f \in I, f(x) = 0\}$$
+  If $f \in \F[X]$ vanishes on $V(I)$ then $f^k \in I$ for some $k$.
+\end{thm}
+
+For finitely generated ideals, we have two versions.
+
+\begin{thm}[Weak version of Hilbert's Nullstellensatz for finitely generated ideals]
+  Let $f_1, \dots, f_m \in \F[X]$ be polynomials with no common zeroes. Then
+  $$\langle f_1, \dots, f_n\rangle = \F[X]$$
+\end{thm}
+
+\begin{thm}[Strong version of Hilbert's Nullstellensatz for finitely generated ideals]
+  Let $f, f_1, \dots, f_m \in \F[X]$. If $f$ vanishes on $V(\langle f_1, \dots, f_m\rangle)$, then $f^k \in I$ for some $k$, ie $f^k = g_1f_1 + \dots + g_mf_m$ for some $g_1, \dots, g_m \in \F[X]$.
+\end{thm}
+
+For some time it was thought that the strong version was harder than the weak version. But in fact they're equivalent.
+
+\begin{proof}[Proof that weak version $\imp$ strong version]
+  Add a variable $X_0$ and a polynomial $f_0 = fX_0 - 1$. By construction, $f_0, \dots, f_m$ have no common zeroes. So
+  $$\langle f_0, \dots, f_m\rangle = \F[X_0, \dots, X_n]$$
+  In particular, we can find $g_0, \dots, g_m \in \F[X_0, \dots, X_n]$ such that
+  $$1 = g_0(fX_0 - 1) + g_1f_1 + \dots + g_m f_m$$
+  Substituting $X_0 = \frac 1f$, we get
+  $$1 = g_1f_1 + \dots + g_m f_m = \sum_{i = 1}^m g_i\left(\frac 1f, X_1, \dots, X_m\right)f_i = \frac{\sum_{i = 1}^m h_if_i}{f^k}$$
+  for some integer $k$ and polynomials $h_i$, namely
+  $$f^k = \sum_{i = 1}^m h_if_i$$
 \end{proof}
 
 \newlec
