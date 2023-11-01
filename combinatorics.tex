@@ -640,5 +640,47 @@ For some time it was thought that the strong version was harder than the weak ve
 
 \newlec
 
+\begin{nthm}[Alon's Combinatorial Nullstellensatz, 1995]
+  Let $\F$ be a field and $f \in \F[X_1, \dots, x_n]$ have degree $d = \sum_{i = 1}^n d_i$. Let $S_1, \dots, S_n \subseteq \F$ be such that $\abs{S_i} > d_i$. If $X_1^{d_1} + \dots + X_n^{d_n}$ is a monomial in the expansion of $f$, then $f$ is non-zero somewhere on $S_1 \times \dots \times S_n$.
+\end{nthm}
+\begin{proof}[Proof (Michałek)]
+  Note that
+  $$X^k = (X - t)(X^{k - 1} + tX^{k - 2} + \dots + t^{k - 1}) + t^k$$
+  Induction on $d$.
+  \begin{itemize}
+    \item Obvious for $d = 0$.
+    \item If $d \ge 1$, say $d_1 \ge 1$, pick $s_1 \in S_1$. Then $f = (X_1 - s_1)q(X) + r(X)$ where $\deg q = d - 1$ and $r \in \F[X_2, \dots, X_n]$. Assume that $f$ vanishes on $S_1 \times \dots \times S_n$. Then $s$ vanishes on $\{s_1\} \times S_2 \times \dots \times S_n$. But $r$ does not depend on $X_1$, so in fact $r$ vanishes on $S_1 \times \dots \times S_n$. Therefore $q$ is zero on $S_1 \setminus \{s_1\} \times \dots \times S_n$, which contradicts the induction hypothesis.
+  \end{itemize}
+\end{proof}
+
+\begin{nthm}[Chevalley-Warning]
+  Let $\F$ be a finite field and
+  $$f_1, \dots, f_m \in \F[X_1, \dots, X_n]$$
+  be such that $\sum_{i = 1}^m \deg f_i < n$. If the $f_i$ have a common zero, then they have another one.
+\end{nthm}
+\begin{proof}
+  Write $q$ the order of $\F$. Recall that for $z \in Z$
+  $$z^{q - 1} = \begin{cases*}
+    0 \text{ if } z = 0 \\
+    1 \text{ if } z \ne 0
+  \end{cases*}$$
+  Assume (by shifting) that the common zero of the $f_i$ is $0$. Define
+  $$f = \prod_{i = 1}^m (1 - f_i^{q - 1}) + \gamma \prod_{i = 1}^n \prod_{s \ne 0} (X_i - s)$$
+  where we choose $\gamma \ne 0$ such that $f(0) = 0$.
+  $$\deg f \le \max((n - 1)(q - 1), n(q - 1)) = n(q - 1)$$
+  and the monomial $X_1^{q - 1} \dots X_n^{q - 1}$ has coefficient $\gamma \ne 0$ in $f$. So the Combinatorial Nullstellensatz gives us $a$ such that $f(a) \ne 0$. Then $a \ne 0$ and $f_1(a) = \dots = f_m(a) = 0$.
+\end{proof}
+
+\begin{nthm}
+  Let $\F$ be a finite field of characteristic $p$. Let $f \in \F[X_1, \dots, X_n]$. If $\deg f < n$, then the number of zeroes of $f$ is a multiple of $p$.
+\end{nthm}
+\begin{proof}
+  Denote $q$ the order of $\F$.Write $N(f)$ the number of zeroes of $f$. We have
+  $$N(f) = \sum_x(1 - f(x)^{q - 1}) = - \sum_x f(x)^{q - 1}$$
+  Expand $f(x)^{q - 1}$ into monomials of degree at most $(n - 1)(q - 1)$.
+\end{proof}
+
+\newlec
+
 \printindex
 \end{document}
