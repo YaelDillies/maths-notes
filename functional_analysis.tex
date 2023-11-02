@@ -292,7 +292,7 @@ Let $X, Y$ be normed spaces. Recall
 $$\mcB(X, Y) = \{T : X \mor Y \mid T \text{ linear, bounded}\}$$
 This is a normed space in the operator norm:
 $$\norm T = \sup_{x \in B_X} \norm{Tx}$$
-If $Y$ is complete, then so is $\mcB(X, Y)$. For $T \in \mcB(X, Y)$, the {\bf dual operator} of $T$ is the map $T^* : Y^* \mor X^*$ given by $T^*g = g \circ T$. In bracket notation $\inn x{T^*g} = \inn{Tx} g$ for $x \in X, g \in Y^*$.
+If $Y$ is complete, then so is $\mcB(X, Y)$. For $T \in \mcB(X, Y)$, the {\bf dual operator} of $T$ is the map $T^* : Y^* \mor X^*$ given by $T^*g = g \comp T$. In bracket notation $\inn x{T^*g} = \inn{Tx} g$ for $x \in X, g \in Y^*$.
 
 {\bf $T^*$ is linear}
 \begin{align*}
@@ -373,7 +373,7 @@ If $Z$ is another normed space, $T \in \mcB(X, Z)$ and $Y \subseteq \ker T$, the
   \end{claim}
   Then we're done since $Y$ is separable via $Y = \bar{\Span_\Q\{x_n \mid n \in \N\}}$.
   \begin{proof}
-    Assume not. Then we can pick $g \in (X/Y)^*$, $\norm g = 1$ (by Theorem \ref{thm:hb-support} (ii)). Let $f = g \circ q$. Then $\norm f = \norm g = 1$, ie $f \in S_{X^*}$. Thus find $n$ such that $\norm{f - f_n} < \frac 14$, so that
+    Assume not. Then we can pick $g \in (X/Y)^*$, $\norm g = 1$ (by Theorem \ref{thm:hb-support} (ii)). Let $f = g \comp q$. Then $\norm f = \norm g = 1$, ie $f \in S_{X^*}$. Thus find $n$ such that $\norm{f - f_n} < \frac 14$, so that
     $$\frac 14 > \norm{f - f_n}\norm{x_n} \ge \abs{(f - f_n)(x_n)} = \abs{f_n(x_n)} > \frac 12$$
     contradiction.
   \end{proof}
@@ -412,7 +412,7 @@ If $Z$ is another normed space, $T \in \mcB(X, Z)$ and $Y \subseteq \ker T$, the
   Lex $X$ be a complex Banach space, $f : \C \mor X$ holomorphic and bounded. Then $f$ is constant.
 \end{nthm}
 \begin{proof}
-  Find $M \ge 0$ such that $\for z \in \C, \abs{f(z)} \le M$. Fix $\phi \in X^*$. $\phi \circ f : \C \mor \C$ is
+  Find $M \ge 0$ such that $\for z \in \C, \abs{f(z)} \le M$. Fix $\phi \in X^*$. $\phi \comp f : \C \mor \C$ is
 
   {\bf bounded}
   $$\abs{\phi(f(z))} \le \norm\phi \norm{f(z)} \le M\norm\phi$$
@@ -420,7 +420,7 @@ If $Z$ is another normed space, $T \in \mcB(X, Z)$ and $Y \subseteq \ker T$, the
   {\bf holomorphic}
   $$\frac{\phi(f(z)) - \phi(f(w))}{z - w} = \phi\left(\frac{f(z) - f(w)}{z - w}\right) \mor \phi(f'(z))$$
 
-  By scalar Liouville, $\phi \circ f$ is constant. For every $z \in \C, \phi \in X^*$, $\phi(f(z)) = \phi(f(0))$. Since $X^*$ separates points of $X$, $f(z) = f(0)$.
+  By scalar Liouville, $\phi \comp f$ is constant. For every $z \in \C, \phi \in X^*$, $\phi(f(z)) = \phi(f(0))$. Since $X^*$ separates points of $X$, $f(z) = f(0)$.
 \end{proof}
 
 \begin{rmk}
@@ -1033,7 +1033,7 @@ Let $X$ be a set and $\mcF$ a set of functions on $X$ such that each $f \in \mcF
     \item If $Y_f$ is Hausdorff for all $f \in \mcF$ and {\bf $\mcF$ separates points of $X$} ($\for x \ne y, \exists f \in \mcF, f(x) \ne f(y)$), then $\sigma(X, \mcF)$ is Hausdorff.
     \item Let $Y \subseteq X, \mcF_Y = {f\restriction_Y \mid f \in \mcF}$. Then $\sigma(Y, \mcF_Y) = \sigma(X, \mcF)\restriction_Y$.
     \item {\bf Universal property}: Let $Z$ be a topological space and $g : Z \mor X$. then
-    $$g \text{ continuous} \iff \for f \in \mcF, f \circ g : Z \mor Y_f \text{ continuous}$$
+    $$g \text{ continuous} \iff \for f \in \mcF, f \comp g : Z \mor Y_f \text{ continuous}$$
   \end{enumerate}
 \end{rmks}
 
@@ -1045,7 +1045,7 @@ Let $X$ be a set and $\mcF$ a set of functions on $X$ such that each $f \in \mcF
   \end{enumerate}
 \end{egs}
 
-\begin{nprop}
+\begin{nprop}\label{prop:lcs-metrisable}
   Let $X$ be a set. For each $n$, let $(Y_n, d_n)$ be a metric space and $f_n : X \mor Y_n$ be a separating family of functions. Then $\sigma(X, \{f_n \mid n \in \N\})$ is metrisable.
 \end{nprop}
 \begin{proof}
@@ -1057,7 +1057,7 @@ Let $X$ be a set and $\mcF$ a set of functions on $X$ such that each $f \in \mcF
   is $\sigma$-continuous for each $n$.
 \end{proof}
 
-\begin{nthm}[Tychonoff]
+\begin{nthm}[Tychonoff]\label{thm:tychonoff}
   The product of compact topological spaces is compact.
 \end{nthm}
 \begin{proof}
@@ -1090,7 +1090,7 @@ For $f \in F$, $x \in E$, let $p_f(x) = \abs{f(x)}$. Let $\mcP = \{p_f \mid f \i
 \begin{proof}
   Reinterpret the $g_i$ as a single linear map $g : E \mor \K^n$. Then
   $$\ker g = \Inter_i \ker g_i \subseteq f$$
-  Hence we have a factorisation $f = h \circ g$. Find $a_1, \dots, a_n$ such that $h(y) = \sum_i a_i y_i$ for all $y \in \K^n$. Then
+  Hence we have a factorisation $f = h \comp g$. Find $a_1, \dots, a_n$ such that $h(y) = \sum_i a_i y_i$ for all $y \in \K^n$. Then
   $$f(x) = h(g(x)) = \sum_i a_ig_i(x)$$
   for all $x$, so $f = \sum_i a_i g_i \in \Span \{g_1, \dots, g_n\}$.
 \end{proof}
@@ -1309,6 +1309,105 @@ TODO: Insert separation picture
 \begin{rmk}
   It follows from this that there exist $p_1 < q_1 < p_2 < q_2 < \dots $ and convex combinations $z_n = \sum_{i = p_n}^{q_n} t_i x_i$ such that $z_n \mor 0$.
 \end{rmk}
+
+\newlec
+
+\begin{nthm}[Banach-Alaoglu]\label{thm:banach-alaoglu}
+  For any normed space $X$, $(B_{X^*}, w^*)$ is compact.
+\end{nthm}
+\begin{proof}
+  For $x \in X$, let $K_x = \{\lambda \in \K \mid \abs\lambda \le \norm x\}$. Equip $K$ with its product topology. Let $\pi_x : K \mor K_x$ be the projection. Note
+  $$K = \{\lambda : X \mor \K \mid \for x \in X, \abs{\lambda(x)} \le \norm x\}$$
+  So $B_{X^*} \subseteq K$. By Tychonoff (Theorem \ref{thm:tychonoff}), $K$ is compact. So all we need to show is that $B_{X^*}$ is closed in $K$.
+  \begin{align*}
+    B_{X^*}
+    & = \{\lambda \in K \mid \for a, b, x, y, \lambda(ax + by) = a\lambda(x) + b\lambda(y)\} \\
+    & = \Inter_{a, b, x, y} \{\lambda \in \K \mid \pi_{ax + by}(\lambda) = a\pi_x(\lambda) + b\pi_y(\lambda)\} \\
+    & = \Inter_{a, b, x, y} (\pi_{ax + by} - a\pi_x - b\pi_y)^{-1}\{0\}
+  \end{align*}
+  is closed in $K$ since each $\pi_x$ is continuous.
+\end{proof}
+
+\begin{nprop}\label{prop:ck-separable}
+  Let $X$ be a normed space and $K$ be a compact Hausdorff space.
+  \begin{enumerate}
+    \item $X \text{ separable} \iff (B_{X^*}, w^*) \text{ metrisable}$
+    \item $C(K) \text{ separable} \iff K \text{ metrisable}$
+  \end{enumerate}
+\end{nprop}
+\begin{proof}~
+  \begin{itemize}
+    \item[1.] $\imp$ Fix a dense sequence $x_n$ in $X$. Let $\mcF = \{\hat x_n \mid n \in \N\}$. Then $\mcF$ separates the points of $X$, so $\sigma(B_{X^*}, \mcF)$ is Hausdorff and contained in the w*-topology of $B_{X^*}$. So
+    $$\id : (B_{X^*}, w^*) \mor (B_{X^*}, \sigma(B_{X^*}, \mcF))$$
+    is a continuous bijection from compact to Hausdorff, hence a homeomorphism. So $\sigma(B_{X^*}, \mcF)$ is the w*-topology on $B_{X^*}$. This is metrisable by Proposition \ref{prop:lcs-metrisable}.
+  \item[2.] $\imp$ By the above, $(B_{C(K)^*}, w^*)$ is metrisable. For $k \in K$, define
+  \begin{align*}
+    \delta_k : C(K) & \mor \K \\
+    F \mapsto f(k)
+  \end{align*}
+  Then $\delta_k \in B_{C(K)^*}$. We thus have $\delta : K \mor (B_{C(K)^*}, w^*)$.
+
+  {\bf $\delta$ continuous} \\
+  By the universal property, it's enough to check that $\hat f \comp \delta$ is continuous for all $f \in C(K)$. But
+  $$(\hat f \comp \delta)(k) = \delta_k(f) = f(k)$$
+  So $\hat f \comp \delta = f$ is continuous.
+
+  {\bf $\delta$ injective} \\
+  $C(K)$ separates points of $K$.
+
+  Now, $\delta : K \mor (\delta(K), w^*)$ is a continuous bijection from compact to Hausdorff, hence a homeomorphism. Hence $K$ is metrisable.
+  \item[2.] $\impliedby$ As $K$ is compact metrisable, it is separable. Fix a sequence $x_n$ dense in $K$. Let $f_n(x) = d(x, x_n)$. $d$ is a metric inducing the topology of $K$. Let $A$ be the subalgebra of $C(K)$ generated by $1$ and the $f_n$. Then $A$ is separable, closed under complex conjugation, separates points of $K$ and $1 \in A$. By Stone-Weierstrass, $\bar A = C(K)$. So $C(K)$ is separable.
+  \item[1.] $\impliedby$ Let $K = (B_{X^*}, w^*)$. This is compact by Theorem \ref{thm:banach-alaoglu}. Since $K$ is metrisable, $C(K)$ is metrisable. It's enough to show that $X$ embeds isometrically into $C(K)$. Let
+  \begin{align*}
+    T : X & \mor C(K) \\
+    x & \mapsto \hat x\restriction_{B_{X^*}}
+  \end{align*}
+  Then $T$ is linear and $\norm{Tx}_\infty = \norm{\hat x} = \norm x$.
+  \end{itemize}
+\end{proof}
+
+\begin{rmks}~
+  \begin{enumerate}
+    \item If $X$ is separable, then $(B_{X^*}, w^*)$ is compact metrisable, hence w*-sequentially compact.
+    \item $X \text{ separable} \imp X^* \text{ w*-separable}$ ($(B_{X^*}, w^*)$ compact metrisable, hence separable). Recall that, for any topological vector space $Y$,
+    $$Y \text{ separable} \iff \exists A\text{ countable}, \overline\Span A = Y$$
+    Hence Mazur tells us
+    $$X \text{ separable} \iff X \text{ w-separable}$$
+    So $X \text{ w-separable} \imp X^* \text{ w*-separable}$. The converse is false, eg $\ell_\infty$.
+    \item The proof shows that $(B_{C(K)^*}, w^*)$ contains a homeomorphic copy of $K$.
+    \item The proof shows that every normed space $X$ embeds isometrically into $C(K)$ for some compact Hausdorff space $K$, eg $K = (B_{X^*}, w^*)$.
+  \end{enumerate}
+\end{rmks}
+
+\begin{nprop}
+  Let $X$ be a normed space. Then
+  $$X^* \text{ separable} \iff (B_X, w) \text{ metrisable}$$
+\end{nprop}
+\begin{proof}~\\
+  $\imp$ \\
+  By Proposition \ref{prop:ck-separable}, $(B_{X^{**}}, w^*)$ is metrisable. Hence
+  $$(B_X, w) = (B_{X^{**}}, w^*)\restriction_{B_X}$$
+  is metrisable.
+
+  $\impliedby$ \\
+  Let $d$ metrise $(B_x, w)$. For all $n$, find $F_n \subseteq X^*$ finite and $\eps_n > 0$ such that
+  $$U_n = \{x \in B_X \mid \for f \in F_n, \abs{f(x)} < \eps_n\} \subseteq \curlybrack{x \mid d(x, 0) < \frac 1n}$$
+  We claim $Z = \Span_n F_n$ is dense. Then we're done. \\
+  Let $g \in X^*, \eps > 0$. Then $\{x \in B_X \mid \abs{g(x)} < \eps\}$ is a w-neighborhood of $0$ in $B_X$, hence contains $U_n$ for some $n$. Let $Y = \Inter_{f \in F_n} \ker f$. For $x \in B_Y$, $x \in U_n$, so $\abs{g(x)} < \eps$. So $\norm{g\restriction_Y} \le \eps$. By Hahn-Banach, find $h \in X^*$ such that $h\restriction_Y = g\restriction_Y$ and $\norm h \le \eps$. Now
+  $$Y = \Inter_{f \in F_n} \ker f \subseteq \ker(g - h)$$
+  hence $g - h \subseteq \Span F_n \subseteq Z$ by Lemma \ref{lem:ker-inter}. So $d(g, Z) < \eps$. Hence $g \in \bar Z$.
+\end{proof}
+
+\begin{nthm}[Goldstine]
+  For any normed space $X$,
+  $$\overline{B_X}^{w^*} = B_{X^{**}}$$
+  where $B_X$ is thought of as a subspace of $X^{**}$.
+\end{nthm}
+\begin{proof}
+  $B_{X^{**}}$ is w*-closed (by Theorem \ref{thm:banach-alaoglu}) and $B_X \subseteq B_{X^{**}}$, so $\overline{B_X}^{w^*} \subseteq B_{X^{**}}$. Now, let $\phi \nin \overline{B_X}^{w^*}$. Apply Theorem \ref{thm:hb-separation-set}.ii to $(X^{**}, w^*), A = \{\phi\}, B = \overline{B_X}^{w^*}$ and find $f \in X^*$ (TODO: why not $f \in X^{***}$?) such that $\phi(f) > \sup_B \hat f$ (or $\Re \phi(f) > \sup_B \Re \hat f$ in the complex case).
+  $$\norm\phi\norm f \ge \abs{\phi(f)} > \sup_B \norm{\hat f} = \sup_B \norm f \ge 1$$
+  So $\phi \nin B_{X^{**}}$.
+\end{proof}
 
 \newlec
 
