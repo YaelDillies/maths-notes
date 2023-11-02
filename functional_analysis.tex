@@ -1209,5 +1209,108 @@ It follows that $\sigma(X^*, X) = \sigma(X^*, X^{**})$ iff $X$ is reflexive.
 
 \newlec
 
+The weak topology is weaker than the norm topology as we see by the fact that $e_n \wtendsto 0$ in $\ell_p$ ($1 \le p < \infty$) but $e_n \not\mor 0$, where $e_n$ is the vector with a single $1$ in the $n$-th position.
+
+\subsection{Hahn-Banach Separation Theorems}
+
+Let $(X, \mcP)$ be a locally convex space. Let $C$ be a convex set such that $0 \in \interior C$. Then define
+\begin{align*}
+  \mu_C : X & \mor \R \\
+  x & \mapsto \inf \{t > 0 \mid x \in tC\}
+\end{align*}
+This is well-defined since $\frac 1n x \mor 0$ and so $\frac 1n x \in C$ for some $n$. $\mu_C$ is the {\bf Minkowski functional} (aka {\bf gauge functional}) of $C$.
+
+\begin{eg}
+  If $X$ is a normed space and $C = B_X$, then $\mu_C = \norm\cdot$.
+\end{eg}
+
+\begin{nlemma}\label{lem:ball-gauge}
+  $\mu_c$ is positive homogeneous and subadditive. Moreover,
+  $$\{x \mid \mu_C(x) < 1\} \subseteq C \subseteq \{x \mid \mu_C(x) \le 1\}$$
+  with the first equality holding iff $C$ is open and the second equality holding iff $C$ is closed.
+\end{nlemma}
+\begin{proof}~\\
+  {\bf positive homogeneity} \\
+  For $x \in X, s, t > 0$, we have $sx \in stC \iff x \in tC$. Hence
+  $\mu_C(sx) = s\mu_C(x)$. It also holds for $s = 0$ since $\mu_C(0) = 0$.
+
+  {\bf subadditivity} \\
+  First observe that $\mu_C(x) < t$ implies $x \in tC$. Indeed, there is some $s < t$ such that $x \in sC$. Then
+  $$\frac xt = \left(1 - \frac st\right) \cdot 0 + \frac st \cdot  \frac xs \in C$$
+  by convexity. Now let $x, y \in X$. Fix $s > \mu_C(x), t > \mu_C(y)$. Then $x \in sC, y \in tC$, so
+  $$x + y \in sC + tC = (s + t)C$$
+  by convexity. So $\mu_C(x + y) < s + t$. Taking the infima over $s$ and $t$, $\mu_C(x + y) \le \mu_C(x) + \mu_C(y)$.
+
+  {\bf $\{x \mid \mu_C(x) < 1\} \subseteq C$ with equality iff $C$ open} \\
+  If $\mu_C(x) < 1$, then $x \in C$ by the observation. If $C$ is open and $x \in C$, find $n$ such that $\left(1 + \frac 1n\right)x \in C$. Then
+  $$\mu_C(x) \le \frac 1{1 + \frac 1n} < 1$$
+
+  {\bf $C \subseteq \{x \mid \mu_C(x) \le 1\}$ with equality iff $C$ closed} \\
+  If $x \in C$, then $\mu_C(x) \le 1$ by definition. If $C$ is closed and $\mu_C(x) \le 1$, then by homogeneity $\mu_C\left(\left(1 - \frac 1n\right)x\right) < 1$ for all $n$, so $\left(1 - \frac 1n\right)x \in C$, and $x \in C$ since $C$ is closed.  
+\end{proof}
+
+\begin{rmk}
+  If $C$ is balanced, then $\mu_C$ is a seminorm. If further $C$ is bounded, then $\mu_C$ is a norm.
+\end{rmk}
+
+\begin{nthm}[Hahn-Banach Separation]\label{thm:hb-separation-point}
+  Let $(X, \mcP)$ be a LCS and $C$ be an open convex set with $0 \in C$. Let $x_0 \nin C$. Then there exists $f \in X^*$ such that $f(x_0) > f(x)$ for all $x \in C$.
+\end{nthm}
+TODO: Insert separation picture
+\begin{rmk}
+  From now on, we work with real scalars. The complex case follows from the fact that $\Re : X^* \mor X_\R^*$ is a real-linear bijection.
+\end{rmk}
+\begin{proof}
+  Consider $\mu_C$. By Lemma \ref{lem:ball-gauge}, $C = \{x \mid \mu_C(x) < 1\}$. So $\mu_C(x_0) \ge 1$. Let $Y = \Span(x_0)$ and $g : Y \mor \R$ defined by $g(\lambda x_0) = \lambda$. $g$ is linear and $g(x_0) = 1 \le \mu_C(x_0)$. Hence $g \le \mu_C$ on $Y$. \\
+  By Theorem \ref{thm:hb-positive}, find $ f : X \mor \R$ linear such that $f\restriction_Y = g$ and $f \le \mu_C$. For all $x \in C$, $f(x) \le \mu_C(x) < 1 = f(x_0)$. further, $f$ is continuous since $C \inter (-C)$ is a neighborhood of $0$ on which $\abs{f(x)} \le 1$.
+\end{proof}
+
+\begin{nthm}\label{thm:hb-separation-set}
+  Let $(X, \mcP)$ be a LCS. Let $A, B$ be disjoint nonempty convex sets.
+  \begin{itemize}
+    \item If $A$ is open, then there exists $f \in X^*$ such that $f(x) < \inf_B f$ for all $x \in A$.
+    \item If $A$ is compact and $B$ is closed, then there exists $f \in X^*$ such that $\sup_A f < \inf_B f$.
+  \end{itemize}
+\end{nthm}
+\begin{proof}~
+  \begin{itemize}
+    \item Fix $a \in A, b \in B$. Let $C = (A - a) - (B - b)$ and $x_0 = b - a$. Then $C$ is open, convex, $0 \in C$ and $x_0 \nin C$ ($A, B$ are disjoint). By Theorem \ref{thm:hb-separation-point}, find $f \in X^*$ such that $f(z) < f(x_0)$ for all $z \in C$. So for all $x \in A, y \in B$, $f(x - y + x_0) < f(x_0)$, namely $f(x) < f(y)$. In particular, $f \ne 0$. So find $u$ such that $f(u) > 0$. Given $x \in A$, as $A$ is open and $x + \frac 1n u \mor x$, find $n$ such that $x + \frac 1n u \in A$. Then
+    $$f(x) < f\left(x + \frac 1n u\right) \le \inf_B f$$
+  \item
+  \begin{claim}
+    There exists a convex open neighborhood $U$ of $0$ such that $A + U$ is disjoint from $B$.
+  \end{claim}
+  \begin{proof}
+    For $x \in A$, find $U_x$ an open neighborhood of $0$ such that $x + U_x$ is disjoint from $B$ (since $B$ is closed). By continuity of addition, find $V_x$ an open neighborhood of $0$ such that $V_x + V_x \subseteq U_x$. WLOG $V_x$ is convex and symmetric. By compactness, find $x_1, \dots, x_n \in A$ such that $A \subseteq \Union_{i = 1}^n x_i + V_{x_i}$. We claim $U = \Inter_{i = 1}^n V_{x_i}$ works. Given $x \in A$, find $i$ such that $x \in x_i + V_{x_i}$, so that
+    $$x + U \subseteq x_i + V_{x_i} + U \subseteq x_i + V_{x_i} + V_{x_i} \subseteq x_i + U_{x_i}$$
+    is disjoint from $B$. Hence $A + U$ is disjoint from $B$.
+  \end{proof}
+  Apply the first part with $A + U$ and $B$ to get $f \in X^*$ such that $f(x + u) < f(y)$ for all $x \in A, y \in B, u \in U$. In particular, $f \ne 0$, so find $z$ such that $f(z) > 0$. As $\frac 1n z \mor 0$, find $n$ such that $\frac 1n z \in U$. Then $f(x) + \frac 1n f(z) < f(y)$ for all $x \in A, y \in B$. So
+  $$\sup_A f < \sup_A f + \frac 1n f(z) \le \inf_B f$$
+  \end{itemize}
+\end{proof}
+
+\begin{nthm}[Mazur]
+  Let $C$ be a convex set in a normed space. Then $\bar C^{\norm\cdot} = \bar C^{\text w}$. In particular,
+  $$C \text{ norm-closed} \iff C \text{ w-closed}$$
+\end{nthm}
+\begin{proof}
+  WLOG $C$ is nonempty. We already know $\bar C^{\norm\cdot} \subseteq \bar C^{\text w}$ as the weak topology is weaker than the norm-topology. \\
+  If $x \nin \bar C^{\norm\cdot}$, then apply Theorem \ref{thm:hb-separation-set} to $A = \{x\}$ and $B = \bar C^{\norm\cdot}$ to obtain $f \in X^*$ such that $f(x) < \inf_B f$. Then $\{z \mid f(z) < \inf_B f\}$ is a w-open neighborhood of $x$ disjoint from $B$. So $x \nin \bar C^{\text w}$.
+\end{proof}
+
+\begin{ncor}
+  If $x_n \wtendsto 0$ in a normed space, then for $\eps > 0$ there is some $x$ in the convex hull of the $x_0$ such that $\norm x < \eps$.
+\end{ncor}
+\begin{proof}
+  $$0 \in \overline{\conv\{x_n \mid n \in \N\}}^{\text w} = \overline{\conv\{x_n \mid n \in \N\}}^{\norm\cdot}$$
+\end{proof}
+
+\begin{rmk}
+  It follows from this that there exist $p_1 < q_1 < p_2 < q_2 < \dots $ and convex combinations $z_n = \sum_{i = p_n}^{q_n} t_i x_i$ such that $z_n \mor 0$.
+\end{rmk}
+
+\newlec
+
 \printindex
 \end{document}
