@@ -682,5 +682,60 @@ For some time it was thought that the strong version was harder than the weak ve
 
 \newlec
 
+\begin{nthm}
+  Let $f_1, \dots, f_m \in \F_p[X_1, \dots, X_n]$ such that $\sum_i = \deg f_i < n$. Then $p$ divides the number of common zeroes. In particular, if there is a common zero, then there is another one.
+\end{nthm}
+\begin{proof}
+  Let $z_1, \dots, z_k \in \F_p^n$ be the common zeroes. Assume $p \nmid k$. Define
+  $$f = \underbrace{\prod_{i = 1}^m (1 - f_i^{p - 1})}_g - \underbrace{\sum_{j = 1}^k \prod_{i = 1}^n (1 - (X_i - z_{i, j})^{p - 1})}_h$$
+  $f$ is identically $0$ since, for each $j$,
+  $$f(z_j) = h(z_j) - g(z_j) = 1 - 1 = 0$$
+  And if $z \ne z_1, \dots, z_k$, then
+  $$f(z) = h(z) - g(z) = 0 - 0 = 0$$
+\end{proof}
+
+\clearpage
+
+\subsection{Applications of Alon's Combinatorial Nullstellensatz}
+
+\begin{nthm}[Cauchy-Davenport for primes]
+  Let $p$ be a prime and $A, B$ sets in $\F_p$ such that $1 \le \abs A \le \abs B$ and $\abs A + \abs B \le p + 1$. Then
+  $$\abs{A + B} \ge \abs A + \abs B - 1$$
+\end{nthm}
+\begin{proof}
+  Assume not. Then find $C$ of size $\abs A + \abs B - 2$ such that $A + B \subseteq C$. Define $f \in \F_p[X, Y]$ by
+  $$f(X, Y) = \prod_{c \in C}(X + Y - c)$$
+  Then $f$ vanishes on $A \times B$. But the coefficient of $X^{\abs A - 1}Y^{\abs B - 1}$ in $f$ is
+  $$\binom{\abs A + \abs B - 2}{\abs A - 1} \ne 0 \mod p$$
+  contradicting Alon's Combinatorial Nullstellensatz.
+\end{proof}
+
+\begin{nthm}[Erd\H os-Ginzburg-Ziv for primes]
+  Let $a_1, \dots, a_{2p - 1} \in \F_p$. Then there exists $I \in [2p - 1]^{(p)}$ such that $\sum_{i \in I} a_i = 0$.
+\end{nthm}
+\begin{proof}
+  Define $f_1 = \sum_{i = 1}^{2p - 1} X_i^{p - 1}, f_2 = \sum_{i = 1}^{2p - 1} a_iX_i^{p - 1}$. Then $\deg f_1 + \deg f_2 < 2p - 1$, so if $f_1$ and $f_2$ have a common zero, then they have another one. But $f_1(0) = f_2(0) = 0$, so find $z \ne 0$ another common zero. Define $I = \{i \mid z_i \ne 0\}$. Then
+  \begin{align*}
+    \abs I & = \sum_{i \in I} z_i^{p - 1} = 0 \\
+    \sum_i a_i & = \sum_{i \in I} a_i z_i^{p - 1} = 0
+  \end{align*}
+  so $p \mid \abs I$. Since $I \ne \emptyset$ ($z \ne 0$) and $\abs I < 2p$, it must be that $\abs I = p$.
+\end{proof}
+
+Define
+$$A \oplus B = \{a + b \mid a \in A, b \in B, a \ne b\}$$
+
+For $A$ an interval in $\Z$, $\abs{A \oplus A} = 2\abs A - 3$. The Erd\H os-Heilbronn conjecture says this is best possible.
+
+\begin{nthm}[Alon-Nathanson-Ruzsa proof]
+  Let $A, B$ be sets in $\F_p$ such that $1 \le \abs A < \abs B$. Then
+  $$\abs{A \oplus B} \ge \abs A + \abs B - 2$$
+\end{nthm}
+\begin{proof}
+  Homework.
+\end{proof}
+
+\newlec
+
 \printindex
 \end{document}
