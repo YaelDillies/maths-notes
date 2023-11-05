@@ -27,13 +27,12 @@
 \usepackage{float}
 \usepackage{braket}
 \usepackage{marginnote}
-\usepackage{mathrsfs}
-\usepackage{imakeidx}
-\usepackage{marginnote}
 \usepackage{mathdots}
-\usepackage{tabularx}
+\usepackage{mathrsfs}
 \usepackage{ifthen}
+\usepackage{imakeidx}
 \usepackage{parskip}
+\usepackage{tabularx}
 \usepackage[hypcap=true]{caption}
 \usepackage[shortlabels]{enumitem}
 \usepackage[pdftex,
@@ -69,6 +68,7 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \newtheorem*{law}{Law}
 \newtheorem*{lemma}{Lemma}
 \newtheorem*{notation}{Notation}
+\newtheorem*{obs}{Observation}
 \newtheorem*{prop}{Proposition}
 \newtheorem*{properties}{Properties}
 \newtheorem*{question}{Question}
@@ -114,6 +114,7 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \newcommand{\mcO}{\mathcal O}
 \newcommand{\mcP}{\mathcal P}
 \newcommand{\mcQ}{\mathcal Q}
+\newcommand{\mcS}{\mathcal S}
 \newcommand{\mcT}{\mathcal T}
 \newcommand{\mcU}{\mathcal U}
 \newcommand{\eps}{\varepsilon}
@@ -151,20 +152,21 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \let\Im\relax
 \let\Re\relax
 
-\DeclareMathOperator{\Im}{Im}
-\DeclareMathOperator{\Re}{Re}
-\DeclareMathOperator{\re}{Re}
-\DeclareMathOperator{\id}{id}
-\DeclareMathOperator{\Var}{Var}
 \DeclareMathOperator{\Ber}{Ber}
-\DeclareMathOperator{\lhs}{LHS}
-\DeclareMathOperator{\rhs}{RHS}
-\DeclareMathOperator{\esssup}{ess sup}
-\DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator{\supp}{supp}
-\DeclareMathOperator{\Span}{Span}
-\DeclareMathOperator{\interior}{int}
 \DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\esssup}{ess sup}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\lhs}{LHS}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Re}{Re}
+\DeclareMathOperator{\rhs}{RHS}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Var}{Var}
 
 \definecolor{lblue}{rgb}{0., 0.05, 0.6}
 \definecolor{mblue}{rgb}{0.2, 0.3, 0.8}
