@@ -516,7 +516,7 @@ We have seen that the power of $k$ is correct for $\ell = 3$. As of recently, we
 
 We define $K_n^{(r)}$ to be the {\bf complete $r$-uniform hypergraph} on $n$ vertices. The {\bf $r$-uniform hypergraph Ramsey number} $R^{(r)}(\ell, k)$ is the minimal $n$ such that every edge coloring of $K_n^{(r)}$ contains either a blue $K_\ell^{(r)}$ or a red $K_k^{(r)}$. As before, the {\bf hypergraph diagonal Ramsey number} is $R^{(r)}(k) = R^{(r)}(k, k)$.
 
-\begin{thm}[Erd\H os-Hajnal]
+\begin{thm}[Erd\H os-Rado]
   $$R^{(3)}(\ell, k) \le 2^{\binom{R(\ell - 1, k - 1)}2}$$
   Eg $R^{(3)}(k) \le 2^{16^k}$.
 \end{thm}
@@ -531,6 +531,140 @@ We define $K_n^{(r)}$ to be the {\bf complete $r$-uniform hypergraph} on $n$ ver
   $$A_{2, 3} = \{w \in A_{1, 3} \mid \chi({v_2, v_3, w}) = c_{2, 3}\}$$
   where $c_{2, 3}$ is the majority color, and so on... \\
   After $t$ steps, our world has size $\abs{A_{t - 1, t}} \ge n2^{-\binom t2} \ge 1$. We thus have $\{v_1, \dots, v_t\}$ such that $\chi(\{v_i, v_j, v_k\}) = c_{i, j}$ if $k > i, j$. $c$ is a coloring of $\{v_1, \dots, v_t\}^{(2)}$. By definition of Ramsey, we're done.
+\end{proof}
+
+\clearpage
+
+\subsection{Off-diagonal \texorpdfstring{$3$}{3}-uniform hypergraph Ramsey}
+
+\newlec
+
+Erd\H os-Rado gives
+$$R^{(3)}(4, k) \le 2^{ck^4}$$
+
+\begin{thm}[Conlon, Fox, Sudakov, 2010]
+  $$R^{(3)}(4, k) \le 2^{ck^2}$$
+\end{thm}
+
+Erd\H os-Rado makes us shrink our world by a factor of $2$ at every query. Can we ask fewer questions? This suggests the following game.
+
+\begin{defi}[The Ramsey game]
+  At each question, we expose a new vertex $v_i$ and get to ask our adversary to expose the color of a collection of edges $v_j v_i$ where $j < i$. Our goal is to force a blue $K_3$ or a red $K_k$ with as few queries as possible.
+\end{defi}
+
+\begin{lemma}
+  In the Ramsey game, we can force a blue $K_3$ or a red $K_k$ in at most $2k^3$ queries whose answer is ``red'' and $k^2$ queries whose answer is ``blue''.
+\end{lemma}
+\begin{proof}
+  As we expose vertices, we sort them into {\bf levels} $1, 2, 3, \dots$ The first vertex at level $i$ is called the {\bf root} of level $i$ and denoted $r_i$.
+
+  We start by putting $v_1$ into level $1$ and setting $r_1 := v_1$. When we expose vertex $v_i$, we ask for the color of $v_ir_1, \dots, v_ir_r$ until we get replied ``blue''.
+  \begin{itemize}
+    \item If we get a blue response to $v_ir_j$ for some $j$, stick $v_i$ in level $j$ and expose all edges to previous vertices of level $j$.
+    \item If all $v_ir_j$ get replied ``red'', make $v_i$ a new root.
+  \end{itemize}
+  TODO: Insert picture
+
+  Assuming we have not encountered a blue $K_3$ or red $K_k$, every level contains at most $k$ vertices and there are at most $k$ levels. We have exposed at most $k^2$ red edges and $k$ blue edges in each level, and $k^3$ red edges between levels, so in total at most $2k^3$ red edges and $k^2$ blue edges.
+\end{proof}
+
+The idea now is that our adversary wants to reply ``red'' most of the time, so we're willing to shrink our world much more when they reply ``blue''.
+
+\begin{proof}[Proof that $R^{(3)}(4, k) \le 3^{ck^2}$]
+  The proof follows the proof of Erd\H os-Rado but we now only refine our world based on the pairs that we query in the Ramsey game. We also have a different rule about when to refine our world to be blue vs red.
+
+  Start with $A_0 = [n]$ where $n = k^{ck^2}$ and define
+  $$A_0 \supseteq A_1 \supseteq A_2 \supseteq \dots \supseteq A_n$$
+  where $e_j$ is the edge coming from the Ramsey game and
+  \begin{align*}
+    A_j^B & = \{x \in A_j \mid \chi(e_{j + 1} \union \{x\}) = \text{blue}\} \\
+    A_j^R & = \{x \in A_j \mid \chi(e_{j + 1} \union \{x\}) = \text{red}\} \\
+    A_{j + 1} & =
+    \begin{cases}
+      A_j^B & \text{ if } \abs{A_j^B} \ge \frac 1k \abs{A_j} \\
+      A_j^R & \text{ if } \abs{A_j^R} \ge \left(1 - \frac 1k\right) \abs{A_j}
+    \end{cases}
+  \end{align*}
+  At the end of time,
+  $$\abs{A_m} \ge n\left(\frac 1k\right)^{k^2}\left(1 - \frac 1k\right)^{2k^3} \ge k^{(c - 1)k^2}e^{-2k^2} \ge 1$$
+  if we pick $c$ large enough.
+\end{proof}
+
+\newlec
+
+What about lower bounds? Let's try the probabilistic method.
+
+Color triples blue with probability $p$.
+$$\E\left[\#\text{red }K_k^{(3)}\right] = \binom nk (1 - p)^{\binom k3} \le \left(\frac{en}k\right)^k e^{-p\binom k3} = \left(\frac{en}k e^{-\frac{pk^2}6}\right)^k$$
+This is nontrivial if $p \gg \frac 1{k^2}$. Then
+$$\E\left[\#\text{blue }K_4^{(3)}\right] = \binom n4 p^4 \ge \left(\frac n4\right)^4 \gg \left(\frac n{k^2}\right)^4$$
+So the (naïve) probabilistic approach looks useless for anything better than polynomial in $k$.
+
+\begin{thm}
+  $$R^{(3)}(4, k) \ge 2^{\frac{k - 1}2}$$
+\end{thm}
+\begin{proof}
+  Let $n = 2^{\frac{k - 1}2} - 1$ and $T$ a random tournament on $[n]$. For $x, y \in [n]$ distinct, define
+  $$\chi(\{x, y, z\}) =
+  \begin{cases}
+    \text{blue} & \text{if $x, y, z$ oriented} \\
+    \text{red} & \text{if $x, y, z$ acyclic}
+  \end{cases}$$
+  TODO: Insert oriented and acyclic pictures
+  \begin{obs}
+    A tournament on $4$ points has at least one transitive triple.
+  \end{obs}
+  This immediately implies there is no blue $K_4^{(3)}$.
+  \begin{obs}
+    If $K$ is a tournament where every triple is transitive, then $K$ itself is transitive.
+  \end{obs}
+  But
+  \begin{align*}
+    \E[\#\text{transitive tournament of size } k]
+    & = \binom nk k! 2^{-\binom k2} \\
+    & \le n^k 2^{-\binom k2} \\
+    & = \left(n2^{-\frac{k - 1}2}\right)^n \mor 0
+  \end{align*}
+  Hence
+  $$\P\left(\chi \text{ has no red } K_k^{(3)}\right) = \P(T \text{ has no transitive tournament of size } k) > 0$$
+\end{proof}
+
+\begin{nthm}[Conlon, Fox, Sudakov, 2010]
+  $$R^{(3)}(4, k) \ge k^{\frac k5}$$
+  for sufficiently large $k$.
+\end{nthm}
+\begin{proof}[Proof (Stepping up)]
+  Set $n = k^{\frac k5}, r = R(3, \frac k4) - 1$. Let $\theta$ be an edge coloring of $K_r$ with no blue $K_3$ or red $K_{\frac k4}$. Now let $\sigma$ be a random edge coloring in $r$ colors. For $x < y < z$, define
+  $$\chi(\{x, y, z\}) =
+  \begin{cases}
+    \theta(\{\sigma(xy), \sigma(xz)\}) & \text{ if } \sigma(xy) \ne \sigma(xz) \\
+    \text{ red} & \text{ if } \sigma(xy) = \sigma(xz)
+  \end{cases}$$
+  \begin{idea}
+    The fact that $\theta$ has no blue triangle will imply that $\chi$ has no blue $K_4^{(3)}$. The fact that $\theta$ has no red $K_{\frac k4}$ will imply that $\chi$ has no red $K_k^{(3)}$ with high probability.
+  \end{idea}
+  Assume that $x < y_1 < y_2 < y_3$ are the vertices of a blue $K_4^{(3)}$. Note that $\sigma(xy_1)$, $\sigma(xy_2)$, $\sigma(xy_3)$ are distinct. So $\sigma(xy_1)\sigma(xy_2), \sigma(xy_2)\sigma(xy_3), \sigma(xy_3)\sigma(xy_1)$ are the edges of a triangle in $K_r$ which is blue in $\sigma$. Contradiction.
+  
+  TODO: Insert figure
+
+  Now assume that $K = \{x_1, \dots, x_k\}$ is a red $K_k^{(3)}$ in $\chi$. For each $i \in [k]$,
+  $$\abs{\{\sigma(x_ix_j) \mid i < j\}} < \frac k4$$
+  as otherwise one can find $i < j_1 < \dots < j_{\frac k4}$ such that $\sigma(x_ix_{j_1}), \dots, \sigma(x_ix_{j_{\frac k4}})$ are all distinct, meaning that they are vertices of a red $K_{\frac k4}$ in $\theta$.
+  
+  TODO: Insert figure
+
+  Call such a set $K \in [n]^{[k]}$ {\bf sad}. We consider
+  \begin{align*}
+    \E[\#\text{ sad sets}]
+    & \le n^k \prod_{i = 1}^k \binom r{\frac k4} \left(\frac k{4r}\right)^{k - i} \\
+    & = n^k \binom r{\frac k4}^k \left(\frac k{4r}\right)^{\sum_{i = 1}^k k - i} \\
+    & \le n^k \left(\frac{4er}k\right)^{\frac{k^2}4} \left(\frac k{4r}\right)^{\frac{k^2}4} \\
+    & = \left(n\left(\frac e4 \frac kr\right)^{\frac k4}\right)^k \\
+    & \le \left(nk^{-\frac k4 + o(k)}\right)^k \text{ since } r > k^{2 + o(1)} \\
+    & < \left(nk^{-\frac k5}\right)^k \\
+    & = 1 \text{ since } n = k^{\frac k5}
+  \end{align*}
+  Hence find some $\sigma$ such that no set is sad. We're done.
 \end{proof}
 
 \newlec
