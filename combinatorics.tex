@@ -596,7 +596,7 @@ If $A, B$ are finite nonempty sets in a finite abelian group $G$ such that $\abs
 \end{proof}
 \begin{rmk}
   This is sharp since no subsequence of length $n$ sums to $0$ in
-  $$\underbrace{0, \dots, 0}_{n - 1}, \underbrace{1, \dots, 1}_{n - 1}$$
+  $$\underbrace{0, \dots, 0}_{n - 1\text{ time}}, \underbrace{1, \dots, 1}_{n - 1\text{ time}}$$
 \end{rmk}
 
 \clearpage
@@ -683,7 +683,7 @@ For some time it was thought that the strong version was harder than the weak ve
 \newlec
 
 \begin{nthm}
-  Let $f_1, \dots, f_m \in \F_p[X_1, \dots, X_n]$ such that $\sum_i = \deg f_i < n$. Then $p$ divides the number of common zeroes. In particular, if there is a common zero, then there is another one.
+  Let $f_1, \dots, f_m \in \F_p[X_1, \dots, X_n]$ such that $\sum_i \deg f_i < n$. Then $p$ divides the number of common zeroes. In particular, if there is a common zero, then there is another one.
 \end{nthm}
 \begin{proof}
   Let $z_1, \dots, z_k \in \F_p^n$ be the common zeroes. Assume $p \nmid k$. Define
@@ -723,16 +723,142 @@ For some time it was thought that the strong version was harder than the weak ve
 \end{proof}
 
 Define
-$$A \oplus B = \{a + b \mid a \in A, b \in B, a \ne b\}$$
+$$A \hatplus B = \{a + b \mid a \in A, b \in B, a \ne b\}$$
 
-For $A$ an interval in $\Z$, $\abs{A \oplus A} = 2\abs A - 3$. The Erd\H os-Heilbronn conjecture says this is best possible.
+For $A$ an interval in $\Z$, $\abs{A \hatplus A} = 2\abs A - 3$. The Erd\H os-Heilbronn conjecture says this is best possible.
+
+\newlec
 
 \begin{nthm}[Alon-Nathanson-Ruzsa proof]
-  Let $A, B$ be sets in $\F_p$ such that $1 \le \abs A < \abs B$. Then
-  $$\abs{A \oplus B} \ge \abs A + \abs B - 2$$
+  Let $A, B$ be sets in $\F_p$ such that $1 \le \abs A < \abs B$ and $\abs A + \abs B \le p + 2$. Then
+  $$\abs{A \hatplus B} \ge \abs A + \abs B - 2$$
 \end{nthm}
 \begin{proof}
-  Homework.
+  Assume $\abs{A \hatplus B} \le \abs A + \abs B - 3$. Then find $C \supseteq A \hatplus B$ such that $\abs C = \abs A + \abs B - 3$. Set
+  $$f = (Y - X)\prod_{c \in C} (X + Y - c)$$
+  $f$ is identically zero on $A \times B$ and $\deg f = a + b - 2$. But the coefficient of $X^{a - 1}Y^{b - 1}$ in $f$ is
+  $$\binom{a + b - 3}{a - 1} - \binom{a + b - 3}{b - 1} = \frac{b - a}{a - 1}\binom{a + b - 3}{a - 2} \ne 0$$
+  contradicting Alon's Combinatorial Nullstellensatz.
+\end{proof}
+
+\begin{ncor}
+  Let $A, B$ be sets in $\F_p$ such that $\abs A + \abs B \le p + 3$. Then
+  $$\abs{A \hatplus B} \ge \abs A + \abs B - 3$$
+\end{ncor}
+\begin{proof}
+  WLOG $2 \le \abs A \le \abs B$. Find $a \in A$.
+  $$\abs{A \hatplus B} \ge \abs{A \setminus \{a\} \hatplus B} \ge \abs{A \setminus \{a\}} + \abs B - 2 = \abs A + \abs B - 3$$
+\end{proof}
+
+\begin{nthm}
+  Let $p$ be a prime and $G$ be a graph of average degree $> 2p - 2$ and maximum degree $2p - 1$. Then $G$ has a $p$-regular subgraph.
+\end{nthm}
+\begin{proof}
+  Write $E$ the edges, $V$ the vertices of $G$, and $m = \abs E, n = \abs V$. Consider
+  $$f = \underbrace{\prod_{v \in V} \left(1 - \sum_{e \in E} 1_{v \in e} X_e)^{p - 1}\right)}_g - \underbrace{\prod_{e \in E} (1 - X_e)}_h$$
+  We observe that $\deg g \le n(p - 1)$ and $\deg h = m$. By assumption, $n(p - 1) < m$, so $\deg f = m$. Also note that $\prod_{e \in E} X_e$ has coefficient $\pm 1 \ne 0$ in $f$ and
+  $$f(0) = g(0) - h(0) = 1 - 1 = 0$$
+  By Alon's Combinatorial Nullstellensatz, find $x \in \{0, 1\}^E$ such that $f(x) \ne 0$. By the previous calculation, $x \ne 0$. So set
+  $$F = \{e \in E \mid x_e \ne 0\} = \{e \in E \mid x_e = 1\}$$
+  Then $F$ is nonempty and $\deg_F(v) = p$ for all $v \in F$. The subgraph formed by $F$ is thus $p$-regular.
+\end{proof}
+
+Going back to Erd\H os-Ginzburg-Ziv, what about we replace $\Z/p\Z$ by $\Z/p\Z \times \Z/p\Z$? How many elements do we need to have before we're sure that $p$ of them sum to $0$?
+
+Certainly, $4p - 4$ is not enough since we can take
+$$\underbrace{(0, 0), \dots, (0, 0)}_{p - 1\text{ times}}, \underbrace{(0, 1), \dots, (0, 1)}_{p - 1\text{ times}}, \underbrace{(1, 0), \dots, (1, 0)}_{p - 1\text{ times}}, \underbrace{(1, 1), \dots, (1, 1)}_{p - 1\text{ times}}$$
+The content of Kemnitz's conjecture is that $4p - 3$ is enough.
+
+\begin{nthm}
+  Let $v_1, \dots, v_{3p} \in \Z/p\Z \times \Z/p\Z$ sum to zero. Then some $p$ of them also sum to $0$.
+\end{nthm}
+\begin{proof}
+  Write $v_i = (a_i, b_i)$ and define
+  \begin{align*}
+  f_1 & = \sum_{i = 1}^{3p - 1} a_i X_i^{p - 1} \\
+  f_2 & = \sum_{i = 1}^{3p - 1} b_i X_i^{p - 1} \\
+  f_3 & = \sum_{i = 1}^{3p - 1} X_i^{p - 1}
+  \end{align*}
+\end{proof}
+
+\clearpage
+
+\section{Topology in Combinatorics}
+
+\subsection{Kneser's Graph \& the LSB Theorem}
+
+\newlec
+
+Let $\abs X = n$. Define the {\bf Kneser graph} $KG(n, k)$ as the graph on vertices $X^{(k)}$ with
+$$A \sim B \iff A \inter B = \emptyset$$
+We will write $n = 2k + d$ for some $d \ge 0$.
+
+\begin{question}
+  What is the chromatic number of $KG(n, k)$?
+\end{question}
+
+We know the independence number from Erd\H os-Ko-Rado.
+\begin{align*}
+  \alpha(KG(n, k))
+  & = \text{maximum number of $k$-subsets without two disjoint sets} \\
+  & = \binom{n - 1}{k - 1}
+\end{align*}
+Hence
+$$\chi(KG(n, k)) \ge \frac{\binom nk}{\alpha(KG(n, k))} = \frac nk$$
+
+What is an upper bound?
+
+TODO: Insert picture
+
+If $A \inter [d + 1] \ne \emptyset$, then color $A$ with $\min(A \inter [d + 1])$. Give the rest color $d + 2$. So $d + 2$ colors are enough.
+
+\begin{conjecture}[Kneser]
+  $$\chi(KG(n, k)) = d + 2$$
+\end{conjecture}
+
+This was proved by Lov\'asz in 1978, with a much simpler proof provided by B\'ar\'any the same year. Surprisingly, Greene gave an even simpler (basically trivial) proof in 2002.
+
+\begin{nthm}[Lusternik-Schnirelmann 1930, Borsuk 1933]\label{thm:borsuk}~
+  \begin{enumerate}
+    \item Let $f : S^n \mor \R^n$ be continuous. Then there exists $x \in S^n$ such that $f(x) = f(-x)$.
+    \item Let $V_1, \dots, V_{n + 1}$ form a closed cover of $S^n$. Then some $V_i$ contains a pair of antipodal points, ie there exist $i$ and $x$ such that $\pm x \in V_i$.
+  \end{enumerate}
+\end{nthm}
+
+\begin{nthm}[Greene]
+  Let $S^n$ be covered with $n + 1$ sets, each of which is open or closed. Then one of the sets contains a pair of antipodal points.  
+\end{nthm}
+\begin{proof}
+  Write $\mcU$ the open sets and $\mcV$ the closed sets.
+
+  {\bf Case 1: $\mcU = \emptyset$} \\
+  This is Theorem \ref{thm:borsuk}.
+
+  {\bf Case 2: $\mcV = \emptyset$} \\
+  We slightly shrink our sets to make them all closed. By the Lebesgue number lemma, find $\eps > 0$ such that every ball of radius $\eps$ is contained in some $U \in \mcU$. Define
+  $$\mcV' = \{\{x \mid \eps < d(x, U^c)\} \mid U \in \mcU\}$$
+  This also covers $S^n$ and every set in $\mcV'$ is a subset of some $U \in \mcU$, so we can apply Case 1 to find our antipodal points.
+
+  {\bf General case} \\
+  Suppose no set contains a pair of antipodal points. For each $V \in \mcV$, define
+  \begin{align*}
+    f_V : S^n & \mor \R \\
+    x & \mapsto \max(d(x, V), d(-x, V))
+  \end{align*}
+  By assumption, $f_V(x) > 0$ for all $x$. Since $S^n$ is compact, find $\eps_V > 0$ such that $f_V(x) \ge \eps_V$ for all $x$. Then define
+  $$U_V = \{x \in S^n \mid d(x, V) < \eps_V\}$$
+  By construction, $U_V$ does not contain a pair of antipodal points either. Therefore,
+  $$\mcU' := \mcU \union \{U_V \mid V \in \mcV\}$$
+  is a counterexample to Case 2.
+\end{proof}
+
+\begin{nthm}
+  For $n = 2k + d$, the chromatic number of the Kneser graph is exactly $d + 2$.
+\end{nthm}
+\begin{proof}
+  We have already proved $\chi(KG(n, k)) \le d + 2$. Suppose $\chi(KG(n, k)) \le d + 1$, ie write
+  $$X^{(k)} = \Union_{i = 1}^{d + 1} \mcA_i$$
+  where each $\mcA_i$ is intersecting. To be continued.
 \end{proof}
 
 \newlec
