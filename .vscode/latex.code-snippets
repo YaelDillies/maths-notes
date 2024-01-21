@@ -1,0 +1,17 @@
+{
+  "Anki note": {
+    "scope": "latex"
+		"prefix": "anki",
+		"body": [
+      "\\begin{note}",
+      "  \\tags{${3:Tags}}",
+      "  \\xplain{${4:Label}}",
+      "  \\xfield{${1:Front}}",
+      "  \\begin{field}",
+      "    ${2:Back}",
+      "  \\end{field}",
+      "\\end{note}"
+		],
+		"description": "Anki note"
+	}
+}
