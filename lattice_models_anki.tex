@@ -1,0 +1,488 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The first part of the header needs to be copied
+%       into the note options in Anki.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% layout in Anki:
+\documentclass[10pt]{article}
+\usepackage[a4paper]{geometry}
+\geometry{paperwidth=.5\paperwidth,paperheight=100in,left=2em,right=2em,bottom=1em,top=2em}
+\pagestyle{empty}
+\setlength{\parindent}{0in}
+
+% encoding:
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% packages:
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{centernot}
+
+% commands
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+% Letter shorthands
+\newcommand{\C}{\mathbb C}
+\newcommand{\E}{\mathbb E}
+\newcommand{\F}{\mathbb F}
+\newcommand{\K}{\mathbb K}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\mcA}{\mathcal A}
+\newcommand{\mcB}{\mathcal B}
+\newcommand{\mcC}{\mathcal C}
+\newcommand{\mcD}{\mathcal D}
+\newcommand{\mcE}{\mathcal E}
+\newcommand{\mcF}{\mathcal F}
+\newcommand{\mcG}{\mathcal G}
+\newcommand{\mcH}{\mathcal H}
+\newcommand{\mcM}{\mathcal M}
+\newcommand{\mcN}{\mathcal N}
+\newcommand{\mcO}{\mathcal O}
+\newcommand{\mcP}{\mathcal P}
+\newcommand{\mcQ}{\mathcal Q}
+\newcommand{\mcR}{\mathcal R}
+\newcommand{\mcS}{\mathcal S}
+\newcommand{\mcT}{\mathcal T}
+\newcommand{\mcU}{\mathcal U}
+\newcommand{\mcV}{\mathcal V}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Eps}{\mathcal E}
+
+\newcommand{\curlybrack}[1]{\left\{ #1\right\}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\inn}[2]{\left\langle #1, #2\right\rangle}
+\newcommand{\floor}[1]{\left\lfloor #1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1\right\rceil}
+\newcommand{\doublesqbrack}[1]{[\![#1]\!]}
+
+\newcommand{\imp}{\implies}
+\newcommand{\for}{\forall}
+\newcommand{\nin}{\notin}
+\newcommand{\comp}{\circ}
+\newcommand{\union}{\cup}
+\newcommand{\inter}{\cap}
+\newcommand{\Union}{\bigcup}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\hatplus}{\mathbin{\widehat{+}}}
+\newcommand{\symdif}{\mathbin\varbigtriangleup}
+\newcommand{\aeeq}{\overset{\text{ae}}=}
+\newcommand{\lexlt}{\overset{\text{lex}}<}
+\newcommand{\colexlt}{\overset{\text{colex}}<}
+\newcommand{\wtendsto}{\overset w\to}
+\newcommand{\wstartendsto}{\overset{w*}\to}
+\renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
+\renewcommand{\bar}[1]{\overline{#1}}
+
+\let\Im\relax
+\let\Re\relax
+
+\DeclareMathOperator{\Ber}{Ber}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\esssup}{ess sup}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\lhs}{LHS}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Re}{Re}
+\DeclareMathOperator{\rhs}{RHS}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Var}{Var}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Following part of header NOT to be copied into
+%            the note options in Anki.
+%          ! Anki will throw an error !
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%  pdf layout:
+\geometry{paperheight=74.25mm}
+\usepackage{pgfpages}
+\pagestyle{empty}
+\pgfpagesuselayout{8 on 1}[a4paper,border shrink=0cm]
+\makeatletter
+\@tempcnta=1\relax
+\loop\ifnum\@tempcnta<9\relax
+\pgf@pset{\the\@tempcnta}{bordercode}{\pgfusepath{stroke}}
+\advance\@tempcnta by 1\relax
+\repeat
+\makeatother
+
+%  notes, fields, tags:
+\def \ifempty#1{\def\temp{#1} \ifx\temp\empty }
+\newcommand{\xfield}[1]{
+        #1\par
+        \vfill
+        {\tiny\texttt{\parbox[t]{\textwidth}{\localtag\hfill\\\globaltag\hfill\uuid}}}
+        \newpage}
+\newenvironment{field}{}{\newpage}
+\newif\ifnote
+\newenvironment{note}{\notetrue}{\notefalse}
+\newcommand{\localtag}{}
+\newcommand{\globaltag}{}
+\newcommand{\uuid}{}
+\newcommand{\tags}[1]{
+    \ifnote
+        \renewcommand{\localtag}{#1}
+    \else
+        \renewcommand{\globaltag}{#1}
+    \fi
+    }
+\newcommand{\xplain}[1]{\renewcommand{\uuid}{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The following line again needs to be copied
+% into Anki:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The notes themselves
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% I - Percolation and its phase transition
+
+% 1. Percolation phase transition
+
+
+\tags{percolation}
+
+
+\begin{note}
+  \tags{definition}
+  \xplain{percolation-site-def}
+  \xfield{Site percolation}
+  \begin{field}
+    For each vertex $x$ of a graph $G$, we draw an independent Bernoulli random variable $w(x)$ with probability $p$. We say $x$ is an {\it open site} if $w(x) = 1$. An edge is {\it open} if both of its sites are open.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \xplain{percolation-infinite-cluster-basic}
+  \tags{infinite-cluster}
+  \xfield{Basic results about the existence of an infinite cluster}
+  \begin{field}
+    \begin{itemize}
+      \item Every site has the same probability of being in an infinite cluster. Proof: Translation invariance.
+      \item $P_p(\text{infinite cluster}) > 0 \iff P_p(0 \leftrightarrow \infty) > 0$. Proof: Translation invariance + countability of $\Z^d$.
+      \item Probability is monotone in $p$. Proof: Coupling.
+      \item Equivalent to the existence of an infinite open path. Proof: Build the path inductively.
+    \end{itemize}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \xplain{percolation-infinite-cluster-zero-one}
+  \tags{infinite-cluster}
+  \xfield{The probability of an infinite cluster is either $0$ or $1$.}
+  \begin{field}
+    Existence of an infinite cluster is a tail event, so done by Kolmogorov's 0-1 law.
+  \end{field}
+\end{note}
+
+
+\tags{percolation::zd}
+
+
+\begin{note}
+  \tags{infinite-cluster}
+  \xplain{percolation-zd-critical-probability-pos}
+  \xfield{Prove $0 < p_c$ in $\Z^d$.}
+  \begin{field}
+    If $p < \frac 1{2d}$, then, for all $n$,
+    \begin{align*}
+    P_p(0 \leftrightarrow \infty)
+    & \le P_p(\exists \text{ path of length $n$ starting at } 0) \\
+    & \le (2d)^n p^{n + 1} \\
+    & \to 0
+    \end{align*}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{infinite-cluster}
+  \xplain{percolation-zd-critical-probability-lt-one}
+  \xfield{Prove $p_c < 1$ in $\Z^d, d \ge 2$.}
+  \begin{field}
+    It's enough to show it for $d = 2$. If $p > \frac 78$, then
+    \begin{align*}
+    & P_p(\text{no infinite cluster}) \\
+    & = P_p(\exists \text{ closed loop around } [-n, n]^2) \\
+    & \le \sum_m P_p(\exists \text{ closed loop around $[-n, n]^2$ through } (m, 0)) \\
+    & \le \sum_{m \ge n} P_p(\exists \text{ closed path of length } m) \\
+    & \le \sum_{m \ge n} 8^m (1 - p)^{m + 1} \\
+    & \to 0
+    \end{align*}
+  \end{field}
+\end{note}
+
+% 2. Number of infinite clusters
+
+\begin{note}
+  \xplain{percolation-translation-invariant}
+  \xfield{Translation-invariant percolation events have probability $0$ or $1$.}
+  \begin{field}
+    Any percolation event can be approximated by a cylindrical event (by Dynkin). Hence if $A$ is a translation-invariant event, find $B$ a cylindrical event such that $P_p(A \symdif B) \le \eps$. Shift the event $B$ enough so that the resulting cylindrical event $B'$ is independent from $B$. Then
+    \begin{align*}
+      \abs{P_p(A) - P_p(B)^2}
+      & = \abs{P_p(A) - P_p(B \inter B')} \\
+      & \le P_p(A \symdif (B \inter B')) \\
+      & \le P_p(A \symdif B) + P_p(A \symdif B') \\
+      & \le 2\eps
+    \end{align*}
+    Taking $\eps \to 0$, we get $P_p(A)^2 = P_p(A)$, as wanted.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{infinite-cluster supercritical-percolation}
+  \xplain{percolation-zd-supercritical-clusters-ae-constant}
+  \xfield{The number of infinite clusters is ae constant for supercritical percolation in $\Z^d$.}
+  \begin{field}
+    For each $k$, $N = k$ is a translation-invariant event, hence has probability $0$ or $1$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{infinite-cluster supercritical}
+  \xplain{percolation-zd-supercritical-clusters-one-or-infty}
+  \xfield{The number of infinite clusters is $1$ or $\infty$ for supercritical percolation in $\Z^d$.}
+  \begin{field}
+    If $N = k \in\ ]1, \infty[$, there's a nonzero probability to connect two clusters, hence $P(N = k) < 1$. So $P(N = k) = 0$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{infinite-cluster supercritical-percolation}
+  \xplain{percolation-zd-supercritical-clusters-not-infty}
+  \xfield{The number of infinite clusters is not $\infty$ for supercritical percolation in $\Z^d$.}
+  \begin{field}
+    Assume $P(N = \infty) = 1$.
+    \begin{itemize}
+    \item For all $k$, there exists $n$ such that the probability of $k$ disjoint clusters intersecting $[-n, n]^d$ is strictly positive. Proof: Union over $n$ of these events is $N \ge k$.
+    \item Find a box intersecting three disjoint clusters that are far enough apart. Resample that box.
+    \item The probability of a point being a trifurcation is translation invariant and strictly positive.
+    \item $C m^d = \E[\#\text{ trifurcations in } [1, m]^d] \le \#\partial [1, m]^d = O(m^{d - 1})$. Contradiction.
+    \end{itemize}
+  \end{field}
+\end{note}
+
+% 3. Exponential decay in the subcritical regime
+
+\begin{note}
+  \tags{pivotal}
+  \xplain{percolation-pivotal-def}
+  \xfield{Pivotals}
+  \begin{field}
+    For an increasing event $A$, a site $z$ is {\it $A$-pivotal} for a configuration $v$ if $v^{z, 0} \nin A$ but $v^{z, 1} \in A$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{pivotal}
+  \xplain{percolation-russo-formula}
+  \xfield{Russo's formula}
+  \begin{field}
+    If $A$ is an increasing cylindrical event, then
+    $$\frac{dP_p(A)}{dp} = \E_p[\#\text{ pivotals of }A]$$
+    \begin{proof}
+      Write $S$ the finite set of states that $A$ depends on. Couple percolations by $w_p(x) := 1_{X(x) \le p}$ where $X(x) \sim \mathrm{Unif}[0, 1]$ are independent. This shows $p \mapsto P_p(A)$ is monotone. Hence, for $\eps > 0$ (treat $\eps < 0$ similarly),
+      \begin{align*}
+        & P_{p + \eps}(A) - P_p(A) = P(w_{p + \eps} \in A, w_p \nin A) \\
+        & = \sum_{x \in S} P(X(x) \in [p, p + \eps[, x \text{ pivotal for } w_p) + O(\eps^2) \\
+        & = \eps \E_p[\#\text{ pivotals of }A]
+      \end{align*}
+      as $X(x) \in [p, p + \eps[$ for several $x \in S$ with probability $O(\eps^2)$.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{infinite-cluster subcritical}
+  \xplain{percolation-exponential-decay-setup}
+  \xfield{Definitions and setup for exponential decay}
+  \begin{field}
+    \begin{itemize}
+      \item $\mathcal S$ the set of finite connected sets in $\Z^d$ containing the origin and whose complement is connected.
+      \item If $S \in \mathcal S$, $O(S)$ is the set of neighbors of $S$ and $\tilde S = O(S) \union S$.
+      \item For $S \in \mathcal S$, $C_S$ is the connected component of $0$ for percolation inside $S$.
+      \item $u_n(p) = P_p(0 \leftrightarrow \lambda_n)$.
+      \item $\varphi_p(S) = \E[\abs{O(S) \inter O(C_S)}]$ is the expected number of sites of $S^c$ that are neighbors of $C_S$.
+    \end{itemize}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{infinite-cluster subcritical}
+  \xplain{percolation-exponential-decay-subcritical}
+  \xfield{If $\varphi_p(S) < 1$ for some $S \in \mathcal S$, $P_p(0 \leftrightarrow \lambda_n)$ decays exponentially.}
+  \begin{field}
+    Find $n_0$ such that $S \subseteq \Lambda_{n_0}$. If $0 \leftrightarrow \lambda_n$, then there is a site $x \in C_S$ adjacent to a site $y \in O(S)$ such that $y \leftrightarrow \lambda_n$ outside of $\tilde C_S$. Therefore, if $ 0 \in D \subseteq S$,
+    \begin{align*}
+      & P_p(C_S = D, 0 \leftrightarrow \lambda_n) \\
+      & \le \sum_{y \in O(S) \inter O(D)} P_p(C_S = D, y \leftrightarrow \lambda_n \text{ outside of } \tilde D) \\
+      & = P_p(C_S = D) \sum_{y \in O(S) \inter O(D)} P_p(y \leftrightarrow \lambda_n \text{ outside of } \tilde D) \\
+      & \le P_p(C_S = D) \abs{O(S) \inter O(D)} u_{n - n_0}
+    \end{align*}
+    Summing over $D$, we get $u_n \le \varphi_p(S) u_{n - n_0}$, namely exponential decay.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{infinite-cluster}
+  \xplain{percolation-exponential-decay-supercritical}
+  \xfield{If $p > p_c$, then $\inf_{S \in \mathcal S} \varphi_p(S) > 0$.}
+  \begin{field}
+    For all $S \in \mathcal S$,
+    $$\varphi_p(S) \ge P_p(0 \leftrightarrow \infty) > 0$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{infinite-cluster}
+  \xplain{percolation-exponential-decay-not-subcritical}
+  \xfield{If $\inf_{S \in \mathcal S} \varphi_{p_0}(S) > 0$, then $p_0 \ge p_c$.}
+  \begin{field}
+    Percolate in $\Lambda_n$. Call $U$ the set of points connected to $\lambda_n$. The expected number of closed $0 \leftrightarrow \lambda_n$-pivotals is $(1 - p)\frac{du_n(p)}{dp}$ by Russo. A pivotal $y$ is closed iff there is an open path from $0$ to a neighbor of $y$ in $S(U)$ (the component of $0$ in $\tilde U^c$), and in particular $y \in O(S(U))$. Hence, if $p > p_0$,
+    \begin{align*}
+      \frac{du_n(p)}{dp}
+      & = \frac 1{1 - p} \sum_{V \not\ni 0} \E\left[1_{U = V} \varphi_p(S(V))\right] \\
+      & \ge \frac\alpha{1 - p} P_p(0 \notin U) \ge \alpha
+    \end{align*}
+    Integrating,
+    $$P_p(0 \leftrightarrow \infty) \lim_{n \to \infty} u_n(p) \ge (p - p_0)\alpha > 0$$
+  \end{field}
+\end{note}
+
+% 4. The value of p_c on the triangular lattice
+
+
+\tags{percolation::triangular}
+
+
+\begin{note}
+  \tags{crossing}
+  \xplain{percolation-triangular-top-bottom-left-right}
+  \xfield{The probability of a left-right crossing in a rhombus is $\frac 12$.}
+  \begin{field}
+    Look at the set of sites connected to the top boundary. Either it reaches the bottom (and we have a top-bottom open crossing) or it doesn't (and the "lower boundary" of the set is a left-right closed crossing). Hence the probabilities of a top-bottom open crossing and of a left-right closed crossing add up to $1$. But they are equal by symmetry, hence they must be $\frac 12$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{infinite-cluster critical}
+  \xplain{percolation-triangular-critical-le-half}
+  \xfield{For triangular percolation, $p_c \le \frac 12$.}
+  \begin{field}
+    At $p = \frac 12$, the probability of a left-right crossing is $\frac 12$. In particular, the probability of a point belonging to a cluster of diameter at least $N$ is at least $\frac 1{2(N + 1)}$. Hence we do not have exponential decay and $p_c \le \frac 12$.
+  \end{field}
+\end{note}
+
+
+\tags{general-models}
+
+
+\begin{note}
+  \xplain{glauber-dynamic-def}
+  \xfield{Glauber dynamic}
+  \begin{field}
+    Update the configuration one state at a time. Forget a random state and pick between the two possible configurations $c$ and $d$ with probabilities
+    $$\frac{P(c)}{P(c) + P(d)}, \frac{P(d)}{P(c) + P(d)}$$
+    The state needn't be chosen with the same probability, but they must each have positive probability of being chosen.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \xplain{glauber-dynamic-unique-measure}
+  \xfield{The Glauber dynamic gives rise to a unique stationary measure because...}
+  \begin{field}
+    ...the Markov chain is
+    \begin{itemize}
+    \item aperiodic
+    \item irreducible
+    \item reversible
+    \end{itemize}
+    Indeed it is a random walk on the space of configurations (which is connected and finite).
+  \end{field}
+\end{note}
+
+\begin{note}
+  \xplain{harris-inequality}
+  \xfield{Harris inequality}
+  \begin{field}
+    If $A$, $B$, are two increasing cylindrical events, then $P_\beta(A \inter B) \ge P_\beta(A)P_\beta(B)$
+    \begin{proof}
+      Construct two Markov chains $X_n$ and $Y_n$ coupled through a Glauber dynamic such that $X_n \le Y_n$ and $Y_n$ is constrained to $B$ (possible because $B$ increasing and cylindrical). So $X_n \in A \implies Y_n \in A$ ($A$ is increasing). This proves $P_\beta(A \mid B) \ge P_\beta(A)$.
+    \end{proof}
+  \end{field}
+\end{note}
+
+
+\tags{percolation::triangular}
+
+
+\begin{note}
+  \tags{Tags}
+  \xplain{Label}
+  \xfield{Triangular percolation has no infinite cluster at $p = \frac 12$.}
+  \begin{field}
+    Assume there is an infinite cluster with probability $1$. Consider the $(2N + 1) \times (2N + 1)$ rhombus $R_N$ centered at the origin and its sides $L_1, E_2, L_3, L_4$. Define $E_i$ the event that $L_i \leftrightarrow \infty$. By Harris, these events are positively correlated, so
+    $$P(E_1^c)^4 = \prod_i P(E_i^c) \le P(E_1^c, \dots, E_4^c) \le P(R_N \not\leftrightarrow \infty) \to 0$$
+    Hence $P(E_i) \to 1$ for each $i$ and the following happens with strictly positive probability: There are infinite open paths from $L_1$ and $L_3$ and infinite closed paths from $L_2$ and $L_4$. But in that case it is impossible to have a single infinite cluster. Contradiction.
+  \end{field}
+\end{note}
+
+% II - Conformal invariance of critical percolation on the triangular lattice
+
+% 1. Russo-Seymour-Welsh bounds
+
+
+\tags{ising-model}
+
+
+\begin{note}
+\xplain{ising-distrib-def}
+\tags{definition}
+\xfield{Ising distribution}
+\begin{field}
+  \begin{align*}
+    P_\beta(\sigma)
+    & = \frac 1{Z_\beta}\exp\left(-\beta \sum_{x \sim y} 1_{\sigma_x \ne \sigma_y}\right) \\
+    & = \frac 1{Z'_\beta}\exp\left(-\frac\beta 2\sum_{x \sim y} \sigma_x \sigma_y\right)
+  \end{align*}
+\end{field}
+\end{note}
+
+\begin{note}
+\xplain{extend-ising-infinite}
+\tags{}
+\xfield{How to extend the Ising measure to an infinite graph?}
+\begin{field}
+  Consider a cobounded sequence of sets of states $S_n$, define $P_n^+$ the Ising model conditioned on the spins being $+1$ outside $S_n$. For every increasing cylindrical event $A$, $P_n^+(A)$ decreases, so it has a limit $P^+(A)$. This defines $P^+$ for increasing cylindrical events. Now extend by Carathéodory.
+
+  Define $P^-$ similarly.
+\end{field}
+\end{note}
+
+\begin{note}
+  \tags{}
+  \xplain{ising-coupling-sigma-n}
+  \xfield{How to couple the $\sigma_n^+$ together?}
+  \begin{field}
+    Pick a measure $\mu$ on $\Z^d$ such that $\mu \{x\} > 0$ for all $x$.  Create a Markov chain on $\{(\sigma_0^+, \sigma_1^+, \dots) \mid \sigma_0^+ \le \sigma_1^+ \le \dots\}$, by starting at $1$ everywhere and each time resampling $x$ with probability $\mu \{x\}$. Each truncated Markov chain $(\sigma_0^+, \dots, \sigma_n^+)$ is irreducible, aperiodic, reversible and has a finite state space, so converges to a unique stable measure. Piece these measures together by Kolmogorov extension.
+  \end{field}
+\end{note}
+
+\end{document}
+
