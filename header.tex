@@ -27,7 +27,6 @@
 \usepackage{float}
 \usepackage{braket}
 \usepackage{marginnote}
-\usepackage{mathabx}
 \usepackage{mathdots}
 \usepackage{mathrsfs}
 \usepackage{ifthen}
@@ -205,3 +204,15 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \fi
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0.2pt}
+
+% Counters and table of content
+
+\swapnumbers
+\reversemarginpar
+
+\usetikzlibrary{positioning, decorations.pathmorphing, decorations.text, calc, backgrounds, fadings}
+\tikzset{node/.style = {circle,draw,inner sep=0.8mm}}
+
+\makeindex[intoc]
+
+\setcounter{section}{-1}

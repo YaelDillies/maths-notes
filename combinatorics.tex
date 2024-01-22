@@ -9,15 +9,6 @@
 \def\draft{Incomplete}
 
 \input{header}
-\swapnumbers
-\reversemarginpar
-
-\usetikzlibrary{positioning, decorations.pathmorphing, decorations.text, calc, backgrounds, fadings}
-\tikzset{node/.style = {circle,draw,inner sep=0.8mm}}
-
-\makeindex[intoc]
-
-\setcounter{section}{-1}
 
 % and here we go!
 \begin{document}
@@ -273,7 +264,7 @@ Erd\H os-Ko-Rado says that if $\mcA \subseteq X^{(r)}$ is intersecting, then $\a
 \end{nthm}
 \begin{proof}
   Consider the bipartite graph with parts $\mcA$ and the cyclic orders of $X$. Connect $A \in \mcA$ to a cyclic order $\pi$ if $A$ is a $\pi$-arc. Make the weight of the edge be $\abs A^{-1}$. Then every $A \in \mcA$ has total weight $(\abs A - 1)!(n - \abs A)!$ while each $\pi$ has weight
-  $$\sum_{A in \mcA_\pi} \abs A^{-1} \le \frac{\abs{\mcA_\pi}}{\min_{A \in \mcA} \abs A} \le 1$$
+  $$\sum_{A \in \mcA_\pi} \abs A^{-1} \le \frac{\abs{\mcA_\pi}}{\min_{A \in \mcA} \abs A} \le 1$$
   by Lemma \ref{lem:arc-antichain}. So
   $$\sum_{A \in \mcA} (\abs A - 1)!(n - \abs A)! \le (n - 1)!$$
 \end{proof}
@@ -781,6 +772,34 @@ The content of Kemnitz's conjecture is that $4p - 3$ is enough.
   \end{align*}
 \end{proof}
 
+\begin{nthm}[R\'onyai]
+  Let $p \ge 3$ be prime and $m = 4p - 2$. Let $v_1, \dots, v_m \in \Z/p\Z \times \Z/p\Z$. Then some subsequence of length $p$ sums to $0$.
+\end{nthm}
+\begin{proof}
+  We need a subsequence of length $p$ or length $3p$ summing to $0$. Suppose there doesn't exist such subsequence. Write $v_i = (a_i, b_i)$ and define
+  \begin{align*}
+    r & = \sum_{I \in [n]^{(p)}} \prod_{i \in I} X_i \\
+    f & = \left(\left(\sum_{i = 1}^m a_i X_i\right)^{p - 1} - 1\right)
+    \left(\left(\sum_{i = 1}^m b_i X_i\right)^{p - 1} - 1\right)
+    \left(\left(\sum_{i = 1}^m X_i\right)^{p - 1} - 1\right)
+    (r - 2) \\
+    g & = 2(X_1 - 1) \dots (X_m - 1) \\
+    h & = f - g
+  \end{align*}
+  For $c \in \{0, 1\}^m$, we see that
+  $$f(c), g(c) =
+  \begin{cases}
+    2 & \text{ if } c = 0 \\
+    0 & \text{ if } c \ne 0
+  \end{cases}$$
+  since, writing $\abs c = \sum_i c_i$, we see that the third factor $\left(\sum_{i = 1}^m X_i\right)^{p - 1} - 1$ is zero unless $\abs c = p, 2p, 3p$.
+  \begin{itemize}
+    \item If $\abs c = 2p$, the fourth factor is zero since $r = \binom{2p}p = 2 \mod p$.
+    \item If $\abs c = p, 3p$, then one of the first two factors is zero because we assumed there was no sequence of length $p$ or $3p$ summing to zero.
+  \end{itemize}
+  Hence $h$ is identically zero on $\{0, 1\}^m$. But the coefficient of $X_1 \dots X_m$ in $h$ is $2 \ne 0$. This contradicts Alon's Combinatorial Nullstellensatz.
+\end{proof}
+
 \clearpage
 
 \section{Topology in Combinatorics}
@@ -825,7 +844,7 @@ This was proved by Lov\'asz in 1978, with a much simpler proof provided by B\'ar
   \end{enumerate}
 \end{nthm}
 
-\begin{nthm}[Greene]
+\begin{nthm}[Greene]\label{thm:greene}
   Let $S^n$ be covered with $n + 1$ sets, each of which is open or closed. Then one of the sets contains a pair of antipodal points.  
 \end{nthm}
 \begin{proof}
@@ -852,16 +871,22 @@ This was proved by Lov\'asz in 1978, with a much simpler proof provided by B\'ar
   is a counterexample to Case 2.
 \end{proof}
 
+\newlec
+
 \begin{nthm}
   For $n = 2k + d$, the chromatic number of the Kneser graph is exactly $d + 2$.
 \end{nthm}
-\begin{proof}
-  We have already proved $\chi(KG(n, k)) \le d + 2$. Suppose $\chi(KG(n, k)) \le d + 1$, ie write
+\begin{proof}[Proof (Greene)]
+  We already proved $\chi(KG(n, k)) \le d + 2$. Suppose $\chi(KG(n, k)) \le d + 1$, ie write
   $$X^{(k)} = \Union_{i = 1}^{d + 1} \mcA_i$$
-  where each $\mcA_i$ is intersecting. To be continued.
+  where each $\mcA_i$ is intersecting. Consider $n$ points on $S^{d + 1}$ in general position, ie no great $d$-sphere contains $d + 2$ points. Define
+  $$U_i = \{a \mid \exists s \in \mcA_i, \for x \in s, a \cdot x > 0\}, F = U_1^c \inter \dots \inter U_{d + 1}^c$$
+  The $U_i$ are open, $F$ is closed and $U_1 \union \dots U_{d + 1} \union F = S^{d + 1}$. Hence by Theorem \ref{thm:greene} we find that one of the sets contains a pair $\pm a$ of antipodal points.
+  \begin{itemize}
+    \item If it is $F$, then $\{x \mid a \cdot x > 0\}$ and $\{x \mid a \cdot x < 0\}$ each contain strictly less than $k$ elements. Therefore $\{x \mid a \cdot x = 0\}$ is a great $d$-sphere containing at least $n - 2(k - 1) = d + 2$ points. Contradiction.
+    \item If it is $U_i$ for some $i$, then $\mcA_i$ contains two disjoint sets. Contradiction.
+  \end{itemize}
 \end{proof}
-
-\newlec
 
 \printindex
 \end{document}
