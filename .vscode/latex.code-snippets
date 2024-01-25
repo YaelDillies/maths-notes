@@ -13,5 +13,53 @@
       "\\end{note}"
 		],
 		"description": "Anki note"
+	},
+  "Definition": {
+    "scope": "latex"
+		"prefix": "def",
+		"body": [
+      "\\begin{defi}",
+      "  $1",
+      "\\end{defi}"
+		],
+		"description": "Definition"
+	}
+  "Theorem": {
+    "scope": "latex"
+		"prefix": "thm",
+		"body": [
+      "\\begin{nthm}",
+      "  $1",
+      "\\end{nthm}"
+      "\\begin{proof}",
+      "  $2",
+      "\\end{proof}"
+		],
+		"description": "Theorem and proof"
+	},
+  "Lemma": {
+    "scope": "latex"
+		"prefix": "lemma",
+		"body": [
+      "\\begin{nlemma}",
+      "  $1",
+      "\\end{nlemma}"
+      "\\begin{proof}",
+      "  $2",
+      "\\end{proof}"
+		],
+		"description": "Lemma and proof"
+  },
+  "Finite field": {
+    "scope": "latex"
+    "prefix": "ff",
+    "body": ["\\F_p^n"],
+    "description": "Finite field notation"
+	},
+  "Brackets": {
+    "scope": "latex"
+    "prefix": "\bra",
+    "body": ["\\left($1\\right)"],
+    "description": "Brackets"
 	}
 }
