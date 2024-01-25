@@ -1,0 +1,256 @@
+\documentclass{article}
+
+% preamble
+\def\npart{III}
+\def\nyear{2024}
+\def\nterm{Lent}
+\def\nlecturer{Prof Julia Wolf}
+\def\ncourse{Introduction to Additive Combinatorics}
+\def\draft{Incomplete}
+
+\input{header}
+
+% and here we go!
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\clearpage
+\section{Fourier-analytic techniques}
+
+\newlec
+
+Let $G = \F_p^n$ where $p$ is a small fixed prime and $n$ is large.
+
+\begin{notation}
+  Given a finite set $B$ and any function $f : B \to \C$, write
+  $$\E_{x \in B} f(x) = \frac 1{\abs B} \sum_{x \in B} f(x)$$
+  Write $\omega = E^{\frac{\tau i}p}$. Note $\sum_{a \in \F_p} \omega^a = 0$.
+\end{notation}
+
+\begin{ndef}
+  Given $f : \F_p^n \to \C$, define its {\bf Fourier transform} $\hat f : \F_p^n \to \C$ by
+  $$\hat f(t) = \E_{x \in \F_p^n} f(x) \omega^{x \cdot t}$$
+\end{ndef}
+
+It is easy to verify the {\bf inversion formula}
+$$f(x) = \sum_{t \in \F_p^n} \hat f(t)\omega^{-x \cdot t}$$
+Indeed,
+\begin{align*}
+  \sum_{t \in \F_p^n} \hat f \omega^{-x \cdot t}
+  & = \sum_{t \in \F_p^n} \left(\E_y f(y)\omega^{y \cdot t}\right) \omega^{-x \cdot t} \\
+  & = \E_y f(y) \sum_t \omega^{(y - x) \cdot t} \\
+  & = \E_y f(y) 1_{y = x} p^n \\
+  & = f(x)
+\end{align*}
+
+\begin{notation}
+  Given a set $A$ of a finite group $G$, write
+  \begin{itemize}
+    \item $1_A$ the {\it characteristic function} of $A$, ie
+    $$1_A(x) = \begin{cases}
+      1 & \text{ if } x \in A \\
+      0 & \text{ if } x \nin A
+    \end{cases}$$
+    \item $\mu_A$ the {\it characteristic measure} of $A$, ie
+    $$\mu_A = \alpha^{-1} 1_A$$
+    where $\alpha = \frac{\abs A}{\abs G}$.
+    \item $f_A$ for the {\it balanced function} of $A$, ie
+    $$f_A(x) = 1_A(x) - \alpha$$
+  \end{itemize}
+\end{notation}
+
+Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alpha$. Writing $-A = \{-a | a \in A\}$, we have
+\begin{align*}
+  \widehat{1_{-A}}(t)
+  & = \E_x 1_{-A}(x) \omega^{x \cdot t} \\
+  & = \E_x 1_A(-x) \omega^{x \cdot t} \\
+  & = \E_x 1_A(x) \omega^{-x \cdot t} \\
+  & = \overline{\widehat{1_A}(t)}
+\end{align*}
+
+\begin{nex}\label{ex:dft-subspace}
+  Let $V \le \F_p^n$. Then
+  $$\widehat{1_V}(t) = \E_x 1_V(x) \omega^{x \cdot t} = \frac{\abs V}{\abs G} 1_{V^\perp}(t)$$
+  So
+  $$\hat \mu_V(t) = 1_{V^\perp}(t)$$
+\end{nex}
+
+\begin{nex}
+  Let $R \subseteq \F_p^n$ be such that each $x$ is included with probability $\frac 12$ independently. Then with high probability
+  $$\sup_{t \ne 0} \abs{\widehat{1_R}(t)} = O\left(\sqrt{\frac{\log(p^n)}{p^n}}\right)$$
+  This is on Example Sheet 1 using a {\bf Chernoff-type bound}: Given $\C$-valued independent random variables $X_1, \dots, X_n$ with mean $0$ and $\theta \ge 0$, we have
+  $$\P\left(\abs{\sum_i X_i} \ge \theta\sqrt{\sum_i \norm{X_i}^2_{L^\infty}}\right) \le 4\exp\left(-\frac{\theta^2}4\right)$$
+\end{nex}
+
+\begin{nex}
+  Let $Q = \{x \in \F_p^n \mid x \cdot x = 0\}$. Then $\abs Q = \left(\frac 1p + O(p^{-n})\right)p^n$ and $\sup_{t \ne 0} \abs{\widehat{1_Q}(t)} = O(p^{-\frac n2})$. See Example Sheet 1.
+\end{nex}
+
+\begin{notation}
+  Given $f, g : \F_p^n \to \C$, write
+  \begin{align*}
+    \inn f g & = \E_x f(x) \overline{g(x)} \\
+    \inn{\hat f}{\hat g} & = \sum_t \hat f(t) \overline{\hat g(t)}
+  \end{align*}
+  Consequently,
+  \begin{align*}
+    \norm f_2^2 & = \E_x \abs{f(x)}^2 \\
+    \norm{\hat f}_2^2 & = \sum_t \abs{\hat f(t)}^2
+  \end{align*}
+\end{notation}
+
+\begin{nlemma}
+  For all $f, g : \F_p^n \to \C$,
+  \begin{align*}
+    \inn f g & = \inn{\hat f}{\hat g} & \text{ (Plancherel)} \\
+    \norm f_2 & = \norm{\hat f}_2 & \text{ (Parseval)}
+  \end{align*}
+\end{nlemma}
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{ndef}
+  Let $\rho > 0$ and $f : \F_p^n \to \C$. Define the $\rho$-large spectrum of $f$ to be
+  $$\Spec_\rho(f) = \{t \mid |\hat f(t)| \ge \rho\norm f_1\}$$
+\end{ndef}
+
+\begin{nex}
+  By Example \ref{ex:dft-subspace}, if $V \le \F_p^n$, then
+  $\Spec_\rho(1_V) = V^\perp$ for all $\rho > 0$.
+\end{nex}
+
+\begin{nlemma}\label{lem:card-large-spec}
+  For all $\rho > 0$, $\abs{\Spec_\rho(f)} \le \rho^{-2} \frac{\norm f_2^2}{\norm f_1^2}$.
+\end{nlemma}
+\begin{proof}
+  $$\norm f_2^2 = \norm{\hat f}_2^2 \ge \sum_{t \in \Spec_\rho(f)} \abs{\hat f(t)}^2 \ge \abs{\Spec_\rho(f)}(\rho \norm f_1)^2$$
+\end{proof}
+
+\newlec
+
+\begin{ndef}
+  Given $f, g : \F_p^n \to \C$, define their {\bf convolution} $f \ast g : \F_p^n \to \C$ by
+  $$(f \ast g)(x) = \E_y f(y)g(x - y)$$
+\end{ndef}
+
+\begin{nex}
+  Given $A, B \subseteq \F_p^n$,
+  \begin{align*}
+    (1_A \ast 1_B)(x)
+    & = \E_y 1_A(y)1_B(x - y) \\
+    & = \frac 1{p^n}\abs{A \inter (x - B)} \\
+    & = \frac{\#\text{ ways to write } x = a + b, a \in A, b \in B}{p^n}
+  \end{align*}
+  In particular, the support of $1_A \ast 1_B$ is the {\bf sum set}
+  $$A + B = \{a + b \mid a \in A, b \in B\}$$
+\end{nex}
+
+\begin{nlemma}
+  Given $f, g : \F_p^n \to \C$,
+  $$\widehat{f \ast g}(t) = \hat f(t) \hat g(t)$$
+\end{nlemma}
+\begin{proof}
+  \begin{align*}
+    \widehat{f \ast g}(t)
+    & = \E_x \left(\E_y f(y)g(x - y)\right)\omega^{x \cdot t} \\
+    & = \E_y f(y) \E_u g(u)\omega^{(u + y) \cdot t} \\
+    & = \hat f(t) \hat g(t)
+  \end{align*}
+\end{proof}
+
+\begin{nex}
+  $\norm{\hat f}_4^4 = \E_{x + y = z + w} f(x)f(y)\overline{f(z)f(w)}$. See Example Sheet 1.
+\end{nex}
+
+\begin{nlemma}[Bogolyubov]
+  If $A \subseteq \F_p^n$ is of density $\alpha > 0$, then there exists a subspace $V$ of codimension at most $2\alpha^{-2}$ such that $V \subseteq (A + A) - (A + A)$.
+\end{nlemma}
+\begin{proof}
+  Observe that $(A + A) - (A + A) = \supp (\underbrace{1_A \ast 1_A \ast 1_{-A} \ast 1_{-A}}_g)$, so we wish to find $V$ such that $g(x) > 0$ for all $x \in V$. Let $K = \Spec_\rho(1_A)$ for some $\rho > 0$ and define $V = \langle K\rangle^\perp$. By Lemma \ref{lem:card-large-spec}, $\codim V \le \abs K \le \rho^{-2}\alpha^{-1}$. We calculate
+  \begin{align*}
+    g(x)
+    & = \sum_{t \in \F_p^n} \widehat{1_A \ast 1_A \ast 1_{-A} \ast 1_{-A}}(t)\omega^{-x \cdot t} \\
+    & = \sum_{t \in \F_p^n} \abs{\widehat{1_A}(t)}^4 \omega^{-x \cdot t} \\
+    & = \alpha^4 + \underbrace{\sum_{t \in K \setminus \{0\}} \abs{\widehat{1_A}(t)}^4 \omega^{-x \cdot t}}_{(1)} + \underbrace{\sum_{t \nin K} \abs{\widehat{1_A}(t)}^4 \omega^{-x \cdot t}}_{(2)}
+  \end{align*}
+  We now see that
+  $$(1) = \sum_{t \in K \setminus \{0\}} \abs{\widehat{1_A}(t)}^4 \ge 0$$
+  and
+  $$\abs{(2)} \le \sum_{t \nin K} \abs{\widehat{1_A}(t)}^4 \le \sup_{t \nin K} \abs{\widehat{1_A}(t)}^2 \sum_{t \nin K} \abs{\widehat{1_A}(t)}^2 \le (\rho\alpha)^2\norm{1_A}_2^2 = \rho^2\alpha^3$$
+  by Parseval. Picking $\rho = \sqrt{\frac\alpha 2}$, we thus get $\rho^2\alpha^3 \le \frac{\alpha^4}2$ and $g(x) > 0$ whenever $x \in V$.
+\end{proof}
+
+\begin{nex}
+  The set $A = \{x \in \F_2^n \mid \abs x \ge \frac n2 + \frac{\sqrt n}2\}$ has density at least $\frac 14$ but there is no coset $C$ of any subspace of codimension $\sqrt n$ such that $C \subseteq A + A$. See Example Sheet 1.
+\end{nex}
+
+\begin{nlemma}\label{lem:density-increment}
+  Let $A \subseteq \F_p^n$ of density $\alpha$ be such that $\Spec_\rho(1_A)$ contains some $t \ne 0$. Then there exist $V \le \F_p^n$ of codimension $1$ and $x \in \F_p^n$ such that
+  $$\abs{A \inter (x + V)} \ge \alpha\left(1 + \frac\rho 2\right)\abs V$$
+\end{nlemma}
+\begin{proof}
+  Let $t \ne 0$ be such that $\abs{\widehat{1_A}(t)} \ge \rho\alpha$ and let $V = \langle t\rangle^\perp$. For $j = 1, \dots, p$, write
+  $$v_j + V = \{x \in \F_p^n \mid x \cdot t = j\}$$
+  the cosets of $V$. Then
+  \begin{align*}
+    \widehat{1_A}(t)
+    & = \hat{f_A}(t) \\
+    & = \E_{x \in \F_p^n}(1_A(x)) - \alpha)\omega^{x \cdot t} \\
+    & = \E_j \omega^j \E_{x \in v_j + V} (1_A(x) - \alpha) \\
+    & = \E_j a_j \omega^j
+  \end{align*}
+  where $a_j = \frac{\abs{A \inter (v_j + V)}}{\abs V} - \alpha$. Since $\sum_j a_j = 0$, we get
+  $$\rho\alpha \le \abs{\widehat{1_A}(t)} \le \E_j \abs{a_j} = \E_j (\abs{a_j} + a_j)$$
+  So there is some $j$ such that $\abs{a_j} + a_j \ge \rho\alpha$. In particular, this $a_j$ is positive, so
+   $$\frac{\abs{A \inter (v_j + V)}}{\abs V} \ge \alpha + \frac{\rho\alpha}2$$
+   as wanted.
+\end{proof}
+
+\newlec
+
+\begin{nlemma}\label{lem:3AP-estimate}
+  Let $p \ge 3$ and $A \subseteq \F_p^n$ of density $\alpha > 0$ be such that $\sup_{t \ne 0} \abs{\widehat{1_A}(t)} = o(1)$. Then $A$ contains $(\alpha^3 + o(1))\abs G^2$ three terms arithmetic progressions (aka 3AP).
+\end{nlemma}
+
+\begin{notation}
+  Given $f, g, h : \F_p^n \to \C$, write
+  $$T_3(f, g, h) = \E_x f(x) g(x + d) h(x + 2d)$$
+  Given $A \subseteq \F_p^n$, write $2 \cdot A = \{2a \mid a \in A\}$. This is distinct from $2A = \{a + b \mid a, b \in A\}$.
+\end{notation}
+
+\begin{proof}
+  The number of 3AP (including the trivial ones of the form $a, a, a$) in $A$ is $\abs G^2$ times
+  \begin{align*}
+    T_3(1_A, 1_A, 1_A)
+    & = \E_{x, d} 1_A(x) 1_A(x + d) 1_A(x + 2d) \\
+    & = \E_{x, y} 1_A(x) 1_A(y) 1_A(2y - x) \\
+    & = \E_y 1_A(y) (1_A \ast 1_A)(2y) \\
+    & = \inn{1_{2 \cdot A}}{1_A \ast 1_A} \\
+    & = \inn{\widehat{1_{2 \cdot A}}}{\widehat{1_A}^2} \\
+    & = \alpha^3 + \sum_{t \ne 0} \widehat{1_A}(t) \overline{\widehat{1_{2 \cdot A}}(t)} \text{ by Plancherel}
+  \end{align*}
+  In absolute value, the error term is at most
+  $$\sup_{t \ne 0} \abs{\widehat{1_{2 \cdot A}}(t)} \sum_t \abs{\widehat{1_A}(t)}^2 = \alpha \sup_{t \ne 0} \abs{\widehat{1_A}(t)}$$
+\end{proof}
+
+\begin{nthm}[Meshulam]\label{thm:meshulam}
+  Let $p \ge 3$ and $A \subseteq \F_p^n$ be a set containing only trivial 3AP. Then
+  $$\abs A = O\left(\frac{p^n}{\log(p^n)}\right)$$
+\end{nthm}
+\begin{proof}
+  By assumption, $T_3(1_A, 1_A, 1_A) = \frac\alpha{p^n}$. But, as in Lemma \ref{lem:3AP-estimate},
+  $$\abs{T_3(1_A, 1_A, 1_A) - \alpha^3} \le \alpha \sup_{t \ne 0} \abs{\widehat{1_A}(t)}$$
+  Hence, provided that $2\alpha^{-2} \le p^n$, Lemma \ref{lem:density-increment} gives us a subspace $V \le \F_p^n$ of codimension $1$ and $x \in \F_p^n$ such that
+  $$\abs{A \inter (x + V)} \ge \alpha\left(1 + \frac{\alpha^2}4\right)\abs V$$
+  We iterate this observation. Let $A_0 = A, V_0 = \F_p^n$. At step $i$, we are given a set $A_i \subseteq V_i$ of density $\alpha_i$ with only trivial 3AP. Provided that $2\alpha_i^{-2} \le p^{\dim V_i}$, find $V_{i + 1} \le V_i$ of codimension $1$ and $x \in V_i$ such that $\abs{A_i \inter (x + V_i)} \ge \left(\alpha_i + \frac{\alpha_i^2}4\right)\abs{V_{i + 1}}$ and set $A_{i + 1} = (A_i - x) \inter V_i$. Note that $\alpha_{i + 1} \ge \alpha_i + \frac{\alpha_i^2}4$ and $A_{i + 1}$ only contains trivial 3AP (because, very importantly, 3AP are {\bf translation-invariant}). \\
+  Through this iteration, the density of $A$ increases from $\alpha$ to $2\alpha$ in at most $\lceil 4\alpha^{-1}\rceil$ steps, from $2\alpha$ to $4\alpha$ in at most $\lceil 2\alpha^{-1}\rceil$ steps, etc... Since density can't increase past $1$, it takes at most
+  $$\underbrace{\lceil 4\alpha^{-1}\rceil + \lceil 2\alpha^{-1}\rceil + \dots}_{\lceil \log \alpha^{-1}\rceil \text{ terms}} \le (4\alpha^{-1} + 1) + (2\alpha^{-1} + 1) + \dots \le 8\alpha^{-1} + \log \alpha^{-1} \le 9\alpha^{-1}$$
+  steps to reach a point where the condition $2\alpha_i^{-2} \le p^{\dim V_i}$ is not respected anymore. Now either $\alpha \le \sqrt 2 p^{-\frac n4}$ (in which case the inequality is obvious) or $\alpha \ge \sqrt 2 p^{-\frac n4}$ and
+  $$p^{n - 9\alpha^{-1}} \le p^{\dim V_i} \le 2\alpha_i^{-2} \le 2\alpha^{-2} \le p^{\frac n2}$$
+  namely $\alpha \le \frac{18}n$, as wanted.
+\end{proof}
+
+\end{document}
