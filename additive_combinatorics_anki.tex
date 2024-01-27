@@ -1,0 +1,536 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The first part of the header needs to be copied
+%       into the note options in Anki.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% layout in Anki:
+\documentclass[10pt]{article}
+\usepackage[a4paper]{geometry}
+\geometry{paperwidth=.5\paperwidth,paperheight=100in,left=2em,right=2em,bottom=1em,top=2em}
+\pagestyle{empty}
+\setlength{\parindent}{0in}
+
+% encoding:
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% packages:
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{centernot}
+
+% commands
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+% Letter shorthands
+\newcommand{\C}{\mathbb C}
+\newcommand{\E}{\mathbb E}
+\newcommand{\F}{\mathbb F}
+\newcommand{\K}{\mathbb K}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\mcA}{\mathcal A}
+\newcommand{\mcB}{\mathcal B}
+\newcommand{\mcC}{\mathcal C}
+\newcommand{\mcD}{\mathcal D}
+\newcommand{\mcE}{\mathcal E}
+\newcommand{\mcF}{\mathcal F}
+\newcommand{\mcG}{\mathcal G}
+\newcommand{\mcH}{\mathcal H}
+\newcommand{\mcM}{\mathcal M}
+\newcommand{\mcN}{\mathcal N}
+\newcommand{\mcO}{\mathcal O}
+\newcommand{\mcP}{\mathcal P}
+\newcommand{\mcQ}{\mathcal Q}
+\newcommand{\mcR}{\mathcal R}
+\newcommand{\mcS}{\mathcal S}
+\newcommand{\mcT}{\mathcal T}
+\newcommand{\mcU}{\mathcal U}
+\newcommand{\mcV}{\mathcal V}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Eps}{\mathcal E}
+
+\newcommand{\curlybrack}[1]{\left\{ #1\right\}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\inn}[2]{\left\langle #1, #2\right\rangle}
+\newcommand{\floor}[1]{\left\lfloor #1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1\right\rceil}
+\newcommand{\doublesqbrack}[1]{[\![#1]\!]}
+
+\newcommand{\imp}{\implies}
+\newcommand{\for}{\forall}
+\newcommand{\nin}{\notin}
+\newcommand{\comp}{\circ}
+\newcommand{\union}{\cup}
+\newcommand{\inter}{\cap}
+\newcommand{\Union}{\bigcup}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\hatplus}{\mathbin{\widehat{+}}}
+\newcommand{\symdif}{\mathbin\varbigtriangleup}
+\newcommand{\aeeq}{\overset{\text{ae}}=}
+\newcommand{\lexlt}{\overset{\text{lex}}<}
+\newcommand{\colexlt}{\overset{\text{colex}}<}
+\newcommand{\wtendsto}{\overset w\to}
+\newcommand{\wstartendsto}{\overset{w*}\to}
+\renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
+\renewcommand{\bar}[1]{\overline{#1}}
+
+\let\Im\relax
+\let\Re\relax
+
+\DeclareMathOperator{\Ber}{Ber}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\esssup}{ess sup}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\lhs}{LHS}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Re}{Re}
+\DeclareMathOperator{\rhs}{RHS}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Var}{Var}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Following part of header NOT to be copied into
+%            the note options in Anki.
+%          ! Anki will throw an error !
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%  pdf layout:
+\geometry{paperheight=74.25mm}
+\usepackage{pgfpages}
+\pagestyle{empty}
+\pgfpagesuselayout{8 on 1}[a4paper,border shrink=0cm]
+\makeatletter
+\@tempcnta=1\relax
+\loop\ifnum\@tempcnta<9\relax
+\pgf@pset{\the\@tempcnta}{bordercode}{\pgfusepath{stroke}}
+\advance\@tempcnta by 1\relax
+\repeat
+\makeatother
+
+%  notes, fields, tags:
+\def \ifempty#1{\def\temp{#1} \ifx\temp\empty }
+\newcommand{\xfield}[1]{
+        #1\par
+        \vfill
+        {\tiny\texttt{\parbox[t]{\textwidth}{\localtag\hfill\\\globaltag\hfill\uuid}}}
+        \newpage}
+\newenvironment{field}{}{\newpage}
+\newif\ifnote
+\newenvironment{note}{\notetrue}{\notefalse}
+\newcommand{\localtag}{}
+\newcommand{\globaltag}{}
+\newcommand{\uuid}{}
+\newcommand{\tags}[1]{
+    \ifnote
+        \renewcommand{\localtag}{#1}
+    \else
+        \renewcommand{\globaltag}{#1}
+    \fi
+    }
+\newcommand{\xplain}[1]{
+  \label{#1} % make sure there's no duplicate label
+  \renewcommand{\uuid}{#1} % update the UUID for display and Anki disambiguation
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The following line again needs to be copied
+% into Anki:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The notes themselves
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% I - Percolation and its phase transition
+
+% 1. Percolation phase transition
+
+
+\tags{fourier-analysis}
+
+
+\begin{note}
+  \tags{fourier-transform}
+  \xplain{dft-def}
+  \xfield{Discrete Fourier transform}
+  \begin{field}
+    If $f : \F_p^n \to \C$, then
+    $$\hat f(t) = \E_{x \in \F_p^n} f(x) \omega^{x \cdot t}$$
+    where $\omega = e^{\frac{\tau i}p}$. \\
+
+    More generally, if $f : G \to \C$, then $\hat f : \hat G \to \C$ is defined by
+    $$\hat f(\gamma) = \E_{x \in G} f(x)\gamma(x)$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{fourier-transform}
+  \xplain{dft-inversion}
+  \xfield{Inversion formula for the discrete Fourier transform}
+  \begin{field}
+    $$f(x) = \sum_{t \in \F_p^n} \hat f(t) \omega^{- x \cdot t}$$
+    \begin{proof}
+      \begin{align*}
+        \sum_{t \in \F_p^n} \hat f(t) \omega^{-x \cdot t}
+        & = \sum_{t \in \F_p^n} \left(\E_y f(y)\omega^{y \cdot t}\right) \omega^{-x \cdot t} \\
+        & = \E_y f(y) \sum_t \omega^{(y - x) \cdot t} \\
+        & = \E_y f(y) 1_{y = x} p^n \\
+        & = f(x)
+      \end{align*}
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \xplain{indicator-mu-balance-def}
+  \xfield{Ways to turn a set $A \subseteq \F_p^n$ into a function}
+  \begin{field}
+    \begin{itemize}
+      \item $1_A$ the {\it characteristic function} of $A$, ie
+      $$1_A(x) = \begin{cases}
+        1 & \text{ if } x \in A \\
+        0 & \text{ if } x \nin A
+      \end{cases}$$
+      Normalised in the $\infty$ norm.
+      \item $\mu_A$ the {\it characteristic measure} of $A$, ie
+      $$\mu_A = \alpha^{-1} 1_A$$
+      where $\alpha = \frac{\abs A}{\abs G}$. Normalised in the $L^1$ norm.
+      \item $f_A$ the {\it balanced function} of $A$, ie
+      $$f_A(x) = 1_A(x) - \alpha$$
+      Normalised to have sum $0$.
+    \end{itemize}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{fourier-transform}
+  \xplain{dft-neg}
+  \xfield{Fourier transform of $-A$}
+  \begin{field}
+    $$\widehat{1_{-A}} = \overline{1_A}$$
+    \begin{proof}
+      \begin{align*}
+        \widehat{1_{-A}}(t)
+        & = \E_x 1_{-A}(x) \omega^{x \cdot t} \\
+        & = \E_x 1_A(-x) \omega^{x \cdot t} \\
+        & = \E_x 1_A(x) \omega^{-x \cdot t} \\
+        & = \overline{\widehat{1_A}(t)}
+      \end{align*}
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}\label{dft-subspace}
+  \tags{fourier-transform}
+  \xplain{dft-subspace}
+  \xfield{Fourier transform of a subspace}
+  \begin{field}
+    If $V \le \F_p^n$, then
+    $$\widehat{\mu_V}(t) = 1_{V^\perp}(t)$$
+    \begin{proof}
+      $$\widehat{1_V}(t) = \E_x 1_V(x) \omega^{x \cdot t} = \frac{\abs V}{\abs G} 1_{V^\perp}(t)$$
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{fourier-transform}
+  \xplain{dft-random-set}
+  \xfield{Fourier transform of a random set}
+  \begin{field}
+    Let $R \subseteq \F_p^n$ be such that each $x$ is included with probability $\frac 12$ independently. Then with high probability
+    $$\sup_{t \ne 0} \abs{\widehat{1_R}(t)} = O\left(\sqrt{\frac{\log(p^n)}{p^n}}\right)$$
+    \begin{proof}
+      Chernoff
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \xplain{discrete-lp-norm-def}
+  \xfield{Inner product, $L^p$ norm}
+  \begin{field}
+    If $f, g : \F_p^n \to \C$, then
+    \begin{align*}
+      \inn f g & = \E_x f(x) \overline{g(x)} \\
+      \inn{\hat f}{\hat g} & = \sum_t \hat f(t) \overline{\hat g(t)} \\
+      \norm f_p^p & = \E_x \abs{f(x)}^p \\
+      \norm{\hat f}_p^p & = \sum_t \abs{\hat f(t)}^p
+  \end{align*}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{fourier-transform}
+  \xplain{discrete-plancherel-parseval}
+  \xfield{Plancherel and Parseval's identities}
+  \begin{field}
+    \begin{align*}
+      \inn f g & = \inn{\hat f}{\hat g} & \text{ (Plancherel)} \\
+      \norm f_2 & = \norm{\hat f}_2 & \text{ (Parseval)}
+    \end{align*}
+    \begin{proof}
+      \begin{align*}
+        \inn{\hat f}{\hat g}
+        & = \sum_t \hat f(t) \overline{\hat g(t)} = \sum_{t, x, y} f(x) \overline{g(y)} \omega^{(x - y) \cdot t} \\
+        & = \sum_{x, y} f(x) \overline{g(y)} 1_{x = y} = \inn f g
+      \end{align*}
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{large-spectrum}
+  \xplain{large-spectrum-def}
+  \xfield{Large spectrum}
+  \begin{field}
+    The $\rho$-large spectrum of $f$ is
+    $$\Spec_\rho(f) = \{t \mid |\hat f(t)| \ge \rho\norm f_1\}$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{large-spectrum}
+  \xplain{large-spectrum-subspace}
+  \xfield{Large spectrum of a subspace}
+  \begin{field}
+    If $V \le \F_p^n$ and $\rho > 0$, then
+    $$\Spec_\rho(1_V) = V^\perp$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{large-spectrum}
+  \xplain{card-large-spectrum-le}
+  \xfield{Upper bound on the size of the large spectrum}
+  \begin{field}
+    For all $\rho > 0$,
+    $$\abs{\Spec_\rho(f)} \le \rho^{-2} \frac{\norm f_2^2}{\norm f_1^2}$$
+    \begin{proof}
+      $$\norm f_2^2 = \norm{\hat f}_2^2 \ge \sum_{t \in \Spec_\rho(f)} \abs{\hat f(t)}^2 \ge \abs{\Spec_\rho(f)}(\rho \norm f_1)^2$$
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{convolution}
+  \xplain{convolution-def}
+  \xfield{Convolution of functions}
+  \begin{field}
+    Given $f, g : \F_p^n \to \C$, their convolution $f \ast g : \F_p^n \to \C$ is given by
+    $$(f \ast g)(x) = \E_y f(y)g(x - y)$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{convolution}
+  \xplain{convolution-indicators}
+  \xfield{Meaning of $1_A \ast 1_B$}
+  \begin{field}
+    \begin{align*}
+      (1_A \ast 1_B)(x)
+      & = \E_y 1_A(y)1_B(x - y) \\
+      & = \frac 1{p^n}\abs{A \inter (x - B)} \\
+      & = \frac{\#\text{ ways to write } x = a + b, a \in A, b \in B}{p^n}
+    \end{align*}
+    In particular, the support of $1_A \ast 1_B$ is the {\bf sum set}
+    $$A + B = \{a + b \mid a \in A, b \in B\}$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{convolution, fourier-transform}
+  \xplain{dft-convolution}
+  \xfield{Relationship between convolution and Fourier transform}
+  \begin{field}
+    Given $f, g : \F_p^n \to \C$,
+    $$\widehat{f \ast g}(t) = \hat f(t) \hat g(t)$$
+    \begin{proof}
+      \begin{align*}
+        \widehat{f \ast g}(t)
+        & = \E_x \left(\E_y f(y)g(x - y)\right)\omega^{x \cdot t} \\
+        & = \E_y f(y) \E_u g(u)\omega^{(u + y) \cdot t} \\
+        & = \hat f(t) \hat g(t)
+      \end{align*}
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{fourier-transform}
+  \xplain{l4-norm-fourier-transform}
+  \xfield{Meaning of the $L^4$ norm of the Fourier transform}
+  \begin{field}
+    $$\norm{\hat f}_4^4 = \E_{x + y = z + w} f(x)f(y)\overline{f(z)f(w)}$$
+    \begin{proof}
+      \begin{align*}
+        \norm{\hat f}_4^4
+        & = \norm{\hat f^2}_2^2 = \norm{\widehat{f \ast f}}_2^2 = \norm{f \ast f}_2^2 \\
+        & = \E_a (f \ast f)(a)\overline{(f \ast f)(a)} \\
+        & = \E_{a, x, y, z, w} f(x)f(y)1_{x + y = a}\overline{f(z)f(w)1_{z + w = a}} \\
+        & = \E_{x + y = z + w} f(x)f(y)\overline{f(z)f(w)}
+      \end{align*}
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{finite-field-model}
+  \xplain{bogolyubov}
+  \xfield{Bogolyubov's lemma}
+  \begin{field}
+    If $A \subseteq \F_p^n$ has density $\alpha > 0$, then there exists a subspace $V$ of codimension at most $2\alpha^{-2}$ such that $V \subseteq (A + A) - (A + A)$.
+    \begin{proof}
+      Write $(A + A) - (A + A) = \supp (\underbrace{1_A \ast 1_A \ast 1_{-A} \ast 1_{-A}}_g)$, set $K = \Spec_\rho(1_A)$ for $\rho = \sqrt{\frac\alpha 2} > 0$ and define $V = \langle K\rangle^\perp$. We have $\codim V \le \abs K \le \rho^{-2}\alpha^{-1} = 2\alpha^{-2}$ and
+      $$g(x) = \alpha^4 + \underbrace{\sum_{t \in K \setminus \{0\}} \abs{\widehat{1_A}(t)}^4 \omega^{-x \cdot t}}_{(1)} + \underbrace{\sum_{t \nin K} \abs{\widehat{1_A}(t)}^4 \omega^{-x \cdot t}}_{(2)}$$
+      Now prove $(1) \ge 0$ and $\abs{(2)} \le \rho^2\alpha^3 = \frac{\alpha^4}2$ so that $g(x) > 0$ whenever $x \in V$.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \xplain{sumset-no-subspace, finite-field-model}
+  \xfield{Example of a set such that $A + A$ does not contain any subspace of bounded codimension}
+  \begin{field}
+    The set $A = \{x \in \F_2^n \mid \abs x \ge \frac n2 + \frac{\sqrt n}2\}$ has density at least $\frac 14$ but there is no coset $C$ of any subspace of codimension $\sqrt n$ such that $C \subseteq A + A$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{large-spectrum, finite-field-model}
+  \xplain{density-increment-ff}
+  \xfield{Density increment in $\F_p^n$}
+  \begin{field}
+    Let $A \subseteq \F_p^n$ of density $\alpha$. If $t \ne 0$ is in $\Spec_\rho(1_A)$, then there exists $x$ such that
+    $$\abs{A \inter (x + V)} \ge \alpha\left(1 + \frac\rho 2\right)\abs V$$
+    where $V = \langle t\rangle^\perp$.
+    \begin{proof}
+      For $j = 1, \dots, p$, write $v_j + V$ the cosets of $V$, $a_j = \frac{\abs{A \inter (v_j + V)}}{\abs V} - \alpha$ the density increment within each $V_j$. Calculate $\sum_j a_j = 0$ and $\widehat{1_A}(t) = \E_j a_j \omega^j$, so that
+      $$\rho\alpha \le \abs{\widehat{1_A}(t)} \le \E_j \abs{a_j} = \E_j (\abs{a_j} + a_j)$$
+      and find $j$ such that $\abs{a_j} + a_j \ge \rho\alpha$. Take $x = v_j$.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{convolution}
+  \xplain{t3-def}
+  \xfield{Definition of $T_3$}
+  \begin{field}
+    If $f, g, h : \F_p^n \to \C$, then
+    $$T_3(f, g, h) = \E_x f(x) g(x + d) h(x + 2d) = \inn{f \ast h}{\bar g}$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{3AP, finite-field-model}
+  \xplain{3AP-uniform}
+  \xfield{Number of 3APs in a uniform set $A \subseteq \F_p^n$}
+  \begin{field}
+    Let $\alpha > 0$ be the density of $A$ and assume $\sup_{t \ne 0} \abs{\widehat{1_A}(t)} = o(1)$. Then $A$ contains $(\alpha^3 + o(1))\abs G^2$ 3APs.
+    \begin{proof}
+      The number of 3APs (including the trivial ones of the form $a, a, a$) in $A$ is $\abs G^2$ times
+      \begin{align*}
+        T_3(1_A, 1_A, 1_A)
+        & = \inn{1_A \ast 1_A}{1_{2 \cdot A}} = \inn{\widehat{1_A}^2}{\widehat{1_{2 \cdot A}}} \\
+        & = \alpha^3 + \sum_{t \ne 0} \widehat{1_A}(t)^2 \overline{\widehat{1_{2 \cdot A}}(t)} \text{ by Plancherel}
+      \end{align*}
+      In absolute value, the error term is at most
+      $$\sup_{t \ne 0} \abs{\widehat{1_{2 \cdot A}}(t)} \sum_t \abs{\widehat{1_A}(t)}^2 = \alpha \sup_{t \ne 0} \abs{\widehat{1_A}(t)}$$
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{3AP}
+  \xplain{meshulam, finite-field-model}
+  \xfield{Meshulam's theorem}
+  \begin{field}
+    IF $p \ge 3$ and $A \subseteq \F_p^n$ only contains trivial 3APs, then the density of $A$ is $O(n^{-1})$.
+    \begin{proof}
+      By assumption, $T_3(1_A, 1_A, 1_A) = \frac\alpha{p^n}$. But
+      $$\abs{T_3(1_A, 1_A, 1_A) - \alpha^3} \le \alpha \sup_{t \ne 0} \abs{\widehat{1_A}(t)}$$
+      Hence, provided that $2\alpha^{-2} \le p^n$, we find a subspace $V \le \F_p^n$ of codimension $1$ and $x \in \F_p^n$ such that
+      $$\abs{A \inter (x + V)} \ge \alpha\left(1 + \frac{\alpha^2}4\right)\abs V$$
+      Iteratively increase $\alpha$ like this until $2\alpha^{-2} \le p^n$. Since $\alpha \le 1$, this takes at most $9\alpha^{-1}$ steps. So $p^{n - 9\alpha^{-1}}\le 2\alpha^{-2}$ which implies $\alpha \le \frac{18}n$, as wanted.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{character}
+  \xplain{character-def}
+  \xfield{Characters, dual group}
+  \begin{field}
+    Characters of the group $G$ are group homomorphisms $\gamma : G \to \C^\times$. They form a group called the Pontryagin dual or dual group of $G$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{character}
+  \xplain{dual-ff}
+  \xfield{Duals of $\F_p^n, \Z/n\Z$}
+  \begin{field}
+    \begin{itemize}
+      \item If $G = \F_p^n$, then $\hat G = \{\gamma_t : x \mapsto \omega^{x \cdot t} \mid t \in G\}$
+      \item If $G = \Z/n\Z$, then $\hat G = \{\gamma_t : x \mapsto \omega^{xt} \mid t \in G\}$
+    \end{itemize}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{fourier-transform, integer-model}
+  \xplain{dft-interval}
+  \xfield{Fourier transform of an interval in $\Z/p\Z$}
+  \begin{field}
+    Let $p$ be a prime, $L < p$ be even and $J = [-\frac L2, \frac L2] \subseteq \Z/p\Z$. Then for all $t \ne 0$ we have
+    $$\widehat{1_J}(t) \le \min\left(\frac{L + 1}p, \frac 1{2\abs t}\right)$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{3AP, integer-model}
+  \xplain{density-increment-int}
+  \xfield{Density increment for 3APs in an interval}
+  \begin{field}
+    Let $A \subseteq [N]$ be of density $\alpha > 0$ with $N > 50\alpha^{-2}$ and containing only trivial 3APs. Let $p$ be a prime in $[\frac N3, \frac{2N}3]$ and write $A' = A \inter [p] \subseteq \Z/p\Z$. Then either
+    \begin{enumerate}
+      \item $\sup_{t \ne 0} \abs{\widehat{1_A}(t)} \ge \frac{\alpha^2}{10}$
+      \item or there exists an interval $J$ of length $\ge \frac N3$ such that
+      $$\abs{A \inter J} \ge \alpha\left(1 + \frac\alpha{400}\right)\abs J$$
+    \end{enumerate}
+    \begin{proof}
+      There's no non-trivial 3AP with terms in $A', A'', A''$ where $A''$ is the middle third of $A'$. If $A'$ and $A''$ are both dense enough, then we're in Case 1 by computing $T_3(1_{A'}, 1_{A''}, 1_{A''})$. Else we're in Case 2 by looking at the appropriate complement.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{3AP}
+  \xplain{roth}
+  \xfield{Roth's theorem}
+  \begin{field}
+    Let $A \subseteq [N]$ be a set containing only trivial 3APs. Then $\abs A = O(\frac N{\log\log N})$.
+    \begin{proof}
+      Iterate the density increment.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\end{document}
+
