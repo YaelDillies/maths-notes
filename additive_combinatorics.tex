@@ -26,7 +26,7 @@ Let $G = \F_p^n$ where $p$ is a small fixed prime and $n$ is large.
 \begin{notation}
   Given a finite set $B$ and any function $f : B \to \C$, write
   $$\E_{x \in B} f(x) = \frac 1{\abs B} \sum_{x \in B} f(x)$$
-  Write $\omega = E^{\frac{\tau i}p}$. Note $\sum_{a \in \F_p} \omega^a = 0$.
+  Write $\omega = e^{\frac{\tau i}p}$. Note $\sum_{a \in \F_p} \omega^a = 0$.
 \end{notation}
 
 \begin{ndef}
@@ -38,7 +38,7 @@ It is easy to verify the {\bf inversion formula}
 $$f(x) = \sum_{t \in \F_p^n} \hat f(t)\omega^{-x \cdot t}$$
 Indeed,
 \begin{align*}
-  \sum_{t \in \F_p^n} \hat f \omega^{-x \cdot t}
+  \sum_{t \in \F_p^n} \hat f(t) \omega^{-x \cdot t}
   & = \sum_{t \in \F_p^n} \left(\E_y f(y)\omega^{y \cdot t}\right) \omega^{-x \cdot t} \\
   & = \E_y f(y) \sum_t \omega^{(y - x) \cdot t} \\
   & = \E_y f(y) 1_{y = x} p^n \\
@@ -56,7 +56,7 @@ Indeed,
     \item $\mu_A$ the {\it characteristic measure} of $A$, ie
     $$\mu_A = \alpha^{-1} 1_A$$
     where $\alpha = \frac{\abs A}{\abs G}$.
-    \item $f_A$ for the {\it balanced function} of $A$, ie
+    \item $f_A$ the {\it balanced function} of $A$, ie
     $$f_A(x) = 1_A(x) - \alpha$$
   \end{itemize}
 \end{notation}
@@ -74,10 +74,10 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
   Let $V \le \F_p^n$. Then
   $$\widehat{1_V}(t) = \E_x 1_V(x) \omega^{x \cdot t} = \frac{\abs V}{\abs G} 1_{V^\perp}(t)$$
   So
-  $$\hat \mu_V(t) = 1_{V^\perp}(t)$$
+  $$\widehat{\mu_V}(t) = 1_{V^\perp}(t)$$
 \end{nex}
 
-\begin{nex}
+\begin{nex}\label{ex:dft-random-set}
   Let $R \subseteq \F_p^n$ be such that each $x$ is included with probability $\frac 12$ independently. Then with high probability
   $$\sup_{t \ne 0} \abs{\widehat{1_R}(t)} = O\left(\sqrt{\frac{\log(p^n)}{p^n}}\right)$$
   This is on Example Sheet 1 using a {\bf Chernoff-type bound}: Given $\C$-valued independent random variables $X_1, \dots, X_n$ with mean $0$ and $\theta \ge 0$, we have
@@ -101,7 +101,7 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
   \end{align*}
 \end{notation}
 
-\begin{nlemma}
+\begin{nlemma}\label{lem:plancherel-parseval}
   For all $f, g : \F_p^n \to \C$,
   \begin{align*}
     \inn f g & = \inn{\hat f}{\hat g} & \text{ (Plancherel)} \\
@@ -112,7 +112,7 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
   Exercise.
 \end{proof}
 
-\begin{ndef}
+\begin{ndef}\label{def:large-spec}
   Let $\rho > 0$ and $f : \F_p^n \to \C$. Define the $\rho$-large spectrum of $f$ to be
   $$\Spec_\rho(f) = \{t \mid |\hat f(t)| \ge \rho\norm f_1\}$$
 \end{ndef}
@@ -131,12 +131,12 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
 
 \newlec
 
-\begin{ndef}
+\begin{ndef}\label{def:convolution}
   Given $f, g : \F_p^n \to \C$, define their {\bf convolution} $f \ast g : \F_p^n \to \C$ by
   $$(f \ast g)(x) = \E_y f(y)g(x - y)$$
 \end{ndef}
 
-\begin{nex}
+\begin{nex}\label{ex:convolution-indicators}
   Given $A, B \subseteq \F_p^n$,
   \begin{align*}
     (1_A \ast 1_B)(x)
@@ -148,7 +148,7 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
   $$A + B = \{a + b \mid a \in A, b \in B\}$$
 \end{nex}
 
-\begin{nlemma}
+\begin{nlemma}\label{lem:dft-convolution}
   Given $f, g : \F_p^n \to \C$,
   $$\widehat{f \ast g}(t) = \hat f(t) \hat g(t)$$
 \end{nlemma}
@@ -197,7 +197,7 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
   the cosets of $V$. Then
   \begin{align*}
     \widehat{1_A}(t)
-    & = \hat{f_A}(t) \\
+    & = \widehat{f_A}(t) \\
     & = \E_{x \in \F_p^n}(1_A(x)) - \alpha)\omega^{x \cdot t} \\
     & = \E_j \omega^j \E_{x \in v_j + V} (1_A(x) - \alpha) \\
     & = \E_j a_j \omega^j
@@ -227,17 +227,17 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
     T_3(1_A, 1_A, 1_A)
     & = \E_{x, d} 1_A(x) 1_A(x + d) 1_A(x + 2d) \\
     & = \E_{x, y} 1_A(x) 1_A(y) 1_A(2y - x) \\
-    & = \E_y 1_A(y) (1_A \ast 1_A)(2y) \\
-    & = \inn{1_{2 \cdot A}}{1_A \ast 1_A} \\
-    & = \inn{\widehat{1_{2 \cdot A}}}{\widehat{1_A}^2} \\
-    & = \alpha^3 + \sum_{t \ne 0} \widehat{1_A}(t) \overline{\widehat{1_{2 \cdot A}}(t)} \text{ by Plancherel}
+    & = \E_y (1_A \ast 1_A)(2y) 1_A(y) \\
+    & = \inn{1_A \ast 1_A}{1_{2 \cdot A}} \\
+    & = \inn{\widehat{1_A}^2}{\widehat{1_{2 \cdot A}}} \\
+    & = \alpha^3 + \sum_{t \ne 0} \widehat{1_A}(t)^2 \overline{\widehat{1_{2 \cdot A}}(t)} \text{ by Plancherel}
   \end{align*}
   In absolute value, the error term is at most
   $$\sup_{t \ne 0} \abs{\widehat{1_{2 \cdot A}}(t)} \sum_t \abs{\widehat{1_A}(t)}^2 = \alpha \sup_{t \ne 0} \abs{\widehat{1_A}(t)}$$
 \end{proof}
 
 \begin{nthm}[Meshulam]\label{thm:meshulam}
-  Let $p \ge 3$ and $A \subseteq \F_p^n$ be a set containing only trivial 3AP. Then
+  Let $p \ge 3$ and $A \subseteq \F_p^n$ be a set containing only trivial 3APs. Then
   $$\abs A = O\left(\frac{p^n}{\log(p^n)}\right)$$
 \end{nthm}
 \begin{proof}
@@ -245,12 +245,57 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
   $$\abs{T_3(1_A, 1_A, 1_A) - \alpha^3} \le \alpha \sup_{t \ne 0} \abs{\widehat{1_A}(t)}$$
   Hence, provided that $2\alpha^{-2} \le p^n$, Lemma \ref{lem:density-increment} gives us a subspace $V \le \F_p^n$ of codimension $1$ and $x \in \F_p^n$ such that
   $$\abs{A \inter (x + V)} \ge \alpha\left(1 + \frac{\alpha^2}4\right)\abs V$$
-  We iterate this observation. Let $A_0 = A, V_0 = \F_p^n$. At step $i$, we are given a set $A_i \subseteq V_i$ of density $\alpha_i$ with only trivial 3AP. Provided that $2\alpha_i^{-2} \le p^{\dim V_i}$, find $V_{i + 1} \le V_i$ of codimension $1$ and $x \in V_i$ such that $\abs{A_i \inter (x + V_i)} \ge \left(\alpha_i + \frac{\alpha_i^2}4\right)\abs{V_{i + 1}}$ and set $A_{i + 1} = (A_i - x) \inter V_i$. Note that $\alpha_{i + 1} \ge \alpha_i + \frac{\alpha_i^2}4$ and $A_{i + 1}$ only contains trivial 3AP (because, very importantly, 3AP are {\bf translation-invariant}). \\
+  We iterate this observation. Let $A_0 = A, V_0 = \F_p^n$. At step $i$, we are given a set $A_i \subseteq V_i$ of density $\alpha_i$ with only trivial 3APs. Provided that $2\alpha_i^{-2} \le p^{\dim V_i}$, find $V_{i + 1} \le V_i$ of codimension $1$ and $x \in V_i$ such that $\abs{A_i \inter (x + V_i)} \ge \left(\alpha_i + \frac{\alpha_i^2}4\right)\abs{V_{i + 1}}$ and set $A_{i + 1} = (A_i - x) \inter V_i$. Note that $\alpha_{i + 1} \ge \alpha_i + \frac{\alpha_i^2}4$ and $A_{i + 1}$ only contains trivial 3APs (because, very importantly, 3AP are {\bf translation-invariant}). \\
   Through this iteration, the density of $A$ increases from $\alpha$ to $2\alpha$ in at most $\lceil 4\alpha^{-1}\rceil$ steps, from $2\alpha$ to $4\alpha$ in at most $\lceil 2\alpha^{-1}\rceil$ steps, etc... Since density can't increase past $1$, it takes at most
-  $$\underbrace{\lceil 4\alpha^{-1}\rceil + \lceil 2\alpha^{-1}\rceil + \dots}_{\lceil \log \alpha^{-1}\rceil \text{ terms}} \le (4\alpha^{-1} + 1) + (2\alpha^{-1} + 1) + \dots \le 8\alpha^{-1} + \log \alpha^{-1} \le 9\alpha^{-1}$$
+  $$\underbrace{\lceil 4\alpha^{-1}\rceil + \lceil 2\alpha^{-1}\rceil + \dots}_{\lceil \log \alpha^{-1}\rceil \text{ terms}} \le (4\alpha^{-1} + 1) + (2\alpha^{-1} + 1) + \dots \le 8\alpha^{-1} + \log \alpha^{-1} + 1 \le 9\alpha^{-1}$$
   steps to reach a point where the condition $2\alpha_i^{-2} \le p^{\dim V_i}$ is not respected anymore. Now either $\alpha \le \sqrt 2 p^{-\frac n4}$ (in which case the inequality is obvious) or $\alpha \ge \sqrt 2 p^{-\frac n4}$ and
   $$p^{n - 9\alpha^{-1}} \le p^{\dim V_i} \le 2\alpha_i^{-2} \le 2\alpha^{-2} \le p^{\frac n2}$$
   namely $\alpha \le \frac{18}n$, as wanted.
+\end{proof}
+
+\newlec
+
+We have proved that if $A \subseteq \F_3^n$ only contains trivial 3APs then $\abs A = O(\frac{3^n}n)$. The largest known set in $\F_3^n$ with only trivial 3APs has size $\ge 2.218^n$ (Tyrrell, 2022). We will return to this later.
+
+From now on, let $G$ be a finite abelian group. $G$ comes equipped with a set of {\bf characters}, ie group homomorphisms $\gamma : G \to \C^\times$. Characters themselves form a group denoted $\hat G$ and called the {\bf Pontryagin dual} (aka {\bf dual group}) of $G$. It turns out that if $G$ is finite abelian then $\hat G \cong G$ (but {\it non-canonically}). For instance,
+\begin{itemize}
+  \item If $G = \F_p^n$, then $\hat G = \{\gamma_t : x \mapsto \omega^{x \cdot t} \mid t \in G\}$
+  \item If $G = \Z/n\Z$, then $\hat G = \{\gamma_t : x \mapsto \omega^{xt} \mid t \in G\}$
+\end{itemize}
+The latter is a special case of the former, but again $n$ should thought of as an asymptotic variable.
+
+\begin{ndef}
+  Given $f : G \to \C$, define its {\bf Fourier transform} $\hat f : \hat G \to \C$ by
+  $$\hat f(\gamma) = \E_{x \in G} f(x)\gamma(x)$$
+\end{ndef}
+It is easy to verify that $f(x) = \sum_{\gamma \in \hat G} \hat f(\gamma) \overline{\gamma(x)}$. Similarly, Definitions \ref{def:large-spec}, \ref{def:convolution}, Examples \ref{ex:dft-random-set}, \ref{ex:convolution-indicators} and Lemmas \ref{lem:plancherel-parseval}, \ref{lem:card-large-spec}, \ref{lem:dft-convolution} go through in this more general context.
+
+\begin{nex}
+  Let $p$ be a prime, $L < p$ be even and $J = [-\frac L2, \frac L2] \subseteq \Z/p\Z$. Then for all $t \ne 0$ we have
+  $$\widehat{1_J}(t) \le \min\left(\frac{L + 1}p, \frac 1{2\abs t}\right)$$
+  See Example Sheet 1.
+\end{nex}
+
+\begin{nthm}[Roth]
+  Let $A \subseteq [N]$ be a set containing only trivial 3APs. Then $\abs A = O(\frac N{\log\log N})$.
+\end{nthm}
+
+\begin{nlemma}
+  Let $A \subseteq [N]$ of density $\alpha > 0$ containing only trivial 3APs and satisfying $N > 50\alpha^{-2}$. Let $p$ be a prime in $[\frac N3, \frac{2N}3]$ and write $A' = A \inter [p] \subseteq \Z/p\Z$. Then either
+  \begin{enumerate}
+    \item $\sup_{t \ne 0} \abs{\widehat{1_A}(t)} \ge \frac{\alpha^2}{10}$ (where the Fourier coefficients are computed in $\Z/p\Z$)
+    \item or there exists an interval $J$ of length $\ge \frac N3$ such that
+    $$\abs{A \inter J} \ge \alpha\left(1 + \frac\alpha{400}\right)\abs J$$
+  \end{enumerate}
+\end{nlemma}
+\begin{proof}
+  If $\abs{A'} \le \alpha\left(1 - \frac\alpha{200}\right)p$, then
+  $$\abs{A \inter [p + 1, N]} \ge \alpha(N - p) + \frac{\alpha^2p}{200} \ge \alpha\left(1 + \frac\alpha{400}\right)(N - p)$$
+  and we are in Case 2 with $J = [p + 1, N]$. Let $A'' = A' \inter [\frac p3, \frac{2p}3]$. Note that all 3APs of the form $(x, x + d, x + 2d) \in A' \times A'' \times A''$ are in fact 3APs in $[N]$ (and in particular they are trivial). \\
+  If $\abs{A' \inter [\frac p3]}$ or $\abs{A' \inter [\frac{2p}3, p]}$ were at least $\frac 25\abs{A'}$, then we would again be in Case 2. We may therefore assume that $\abs{A''} \ge \frac{\abs{A'}}5$. \\
+  Now, as in Lemma \ref{lem:3AP-estimate} and Theorem \ref{thm:meshulam} with $\alpha' = \frac{\abs{A'}}p, \alpha'' = \frac{\abs{A''}}p$,
+  $$\frac{\alpha''}p = T_3(1_{A'}, 1_{A''}, 1_{A''}) = \alpha'\alpha''^2 + \sum_{t \ne 0}\widehat{1_{A'}}(t)\widehat{1_{A''}}(t)\overline{\widehat{1_{2 \cdot A'}}(t)}$$
+  So, as before, $\frac{\alpha'\alpha''}2 \le \alpha''\sup_{t \ne 0} \abs{\widehat{1_{A'}}(t)}$, provided $\frac{\alpha''}p \le \frac{\alpha'\alpha''^2}2$. This holds by assumption since $p \ge \frac N3, N \ge 50\alpha^{-2}, \alpha' \ge \frac{199}{200}\alpha, \alpha'' \ge \frac{\alpha'}5$.
 \end{proof}
 
 \end{document}
