@@ -20,6 +20,7 @@
 \usepackage{amsthm}
 \usepackage{amssymb}
 \usepackage{centernot}
+\usepackage{parskip}
 
 % commands
 \let\oldemptyset\emptyset
@@ -156,13 +157,9 @@
 % The notes themselves
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% I - Percolation and its phase transition
-
-% 1. Percolation phase transition
-
+% Lecture 1
 
 \tags{fourier-analysis}
-
 
 \begin{note}
   \tags{fourier-transform}
@@ -171,7 +168,7 @@
   \begin{field}
     If $f : \F_p^n \to \C$, then
     $$\hat f(t) = \E_{x \in \F_p^n} f(x) \omega^{x \cdot t}$$
-    where $\omega = e^{\frac{\tau i}p}$. \\
+    where $\omega = e^{\frac{\tau i}p}$.
 
     More generally, if $f : G \to \C$, then $\hat f : \hat G \to \C$ is defined by
     $$\hat f(\gamma) = \E_{x \in G} f(x)\gamma(x)$$
@@ -235,7 +232,7 @@
   \end{field}
 \end{note}
 
-\begin{note}\label{dft-subspace}
+\begin{note}
   \tags{fourier-transform}
   \xplain{dft-subspace}
   \xfield{Fourier transform of a subspace}
@@ -327,6 +324,8 @@
   \end{field}
 \end{note}
 
+% Lecture 2
+
 \begin{note}
   \tags{convolution}
   \xplain{convolution-def}
@@ -391,8 +390,8 @@
 
 \begin{note}
   \tags{finite-field-model}
-  \xplain{bogolyubov}
-  \xfield{Bogolyubov's lemma}
+  \xplain{bogolyubov-ff}
+  \xfield{Bogolyubov's lemma in $\F_p^n$}
   \begin{field}
     If $A \subseteq \F_p^n$ has density $\alpha > 0$, then there exists a subspace $V$ of codimension at most $2\alpha^{-2}$ such that $V \subseteq (A + A) - (A + A)$.
     \begin{proof}
@@ -405,7 +404,7 @@
 
 \begin{note}
   \xplain{sumset-no-subspace, finite-field-model}
-  \xfield{Example of a set such that $A + A$ does not contain any subspace of bounded codimension}
+  \xfield{Example of a set $A$ of fixed density such that $A + A$ does not contain any subspace of bounded codimension}
   \begin{field}
     The set $A = \{x \in \F_2^n \mid \abs x \ge \frac n2 + \frac{\sqrt n}2\}$ has density at least $\frac 14$ but there is no coset $C$ of any subspace of codimension $\sqrt n$ such that $C \subseteq A + A$.
   \end{field}
@@ -427,6 +426,8 @@
   \end{field}
 \end{note}
 
+% Lecture 3
+
 \begin{note}
   \tags{convolution}
   \xplain{t3-def}
@@ -442,9 +443,9 @@
   \xplain{3AP-uniform}
   \xfield{Number of 3APs in a uniform set $A \subseteq \F_p^n$}
   \begin{field}
-    Let $\alpha > 0$ be the density of $A$ and assume $\sup_{t \ne 0} \abs{\widehat{1_A}(t)} = o(1)$. Then $A$ contains $(\alpha^3 + o(1))\abs G^2$ 3APs.
+    If $\sup_{t \ne 0} \abs{\widehat{1_A}(t)} = o(1)$, then $A$ contains $(\alpha^3 + o(1))\abs G^2$ 3APs.
     \begin{proof}
-      The number of 3APs (including the trivial ones of the form $a, a, a$) in $A$ is $\abs G^2$ times
+      The number of 3APs in $A$ is $\abs G^2$ times
       \begin{align*}
         T_3(1_A, 1_A, 1_A)
         & = \inn{1_A \ast 1_A}{1_{2 \cdot A}} = \inn{\widehat{1_A}^2}{\widehat{1_{2 \cdot A}}} \\
@@ -471,6 +472,8 @@
     \end{proof}
   \end{field}
 \end{note}
+
+% Lecture 4
 
 \begin{note}
   \tags{character}
@@ -505,8 +508,8 @@
 
 \begin{note}
   \tags{3AP, integer-model}
-  \xplain{density-increment-int}
-  \xfield{Density increment for 3APs in an interval}
+  \xplain{large-fourier-coeff-int}
+  \xfield{Density increment or large Fourier coefficient for 3APs in an interval}
   \begin{field}
     Let $A \subseteq [N]$ be of density $\alpha > 0$ with $N > 50\alpha^{-2}$ and containing only trivial 3APs. Let $p$ be a prime in $[\frac N3, \frac{2N}3]$ and write $A' = A \inter [p] \subseteq \Z/p\Z$. Then either
     \begin{enumerate}
@@ -520,8 +523,32 @@
   \end{field}
 \end{note}
 
+% Lecture 5
+
 \begin{note}
-  \tags{3AP}
+  \tags{integer-model}
+  \xplain{partition-progressions-small-diam}
+  \xfield{For $t \ne 0, \eps > 0$ and $\phi : [m] \to \Z/p\Z$ multiplication by $t$, how to partition $[m]$ into progressions of length roughly $\eps\sqrt m$ such that $\diam(t \cdot P_i) \le \eps p$?}
+  \begin{field}
+    Let $u = \floor{\sqrt m}$ and consider $0, t, \dots, ut$. By pigeonhole, find $0 \le v < w \le u$ such that $\abs{wt - vt} \le \frac pu$. Set $s = w - v \le u$ so that $\abs{st} \le \frac pu$. Divide $[m]$ into residue classes mod $s$. Each has size at least $\floor{\frac ms} \ge \floor{\frac mu}$ and can be divided into progressions of the form $a, a + s, \dots, a + ds$ with $\frac{\eps u}2 < d \le \eps u$. The diameter of each progression under $\phi$ is $\abs{dst} \le \eps p$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{3AP, integer-model}
+  \xplain{density-increment-int}
+  \xfield{Density increment from a large Fourier coefficient for 3APs in an interval}
+  \begin{field}
+    Let $A \subseteq [N]$ be of density $\alpha > 0$. Let $p$ be a prime in $[\frac N3, \frac{2N}3]$ and write $A' = A \inter [p]$. Suppose there exists $t \ne 0$ such that $\abs{\widehat{1_A}(t)} \ge \frac{\alpha^2}{10}$. Then there exists a progression $p$ of length at least $\alpha^2 \frac{\sqrt N}{500}$ such that
+    $$\abs{A \inter P} \ge \alpha\left(1 + \frac\alpha{50}\right)\abs P$$
+    \begin{proof}
+      Let $\eps = \frac{\alpha^2}{40\pi}$ and partition $[p]$ into progressions $P_i$ of length at least $\frac{\eps \sqrt p}2 \ge \frac{\alpha^2\sqrt N}{500}$ and $\diam \phi(P_i) \le \eps p$. Fix one $x_i$ inside each $P_i$. Write $\abs{\widehat{f_{A'}}(t)} = \frac 1p\abs{\sum_i\sum_{x \in P_i} f_{A'}(x)\omega^{xt}}$ and use the fact that $\omega^{xt} \approx \omega^{x_it}$ whenever $x \in P_i$ to find some $i$ such that $\sum_{x \in P_i} f_{A'}(x) \ge \frac{\alpha^2\abs{P_i}}{40}$.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{3AP, integer-model}
   \xplain{roth}
   \xfield{Roth's theorem}
   \begin{field}
@@ -529,6 +556,53 @@
     \begin{proof}
       Iterate the density increment.
     \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{3AP, integer-model}
+  \xplain{behrend}
+  \xfield{Behrend's construction}
+  \begin{field}
+    There exists a set $A \subseteq [N]$ containing non nontrivial 3APs of size at least $e^{-O(\sqrt{\log n})}$. See Example Sheet 1.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{bohr-set}
+  \xplain{bohr-set-def}
+  \xfield{Bohr set}
+  \begin{field}
+    Let $\Gamma \subseteq \hat G$. The Bohr set of frequencies $\Gamma$ and width $\rho$ is
+    $$B(\Gamma, \rho) = \{x \in G \mid \for \gamma \in \Gamma, \abs{\gamma(x) - 1} \le \rho\}$$
+    $\abs\Gamma$ is the rank of the Bohr set.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{bohr-set, finite-field-model}
+  \xplain{bohr-set-ff}
+  \xfield{Bohr set in $\F_p^n$}
+  \begin{field}
+    When $G = \F_p^n$, $B(\Gamma, \rho) = \langle\Gamma\rangle^\perp$ for all small enough $\rho$ (depending only on $p$, not $n$).
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{bohr-set}
+  \xplain{bohr-set-card-ge}
+  \xfield{Lower bound on the size of a Bohr set}
+  \begin{field}
+    If $B$ is a Bohr set of rank $d$ and width $\rho$, then $\abs B \ge \left(\frac\rho{2\pi}\right)^d \abs G$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{bohr-set}
+  \xplain{bogolyubov-int}
+  \xfield{Bogolyubov's lemma in $\Z/p\Z$}
+  \begin{field}
+    If $A \subseteq \Z/p\Z$ has density $\alpha > 0$, then there exists $\Gamma \subseteq \widehat{\Z/p\Z}$ of size at most $2\alpha^{-2}$ such that $B(\Gamma, \frac 12) \subseteq (A + A) - (A + A)$.
   \end{field}
 \end{note}
 
