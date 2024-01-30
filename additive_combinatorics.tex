@@ -298,4 +298,65 @@ It is easy to verify that $f(x) = \sum_{\gamma \in \hat G} \hat f(\gamma) \overl
   So, as before, $\frac{\alpha'\alpha''}2 \le \alpha''\sup_{t \ne 0} \abs{\widehat{1_{A'}}(t)}$, provided $\frac{\alpha''}p \le \frac{\alpha'\alpha''^2}2$. This holds by assumption since $p \ge \frac N3, N \ge 50\alpha^{-2}, \alpha' \ge \frac{199}{200}\alpha, \alpha'' \ge \frac{\alpha'}5$.
 \end{proof}
 
+\newlec
+
+We now want to convert the large Fourier coefficient into a density increment. This is harder now that the number of values of $xt$ grows as $n \to \infty$. Compare this to the finite field case where $x \cdot t$ only take $p$ different values regardless of $n$. If we can't find a single big coefficient, then we might instead be able to find an interval of coefficients whose total contribution is big.
+
+TODO: Insert picture
+
+\begin{nlemma}\label{lem:partition-progressions-small-diam}
+  Let $m \in \N$ and $\phi : [m] \to \Z/p\Z$ be multiplication by some fixed $t \ne 0$. Given $\eps > 0$, there exists a partition of $[m]$ into progressions $P_i$ of length $\in [\frac{\eps\sqrt m}2, \eps\sqrt m]$ such that $\diam(\phi(P_i)) \le \eps p$.
+\end{nlemma}
+\begin{proof}
+  Let $u = \floor{\sqrt m}$ and consider $0, t, \dots, ut$. By pigeonhole, find $0 \le v < w \le u$ such that $\abs{wt - vt} \le \frac pu$. Set $s = w - v \le u$ so that $\abs{st} \le \frac pu$. Divide $[m]$ into residue classes mod $s$. Each has size at least $\floor{\frac ms} \ge \floor{\frac mu}$ and can be divided into progressions of the form $a, a + s, \dots, a + ds$ with $\frac{\eps u}2 < d \le \eps u$. The diameter of each progression under $\phi$ is $\abs{dst} \le \eps p$.
+\end{proof}
+
+\begin{nlemma}
+  Let $A \subseteq [N]$ be of density $\alpha > 0$. Let $p$ be a prime in $[\frac N3, \frac{2N}3]$ and write $A' = A \inter [p]$. Suppose there exists $t \ne 0$ such that $\abs{\widehat{1_A}(t)} \ge \frac{\alpha^2}{10}$. Then there exists a progression $p$ of length at least $\alpha^2 \frac{\sqrt N}{500}$ such that
+  $$\abs{A \inter P} \ge \alpha\left(1 + \frac\alpha{50}\right)\abs P$$
+\end{nlemma}
+\begin{proof}
+  Let $\eps = \frac{\alpha^2}{40\pi}$ and use Lemma \ref{lem:partition-progressions-small-diam} to partition $[p]$ into progressions $P_i$ of length at least $\frac{\eps \sqrt p}2 \ge \frac{\alpha^2}{80\pi}\sqrt{\frac N3} \ge \frac{\alpha^2\sqrt N}{500}$ and $\diam \phi(P_i) \le \eps p$. Fix one $x_i$ inside each $P_i$.
+  \begin{align*}
+    \frac{\alpha^2}{10}
+    & \le \abs{\widehat{f_{A'}}(t)} \\
+    & = \frac 1p\abs{\sum_i\sum_{x \in P_i} f_{A'}(x)\omega^{xt}} \\
+    & = \frac 1p\abs{\sum_i\sum_{x \in P_i} f_{A'}(x)\omega^{x_it} + \sum_i\sum_{x \in P_i} f_{A'}(x)(\omega^{xt} - \omega^{x_it})} \\
+    & \le \frac 1p\sum_i\abs{\sum_{x \in P_i} f_{A'}(x)\omega^{x_it}} + \frac 1p\sum_i\sum_{x \in P_i} \abs{f_{A'}(x)} 2\pi\eps \\
+    & \le \frac 1p\sum_i\abs{\sum_{x \in P_i} f_{A'}(x)\omega^{x_it}} + \frac{\alpha^2}{20}
+  \end{align*}
+  So
+  $$\sum_i \abs{\sum_{x \in P_i} f_{A'}(x)} \ge \frac{\alpha^2p}{20}$$
+  Since $f_{A'}$ has mean zero, there exists $i$ such that $\sum_{x \in P_i} f_{A'}(x) \ge \frac{\alpha^2\abs{P_i}}{40}$.
+\end{proof}
+
+\begin{proof}[Proof of Roth's theorem]
+  Put the ingredients together, Similarly to Meshulam. See Example Sheet 1 for details.
+\end{proof}
+
+\begin{nex}[Behrend's construction]
+  There exists a set $A \subseteq [N]$ containing non nontrivial 3APs of size at least $e^{-O(\sqrt{\log n})}$. See Example Sheet 1.
+\end{nex}
+
+\begin{ndef}
+  Let $\Gamma \subseteq \hat G$. The {\bf Bohr set} of {\bf frequencies} $\Gamma$ and width $\rho$ is
+  $$B(\Gamma, \rho) = \{x \in G \mid \for \gamma \in \Gamma, \abs{\gamma(x) - 1} \le \rho\}$$
+  $\abs\Gamma$ is the {\bf rank} of the Bohr set.
+\end{ndef}
+
+\begin{nex}
+  When $G = \F_p^n$, $B(\Gamma, \rho) = \langle\Gamma\rangle^\perp$ for all small enough $\rho$ (depending only on $p$, not $n$).
+\end{nex}
+
+\begin{nlemma}
+  Let $B$ be a Bohr set of rank $d$ and width $\rho$. Then $\abs B \ge \left(\frac\rho{2\pi}\right)^d\abs G$.
+\end{nlemma}
+\begin{proof}
+  See Example Sheet 2.
+\end{proof}
+
+\begin{nlemma}[Bogolyubov]
+  Given $A \subseteq \Z/p\Z$ of density $\alpha > 0$, there exists $\Gamma \subseteq \widehat{\Z/p\Z}$ of size at most $2\alpha^{-2}$ such that $B(\Gamma, \frac 12) \subseteq (A + A) - (A + A)$.
+\end{nlemma}
+
 \end{document}
