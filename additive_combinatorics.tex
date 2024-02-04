@@ -271,7 +271,7 @@ The latter is a special case of the former, but again $n$ should thought of as a
 It is easy to verify that $f(x) = \sum_{\gamma \in \hat G} \hat f(\gamma) \overline{\gamma(x)}$. Similarly, Definitions \ref{def:large-spec}, \ref{def:convolution}, Examples \ref{ex:dft-random-set}, \ref{ex:convolution-indicators} and Lemmas \ref{lem:plancherel-parseval}, \ref{lem:card-large-spec}, \ref{lem:dft-convolution} go through in this more general context.
 
 \begin{nex}
-  Let $p$ be a prime, $L < p$ be even and $J = [-\frac L2, \frac L2] \subseteq \Z/p\Z$. Then for all $t \ne 0$ we have
+  Let $p$ be a prime, $L < p$ be even and $J = [-\frac L2, \frac L2] \subseteq \F_p$. Then for all $t \ne 0$ we have
   $$\widehat{1_J}(t) \le \min\left(\frac{L + 1}p, \frac 1{2\abs t}\right)$$
   See Example Sheet 1.
 \end{nex}
@@ -281,9 +281,9 @@ It is easy to verify that $f(x) = \sum_{\gamma \in \hat G} \hat f(\gamma) \overl
 \end{nthm}
 
 \begin{nlemma}
-  Let $A \subseteq [N]$ of density $\alpha > 0$ containing only trivial 3APs and satisfying $N > 50\alpha^{-2}$. Let $p$ be a prime in $[\frac N3, \frac{2N}3]$ and write $A' = A \inter [p] \subseteq \Z/p\Z$. Then either
+  Let $A \subseteq [N]$ of density $\alpha > 0$ containing only trivial 3APs and satisfying $N > 50\alpha^{-2}$. Let $p$ be a prime in $[\frac N3, \frac{2N}3]$ and write $A' = A \inter [p] \subseteq \F_p$. Then either
   \begin{enumerate}
-    \item $\sup_{t \ne 0} \abs{\widehat{1_A}(t)} \ge \frac{\alpha^2}{10}$ (where the Fourier coefficients are computed in $\Z/p\Z$)
+    \item $\sup_{t \ne 0} \abs{\widehat{1_A}(t)} \ge \frac{\alpha^2}{10}$ (where the Fourier coefficients are computed in $\F_p$)
     \item or there exists an interval $J$ of length $\ge \frac N3$ such that
     $$\abs{A \inter J} \ge \alpha\left(1 + \frac\alpha{400}\right)\abs J$$
   \end{enumerate}
@@ -305,7 +305,7 @@ We now want to convert the large Fourier coefficient into a density increment. T
 TODO: Insert picture
 
 \begin{nlemma}\label{lem:partition-progressions-small-diam}
-  Let $m \in \N$ and $\phi : [m] \to \Z/p\Z$ be multiplication by some fixed $t \ne 0$. Given $\eps > 0$, there exists a partition of $[m]$ into progressions $P_i$ of length $\in [\frac{\eps\sqrt m}2, \eps\sqrt m]$ such that $\diam(\phi(P_i)) \le \eps p$.
+  Let $m \in \N$ and $\phi : [m] \to \F_p$ be multiplication by some fixed $t \ne 0$. Given $\eps > 0$, there exists a partition of $[m]$ into progressions $P_i$ of length $\in [\frac{\eps\sqrt m}2, \eps\sqrt m]$ such that $\diam(\phi(P_i)) \le \eps p$.
 \end{nlemma}
 \begin{proof}
   Let $u = \floor{\sqrt m}$ and consider $0, t, \dots, ut$. By pigeonhole, find $0 \le v < w \le u$ such that $\abs{wt - vt} \le \frac pu$. Set $s = w - v \le u$ so that $\abs{st} \le \frac pu$. Divide $[m]$ into residue classes mod $s$. Each has size at least $\floor{\frac ms} \ge \floor{\frac mu}$ and can be divided into progressions of the form $a, a + s, \dots, a + ds$ with $\frac{\eps u}2 < d \le \eps u$. The diameter of each progression under $\phi$ is $\abs{dst} \le \eps p$.
@@ -355,8 +355,131 @@ TODO: Insert picture
   See Example Sheet 2.
 \end{proof}
 
+\newlec
+
 \begin{nlemma}[Bogolyubov]
-  Given $A \subseteq \Z/p\Z$ of density $\alpha > 0$, there exists $\Gamma \subseteq \widehat{\Z/p\Z}$ of size at most $2\alpha^{-2}$ such that $B(\Gamma, \frac 12) \subseteq (A + A) - (A + A)$.
+  Given $A \subseteq \F_p$ of density $\alpha > 0$, there exists $\Gamma \subseteq \widehat{\F_p}$ of size at most $2\alpha^{-2}$ such that $B(\Gamma, \frac 12) \subseteq (A + A) - (A + A)$.
 \end{nlemma}
+\begin{proof}
+  Recall $(1_A \ast 1_A \ast 1_{-A} \ast 1_{-A})(x) = \sum_{t \in \widehat{\F_p}} \abs{\widehat{1_A}(t)}^4 \omega^{-xt}$. Let $\Gamma = \Spec_{\sqrt{\frac\alpha 2}}(1_A)$ and note that we have $\cos(\frac{2\pi xt}p) > 0$ for all $x \in B(\Gamma, \frac 12)$ and $t \in \Gamma$. Hence
+  \begin{align*}
+    \Re \sum_{t \in \widehat{\F_p}} \abs{\widehat{1_A}(t)}^4 \omega^{-xt}
+    & = \sum_{t \in \Gamma} \abs{\widehat{1_A}(t)}^4 \cos\left(\frac{2\pi xt}p\right) + \sum_{t \notin \Gamma} \abs{\widehat{1_A}(t)}^4 \cos\left(\frac{2\pi xt}p\right) \\
+    & \ge \alpha^4 - \frac{\alpha^4}2 > 0
+  \end{align*}
+\end{proof}
+
+\section{Combinatorial methods}
+
+For now, let $G$ be an abelian group. Given $A, B \subseteq G$, we defined
+$$A \pm B = \{a \pm b \mid a \in A, b \in B\}$$
+If $A$ and $B$ are finite and nonempty, then
+$$\max(\abs A, \abs B) \le \abs{A \pm B} \le \abs A\abs B$$
+Better bounds are available in certain settings.
+
+\begin{nex}
+  Let $V \le \F_p^n$ be a subspace. Then $V + V$, so $\abs{V + V} = \abs V$. In fact, if $A \subseteq \F_p^n$ is such that $\abs{A + A} = \abs A$, then $A$ is a coset of some subspace.
+\end{nex}
+
+\begin{nex}\label{ex:doubling-lt-three-halves}
+  Let $A \subseteq \F_p^n$ be such that $\abs{A + A} < \frac 32 \abs A$. Then there exists $V \le \F_p^n$ such that $A$ is contained in a coset of $V$ and $\abs V < \frac 32\abs A$. See Example Sheet 2.
+\end{nex}
+
+\begin{nex}
+  Let $A \subseteq \F_p^n$ be a set of linearly independent vectors. Then $\abs{A + A} = \binom{\abs A + 1}2$. This is big doubling, but $\abs A \le n$ is small! \\
+  Let $A \subseteq \F_p^n$ be a set where each point is taken randomly with probability $p^{-\theta n}$ where $\theta \in ]\frac 12, 1]$. Then with high probability $\abs{A + A} = (1 + o(1))\frac{\abs A^2}2$.
+\end{nex}
+
+\begin{ndef}
+  Given finite sets $A, B \subseteq G$, we define the Ruzsa distance between $A$ and $B$ to be
+  $$d(A, B) = \log \frac{\abs{A - B}}{\sqrt{\abs A\abs B}}$$
+\end{ndef}
+
+$d(A, B)$ is clearly nonnegative and symmetric. However, $d(A, A) \ne 0$ in general.
+
+\begin{nlemma}[Ruzsa's triangle inequality]\label{lem:ruzsa-triangle}
+  For $A, B, C \subseteq G$ finite,
+  $$d(A, C) \le d(A, B) + d(B, C)$$
+\end{nlemma}
+\begin{proof}
+  The inequality reduces to
+  $$\abs B\abs{A - C} \le \abs{A - B}\abs{B - C}$$
+  This is true because
+  \begin{align*}
+    \phi : B \times (A - C) & \to (A - B) \times (B - C) \\
+    (b, d) & \mapsto (a_d - b, b - c_d)
+  \end{align*}
+  is injective, where for each $d \in A - C$ we have chosen $a_d \in A, c_d \in C$ such that $d = a - c$.
+\end{proof}
+
+\begin{ndef}
+  Given a finite set $A \subseteq G$, we write $\sigma(A) = \frac{\abs{A + A}}{\abs A}$ the {\bf doubling constant} and $\delta(A) = \frac{\abs{A - A}}{\abs A}$ the {\bf difference constant} of $A$.
+\end{ndef}
+
+$d(A, A) = \log \sigma(A)$ and $d(A, -A) = \log \delta(A)$, so Lemma \ref{lem:ruzsa-triangle} for $A, -A, -A$ tells us that $\delta(A) \le \sigma(A)^2$.
+
+\newlec
+
+\begin{notation}
+  Given $A \subseteq G$ and $\ell, m \in \N$, write $\ell A - m A$ for the set
+  $$\underbrace{A + \dots + A}_{\ell \text{ times}} - \underbrace{A + \dots + A}_{m \text{ times}}$$
+\end{notation}
+
+\begin{nthm}[Plünnecke's inequality]
+  Let $A, B \subseteq G$ be finite such that $\abs{A + B} \le K\abs A$. Then for all $\ell, m$,
+  $$\abs{\ell B - mB} \le K^{\ell + m}\abs B$$
+\end{nthm}
+\begin{idea}
+  $A$ should be thought of as being approximately a subspace. The assumption then says that $B$ is efficiently contained in (a translate of) $A$ and the conclusion now reads that $B$ must itself have small multiples. This makes sense, since we can use multiples of $A$ (which are not much bigger than $A$) to efficiently contain the multiples of $B$.
+\end{idea}
+\begin{proof}
+  WLOG $\abs{A + B} = K\abs A$. Choose $A' \subseteq A$ nonempty such that the ratio $\frac{\abs{A' + B}}{\abs{A'}} = K'$ is minimised. Note $K' \le K$ and $\abs{A'' + B} \ge K'\abs{A''}$ for all $A'' \subseteq A$.
+  \begin{claim}
+    For all finite $C \subseteq G$, $\abs{A' + B + C} \le K'\abs{A' + C}$.
+  \end{claim}
+  From the claim, we show that $\abs{A' + mB} \le K'^m\abs{A'}$ for all $m$ by induction:
+  That's true for $m = 0$. For $m + 1$, the claim with $C = mB$ gives
+  $$\abs{A' + (m + 1)B} = \abs{A' + B + C} \le K'\abs{A' + C} \le K'^{m + 1}\abs{A'}$$
+  Now, by the triangle inequality,
+  $$\abs{A'}\abs{\ell B - mB} \le \abs{A' + \ell B}\abs{A' + mB} \le K'^\ell \abs{A'} K'^m \abs{A'}$$
+  Namely, $\abs{\ell B - mB} \le K'^{\ell + m}\abs{A'} \le K^{\ell + m} \abs A$.
+  \begin{proof}[Proof of the claim]
+    Do induction on $C$. For $C = \emptyset$, it's true. For $C' = C \union \{x\}$ with x $\notin C$, observe that
+    \begin{align*}
+      A' + B + C'
+      & = A' + B + C \union A' + B + x \\
+      & = A' + B + C \union A' + B + x \setminus D + B + x
+    \end{align*}
+    where $D = \{a \in A' \mid a + B + x \subseteq A' + B + C\}$. By definition of $K'$, $\abs{D + B} \ge K'\abs D$, so
+    \begin{align*}
+      \abs{A' + B + C'}
+      & \le \abs{A' + B + C} + \abs{A' + B + x \setminus D + B + x} \\
+      & \le \abs{A' + B + C} + \abs{A' + B} - \abs{D + B} \\
+      & \le K'\abs{A' + C} + K'\abs{A'} - K'\abs D \\
+      & = K'(\abs{A' + C} + \abs{A'} - \abs D)
+    \end{align*}
+    We now apply the same argument again, writing
+    $$A' + C' = A' + C \union A' + x \setminus E + x$$
+    where $E = \{a \in A' \mid a + x \in A' + C\} \subseteq D$. This time, the union is disjoint, so
+    $$\abs{A '+ C'} = \abs{A' + C} + \abs{A'} - \abs E \ge \abs{A' + C} + \abs A - \abs D$$
+    Hence $\abs{A' + B + C'} \le K'\abs{A' + C'}$ which proves the claim.
+  \end{proof}
+\end{proof}
+
+We are now in a position to generalise Example \ref{ex:doubling-lt-three-halves}.
+
+\begin{nthm}[Freiman-Ruzsa]
+  Let $A \subseteq \F_p^n$ be such that $\abs{A + A} \le K\abs A$ for some $K > 0$. Then $A$ is contained in a subspace $H \le \F_p^n$ of size $\abs H \le K^2 p^{K^4} \abs A$.
+\end{nthm}
+\begin{proof}
+  Write $S = A - A$ and choose $X \subseteq A + S$ maximal such that the translates $x + A$ for $x \in X$ are disjoint. \\
+  $X$ cannot be too large. Indeed, $\forall x \in X, x + A \subseteq 2A + S$. Hence $\Union_{x \in X} (x + A) \subseteq 2A + S$ and $\abs X\abs A = \abs{\Union_{x \in X} (x + A)} \le \abs{2A + S} \le K^4\abs A$ by Plünnecke, namely $\abs X \le K^4$. \\
+  Now observe that $A + S \subseteq X + S$. Indeed, if $y \in A + S$, then either $y \in X \subseteq X + S$ (because $0 \in S$) or $y \notin X$, meaning that $x + A$ and $y + A$ are not disjoint ($X$ is maximal), namely $y \in x + A - A \subseteq X + S$. \\
+  By induction, $\ell A + S \subseteq X + S$ for all $\ell$. Hence, writing
+  $$H = \langle A\rangle = \Union_\ell (\ell A + S) \subseteq \Union_\ell (\ell X + S) = \langle X\rangle + S$$
+  the subgroup generated by $A$, we see that $A$ is contained in a subgroup of size
+  $$\abs H \le \abs{\langle X\rangle}\abs S \le p^{\abs X}K^2\abs A \le K^2p^{K^4}\abs A$$
+\end{proof}
+
 
 \end{document}
