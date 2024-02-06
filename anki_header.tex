@@ -19,8 +19,13 @@
 \usepackage{centernot}
 \usepackage{parskip}
 
+% Theorem-like environments
+\theoremstyle{definition}
+\newtheorem*{claim}{Claim}
+\newtheorem*{conjecture}{Conjecture}
 
-% commands
+% Command redirections
+\let\P\oldP
 \let\oldemptyset\emptyset
 \let\emptyset\varnothing
 
@@ -31,6 +36,7 @@
 \newcommand{\F}{\mathbb F}
 \newcommand{\K}{\mathbb K}
 \newcommand{\N}{\mathbb N}
+\newcommand{\P}{\mathbb P}
 \newcommand{\Q}{\mathbb Q}
 \newcommand{\R}{\mathbb R}
 \newcommand{\Z}{\mathbb Z}
