@@ -1,7 +1,6 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% The first part of the header needs to be copied
-%       into the note options in Anki.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% To use these notes, you must copy anki_header.tex
+% into the header of your card type in Anki
+
 % layout in Anki:
 \documentclass[10pt]{article}
 \usepackage[a4paper]{geometry}
@@ -22,7 +21,13 @@
 \usepackage{centernot}
 \usepackage{parskip}
 
-% commands
+% Theorem-like environments
+\theoremstyle{definition}
+\newtheorem*{claim}{Claim}
+\newtheorem*{conjecture}{Conjecture}
+
+% Command redirections
+\let\P\oldP
 \let\oldemptyset\emptyset
 \let\emptyset\varnothing
 
@@ -32,6 +37,7 @@
 \newcommand{\F}{\mathbb F}
 \newcommand{\K}{\mathbb K}
 \newcommand{\N}{\mathbb N}
+\newcommand{\P}{\mathbb P}
 \newcommand{\Q}{\mathbb Q}
 \newcommand{\R}{\mathbb R}
 \newcommand{\Z}{\mathbb Z}
@@ -103,12 +109,6 @@
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\Var}{Var}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Following part of header NOT to be copied into
-%            the note options in Anki.
-%          ! Anki will throw an error !
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %  pdf layout:
 \geometry{paperheight=74.25mm}
 \usepackage{pgfpages}
@@ -147,15 +147,7 @@
   \renewcommand{\uuid}{#1} % update the UUID for display and Anki disambiguation
   }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% The following line again needs to be copied
-% into Anki:
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% The notes themselves
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Lecture 1
 
@@ -353,7 +345,7 @@
 \end{note}
 
 \begin{note}
-  \tags{convolution, fourier-transform}
+  \tags{convolution fourier-transform}
   \xplain{dft-convolution}
   \xfield{Relationship between convolution and Fourier transform}
   \begin{field}
@@ -404,14 +396,14 @@
 
 \begin{note}
   \xplain{sumset-no-subspace, finite-field-model}
-  \xfield{Example of a set $A$ of fixed density such that $A + A$ does not contain any subspace of bounded codimension}
+  \xfield{Example of a set $A \subseteq \F_2^n$ of fixed density such that $A + A$ does not contain any subspace of bounded codimension}
   \begin{field}
     The set $A = \{x \in \F_2^n \mid \abs x \ge \frac n2 + \frac{\sqrt n}2\}$ has density at least $\frac 14$ but there is no coset $C$ of any subspace of codimension $\sqrt n$ such that $C \subseteq A + A$.
   \end{field}
 \end{note}
 
 \begin{note}
-  \tags{large-spectrum, finite-field-model}
+  \tags{large-spectrum finite-field-model}
   \xplain{density-increment-ff}
   \xfield{Density increment in $\F_p^n$}
   \begin{field}
@@ -434,12 +426,12 @@
   \xfield{Definition of $T_3$}
   \begin{field}
     If $f, g, h : \F_p^n \to \C$, then
-    $$T_3(f, g, h) = \E_x f(x) g(x + d) h(x + 2d) = \inn{f \ast h}{\bar g}$$
+    $$T_3(f, g, h) = \E_x f(x) g(x + d) h(x + 2d) = \inn{f \ast h}{\bar g (2^{-1} \cdot)}$$
   \end{field}
 \end{note}
 
 \begin{note}
-  \tags{3AP, finite-field-model}
+  \tags{3AP finite-field-model}
   \xplain{3AP-uniform}
   \xfield{Number of 3APs in a uniform set $A \subseteq \F_p^n$}
   \begin{field}
@@ -497,17 +489,23 @@
 \end{note}
 
 \begin{note}
-  \tags{fourier-transform, integer-model}
+  \tags{fourier-transform integer-model}
   \xplain{dft-interval}
   \xfield{Fourier transform of an interval in $\Z/p\Z$}
   \begin{field}
-    Let $p$ be a prime, $L < p$ be even and $J = [-\frac L2, \frac L2] \subseteq \Z/p\Z$. Then for all $t \ne 0$ we have
+    Write $J = [-\frac L2, \frac L2] \subseteq \Z/p\Z$ with $L < p$ even. For all $t$,
     $$\widehat{1_J}(t) \le \min\left(\frac{L + 1}p, \frac 1{2\abs t}\right)$$
+    \begin{proof}
+      If $t = 0$, then $\widehat{1_J}(t) = \frac{\abs J}p = \frac{L + 1}p$. If $t \ne 0$, then
+      $$\widehat{1_J}(t) = \E_x 1_J(x)\omega^{xt} = \E_{x = -\frac L2}^{\frac L2} \omega^{xt} = \frac{\omega^{(L + 1)\frac t2} - \omega^{-(L + 1)\frac t2}}{p(\omega^{\frac t2} - \omega^{-\frac t2})}$$
+      Noting that for all $x \in [-\pi, \pi]$ we have $\abs{e^{ix} - 1} \ge \frac{2\abs x}\pi$,
+      $$\abs{\widehat{1_J}(t)} \le \frac 2p \abs{\omega^t - 1}^{-1} \le \frac 2p\left(\frac 2\pi\frac{2\pi t}p\right)^{-1} = \frac 1{2\abs t}$$
+    \end{proof}
   \end{field}
 \end{note}
 
 \begin{note}
-  \tags{3AP, integer-model}
+  \tags{3AP integer-model}
   \xplain{large-fourier-coeff-int}
   \xfield{Density increment or large Fourier coefficient for 3APs in an interval}
   \begin{field}
@@ -535,7 +533,7 @@
 \end{note}
 
 \begin{note}
-  \tags{3AP, integer-model}
+  \tags{3AP integer-model}
   \xplain{density-increment-int}
   \xfield{Density increment from a large Fourier coefficient for 3APs in an interval}
   \begin{field}
@@ -548,7 +546,7 @@
 \end{note}
 
 \begin{note}
-  \tags{3AP, integer-model}
+  \tags{3AP integer-model}
   \xplain{roth}
   \xfield{Roth's theorem}
   \begin{field}
@@ -560,7 +558,7 @@
 \end{note}
 
 \begin{note}
-  \tags{3AP, integer-model}
+  \tags{3AP integer-model}
   \xplain{behrend}
   \xfield{Behrend's construction}
   \begin{field}
@@ -580,7 +578,7 @@
 \end{note}
 
 \begin{note}
-  \tags{bohr-set, finite-field-model}
+  \tags{bohr-set finite-field-model}
   \xplain{bohr-set-ff}
   \xfield{Bohr set in $\F_p^n$}
   \begin{field}
@@ -597,12 +595,256 @@
   \end{field}
 \end{note}
 
+% Lecture 6
+
 \begin{note}
   \tags{bohr-set}
   \xplain{bogolyubov-int}
   \xfield{Bogolyubov's lemma in $\Z/p\Z$}
   \begin{field}
     If $A \subseteq \Z/p\Z$ has density $\alpha > 0$, then there exists $\Gamma \subseteq \widehat{\Z/p\Z}$ of size at most $2\alpha^{-2}$ such that $B(\Gamma, \frac 12) \subseteq (A + A) - (A + A)$.
+    \begin{proof}
+      Pick $\Gamma = \Spec_{\sqrt{\frac\alpha 2}}(1_A)$ and lower bound
+      $$\Re (1_A \ast 1_A \ast 1_{-A} \ast 1_{-A})(x) = \Re \sum_{t \in \widehat{\F_p}} \abs{\widehat{1_A}(t)}^4 \omega^{-xt}$$
+      by splitting the sum over $\Gamma$ and $\Gamma^c$.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\tags{combinatorial-methods}
+
+\begin{note}
+  \tags{doubling-constant}
+  \xplain{doubling-constant-def}
+  \xfield{Doubling constant, difference constant}
+  \begin{field}
+    For a finite nonempty set $A \subseteq G$, its doubling and difference constants are
+    $$\sigma(A) = \frac{\abs{A + A}}{\abs A}, \delta(A) = \frac{\abs{A - A}}{\abs A}$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{doubling-constant}
+  \xplain{doubling-constant-one}
+  \xfield{When is the doubling constant $1$?}
+  \begin{field}
+    When the set is a subspace
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{doubling-constant}
+  \xplain{doubling-constant-lt-three-halves}
+  \xfield{If $A$ has Small doubling constant then $A$ lies in a small coset.}
+  \begin{field}
+    If $A$ is such that $\abs{A + A} < \frac 32 \abs A$. Then there exists $V \le \F_p^n$ such that $A$ is contained in a coset of $V$ and $\abs V < \frac 32\abs A$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{doubling-constant}
+  \xplain{big-doubling-random}
+  \xfield{Example of a set with big doubling}
+  \begin{field}
+    Let $A \subseteq \F_p^n$ be a set where each point is taken randomly with probability $p^{-\theta n}$ where $\theta \in ]\frac 12, 1]$. Then with high probability $\abs{A + A} = (1 + o(1))\frac{\abs A^2}2$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{ruzsa-distance}
+  \xplain{ruzsa-distance-def}
+  \xfield{Ruzsa distance}
+  \begin{field}
+    Given finite sets $A, B \subseteq G$, we define the Ruzsa distance between $A$ and $B$ to be
+  $$d(A, B) = \log \frac{\abs{A - B}}{\sqrt{\abs A\abs B}}$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{ruzsa-distance}
+  \xplain{ruzsa-triangle-inequality}
+  \xfield{Ruzsa's triangle inequality}
+  \begin{field}
+    For $A, B, C \subseteq G$ finite,
+    $$d(A, C) \le d(A, B) + d(B, C)$$
+    \begin{proof}
+      The inequality reduces to
+      $$\abs B\abs{A - C} \le \abs{A - B}\abs{B - C}$$
+      This is true because
+      \begin{align*}
+        \phi : B \times (A - C) & \to (A - B) \times (B - C) \\
+        (b, d) & \mapsto (a_d - b, b - c_d)
+      \end{align*}
+      is injective, where for each $d \in A - C$ we have chosen $a_d \in A, c_d \in C$ such that $d = a - c$.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{doubling-constant}
+  \xplain{pluennecke-inequality}
+  \xfield{Plünnecke's inequality}
+  \begin{field}
+    Let $A, B \subseteq G$ be finite such that $\abs{A + B} \le K\abs A$. Then for all $\ell, m$,
+  $$\abs{\ell B - mB} \le K^{\ell + m}\abs B$$
+  \begin{proof}
+    WLOG $\abs{A + B} = K\abs A$. Find $A' \subseteq A$ nonempty minimising $K' = \frac{\abs{A' + B}}{\abs{A'}}$.
+    \begin{claim}
+      For all finite $C \subseteq G$, $\abs{A' + B + C} \le K'\abs{A' + C}$
+    \end{claim}
+    From the claim, prove that $\abs{A' + mB} \le K'^m\abs{A'}$ for all $m$ by induction. Now, by the triangle inequality,
+    $$\abs{A'}\abs{\ell B - mB} \le \abs{A' + \ell B}\abs{A' + mB} \le K'^\ell \abs{A'} K'^m \abs{A'}$$
+    Namely, $\abs{\ell B - mB} \le K'^{\ell + m}\abs{A'} \le K^{\ell + m} \abs A$.
+  \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \xplain{pluennecke-inequality-claim}
+  \xfield{Key claim within the proof of Plünnecke's inequality}
+  \begin{field}
+    WLOG $\abs{A + B} = K\abs A$. $A' \subseteq A$ is nonempty minimising $K' = \frac{\abs{A' + B}}{\abs{A'}}$.
+    \begin{claim}
+      For all finite $C \subseteq G$, $\abs{A' + B + C} \le K'\abs{A' + C}$
+    \end{claim}
+    \begin{proof}[Proof of claim]
+      Induct on $C$. obvious if $C = \emptyset$. For $C' = C \union \{x\}, x \notin C$, write
+      \begin{align*}
+        A' + B + C' & = A' + B + C \union A' + B + x \setminus D + B + x \\
+        A' + C' & = A' + C \union A' + x \setminus E + x
+      \end{align*}
+      where $D = \{a \in A' \mid a + B + x \subseteq A' + B + C\}, E = \{a \in A' \mid a + x \in A' + C\} \subseteq D$. Note that the second union is disjoint. Use the induction hypothesis and the minimality assumption for $K'$ to deduce the claim.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{doubling-constant}
+  \xplain{doubling-difference-constants-relation}
+  \xfield{Relationship between the doubling and difference constant}
+  \begin{field}
+    If $\abs{A - A} \le K\abs A$, then
+    $$\abs A\abs{A + A} \le \abs{A - A}\abs{A - A} \le K^2\abs A^2$$
+    by Ruzsa's triangle inequality. So $\sigma(A) \le \delta(A)^2$.
+    
+    If $\abs{A + A} \le K\abs A$, then
+    $$\abs{A - A} \le K^{1 + 1}\abs A$$
+    by Plünnecke's inequality. So $\delta(A) \le \sigma(A)^2$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \xplain{freiman-ruzsa}
+  \xfield{The Freiman-Ruzsa theorem}
+  \begin{field}
+    Let $A \subseteq \F_p^n$ be such that $\abs{A + A} \le K\abs A$ for some $K > 0$. Then $A$ is contained in a subspace $H \le \F_p^n$ of size $\abs H \le K^2 p^{K^4} \abs A$.
+    \begin{proof}
+      Write $S = A - A$ and choose $X \subseteq A + S$ maximal such that the translates $x + A$ for $x \in X$ are disjoint. Use that $X + A \subseteq 2A + S$ to prove $\abs X \le K^4$ by Plünnecke. Now $A + S \subseteq X + S$ because $y \in A + S$ is either in $X \subseteq X + S$ or $x + A$ and $y + A$ are not disjoint by maximality of $X$, namely $y \in x + A - A \subseteq X + S$. By induction, $\ell A + S \subseteq X + S$ for all $\ell$. Hence, the subgroup generated by $A$ is contained in $\langle X\rangle + S$ and size at most
+      $$\abs{\langle X\rangle}\abs S \le p^{\abs X}K^2\abs A \le K^2p^{K^4}\abs A$$
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{doubling-constant}
+  \xplain{subgroup-exponential-size-doubling-constant}
+  \xfield{Example of a set which generates a subgroup of size exponential in its doubling constant}
+  \begin{field}
+    Let $A = H \union R \subseteq \F_p^n$ where $H$ is a subspace of dimension $K \ll d \ll n - k$ and $R$ consists of $K - 1$ linearly independent vectors in $H^\perp$. Then $\abs A = \abs{H \union R} \sim \abs H$ and $\abs{A + A} = \abs{H \union H + R \union R + R} \sim K\abs H \sim K\abs A$ but any subspace $V \le \F_p^n$ containing $A$ must have size $\ge p^{d + (K - 1)} = p^{K - 1} \abs H \sim p^{K - 1}\abs A$ where the constant is exponential in $K$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \xplain{polynomial-freiman-ruzsa}
+  \xfield{Polynomial Freiman-Ruzsa conjecture}
+  \begin{field}
+    Let $A \subseteq \F_p^n$ be such that $\abs{A + A} \le K\abs A$. Then there is a subspace $H \le \F_p^n$ of size at most $C_1(K)\abs A$ and $x \in \F_p^n$ such that $\abs{A \inter (x + H)} \ge \frac{\abs A}{C_2(K)}$ where $C_1(K)$ and $C_2(K)$ are polynomials.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{additive-energy}
+  \xplain{additive-energy-def}
+  \xfield{Additive energy}
+  \begin{field}
+    Given an abelian group $G$ and finite sets $A, B \subseteq G$, define additive quadruples to be the tuples $(a, a', b, b') \in A^2 \times B^2$ such that $a + b = a' + b'$ and the additive energy between $A$ and $B$ to be
+    $$E(A, B) = \frac{\#\{\text{additive quadruples}\}}{\abs A^{\frac 32}\abs B^{\frac 32}}$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{additive-energy fourier-transform}
+  \xplain{additive-energy-fourier-transform}
+  \xfield{Relation between the additive energy and the Fourier transform}
+  \begin{field}
+    If $G$ is finite and $A \subseteq G$, then
+    \begin{align*}
+      \abs A^3 E(A)
+      & = \abs G^3 \E_{x + y = z + w} 1_A(x)1_A(y)1_A(z)1_A(w) \\
+      & = \abs G^3 \norm{\widehat{1_A}}_4^4
+    \end{align*}
+    namely
+    $$\norm{\widehat{1_A}}_4^4 = \alpha^3 E(A)$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{additive-energy}
+  \xplain{additive-energy-subgroup}
+  \xfield{Additive energy of a subgroup}
+  \begin{field}
+    When $H \le G$, we have $E(H) = 1$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{doubling-constant additive-energy}
+  \xplain{small-doubling-constant-implies-big-additive-energy}
+  \xfield{Small doubling implies big energy}
+  \begin{field}
+    Let $G$ be abelian and $A, B \subseteq G$ be finite. Then $E(A, B) \ge \frac{\sqrt{\abs A\abs B}}{\abs{A \pm B}}$. In particular, if $\abs{A \pm A} \le K\abs A$ then $E(A) \ge \frac 1K$.
+    \begin{proof}
+      Write $r(x) = \#\{(a, b) \in A \times B \mid a + b = x\}$ so that
+      $$\abs A^{\frac 32}\abs B^{\frac 32}E(A, B) = \#\{\text{additive quadruples}\} = \sum_x r(x)^2$$
+      Also note that $\sum_x r(x) = \abs A\abs B$ so that
+      \begin{align*}
+        \abs A^{\frac 32}\abs B^{\frac 32} E(A, B)
+        & = \sum_x r(x)^2 \\
+        & \ge \frac{\sum_x r(x)1_{A + B}(x)}{\sum_x 1_{A + B}(x)^2} = \frac{(\abs A\abs B)^2}{\abs{A + B}}
+      \end{align*}
+      by Cauchy-Schwarz. Do similarly for $A - B$.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{doubling-constant additive-energy}
+  \xplain{big-additive-energy-not-implies-small-doubling-constant}
+  \xfield{Big energy does not imply small doubling}
+  \begin{field}
+    Let $G$ be your favorite family of abelian groups. Then there are constants $\eta, \theta > 0$ such that for all sufficiently large $n$ there exists $A \subseteq G$ with $\abs A = n$ satisfying $E(A) \gg \eta$ and $\abs{A + A} \ge \theta \abs A^2$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{additive-energy}
+  \xplain{balog-szemeredi-gowers}
+  \xfield{Balog-Szemerédi-Gowers}
+  \begin{field}
+    Let $G$ be an abelian group and let $A \subseteq G$ be finite such that $E(A) \ge \eta$ for some $\eta > 0$. Then there exists $A' \subseteq A$ of size at least $c(\eta)$ such that $\abs{A' + A'} \le C(\eta)\abs A$ where $c(\eta)$ and $C(\eta)$ are polynomials in $\eta$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \xplain{balog-szemeredi-gowers-dependent-random-choice}
+  \xfield{Dependent random choice step within the proof of Balog-Szemerédi-Gowers}
+  \begin{field}
+    Let $A_1, \dots, A_m \subseteq [n]$ and suppose that $\E_{i, j} \abs{A_i \inter A_j} \ge \delta^2n$. Then there exists $X \subseteq [m]$ of size at least $\frac{\delta^5m}{\sqrt 2}$ such that $\abs{A_i \inter A_j} \ge \frac{\delta^2n}2$ for at least 90\% of the pairs $(i, j) \in X^2$.
+    \begin{proof}
+      Let $x_1, \dots, x_5$ be uniform random in $[n]$ and let $X = \{i \in [m] \mid \forall k, x_k \in A_i\}$. Call a pair {\bf bad} if $\abs{A_i \inter A_j} < \frac{\delta^2n}2$. Prove that
+      $$\frac{\delta^{10}m^2}2 + 16\E[\#\{\text{bad pairs in }X^2\}] \le \E[\abs X^2]$$
+      so that $\frac{\delta^{10}m^2}2 + 16\#\{\text{bad pairs in }X^2\} \le \abs X^2$ for some $x_1, \dots, x_5$. This gives $\abs X \ge \frac{\delta^5m}{\sqrt 2}$ and $\#\{\text{bad pairs in }X^2\} \le \frac{\abs X^2}{16} \le 10\% \abs X^2$
+    \end{proof}
   \end{field}
 \end{note}
 
