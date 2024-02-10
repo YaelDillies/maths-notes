@@ -369,6 +369,7 @@ TODO: Insert picture
   \end{align*}
 \end{proof}
 
+\clearpage
 \section{Combinatorial methods}
 
 For now, let $G$ be an abelian group. Given $A, B \subseteq G$, we defined
@@ -540,7 +541,7 @@ If we can't hope for a set to have small doubling when its energy is big, we mig
 
 We first prove a technical lemma using a method known as "dependent random choice".
 
-\begin{nlemma}
+\begin{nlemma}\label{lem:bsg-drc}
   Let $A_1, \dots, A_m \subseteq [n]$ and suppose that $\sum_{i, j} \abs{A_i \inter A_j} \ge \delta^2nm^2$. Then there exists $X \subseteq [m]$ of size at least $\frac{\delta^5m}{\sqrt 2}$ such that $\abs{A_i \inter A_j} \ge \frac{\delta^2n}2$ for at least 90\% of the pairs $(i, j) \in X^2$.
 \end{nlemma}
 \begin{proof}
@@ -557,5 +558,118 @@ We first prove a technical lemma using a method known as "dependent random choic
   We can therefore find $x_1, \dots, x_5$ such that $\frac{\delta^{10}m^2}2 + 16\#\{\text{bad pairs in }X^2\} \le \abs X^2$. This both means that $\abs X \ge \frac{\delta^5m}{\sqrt 2}$ and that
   $$\#\{\text{bad pairs in }X^2\} \le \frac{\abs X^2}{16} \le 10\% \abs X^2$$
 \end{proof}
+
+\newlec
+
+\begin{proof}[Proof of Balog-Szemerédi-Gowers]
+  Call $d$ a {\bf popular difference} if we can write $d = x - y$ with $x, y \in A$ in at least $\frac{\eta\abs A}2$ ways, ie if $r_{A - A}(d) \ge \frac{\eta\abs A}2$.
+
+  There must be at least $\frac{\eta\abs A}2$ popular differences for, if not,
+  \begin{align*}
+    \eta\abs A^3
+    & \le \sum_d r_{A - A}(d)^2 \\
+    & = \sum_{d\text{ popular}} r_{A - A}(d)^2 + \sum_{d\text{ unpopular}} r_{A - A}(d)^2 \\
+    & < \frac{\eta\abs A}2 \abs A^2 + \frac{\eta\abs A}2\sum_d r_{A - A}(d) \\
+    & = \eta\abs A^3 
+  \end{align*}
+  Define a graph with vertex set $A$ and with $x \sim y$ if $y - x$ is a popular difference. Since we have at least $\frac{\eta\abs A}2$ popular differences, our graph has at least $\frac{\eta^2\abs A^2}4$ (directed) edges. We have $\E_{x, y \in A} \abs{N(x) \inter N(y)} \ge \frac{\eta^2\abs A}4$. Indeed,
+  \begin{align*}
+    \E_{x, y \in A} \abs{N(x) \inter N(y)}
+    & = \E_{x, y \in A} \sum_{z \in A} 1_{x \sim z} 1_{y \sim z} \\
+    & = \sum_{z \in A} \left(\E_{x \in A} 1_{x \sim z}\right)^2 \\
+    & \ge \frac 1{\abs A} \left(\sum_{z \in A} \E_{x \in A} 1_{x \sim z}\right)^2 \\
+    & = \frac 1{\abs A} \left(\E_{x \in A} \abs{N(x)}\right)^2 \\
+    & \ge \frac 1{\abs A} \left(\frac{\eta^2\abs A}4\right)^2 \\
+    & = \frac{\eta^4\abs A}{2^4}
+  \end{align*}
+  We apply Lemma \ref{lem:bsg-drc} with $m = n = \abs A$ and $\delta = \frac{\eta^2}4$ to find a subset $B \subseteq A$ of size $\ge \frac{\eta^{10}\abs A}{2^{11}}$ with the property that $\abs{N(x) \inter N(y)} \ge \frac{\eta^4\abs A}{2^5}$ for at least 90\% of the $x, y \in B$. But then for at least 50\% of the $x \in B$ we have $\abs{N(x) \inter N(y)} \ge \frac{\eta^4\abs A}{2^5}$ for at least 80\% of the $y \in B$ (else $90\% \le \E_{x, y \in B} 1_{(x, y)\text{ good}} < 50\% * 100\% + 50\% * 80\% = 90\%$). Call $A' \subseteq B$ that set of such $x$. On one hand, $\abs{A'} \ge \frac{\abs B}2 \ge \frac{\eta^{10}\abs A}{2^{12}}$. On the other hand, if $x, y \in A'$ then at least 60\% of the $z \in B$, namely at least $\frac{\eta^{10}\abs A}{2^{12}}$ such $z$, are such that
+  $$\abs{N(x) \inter N(z)}, \abs{N(y) \inter N(z)} \ge \frac{\eta^4\abs A}{2^5}$$
+  We now prove an upper bound on $\abs{A' - A'}$ by showing that each element can be written as a linear combination of distinct octuples in $A$. For each such $z$, there are at least $\left(\frac{\eta^4\abs A}{2^5}\right)^2$ pairs $(u, v)$ with $u \in N(x) \inter N(z), v \in N(y) \inter N(z)$. For each such pair $(u, v)$, we have $x \sim u \sim z \sim v \sim y$, hence the elements $u - x, z - u, v - z, y - v$ are all popular differences and there are at least $\left(\frac{\eta\abs A}2\right)^4$ octuples $(a_1, \dots, a_8) \in A^8$ such that
+  $$u - x = a_2 - a_1, z - u = a_4 - a_3, v - z = a_6 - a_5, y - v = a_8 - a_7$$
+  In other words, there are at least
+  $$\underbrace{\frac{\eta^{10}\abs A}{2^{12}}}_z
+    \underbrace{\left(\frac{\eta^4\abs A}{2^5}\right)^2}_{(u, v)}
+    \underbrace{\left(\frac{\eta\abs A}2\right)^4}_{(a_1, \dots, a_8)} = \frac{\eta^{22}\abs A^7}{2^{26}}$$
+  octuples $(a_1, \dots, a_8) \in A^8$ such that
+  $$y - x = (a_8 - a_7) + (a_6 - a_5) + (a_4 - a_3) + (a_2 - a_1)$$
+  Since distinct $y - x$ give rise to distinct octuples,
+  $$\frac{\eta^{22}\abs A^7}{2^{26}} \abs{A' - A'} \le \abs A^8$$
+  namely
+  $$\abs{A' - A'} \le \frac{2^{26}}{\eta^{22}}\abs A \le \frac{2^{38}}{\eta^{32}}\abs{A'}$$
+\end{proof}
+
+\clearpage
+\section{Probabilistic tools}
+
+\begin{nprop}
+  Let $X_1, \dots, X_n$ be independent random variables taking values $\pm x_i$ with probability $\frac 12$. Then, for all $p \in [2, \infty[$,
+  $$\norm{\sum_i X_i}_{L^p(\P)} = O\left(p^{\frac 12}\left(\sum_i \norm{X_i}_{L^2(\P)^2}\right)^{\frac 12}\right)$$
+\end{nprop}
+
+\newlec
+
+\begin{proof}
+  By nesting of norms, it's enough to prove it when $p = 2k$ for some integer $k$. Write $X = \sum_i X_i$ and WLOG assume that $\sum_i \norm{X_i}_{L^2(\P)}^2 = 1$. By Chernoff,
+  $$\norm X_{L^{2k}(\P)}^{2k} = \int_0^\infty 2k t^{2k - 1} \P(\abs X \ge t)\ dt \le 8k \underbrace{\int_0^\infty t^{2k - 1} \exp\left(-\frac{t^2}4\right)\ dt}_{I(k)}$$
+  Let's prove by induction on $k$ that $I(k) \le C^{2k}\frac{(2k)^k}{4k}$ for some constant $C > 0$. Indeed if $k = 1$ then
+  $$\int_0^\infty t \exp\left(-\frac{t^2}4\right)\ dt = \left. -2\exp\left(-\frac{t^2}4\right)\right|_0^\infty = 2 \le C^2 \frac 24$$
+  if $C \ge 2$. For $k > 1$,
+  \begin{align*}
+    I(k)
+    & = \int_0^\infty t^{2k - 2} t \exp\left(-\frac{t^2}4\right)\ dt \\
+    & = \left. t^{2k - 2} (-2)\exp\left(-\frac{t^2}4\right)\right|_0^\infty - \int_0^\infty (2k - 2)t^{2k - 3}(-2)\exp\left(-\frac{t^2}4\right)\ dt \\
+    & = 4(k - 1)I(k - 1) \\
+    & \le 4(k - 1)C^{2(k - 1)}\frac{(2(k - 1))^{k - 1}}{4(k - 1)} \\
+    & \le C^{2k}\frac{(2k)^k}{4k}
+  \end{align*}
+  if $C \ge \sqrt 2$.
+\end{proof}
+
+\begin{ncor}[Rudin's inequality]
+  Let $\Lambda \subseteq \widehat{\F_2^n}$ be linearly independent and $f : \F_2^n \to \C$ be such that $\hat f$ is supported on $\Lambda$. Then, for all $p \in [2, \infty[$,
+  $$\norm{\sum_{\gamma \in \Lambda} \hat f(\gamma)\gamma}_{L^p(\F_2^n)} = O\left(\sqrt p \norm{\hat f}_{\ell^2(\Lambda)}\right)$$
+\end{ncor}
+\begin{proof}
+  See Example Sheet 2.
+\end{proof}
+
+\begin{ncor}[Dual form of Rudin's inequality]\label{cor:dual-rudin}
+  Let $\Lambda \subseteq \widehat{\F_2^n}$ be linearly independent and let $q \in ]1, 2]$ Then for all $f \in L^q(\F_2^n)$,
+  $$\norm{\hat f}_{\ell^2(\Lambda)} = O\left(\sqrt{\frac q{q - 1}} \norm f_{L^q(\F_2^n)}\right)$$
+\end{ncor}
+\begin{proof}
+  Let $f \in L^q(\F_2^n)$ and write $g = \sum_{\gamma \in \Lambda} \hat f(\gamma)\gamma$. Then
+  $$\hat g(\delta) = \E_x \delta(x) \sum_{\gamma \in \Lambda} \hat f(\gamma) \gamma(x) = \sum_{\gamma \in \Lambda} \hat f(\gamma) \E_x \gamma(x)\delta(x) = 1_\Lambda(\delta) \hat f(\delta)$$
+  So $\hat g$ is supported on $\Lambda$ and
+  $$\norm{\hat f}_{\ell^2(\Lambda)}^2 = \sum_{\gamma \in \Lambda} \abs{\hat f(\gamma)}^2 = \sum_{\gamma \in \Lambda} \hat f(\gamma)\overline{\hat g(\gamma)} = \langle\hat f, \hat g\rangle_{\ell_2(\F_2^n)} = \inn f g_{L^2(\F_2^n)}$$
+  By Hölder,
+  $$\inn f g_{L^2(\F_2^n)} \le \norm f_{L^q(\F_2^n)}\norm g_{L^p(\F_2^n)}$$
+  where $\frac 1p + \frac 1q = 1$. By Rudin,
+  $$\norm g_{L^p(\F_2^n)} = O(\sqrt p \norm{\hat g}_{\ell^2(\Lambda)}) = O\left(\sqrt{\frac q{q - 1}} \norm{\hat f}_{\ell^2(\Lambda)}\right)$$
+  Putting all of this together, we get the result.
+\end{proof}
+
+Recall that, given $A \subseteq \F_2^n$ of density $\alpha > 0$, $\abs{\Spec_\rho(1_A)} \le \rho^{-2}\alpha^{-1}$. This is best possible, as the example of a subspace $H \le \F_2^n$ shows:
+$$\abs{\Spec_1(1_H)} = \abs{H^\perp} = \left(\frac{\abs H}{2^n}\right)^{-1}$$
+But here $H$ is very structured! And indeed in Bogolyubov we used the bound on the size of the spectrum only to bound the size of the subspace it generated. So maybe the {\it dimension} of the spectrum is what we should be looking at instead of its size.
+
+\begin{nthm}[Special case of Chang's lemma]
+  Let $A \subseteq \F_2^n$ be of density $\alpha > 0$. Then for all $\rho > 0$ there exists a subspace $H \le \F_2^n$ of dimension $O(\rho^{-2}\log\alpha^{-1})$ such that $\Spec_\rho(1_A) \subseteq H$.
+\end{nthm}
+\begin{proof}
+  Let $\Lambda \subseteq \Spec_\rho(1_A)$ be a maximal linearly independent subset and let $H = \langle\Spec_\rho(1_A)\rangle$. Then $\dim H = \abs\Lambda$. By Corollary \ref{cor:dual-rudin}, if $q \in ]1, 2]$,
+  $$(\rho\alpha)^2\abs\Lambda \le \sum_{\gamma \in \Lambda} \abs{\widehat{1_A}(\gamma)}^2 = \norm{\widehat{1_A}}_{\ell^2(\Lambda)}^2 = O\left(\frac q[q - 1]\norm{1_A}_{L^q(\F_2^n)}\right) = O\left(\frac q{q - 1} \alpha^{\frac 2q}\right)$$
+  So $\abs\Lambda = O\left(\frac q{q - 1}\rho^{-2}\alpha^{\frac 2q - 2}\right)$. Choose $q = 1 + \log^{-1} \alpha^{-1}$ to get $\abs\Lambda = O(\rho^{-2}\log\alpha^{-1})$.
+\end{proof}
+
+We will prove Chang's lemma in greater generality on Example Sheet 3. The key definition for the generalisation is the following.
+
+\begin{ndef}
+  Let $G$ be a finite abelian group. We say $S \subseteq G$ is {\bf dissociated} if
+  $$\sum_{s \in S} \eps_s s = 0 \implies \eps = 0$$
+  for all $\eps \in \{-1, 0, 1\}^S$.
+\end{ndef}
+
+Note that if $G = \F_2^n$ then a set $S \subseteq G$ is dissociated iff it's linearly independent.
 
 \end{document}
