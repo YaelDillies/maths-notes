@@ -32,6 +32,7 @@
 \usepackage{ifthen}
 \usepackage{imakeidx}
 \usepackage{parskip}
+\usepackage{relsize}
 \usepackage{tabularx}
 \usepackage[hypcap=true]{caption}
 \usepackage[shortlabels]{enumitem}
@@ -91,6 +92,7 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \newtheorem{ncor}[nthm]{Corollary}
 \newtheorem{nex}[nthm]{Example}
 \newtheorem{nlemma}[nthm]{Lemma}
+\newtheorem{problem}[nthm]{Problem}
 
 % Command redirections
 \let\P\oldP
@@ -99,7 +101,7 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 
 % Letter shorthands
 \newcommand{\C}{\mathbb C}
-\newcommand{\E}{\mathbb E}
+\newcommand{\bbE}{\mathbb E}
 \newcommand{\F}{\mathbb F}
 \newcommand{\K}{\mathbb K}
 \newcommand{\N}{\mathbb N}
@@ -155,6 +157,15 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
 \renewcommand{\bar}[1]{\overline{#1}}
 
+\newcommand*{\E}{
+  \mathop{
+    \mathchoice{\vcenter{\hbox{\larger[4]$\mathbb{E}$}}}
+               {\kern0pt\mathbb{E}}
+               {\kern0pt\mathbb{E}}
+               {\kern0pt\mathbb{E}}
+  }\displaylimits
+}
+
 \newcommand{\named}[1]{\textbf{#1}\index{#1}}
 \newcommand{\bonusnamed}[1]{\textbf{#1}\index{#1@*#1}}
 
@@ -168,6 +179,7 @@ pdfkeywords={Cambridge Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse}]
 \DeclareMathOperator{\esssup}{ess sup}
 \DeclareMathOperator{\Ext}{Ext}
 \DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\im}{im}
 \DeclareMathOperator{\Im}{Im}
 \DeclareMathOperator{\interior}{int}
 \DeclareMathOperator{\lhs}{LHS}
