@@ -1,0 +1,249 @@
+\documentclass{article}
+
+% preamble
+\def\npart{III}
+\def\nyear{2024}
+\def\nterm{Lent}
+\def\nlecturer{Prof Julia Wolf}
+\def\ncourse{Introduction to Additive Combinatorics}
+\def\draft{Incomplete}
+
+\input{header}
+
+% and here we go!
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\clearpage
+\section{Example Sheet 1}
+
+\begin{problem}
+  Construct $R \subseteq \F_p^n$ by selecting each element $x \in \F_p^n$ to lie in $R$ independently at random with probability $\frac 12$. Show that, with high probability,
+  $$\sup_{t \ne 0} \abs{\widehat{1_R}(t)} = O\left(\sqrt{\frac{\log(p^n)}{p^n}}\right)$$
+\end{problem}
+\begin{proof}
+  We use that if the $X_i$ are independent with probability $1$ then
+  $$\P\left(\abs{\sum_i X_i} \ge 2\theta\sqrt{\sum_i \norm{X_i}_\infty^2}\right) \le 4\exp(-\theta^2)$$
+  Here we assume $t \ne 0$ and pick $X_x = \omega^{x \cdot t}(1_R(x) - \frac 12)$. By assumption, the $X_x$ are independent with mean $0$. Hence our inequality applies. We see that $\norm{X_x}_\infty = \frac 12$, $\sqrt{\sum_x \norm{X_x}_\infty^2} = \frac{p^{\frac n2}}2$,
+  $$\sum_x X_x = \sum_x \omega^{x \cdot t} 1_R(x) = p^n \widehat[1_R](t)$$
+  Hence the inequality becomes
+  $$\P(\abs{\widehat{1_R}(t)} \ge \theta p^{-\frac n2}) \le 4\exp(-\theta^2)$$
+  The union bound gives
+  $$\P\left(\sup_{t \ne 0}\abs{\widehat{1_R}(t) \ge \theta p^{-\frac n2}}\right) \le 4\exp(-\theta^2) = \frac 4{p^n} \to 0$$
+  if we take $\theta = \sqrt{2\log(p^n)}$, as wanted.
+\end{proof}
+
+\begin{problem}
+  Let $p > 2$.
+  \begin{enumerate}
+    \item Let $M$ be an $n \times n$ symmetric matrix with entries in $\F_p$, and let $b \in \F_p^n$. By squaring the expression on the left, show that
+    $$\abs{\E_{x \in \F_p^n} \omega^{x^T Mx + c^T x}} \le p^{-\frac{\rank M}2}$$
+    \item Let $Q = \{x \in \F_p^n \mid x^T x = 0\}$. By expressing the indicator function of $Q$ as a suitable exponential sum, show that
+    $$\frac{\abs Q}{p^n} = \frac 1p + O(p^{-\frac n2}) \text{ and } \sup_{t \ne 0} \abs{\widehat{1_Q}(t)} = O(p^{-\frac n2})$$
+  \end{enumerate}
+\end{problem}
+\begin{proof}~
+  \begin{enumerate}
+    \item
+    \begin{align*}
+      \abs{\E_{x \in \F_p^n} \omega^{x^T Mx + c^T x}}^2
+      & = \E_{x, y} \omega^{x^T Mx + c^T x - (y^T My + c^T y)} \\
+      & = \E_{x, y} \omega^{(x + y)^T M(x - y) + c^T(x - y)} \\
+      & = \E_{a, b} \omega^{a^T Mb + c^Tb} \\
+      & = \E_b 1_{b \in \ker M} \omega^{c^Tb} \\
+      & \le \E_b 1_{b \in \ker M} \\
+      & = p^{-\rank M}
+    \end{align*}
+    \item $1_Q(x) = \E_a \omega^{x^T(aI)x}$, so
+    \begin{align*}
+      \widehat{1_Q}(t)
+      & = \E_{a, x} \omega^{x^T(aI)x + x \cdot t} \\
+      & = \underbrace{\frac 1p \E_x \omega^{x \cdot t}}_{1_{t = 0}} + \underbrace{\frac 1p \sum_{a \ne 0} \E_x \omega^{x^T (aI) x + x \cdot t}}_\Delta
+    \end{align*}
+    By the previous part, $\abs\Delta \le \frac 1p \sum_{a \ne 0} p^{-\frac{\rank(aI)}2} = O(p^{-\frac n2})$. Hence
+    $$\widehat{1_Q}(t) = \frac 1p 1_{t = 0} + O(p^{-\frac n2})$$
+    as wanted.
+  \end{enumerate}
+\end{proof}
+
+\begin{problem}
+  Given $f : \F_p^n \to \C$, define
+  $$\norm f_{U^2}^4 = \E_{x + y = z + w}f(x)f(y)\overline{f(z)f(w)}$$
+  where the expectation is taken over $\{(x, y, z, w) \in (\F_p^n)^4 \mid x + y = z + w\}$.
+  \begin{enumerate}
+    \item Show that $\norm f_{U^2} = \norm{\hat f}_{\ell^4}$.
+    \item Let $f_1, f_2, f_3 : \F_p^n \to \C$. Without appealing to the Fourier transform, show that
+    $$\abs{T_3(f_1, f_2, f_3)} \le \norm{f_1}_{U^2} \norm{f_2}_\infty \norm{f_3}_\infty, \norm{f_1}_\infty \norm{f_2}_{U^2} \norm{f_3}_\infty, \norm{f_1}_\infty \norm{f_2}_\infty \norm{f_3}_{U^2}$$
+  \end{enumerate}
+\end{problem}
+\begin{proof}~
+  \begin{enumerate}
+    \item
+    \begin{align*}
+      \norm{\hat f}_4^4
+      & = \norm{\hat f^2}_2^2 = \norm{\widehat{f \ast f}}_2^2 = \norm{f \ast f}_2^2 \text{ by Parseval} \\
+      & = \E_a (f \ast f)(a) \overline{(f \ast f)(a)} \\
+      & = \E_{a, x, y, z, w} f(x)f(y)1_{x + y = a} \overline{f(z)f(w)1_{z + w = a}} \\
+      & = \E_{x + y = z + w} f(x)f(y)\overline{f(z)f(w)}
+    \end{align*}
+    where in the last equality we check that the number of factors of $\abs G$ is the same on both sides.
+    \newpage
+    \item The trick to make $\norm{f_i}_{U^2}$ appear here is to use Cauchy-Schwarz twice to each time duplicate the number of appearances of $f_i$ in the expression. For this to work, we need one variable to not appear as an argument of $f_i$. A neat way to do this is to write 3APs in the form $2a - b, a - c, b - 2c$, with reason $a - b + c$. For simplicity, assume $\norm{f_1}_\infty = 1$. We get
+    \begin{align*}
+      \abs{T_3(f_1, f_2, f_3)}^2
+      & = \abs{\E_{a, b, c} f_1(2a - b) f_2(a - c) f_3(b - 2c)}^2 \\
+      & = \abs{\E_{a, b} f_1(2a - b) \E_c f_2(a - c) f_3(b - 2c)}^2 \\
+      & \le \underbrace{\left(\E_{a, b} \abs{f_1(2a - b)}^2\right)}_{\le \norm{f_1}_\infty^2} \E_{a, b} \abs{\E_c f_2(a - c) f_3(b - 2c)}^2 \\
+      & \le \E_{a, b} \abs{\E_c f_2(a - c) f_3(b - 2c)}^2 \\
+      & = \E_{c, c'} \left(\E_a f_2(a - c) \overline{f_2(a - c')}\right) \E_b f_3(b - 2c) \overline{f_3(b - 2c')}
+    \end{align*}
+    Hence
+    \begin{align*}
+      \abs{T_3(f_1, f_2, f_3)}^4
+      \le & \left(\E_{c, c'} \abs{\E_a f_2(a - c) \overline{f_2(a - c')}}^2\right) \\
+      & \left(\E_{c, c'} \abs{\E_b f_3(b - 2c) \overline{f_3(b - 2c')}}^2\right) \\
+      = & \left(\E_{a, a', c, c'} f_2(a - c) \overline{f_2(a - c') f_2(a' - c)} f_2(a' - c')\right) \\
+      & \left(\E_{b, b', c, c'} f_3(b - 2c) \overline{f_3(b - 2c') f_3(b' - 2c)} f_3(b' - 2c')\right) \\
+      = & \norm{f_2}_{U^2}^4 \norm{f_3}_{U^2}^4
+    \end{align*}
+    So we've proved $\abs{T_3(f_1, f_2, f_3)} \le \norm{f_1}_\infty \norm{f_2}_{U^2} \norm{f_3}_{U^2}$. Since $T_3(f_1, f_2, f_3) = T_3(f_3, f_2, f_1)$, we also get $\abs{T_3(f_1, f_2, f_3)} \le \norm{f_1}_{U^2} \norm{f_2}_{U^2} \norm{f_3}_\infty$ (and the third inequality $\abs{T_3(f_1, f_2, f_3)} \le \norm{f_1}_{U^2} \norm{f_2}_\infty \norm{f_3}_{U^2}$ can be obtained by an argument similar to the one above). Those inequalities are stronger than the ones we were after as $\norm f_{U^2} \le \norm f_\infty$ in general (by the triangle inequality).
+  \end{enumerate}
+\end{proof}
+
+\begin{problem}
+  Let $A = \{x \in \F_2^n \mid \abs x \ge \frac n2 + \frac{\sqrt n}2$ where $\abs x$ denotes the number of $1$s in $x$ and $n$ is to be thought of as large $n$.
+  \begin{enumerate}
+    \item Show that $A$ has size at least $\frac{2^n}8$.
+    \item Let $V$ be any subspace of $\F_2^n$ of codimension $< \sqrt n$. Show that $A + A$ does not contain any coset of $V$.
+  \end{enumerate}
+\end{problem}
+\begin{proof}~
+  \begin{enumerate}
+    \item $\abs A \ge \frac{2^n}8$ is the same as saying that $\P(\sum_i X_i \ge \frac n2 + \frac{\sqrt n}2) \ge \frac 14$ where the $X_i$ are iid Bernoulli random variables with probability $\frac 12$. But $\Var X_i = \frac 14$, so the Central Limit Theorem tells us that
+    $$\sqrt n\left(\E_{i = 1}^n - \frac 12\right) \overset d\to N\left(0, \frac 14\right)$$
+    In particular,
+    $$\P\left(\sum_i X_i \ge \frac n2 + \frac{\sqrt n}2\right) \to \Phi\left(\frac 12\right) = 0.15 > \frac 18$$
+    \item Note that if $x, y \in A$ then
+    $$\abs{x + y} = \abs{x \union y} - \abs{x \inter y} \in \left[\frac n2 + \frac{\sqrt n}2, n\right] - \left[\sqrt n, \frac n2 + \frac{\sqrt n}2\right] = [0, n - \sqrt n]$$
+    Hence $A + A \subseteq \{x \in \F_2^n \mid \abs x \le n - \sqrt n\}$. But now we claim that if $B$ is a coset of a subspace $V$ of dimension $k$, then $\abs x \ge k$ for some $x \in B$. Let's prove it by induction on $k$:
+    \begin{itemize}
+      \item For $k = 0$, it's clear.
+      \item For $k + 1$, pick $v \in V$ such that $v \ne 0$, say $v_i \ne 0$. Then $B_i^+ = \{x \in B \mid x_i = 1\}$ and $v + B_i^+ = \{x \in B \mid x_i = 0\}$ partition $B$. Hence $\abs{B_i^+} = \frac{\abs B}2$ and $B_i^- = e_i + B_i^+$ (where $e_i$ is the $i$-th basis vector) is a coset of a subspace of $V$ of codimension $1$. Find by induction hypothesis $x \in B_i^-$ such that $\abs x \ge k$. Then $x + e_i \in B_i^+$ and $\abs{x + e_i} \ge k + 1$, as wanted.
+    \end{itemize}
+  \end{enumerate}
+\end{proof}
+
+\begin{problem}
+  Let $A \subseteq \F_p^n$ be of size $\abs A \le n$. Show that there exists $t \ne 0$ such that $\abs{\widehat{1_A}(t)} = \frac{\abs A}{p^n}$. Formulate an analogous result for the group $\F_p$ with $p$ a prime.
+\end{problem}
+\begin{proof}
+  Consider the map
+  \begin{align*}
+    \phi : \widehat{\F_p^n} & \to A \to \F_p \\
+    t & \mapsto x \mapsto x \cdot t
+  \end{align*}
+  and write $\Delta = \{(x, \dots, x) : A \to \F_p^n \mid x \in A\}$ the diagonal. $\phi$ is linear. Consider the subspace $\phi^{-1}\Delta$. If it is trivial, then $\phi$ is injective and
+  $$n = \dim \widehat{\F_p^n} = \rank \phi \le \codim \Delta < \abs A$$
+  Hence there is some $t \ne 0$ such that $\phi(t) \in \Delta$, namely $x \cdot t = c$ for all $x \in A$ and some $c \in \F_p$. Then
+  $$\abs{\widehat{1_A}(t)} = \frac 1{p^n} \abs{\sum_{x \in A} \omega^{x \cdot t}} = \frac 1{p^n} \abs{\sum_{x \in A} \omega^c} = \frac{\abs A}{p^n}$$
+  An analogous statement for $\F_p$ is that if $A \subseteq \F_p$ is of density $\alpha$ and $\abs A < \frac{\log p}{\log 2\pi + \frac 12\log \eps^{-1}}$ then there exists $t \ne 0$ such that $\abs{\widehat{1_A}(t)} \ge (1 - \eps)\alpha$.
+  \begin{proof}
+    First note that if $z \in \C$ is such that $\abs{z - 1} \le \sqrt\eps$ then $\Re z \ge 1 - \eps$ (draw a picture in the complex plane). Second, observe that
+    $$\abs{B(A, \sqrt\eps)} \ge p \left(\frac{\sqrt\eps}{2\pi}\right)^{\abs A} > 1$$
+    by a theorem in the lectures and by assumption. Hence $B(A, \sqrt\eps)$ contains some $t \ne 0$. For that $t$ and all $x \in A$, we have $\abs{\omega^{xt} - 1} \le \sqrt\eps$. Therefore
+    $$\abs{\widehat{1_A}(t)} = \frac 1p \abs{\sum_{x \in A} \omega^{xt}} \ge \frac 1p \sum_{x \in A} \Re \omega^{xt} \ge (1 - \eps)\alpha$$
+  \end{proof}
+\end{proof}
+
+\begin{problem}
+  Let $A \subseteq \F_p$ with $p$ a prime. Show that the number of $3$-term arithmetic progressions in $A$ plus the number of $3$-term arithmetic progressions in $A^c$ depends only on the cardinality of A. Is the same true for $4$-term arithmetic progressions?
+\end{problem}
+\begin{proof}
+  This works in a general group $G$ whose elements all have odd order. First observe a few things: $(2 \cdot A)^c = 2 \cdot A^c, \widehat{1_A} + \widehat{1_{A^c}} = \hat 1 = 1_0, \widehat{1_{2 \cdot A}} + \widehat{1_{2 \cdot A^c}} = \hat 1 = 1_0$. Hence we calculate that
+  \begin{align*}
+    \frac{\#\{\text{3APs in }A\} + \#\{\text{3APs in }A^c\}}{\abs G^2}
+    = & T_3(1_A, 1_A, 1_A) + T_3(1_{A^c}, 1_{A^c}, 1_{A^c}) \\
+    = & \inn{1_{2 \cdot A}}{1_A \ast 1_A} + \inn{1_{2 \cdot A^c}}{1_{A^c} \ast 1_{A^c}} \\
+    = & \inn{\widehat{1_{2 \cdot A}}}{\widehat{1_A}^2} + \inn{\widehat{1_{2 \cdot A^c}}}{\widehat{1_{A^c}}^2} \\
+    = & \sum_t \widehat{1_{2 \cdot A}}(t)\widehat{1_A}(t)^2 + \widehat{1_{2 \cdot A^c}}(t)\widehat{1_{A^c}}(t) \\
+    = & \alpha^3 + (1 - \alpha)^3 \\
+    & + \sum_{t \ne 0} \widehat{1_{2 \cdot A}}(t)\widehat{1_A}^2(t) + (-\widehat{1_{2 \cdot A}}(t))(-\widehat{1_A}(t))^2 \\
+    = & 1 - 3\alpha + 3\alpha^2
+  \end{align*}
+  Namely,
+  $$\#\{\text{3APs in }A\} + \#\{\text{3APs in }A^c\} = \abs G^2 - 3\abs A\abs G + 3\abs A^2$$
+  The same is not true of 4APs since $\{0, 1, 2, 3\}, \{0, 1, 3, 4\} \subseteq \F_7$ have the same size but not the same number of 4APs in them and their complement.
+\end{proof}
+
+\begin{problem}
+  Let $p$ be a prime and let $L \le \frac p2 - 1$ be even. Given $x \in \F_p$, denote by $\abs x$ the minimum distance of $0$ from a member of the residue class of $x$ module $p$.
+  \begin{enumerate}
+    \item Let $J = [-\frac L2, \frac L2] \subseteq \F_p$. By summing a geometric series, show that, for all $t \in \widehat{\F_p}$,
+    $$\abs{\widehat{1_J}(t)} \le \min\left(\frac{L + 1}p, \frac 1{2\abs t}\right)$$
+    \item Let $A \subseteq \F_p$ be a set of density $\alpha > 0$ such that $A \inter [-L, L] = \emptyset$. Show that there exists $t \ne 0$ with $\abs t \le \sqrt{\frac p2}\frac p{L + 1}$ such that $\abs{\widehat{1_A}(t)} \ge \alpha\frac{L + 1}{2p}$.
+  \end{enumerate}
+\end{problem}
+\begin{proof}~
+  \begin{enumerate}
+    \item If $t = 0$, then $\widehat{1_J}(t) = \frac{\abs J}p = \frac{L + 1}p$. If $t \ne 0$, then
+    $$\widehat{1_J}(t) = \E_x 1_J(x) \omega^{xt} = \E_{x = -\frac L2}^{\frac L2} \omega^{xt} = \frac{\omega^{(L + 1)\frac t2} - \omega^{-(L + 1)\frac t2}}{p(\omega^{\frac t2} - \omega^{-\frac t2})}$$
+    Noting that, for all $x \in [-\pi, \pi]$, we have $\abs{e^{ix} - 1} \ge \frac{2\abs x}\pi$,
+    $$\abs{\widehat{1_J}(t)} \le \frac 2p \abs{\omega^t - 1}^{-1} \le \frac 2p \left(\frac 2\pi \frac{2\pi t}p\right)^{-1} = \frac 1{2\abs t}$$
+    \item We can turn the $A \inter [-L, L] = \emptyset$ condition into $\inn{1_A}{1_J \ast 1_J} = 0$. Hence
+    $$0 = \inn{1_A}{1_J \ast 1_J} = \langle\widehat{1_A}, \widehat{1_J}^2\rangle = \alpha\left(\frac{L + 1}p\right)^2 + \underbrace{\sum_{t \ne 0} \widehat{1_A}(t)\widehat{1_J}(t)^2}_\Delta$$
+    We calculate
+    \begin{align*}
+      \abs\Delta
+      & \le \sum_{t \ne 0, \abs t \le C} \abs{\widehat{1_A}(t)}\abs{\widehat{1_J}(t)}^2 + \sum_{\abs t > C} \abs{\widehat{1_A}(t)}\abs{\widehat{1_J}(t)}^2 \\
+      & \le \sup_{t \ne 0, \abs t \le C} \abs{\widehat{1_A}(t)} \norm{\widehat{1_J}}_2^2 + \frac 1{4C^2}\sum_{\abs t > C} \abs{\widehat{1_A}(t)} \\
+      & \le \frac{L + 1}p \sup_{t \ne 0, \abs t \le C} \abs{\widehat{1_A}(t)} + \frac{p\alpha}{4C^2} \\
+      & = \frac{L + 1}p \left(\sup_{t \ne 0, \abs t \le C} \abs{\widehat{1_A}(t)} + \alpha\frac{L + 1}{2p}\right)
+    \end{align*}
+    Hence
+    $$\sup_{t \ne 0, \abs t \le C} \abs{\widehat{1_A}(t)} \ge \alpha\frac{L + 1}{2p}$$
+    as wanted.
+  \end{enumerate}
+\end{proof}
+
+\begin{problem}
+  Combine Lemmas 1.21 and 1.23 from lectures to give a proof of (Roth’s) Theorem 1.20. That is, show that any subset $A \subseteq [N]$ containing no non-trivial 3-term arithmetic progressions has size $O(N / \log\log N)$.
+\end{problem}
+\begin{proof}
+  TODO
+\end{proof}
+
+\begin{problem}
+  In this exercise you will construct (Behrend’s) Example 1.24.
+  \begin{enumerate}
+    \item Consider the $d$-dimensional integer grid $[m]^d$. Show that there exists at least one value of $r \in [dm^2]$ such that $S_r = \{x \in [m]^d \mid x_1^2 + \dots + x_d^2 = r\}$ has size at least $m^{d - 2}/d$.
+    \item Construct a map $\phi : [m]^d \to [N]$ for some suitable $N$ such that if $S \subseteq [m]^d$ contains no non-trivial 3-term arithmetic progressions, then neither does $\phi(S)$.
+    \item Deduce that there exists a set $A \subseteq [N]$ of size at least $\exp(-c\sqrt{\log N})N$, for some constant $c > 0$, containing no non-trivial 3-term arithmetic progressions.
+  \end{enumerate}
+\end{problem}
+\begin{proof}~
+  \begin{enumerate}
+    \item Every $x \in [m]^d$ lies in $S_r$ for some $r \in [dm^2]$ (namely $r = x_1^2 + \dots + x_d^2)$. Hence by pigeonhole there's some $r$ such that $\abs{S_r} \ge m^d/(dm^2)$.
+    \item The map
+    \begin{align*}
+      \phi : [m]^d & \to [(2m - 1)^d] \\
+      x & \mapsto \sum_{i = 0}^{d - 1} (2m - 1)^i x_i
+    \end{align*}
+    is such that if $\phi(a) + \phi(b) = 2\phi(c)$ then $a + b = 2c$ since the addition of $2m - 1$-ary numbers whose digits are all $\le m - 1$ does not have carries.
+    \item The density of $\phi(S_r)$ is
+    $$\frac{m^{d - 2}/d}{(2m - 1)^d} \ge \frac{m^{d - 2}/d}{(2m)^d} = \frac 1{m^2 2^d d} = \frac 1{N^{\frac 1d} 2^{d - 1} d}$$
+    Taking logs, we find
+    $$d - 1 + \log d - \frac{\log N}d \approx 2\sqrt{\log N}$$
+    if we pick $d = \sqrt{\log N}$. Hence we have found a set of density $\approx \exp(-2\sqrt{\log N})$
+  \end{enumerate}
+\end{proof}
+
+\begin{problem}
+  Show that for all $\alpha > 0$, there exists a constant $c = c(\alpha)$ such that for every $N$ and every subset $A \subseteq [N]$ of density at least $\alpha$, the number of  arithmetic progressions in $A$ is at least $c(\alpha)N^2$.
+\end{problem}
+\begin{proof}
+  TODO
+\end{proof}
+
+\end{document}
