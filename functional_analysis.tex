@@ -9,13 +9,6 @@
 \def\draft{Incomplete}
 
 \input{header}
-\swapnumbers
-\reversemarginpar
-
-\usetikzlibrary{positioning, decorations.pathmorphing, decorations.text, calc, backgrounds, fadings}
-\tikzset{node/.style = {circle,draw,inner sep=0.8mm}}
-
-\makeindex[intoc]
 
 \setcounter{section}{-1}
 
@@ -59,7 +52,7 @@ For $X$ a normed space, we define
 \end{align*}
 
 For $X, Y$ normed spaces, we write $X \sim Y$ if $X, Y$ are isomorphic, ie there
-exists a linear bijection $T : X \mor Y$ such that $T$ and $T^{-1}$ are continuous. We write $X \cong Y$ if $X, Y$ are isometrically isomorphic, ie there exists a surjective linear map $T : X \mor Y$ such that $\norm{T x} = \norm x$ for all $x$.
+exists a linear bijection $T : X \to Y$ such that $T$ and $T^{-1}$ are continuous. We write $X \cong Y$ if $X, Y$ are isometrically isomorphic, ie there exists a surjective linear map $T : X \to Y$ such that $\norm{T x} = \norm x$ for all $x$.
 
 \clearpage
 
@@ -72,46 +65,48 @@ bounded linear functionals on $X$.
 $X^*$ is always a Banach space in the operator norm: for $f \in X^*$,
 $$\norm f = \sup_{x \in B_X} |f(x)|$$
 
-\begin{eg}
-  For $1 < p, q < \infty$, $p^{-1} + q^{-1} = 1$, $\ell_p^* \cong \ell_q$. \\
-  We also have $\ell_1^* \cong \ell_\infty$, $c_0^* \cong \ell_1$. \\
-  If $H$ is a Hilbert space, then $H^* \cong H$ (the isomorphism is conjugate-linear in the complex case).
-\end{eg}
+\begin{egs*}~
+  \begin{itemize}
+    \item For $1 < p, q < \infty$, $p^{-1} + q^{-1} = 1$, $\ell_p^* \cong \ell_q$
+    \item $\ell_1^* \cong \ell_\infty$, $c_0^* \cong \ell_1$
+    \item If $H$ is a Hilbert space, then $H^* \cong H$ (the isomorphism is conjugate-linear in the complex case).
+  \end{itemize}
+\end{egs*}
 
 For $x \in X, f \in X^*$, we write $\inn x f = f(x)$. Note that
 $$\inn x f = |f(x)| \le \norm f\norm x$$
 
-\begin{defi}
-  Let $X$ be a {\it real} vector space. A functional $p : X \mor \R$ is
+\begin{dfn*}
+  Let $X$ be a {\it real} vector space. A functional $p : X \to \R$ is
   \begin{itemize}
     \item {\bf positive homogeneous} if $p(tx) = tp(x)$ for all $x \in X$, $t \ge 0$
     \item {\bf subadditive} if $p(x + y) \le p(x) + p(y)$ for all $x, y \in X$
   \end{itemize}
-\end{defi}
+\end{dfn*}
 
-\begin{defi}
+\begin{dfn*}
   Let $P$ be a preorder, $A \subseteq P, x \in P$. We say
   \begin{itemize}
     \item $x$ is an {\bf upper bound} for $A$ if $\for a \in A, a \le x$.
     \item $A$ is a {\bf chain} if $\for a, b \in A, a \le b \lor b \le a$.
     \item $x$ is a {\bf maximal element} if $\for y \in P, x \not < y$
   \end{itemize}
-\end{defi}
+\end{dfn*}
 
 \begin{fact}[Zorn's lemma]
   A nonempty preorder in which all nonempty chains have an upper bound has a maximal element.
 \end{fact}
 
-\begin{nthm}[Hahn-Banach, positive homogeneous version]\label{thm:hb-positive}
-  Let $X$ be a real vector space and $p : X \mor \R$ be positive homogeneous and subadditive. Let $Y$ be a subspace of $X$ and $g : Y \mor \R$ be linear such that $\for y \in Y, g(y) \le p(y)$. Then there exists $f : X \mor \R$ linear such that $f\restriction_Y = g$ and $\for x \in X, f(x) \le p(x)$.
-\end{nthm}
+\begin{thm}[Hahn-Banach, positive homogeneous version]\label{thm:hb-positive}
+  Let $X$ be a real vector space and $p : X \to \R$ be positive homogeneous and subadditive. Let $Y$ be a subspace of $X$ and $g : Y \to \R$ be linear such that $\for y \in Y, g(y) \le p(y)$. Then there exists $f : X \to \R$ linear such that $f\restriction_Y = g$ and $\for x \in X, f(x) \le p(x)$.
+\end{thm}
 \begin{proof}
-  Let $P$ be the set of pairs $(Z, h)$ where $Z$ is a subspace of $X$ with $Y \subseteq Z$ and $h : Z \mor \R$ linear, $h\restriction_Y = g$ and $\for z \in Z, h(z) \le p(z)$. $P$ is nonempty since $(Y, g) \in P$, and is partially ordered by
+  Let $P$ be the set of pairs $(Z, h)$ where $Z$ is a subspace of $X$ with $Y \subseteq Z$ and $h : Z \to \R$ linear, $h\restriction_Y = g$ and $\for z \in Z, h(z) \le p(z)$. $P$ is nonempty since $(Y, g) \in P$, and is partially ordered by
   $$(Z_1, h_1) \le (Z_2, h_2) \iff Z_1 \subseteq Z_2 \land h_2\restriction_{Z_1} = h_1$$
   If $\{(Z_i, h_i) \mid i \in I\}$ is a chain with $I$ nonempty, then we can define
   $$Z := \Union_{i \in I} Z_i, h\restriction_{Z_i} = h_i$$
   The definition of $h$ makes sense thanks to the chain assumption. $(Z, h) \in P$ is therefore an upper bound for the chain. \\
-  Hence find by Zorn a maximal element $(Z, h)$ of $P$. If $Z = X$, we won. So assume there is some $x \in X \ Z$. Let $W = \Span(Z \cup \{x\})$ and define $f : W \mor \R$ by
+  Hence find by Zorn a maximal element $(Z, h)$ of $P$. If $Z = X$, we won. So assume there is some $x \in X \ Z$. Let $W = \Span(Z \cup \{x\})$ and define $f : W \to \R$ by
   $$f(z + \lambda x) = h(z) + \lambda\alpha$$
   for some $\alpha \in \R$. Then $f$ is linear and $f\restriction_Z = h$. We now look for $\alpha$ such that $\for w \in W, f(w) \le p(w)$. We would then have $(W, f) \in P$ and $(Z, h) < (W, f)$, contradicting maximality of $(Z, h)$. \\
   We need
@@ -129,14 +124,14 @@ $$\inn x f = |f(x)| \le \norm f\norm x$$
   $$h(z_1) + h(z_2) = h(z_1 + z_2) \le p(z_1 + z_2) \le p(z_1 - x) + p(z_2 + x)$$
 \end{proof}
 
-\begin{defi}
-  Let $X$ be a $\K$-vector space. A {\bf seminorm} on $X$ is a functional $p : X \mor \R$ such that
+\begin{dfn*}
+  Let $X$ be a $\K$-vector space. A {\bf seminorm} on $X$ is a functional $p : X \to \R$ such that
   \begin{itemize}
     \item $\for x \in X, p(x) \ge 0$
     \item $\for x \in X, \lambda \in \K, p(\lambda x) = |\lambda| p(x)$
     \item $\for x, y \in X, p(x + y) \le p(x) + p(y)$
   \end{itemize}
-\end{defi}
+\end{dfn*}
 
 \begin{rmk}
   $$\text{norm} \imp \text{seminorm} \imp \text{positive homogeneous}$$
@@ -144,21 +139,21 @@ $$\inn x f = |f(x)| \le \norm f\norm x$$
 
 \newlec
 
-\begin{nthm}[Hahn-Banach, absolute homogeneous version]\label{thm:hb-absolute}
+\begin{thm}[Hahn-Banach, absolute homogeneous version]\label{thm:hb-absolute}
   Let $X$ be a real of complex vector space and $p$ a seminorm on $X$. Let $Y$ be a subspace of $X$, $g$ a linear functional on $Y$ such that $\for y \in Y, |g(y)| \le p(y)$. Then there exists a linear functional $f$ on $X$ such that $f\restriction_Y = g$ and $\for x \in X, |f(x)| \le p(x)$.
-\end{nthm}
+\end{thm}
 \begin{proof}~\\
   {\bf Real case}
   $$\for y \in Y, g(y) \le |g(y)| \le p(y)$$
-  By Theorem \ref{thm:hb-positive}, there exists $f : X \mor \R$ such that $f\restriction_Y = g$ and $\for x \in X, f(x) \le p(x)$. We also have
+  By Theorem \ref{thm:hb-positive}, there exists $f : X \to \R$ such that $f\restriction_Y = g$ and $\for x \in X, f(x) \le p(x)$. We also have
   $$\for x \in X, -f(x) = f(-x) \le p(-x) = p(x)$$
   Hence $|f(x)| \le p(x)$ \\
   {\bf Complex case} \\
-  $\Re g : Y \mor \R$ is real-linear.
+  $\Re g : Y \to \R$ is real-linear.
   $$\for y \in Y, |\Re g(y)| \le |g(y)| \le p(y)$$
-  By the real case, find $h : X \mor \R$ real-linear such that $h\restriction_Y = \Re g$
+  By the real case, find $h : X \to \R$ real-linear such that $h\restriction_Y = \Re g$
   \begin{claim}
-    There exists a unique complex-linear $f : X \mor \C$ such that $h = \Re f$.
+    There exists a unique complex-linear $f : X \to \C$ such that $h = \Re f$.
   \end{claim}
   \begin{proof}~\\
     {\bf Uniqueness} \\
@@ -172,7 +167,7 @@ $$\inn x f = |f(x)| \le \norm f\norm x$$
     {\bf Existence} \\
     Define $f(x) = h(x) - ih(ix)$. Then $f$ is real-linear and $f(ix) = if(x)$, so $f$ is complex-linear with $\Re f = h$.
   \end{proof}
-  We now have $f : X \mor \C$ such that $\Re f = h$.
+  We now have $f : X \to \C$ such that $\Re f = h$.
   $$\Re f\restriction_Y = h\restriction_Y = \Re g$$
   So, by uniqueness, $f\restriction_Y = g$. \\
   Given $x \in X$, find $\lambda$ with $|\lambda| = 1$ such that
@@ -189,29 +184,29 @@ $$\inn x f = |f(x)| \le \norm f\norm x$$
 
 \begin{rmk}
   For a complex vector space $X$, if we write $X_\R$ for $X$ considered as a real vector space, the above proof shows that
-  $$\Re : (X^*)_\R \mor X_\R^*$$
+  $$\Re : (X^*)_\R \to X_\R^*$$
   is an isometric isomorphism.
 \end{rmk}
 
-\begin{ncor}\label{cor:hb-point}
+\begin{cor}\label{cor:hb-point}
   Let $X$ be a $\K$-vector space, $p$ a seminorm on $X$, $x_0 \in X$. Then there exists a linear functional $f$ on $X$ such that $f(x_0) = p(x_0)$ and $\for x \in X, |f(x)| \le p(x)$.
-\end{ncor}
+\end{cor}
 \begin{proof}
   Let $Y = \Span(x_0)$,
   \begin{align*}
-    g : Y & \mor \K \\
+    g : Y & \to \K \\
     \lambda x_0 & \mapsto \lambda p(x_0)
   \end{align*}
   We see that $\for y \in Y, g(y) \le p(y)$. Hence find by Theorem \ref{thm:hb-absolute} a linear functional $f$ on $X$ such that $f\restriction_Y = g$ and $\for x \in X, |f(x)| \le p(x)$. We check that $f(x_0) = g(x_0) = p(x_0)$.
 \end{proof}
 
-\begin{nthm}[Hahn-Banach, existence of support functionals]\label{thm:hb-support}
+\begin{thm}[Hahn-Banach, existence of support functionals]\label{thm:hb-support}
   Let $X$ be a real or complex normed space. Then
   \begin{enumerate}
     \item If $Y$ is a subspace of $X$ and $g \in Y^*$, then there exists $f \in X^*$ such that $f\restriction_Y = g$ and $\norm f = \norm g$.
     \item Given $x_0 \ne 0$, there exists $f \in S_{X^*}$ such that $f(x_0) = \norm{x_0}$.
   \end{enumerate}
-\end{nthm}
+\end{thm}
 \begin{proof}~
   \begin{enumerate}
     \item Let $p(x) = \norm g \norm x$. Then $p$ is a seminorm on $X$ and
@@ -225,7 +220,7 @@ $$\inn x f = |f(x)| \le \norm f\norm x$$
 
 \begin{rmks}~
   \begin{itemize}
-    \item Part 1 is a sort of linear version of Tietze's extension theorem: Given $K$ compact Hausdorff, $L \subseteq K$ closed, $g : L \mor \K$ continuous, there exists $f : K \mor \K$ such that $f\restriction_L = g$ and $\norm f_\infty = \norm g_\infty$.
+    \item Part 1 is a sort of linear version of Tietze's extension theorem: Given $K$ compact Hausdorff, $L \subseteq K$ closed, $g : L \to \K$ continuous, there exists $f : K \to \K$ such that $f\restriction_L = g$ and $\norm f_\infty = \norm g_\infty$.
     \item Part 2 shows that for all $x \ne y$ in $X$ there exists $f \in X^*$ such that $f(x) \ne f(y)$, namely $X^*$ {\bf separates points} of $X$. This is a sort of linear version of Urysohn: $C(K)$ separates points of $K$.
     \item The $f$ in part 2 is called a {\bf norming functional}, aka {\bf support functional}, for $x_0$. The existence of support functionals shows that
       $$x_0 = \max_{g \in B_{X^*}} \inn{x_0}g$$
@@ -237,13 +232,13 @@ $$\inn x f = |f(x)| \le \norm f\norm x$$
 
 Let $X$ be a normed space. Then $X^{**}$ is called the {\bf bidual} or {\bf second dual} of $X$.
 
-For $x \in X$, define $\hat x : X^* \mor \K$, the {\bf evaluation at $x$}, by $\hat x(f) = f(x)$. $\hat x$ is linear and $|\hat x(f)| = |f(x)| \le \norm f \norm x$, so $\hat x \in X^{**}$ and $\norm{\hat x} \le \norm x$.
+For $x \in X$, define $\hat x : X^* \to \K$, the {\bf evaluation at $x$}, by $\hat x(f) = f(x)$. $\hat x$ is linear and $|\hat x(f)| = |f(x)| \le \norm f \norm x$, so $\hat x \in X^{**}$ and $\norm{\hat x} \le \norm x$.
 
-The map $x \mapsto \hat x : X \mor X^{**}$ is called the {\bf canonical embedding} of $X$ into $X^{**}$.
+The map $x \mapsto \hat x : X \to X^{**}$ is called the {\bf canonical embedding} of $X$ into $X^{**}$.
 
-\begin{nthm}\label{thm:can-emb}
+\begin{thm}\label{thm:can-emb}
   The canonical embedding is an isometric embedding.
-\end{nthm}
+\end{thm}
 \begin{proof}~\\
   {\bf Linearity}
   \begin{align*}
@@ -266,16 +261,16 @@ The map $x \mapsto \hat x : X \mor X^{**}$ is called the {\bf canonical embeddin
   \end{itemize}
 \end{rmks}
 
-\begin{defi}
-  A normed space $X$ is {\bf reflexive} if the canonical embedding $X \mor X^{**}$ is surjective.
-\end{defi}
+\begin{dfn*}
+  A normed space $X$ is {\bf reflexive} if the canonical embedding $X \to X^{**}$ is surjective.
+\end{dfn*}
 
-\begin{egs}~
+\begin{egs*}~
   \begin{itemize}
     \item Some reflexive spaces are Hilbert spaces, finite-dimensional spaces, $\ell_p$ and $L_p(\mu)$ for $1 < p < \infty$.
     \item Some non-reflexive spaces are $c_0, \ell_1, \ell_\infty, L_1[0, 1]$.
   \end{itemize}
-\end{egs}
+\end{egs*}
 
 \begin{rmks}~
   \begin{itemize}
@@ -289,10 +284,10 @@ The map $x \mapsto \hat x : X \mor X^{**}$ is called the {\bf canonical embeddin
 \newlec
 
 Let $X, Y$ be normed spaces. Recall
-$$\mcB(X, Y) = \{T : X \mor Y \mid T \text{ linear, bounded}\}$$
+$$\mcB(X, Y) = \{T : X \to Y \mid T \text{ linear, bounded}\}$$
 This is a normed space in the operator norm:
 $$\norm T = \sup_{x \in B_X} \norm{Tx}$$
-If $Y$ is complete, then so is $\mcB(X, Y)$. For $T \in \mcB(X, Y)$, the {\bf dual operator} of $T$ is the map $T^* : Y^* \mor X^*$ given by $T^*g = g \comp T$. In bracket notation $\inn x{T^*g} = \inn{Tx} g$ for $x \in X, g \in Y^*$.
+If $Y$ is complete, then so is $\mcB(X, Y)$. For $T \in \mcB(X, Y)$, the {\bf dual operator} of $T$ is the map $T^* : Y^* \to X^*$ given by $T^*g = g \comp T$. In bracket notation $\inn x{T^*g} = \inn{Tx} g$ for $x \in X, g \in Y^*$.
 
 {\bf $T^*$ is linear}
 \begin{align*}
@@ -328,16 +323,16 @@ If $Y$ is complete, then so is $\mcB(X, Y)$. For $T \in \mcB(X, Y)$, the {\bf du
   \end{itemize}
 \end{rmks}
 
-\begin{eg}
-  Let $1 < p, q < \infty$, $p^{-1} + q^{-1} = 1$ and define $R : \ell_p \mor \ell_p$ to be the {\bf right shift operator} $(x_0, x_1, \dots) \mapsto (0, x_0, \dots)$. Then $R^* : \ell_q \mor \ell_q$ is the {\bf left shift operator} $(x_0, x_1, \dots) \mapsto (x_1, x_2, \dots)$.
-\end{eg}
+\begin{eg*}
+  Let $1 < p, q < \infty$, $p^{-1} + q^{-1} = 1$ and define $R : \ell_p \to \ell_p$ to be the {\bf right shift operator} $(x_0, x_1, \dots) \mapsto (0, x_0, \dots)$. Then $R^* : \ell_q \to \ell_q$ is the {\bf left shift operator} $(x_0, x_1, \dots) \mapsto (x_1, x_2, \dots)$.
+\end{eg*}
 
 Some properties of the dual operator are
 \begin{enumerate}
   \item $\id_X^* = \id_{X^*}$
   \item $(S + T)^* + S^* + T^*$, $(\lambda T)^* = \lambda T^*$
   \item $(ST)^* = T^*S^*$
-  \item $T \mapsto T^* : \mcB(X, Y) \mor \mcB(Y^*, X^*)$ is an {\it into} isomorphism.
+  \item $T \mapsto T^* : \mcB(X, Y) \to \mcB(Y^*, X^*)$ is an {\it into} isomorphism.
   \item The double dual of an operator commutes with the double dual embedding. \\
     TODO: Insert commutative diagram
     For all $x$,
@@ -351,17 +346,17 @@ Some properties of the dual operator are
 
 \subsection{Quotient spaces}
 
-Let $X$ be a normed space and $Y$ be a {\it closed} subspace.. Then the quotient space $X / Y$ becomes a normed space in the quotient norm:
+Let $X$ be a normed space and $Y$ be a {\it closed} subspace. Then the quotient space $X / Y$ becomes a normed space in the quotient norm:
 $$\norm{x + Y} = d(x, Y) = \inf_{y \in Y} \norm{x + y}$$
-The quotient map $q : X \mor X/Y$ is linear and bounded: $\norm{q(x)} \le \norm x$, so $\norm q \le 1$.
+The quotient map $q : X \to X/Y$ is linear and bounded: $\norm{q(x)} \le \norm x$, so $\norm q \le 1$.
 
 $q$ maps the open unit ball $D_X$ onto $D_{X/Y}$. Indeed, if $x \in D_X$, then $\norm{q(x)} \le \norm x < 1$. Reciprocally, if $q(x) \in D_{X/Y}$, then there exists $y \in Y$ such that $\norm{x + y} < 1$. So $x + y \in D_X$ and $q(x + y) = q(x)$. It follows that $q$ is an open map and $\norm q = 1$.
 
 If $Z$ is another normed space, $T \in \mcB(X, Z)$ and $Y \subseteq \ker T$, then there exists a unique map $\tilde T$ is linear and $\tilde T(D_{X/Y}) = \tilde T(q(D_X)) = T(D_X)$. It follows that $\norm{\tilde T} = \norm T$.
 
-\begin{nthm}
+\begin{thm}
   Let $X$ be a normed space. If $X^*$ is separable, then so is $X$.
-\end{nthm}
+\end{thm}
 \begin{rmk}
   The converse is false, as $X = \ell_1, X^* = \ell_\infty$ shows.
 \end{rmk}
@@ -379,11 +374,11 @@ If $Z$ is another normed space, $T \in \mcB(X, Z)$ and $Y \subseteq \ker T$, the
   \end{proof}
 \end{proof}
 
-\begin{nthm}
+\begin{thm}
   Let $X$ be a separable normed space. Then $X$ embeds isometrically into $\ell_\infty$.
-\end{nthm}
+\end{thm}
 \begin{proof}
-  Let $\{x_n \mid n \in \N\}$ be dense in $X$. For every $n$, find $f_n \in S_{X^*}$, $f_n(x_n) = \norm{x_n}$ (assuming $X \ne \{0\}$). Define $T : X \mor \ell_\infty$ by $(Tx)_n = f_n(x)$.
+  Let $\{x_n \mid n \in \N\}$ be dense in $X$. For every $n$, find $f_n \in S_{X^*}$, $f_n(x_n) = \norm{x_n}$ (assuming $X \ne \{0\}$). Define $T : X \to \ell_\infty$ by $(Tx)_n = f_n(x)$.
 
   {\bf Well definition}
   $$ \abs{(Tx)_n} = \abs{f_n(x)} \le \norm{f_n}\norm x = \norm x$$
@@ -408,17 +403,17 @@ If $Z$ is another normed space, $T \in \mcB(X, Z)$ and $Y \subseteq \ker T$, the
   \end{itemize}
 \end{rmks}
 
-\begin{nthm}[Vector-valued Liouville]
-  Lex $X$ be a complex Banach space, $f : \C \mor X$ holomorphic and bounded. Then $f$ is constant.
-\end{nthm}
+\begin{thm}[Vector-valued Liouville]\label{thm:vector-liouville}
+  Lex $X$ be a complex Banach space, $f : \C \to X$ holomorphic and bounded. Then $f$ is constant.
+\end{thm}
 \begin{proof}
-  Find $M \ge 0$ such that $\for z \in \C, \abs{f(z)} \le M$. Fix $\phi \in X^*$. $\phi \comp f : \C \mor \C$ is
+  Find $M \ge 0$ such that $\for z \in \C, \abs{f(z)} \le M$. Fix $\phi \in X^*$. $\phi \comp f : \C \to \C$ is
 
   {\bf bounded}
   $$\abs{\phi(f(z))} \le \norm\phi \norm{f(z)} \le M\norm\phi$$
 
   {\bf holomorphic}
-  $$\frac{\phi(f(z)) - \phi(f(w))}{z - w} = \phi\left(\frac{f(z) - f(w)}{z - w}\right) \mor \phi(f'(z))$$
+  $$\frac{\phi(f(z)) - \phi(f(w))}{z - w} = \phi\left(\frac{f(z) - f(w)}{z - w}\right) \to \phi(f'(z))$$
 
   By scalar Liouville, $\phi \comp f$ is constant. For every $z \in \C, \phi \in X^*$, $\phi(f(z)) = \phi(f(0))$. Since $X^*$ separates points of $X$, $f(z) = f(0)$.
 \end{proof}
@@ -429,9 +424,9 @@ If $Z$ is another normed space, $T \in \mcB(X, Z)$ and $Y \subseteq \ker T$, the
 
 \subsection{Locally convex spaces}
 
-\begin{defi}
+\begin{dfn*}
   A {\bf locally convex space} is a $\K$-vector space such that there exists a family $\mcP$ of seminorms on $X$ that separate points of $X$ in the sense that for all $x \ne 0$ there exists $p \in \mcP$ such that $p(x) \ne 0$.
-\end{defi}
+\end{dfn*}
 
 The family $\mcP$ defines a topology on $X$:
 $$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mcP \text{ finite}, \eps > 0, \{y \in X \mid \for p \in s, p(x) < \eps\} \subseteq U$$
@@ -441,7 +436,7 @@ $$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mcP \text{ 
   \begin{enumerate}
     \item Addition and scalar multiplication are continuous.
     \item The topology is Hausdorff as $\mcP$ separates points.
-    \item $x_n \mor x \iff \for p \in \mcP, p(x_n - x) \mor 0$
+    \item $x_n \to x \iff \for p \in \mcP, p(x_n - x) \to 0$
     \item Let $Y$ be a subspace of $X$ and $\mcP_Y = \{p\restriction_Y \mid p \in \mcP\}$. Then $(Y, \mcP_Y)$ is a LCS and its topology is the subspace topology.
     \item Let $\mcP, \mcQ$ be two families of seminorms on $X$ both separating points of $X$. We say $\mcP, \mcQ$ are {\bf equivalent}, write $\mcP \sim \mcQ$, if they induce the same topology on $X$. One interesting result is that
     $$ (X, \mcP) \text{ metrisable} \iff \mcP \text{ equivalent to some countable family}$$
@@ -449,19 +444,19 @@ $$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mcP \text{ 
   \end{enumerate}
 \end{rmks}
 
-\begin{defi}
+\begin{dfn*}
   A {\bf Fréchet space} is a complete metrisable LCS.
-\end{defi}
+\end{dfn*}
 
-\begin{egs}~
+\begin{egs*}~
 
   \begin{enumerate}
     \item A normed space is a LCS with $\mcP = \{\norm\cdot\}$.
-    \item Let $U \subseteq \C$ nonempty open. Let $\mcO(U) = \{f : U \mor \C \mid f \text{ holomorphic}\}$. For compact $K \subseteq U$, define $p_K(f) = \sup_{z \in K} \abs{f(z)}$. Let
+    \item Let $U \subseteq \C$ nonempty open. Let $\mcO(U) = \{f : U \to \C \mid f \text{ holomorphic}\}$. For compact $K \subseteq U$, define $p_K(f) = \sup_{z \in K} \abs{f(z)}$. Let
     $\mcP = \{p_K \mid K \subseteq U \text{ compact}\}$
     Then $(\mcO(U), \mcP)$ is a LCS. If we replace $\{K \subseteq U \text{ compact}\}$ by a compact exhaustion of $U$, then we get a countable separating family equivalent to $\mcP$. So $(\mcO(U), \mcP)$ is metrisable. However it is not normable: no norm on $\mcO(U)$ induces the topology of $(\mcO(U), \mcP)$, which is the topology of uniform convergence. This is a consequence of Montel's theorem.
     \item Fix $d \in \N, \Omega \subseteq \R^d$ a nonempty open set. Let
-    $$C^\infty(\Omega) = \{f : \Omega \mor \R \mid f \text{ infinitely differentiable}\}$$
+    $$C^\infty(\Omega) = \{f : \Omega \to \R \mid f \text{ infinitely differentiable}\}$$
     Given a multi-index $\alpha \in \Z^d$, $\alpha$ defines a differential operator
     $$D^\alpha = \left(\frac\partial{\partial x_1}\right)^{\alpha_1} \dots
     \left(\frac\partial{\partial x_d}\right)^{\alpha_d}$$
@@ -471,16 +466,16 @@ $$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mcP \text{ 
     $$\mcP = \{p_{K, \alpha} \mid K \subseteq U \text{ compact}, \alpha \in \Z^d\}$$
     Then $(C^\infty, \mcP)$ is a LCS. It is in fact a non-normable Fréchet space.
   \end{enumerate}
-\end{egs}
+\end{egs*}
 
-\begin{nlemma}\label{lem:lcs-continuity}
-  Let $(X, \mcP), (Y, \mcQ)$ be LCS, $T : X \mor Y$ linear. TFAE
+\begin{lem}\label{lem:lcs-continuity}
+  Let $(X, \mcP), (Y, \mcQ)$ be LCS, $T : X \to Y$ linear. TFAE
   \begin{enumerate}
     \item $T$ is continuous
     \item $T$ is continuous at $0$
     \item $\for q \in \mcQ, \exists s \subseteq \mcP \text{ finite}, C \ge 0, \for x \in X, q(Tx) \le C\max_{p \in s} p(x)$
   \end{enumerate}
-\end{nlemma}
+\end{lem}
 \begin{proof}~\\
   {\bf (i) $\iff$ (ii)} \\
   Translation is continuous.
@@ -498,16 +493,16 @@ $$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mcP \text{ 
   Then $U$ is a neighborhood of $0$ and $T(U) \subseteq V$.
 \end{proof}
 
-\begin{defi}
-  Let $(X, \mcP)$ be a LCS. The {\bf dual space} of $X$ is the space of continuous linear functionals $X \mor \K$.
-\end{defi}
+\begin{dfn*}
+  Let $(X, \mcP)$ be a LCS. The {\bf dual space} of $X$ is the space of continuous linear functionals $X \to \K$.
+\end{dfn*}
 
 \newlec
 
-\begin{nlemma}\label{lem:lcs-dual}
+\begin{lem}\label{lem:lcs-dual}
   Let $f$ be a linear functional on a LCS $(X, \mcP)$. Then
   $$f \in X^* \iff \ker f \text{ closed}$$
-\end{nlemma}
+\end{lem}
 \begin{proof}~\\
   $\imp$ \\
   $\ker f = f^{-1}(0)$ is closed since $f$ is continuous.
@@ -520,13 +515,13 @@ $$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mcP \text{ 
   So find $M$ such that $\abs{f(x)} < M$ for all $x \in U$. For all $\delta > 0$, $\frac\delta M U$ is a neighborhood of $0$ and $f\left(\frac\delta M U\right) \subseteq \{\lambda \in \K \mid \abs\lambda < \delta\}$. Thus $f$ is continuous.
 \end{proof}
 
-\begin{nthm}[Hahn-Banach]\label{thm:hb-lcs}
+\begin{thm}[Hahn-Banach]\label{thm:hb-lcs}
   Let $(X, \mcP)$ be a LCS.
   \begin{enumerate}
     \item Given a subspace $Y$ of $X$ and $g \in Y^*$, there exists $f \in X^*$ such that $f\restriction_Y = g$.
     \item Given a closed subspace $Y$ of $X$ and $x_0 \nin Y$, there exists $f \in X^*$ such that $f\restriction_Y = 0$, $f(x_0) \ne 0$.
   \end{enumerate}
-\end{nthm}
+\end{thm}
 \begin{rmk}
   This means that $X^*$ separates points of $X$.
 \end{rmk}
@@ -548,50 +543,50 @@ $$U \subseteq X \text{ open} \iff \for x \in U, \exists s \subseteq \mcP \text{ 
 Let $(\Omega, \mcF, \mu)$ be measure space.
 
 $1 \le p < \infty$
-$$L_p(\mu) = \{f : \Omega \mor \K \mid f \text{ measurable and } \int_\Omega \abs f^p d\mu < \infty\}$$
+$$L_p(\mu) = \{f : \Omega \to \K \mid f \text{ measurable and } \int_\Omega \abs f^p d\mu < \infty\}$$
 This is a normed space in the $L_p$-norm:
 $$\norm f_p = \left(\int_\Omega \abs f^p d\mu\right)^{\frac 1p}$$
 
 $p = \infty$ \\
-A measurable function $f : \Omega \mor \K$ is {\bf essentially bounded} if there exists $N \in \mcF$ such that $\mu(N) = 0$ and $f\restriction_{N^c}$ is bounded.
-$$L_p(\mu) = \{f : \Omega \mor \K \mid f \text{ measurable and essentially bounded}\}$$
+A measurable function $f : \Omega \to \K$ is {\bf essentially bounded} if there exists $N \in \mcF$ such that $\mu(N) = 0$ and $f\restriction_{N^c}$ is bounded.
+$$L_p(\mu) = \{f : \Omega \to \K \mid f \text{ measurable and essentially bounded}\}$$
 This is a normed space in the $L_\infty$-norm:
 $$\norm f_\infty = \esssup \abs f = \inf_{\abs f \le k \text{ ae}} k$$
 The inf is attained: there exists some $N \in \mcF, \mu(N) = 0$ such that $\norm f_\infty = \sup_{N^c} \abs f$.
 
 In all cases, we identify functions up to almost everywhere equality.
 
-\begin{nthm}
+\begin{thm}
   $L_p(\mu)$ is complete for $1 \le p \le infty$.
-\end{nthm}
+\end{thm}
 
-\begin{defi}[Complex measures]
-  A {\bf complex measure} on $\mcF$ is a countably additive set function $\nu : \mcF \mor \C$. \\
+\begin{dfn*}[Complex measures]
+  A {\bf complex measure} on $\mcF$ is a countably additive set function $\nu : \mcF \to \C$. \\
   The {\bf total variation measure} $\abs\nu$ is defined by
   $$\abs\nu(A) = \sup_{\substack{A_1, \dots, A_n \text{ measurable} \\ \text{partition of } A}} \sum_k \abs{\nu(A_k)}$$
-  $\abs\nu : \mcF \mor [0, \infty]$ is a positive measure. Later we'll see that $\abs\nu$ is a finite measure. \\
+  $\abs\nu : \mcF \to [0, \infty]$ is a positive measure. Later we'll see that $\abs\nu$ is a finite measure. \\
   The {\bf total variation} of $\nu$ is $\norm\nu_1 = \abs\nu(\Omega)$.
-\end{defi}
+\end{dfn*}
 
 \begin{prop}
   If $\nu$ is a complex measure on $\mcF$ and $A_n \in \mcF$ for all $n$, then
   \begin{itemize}
-    \item If $A$ is monotone, then $\nu(\Union_n A_n) = \lim_{n \mor \infty} \nu(A_n)$.
-    \item If $A$ is antitone, then $\nu(\bigcap_n A_n) = \lim_{n \mor \infty} \nu(A_n)$.
+    \item If $A$ is monotone, then $\nu(\Union_n A_n) = \lim_{n \to \infty} \nu(A_n)$.
+    \item If $A$ is antitone, then $\nu(\bigcap_n A_n) = \lim_{n \to \infty} \nu(A_n)$.
   \end{itemize}
 \end{prop}
 
-\begin{defi}[Signed measures]
-  A {\bf signed measure} on $\mcF$ is a countably additive set function $\nu : \mcF \mor \R$.
-\end{defi}
+\begin{dfn*}[Signed measures]
+  A {\bf signed measure} on $\mcF$ is a countably additive set function $\nu : \mcF \to \R$.
+\end{dfn*}
 
-\begin{nthm}\label{thm:hahn-decomp}
+\begin{thm}\label{thm:hahn-decomp}
   If $\nu$ is a signed measure, then there exists a measurable partition $\Omega = P \cup N$ such that for all $A \in \mcF$
   \begin{align*}
     A \subseteq P & \imp \nu(A) \ge 0 \\
     A \subseteq N & \imp \nu(A) \le 0
   \end{align*}
-\end{nthm}
+\end{thm}
 \begin{rmks}~
   
   \begin{enumerate}
@@ -615,9 +610,9 @@ In all cases, we identify functions up to almost everywhere equality.
 
 \newlec
 
-\begin{defi}[Absolute continuity]
-  Let $(\Omega, \mcF, \mu)$ be a measure space and $\nu : \mcF \mor \C$ a complex measure. $\nu$ is {\bf absolutely continuous} with respect to $\mu$, written $\nu \ll \mu$, if $\for A \in \mcF, \mu(A) = 0 \imp \nu(A) = 0$.
-\end{defi}
+\begin{dfn*}[Absolute continuity]
+  Let $(\Omega, \mcF, \mu)$ be a measure space and $\nu : \mcF \to \C$ a complex measure. $\nu$ is {\bf absolutely continuous} with respect to $\mu$, written $\nu \ll \mu$, if $\for A \in \mcF, \mu(A) = 0 \imp \nu(A) = 0$.
+\end{dfn*}
 
 \begin{rmks}~
   \begin{itemize}
@@ -626,24 +621,24 @@ In all cases, we identify functions up to almost everywhere equality.
   \end{itemize}
 \end{rmks}
 
-\begin{eg}
+\begin{eg*}
   Let $f \in L_1(\mu)$. Define $\nu(A) = \int_A f d\mu$ for $A \in \mcF$. By Dominated Convergence, $\nu$ is a complex measure and $\mu(A) = 0 \imp \nu(A) = 0$. So $\nu \ll \mu$.
-\end{eg}
+\end{eg*}
 
-\begin{defi}
+\begin{dfn*}
   $A \in \mcF$ is {\bf $\sigma$-finite} if there exists $A_n$ with $\mu(A_n) < \infty$ such that $A = \Union_n A_n$. Say $\mu$ is {\bf $\sigma$-finite} if $\Omega$ is $\sigma$-finite.
-\end{defi}
+\end{dfn*}
 
-\begin{nthm}[Radon-Nikodym]\label{thm:rn}
+\begin{thm}[Radon-Nikodym]\label{thm:rn}
   Let $\mu$ be a $\sigma$-finite measure and $\nu$ a complex measure such that $\nu \ll \mu$. Then there exists a unique $f \in L_1(\mu)$ such that, for all $A \in \mcF$, $\nu(A) = \int_A f d\mu$. Moreover, $f$ takes values in $\C$/$\R$/$\R^+$ depending on where $\nu$ is valued.
-\end{nthm}
+\end{thm}
 \begin{proof}~\\
   {\bf Uniqueness} \\
   standard
 
   {\bf Existence} \\
   $\nu$ is a finite measure (by the Jordan decomposition). WLOG $\mu$ is a finite measure (by $\sigma$-finiteness). Let
-  $$\mcH = \curlybrack{h : \Omega \mor \R^+ \,\middle|\, h \text{ integrable}, \for A \in \mcF, \int_A h d\mu \ll \nu(A)}$$
+  $$\mcH = \curlybrack{h : \Omega \to \R^+ \,\middle|\, h \text{ integrable}, \for A \in \mcF, \int_A h d\mu \ll \nu(A)}$$
   $\mcH \ne \emptyset$ (eg $0 \in \mcH$). Let $\alpha = \sup_{h \in \mcH} \int_\Omega h d\mu$. We see $0 \le \alpha \le \nu(\Omega)$.
 
   {\bf Claim} \\
@@ -671,14 +666,14 @@ In all cases, we identify functions up to almost everywhere equality.
 
 \subsection{Dual space of \texorpdfstring{$L_p(\mu)$}{Lp(mu)}}
 
-Let $(\Omega, \mcF, \mu)$ be a measure space, $1 \le p < \infty, 1 < q \le \infty$ such that $p^{-1} + q^{-1} = 1$. For $g \in L_q$, define $\phi_g : L_p \mor \K$ by $\phi_g(f) = \int_\Omega fg d\mu$. By Hölder, $fg \in L_1$, and $\abs{\phi_g(f)} \le \norm f_p \norm g_q$. So $\phi_g$ is well-defined, linear and bounded with $\norm{\phi_g} \le \norm g_q$. Hence $\phi_g \in L_p^*$ and $\phi : L_q \mor L_p^*$ is linear and bounded with $\norm\phi \le 1$.
+Let $(\Omega, \mcF, \mu)$ be a measure space, $1 \le p < \infty, 1 < q \le \infty$ such that $p^{-1} + q^{-1} = 1$. For $g \in L_q$, define $\phi_g : L_p \to \K$ by $\phi_g(f) = \int_\Omega fg d\mu$. By Hölder, $fg \in L_1$, and $\abs{\phi_g(f)} \le \norm f_p \norm g_q$. So $\phi_g$ is well-defined, linear and bounded with $\norm{\phi_g} \le \norm g_q$. Hence $\phi_g \in L_p^*$ and $\phi : L_q \to L_p^*$ is linear and bounded with $\norm\phi \le 1$.
 
-\begin{nthm}\label{thm:lp-dual}~
+\begin{thm}\label{thm:lp-dual}~
   \begin{enumerate}
     \item If $1 < p < \infty$, then $\phi$ is an isometric isomorphism. So $L_p^* \cong L_q$.
     \item If $p = 1$ and $\mu$ is $\sigma$-finite, then $\phi$ is an isometric isomorphism. So $L_1^* \cong L_\infty$.
   \end{enumerate}
-\end{nthm}
+\end{thm}
 \begin{proof}~
   \begin{enumerate}
     \item {\bf $\phi$ is isometric} \\
@@ -701,12 +696,12 @@ Let $(\Omega, \mcF, \mu)$ be a measure space, $1 \le p < \infty, 1 < q \le \inft
       \psi(1_A) & = \int_\Omega 1_A g d\mu \text{ for all } A \in \mcF \\
       \psi(f) & = \int_\Omega fg d\mu \text{ for all simple function } f
     \end{align*}
-    Given $f \in L_\infty$, find simple functions $f_n$ tending to $f$ in $L_\infty$. So $\psi(f_n) \mor \psi(f)$ and $f_ng \mor fg$ (by Hölder for $\infty, 1$), meaning that
+    Given $f \in L_\infty$, find simple functions $f_n$ tending to $f$ in $L_\infty$. So $\psi(f_n) \to \psi(f)$ and $f_ng \to fg$ (by Hölder for $\infty, 1$), meaning that
     $$\psi(f) = \int_\Omega fg d\mu \text{ for all } f \in L_\infty$$
     For $n \in \N$, let $A = \{\abs g \le n\}$ and $f_n = \lambda 1_{A_n} \abs g^{q - 1}$ where $\abs\lambda = 1, \lambda g = \abs g$. As $f_n \in L_\infty$,
     $$\int_\Omega f_ng d\mu = \int_{A_n} \abs g^q d\mu = \psi(f_n)$$
     So $\left(\int_A \abs g^q d\mu\right)^{q^{-1}} \le \norm\psi$. By Monotone Convergence, $g \in L_q$. \\
-    Given $f \in L_p$, find simple functions $f_n$ tending to $f$ in $L_p$. So $\psi(f_n) \mor \psi(f)$ and $f_ng \mor fg$ in $L_1$ (by Hölder for $p, q$). Hence $\psi(f) = \int_\Omega fg d\mu$, as wanted.
+    Given $f \in L_p$, find simple functions $f_n$ tending to $f$ in $L_p$. So $\psi(f_n) \to \psi(f)$ and $f_ng \to fg$ in $L_1$ (by Hölder for $p, q$). Hence $\psi(f) = \int_\Omega fg d\mu$, as wanted.
 
     Before going onto Case 2, for $A \in \mcF$, let $\mcF_A = \{B \in \mcF \mid B \subseteq A\}$ and $\mu_A = \mu\restriction_{\mcF_A}$ so that $(A, \mcF_A, \mu_A)$ is a measure space. Then $L_p(\mu_A) \subseteq L_p(\mu)$ (by extending $f \in L_p(\mu_A)$ by $0$ outside $A$). Let $\psi_A = \psi\restriction_{L_p(\mu_A)}$.
 
@@ -739,7 +734,7 @@ Let $(\Omega, \mcF, \mu)$ be a measure space, $1 \le p < \infty, 1 < q \le \inft
     $$\{f \ne 0\} = \Union_n \curlybrack{\frac 1n < \abs f}$$
     and
     $$\mu\curlybrack{\frac 1n < \abs f} \le \abs{n ^ p} \norm f_p^p < \infty \text{ by Markov}$$
-    Choose $f_n \in B_{L_p}$ such that $\psi(f_n) \mor \norm\psi$. Then $A = \Union_n\{f_n \ne 0\}$ is $\sigma$-finite and $\norm{\psi_A} = \norm\psi$. By the claim,
+    Choose $f_n \in B_{L_p}$ such that $\psi(f_n) \to \norm\psi$. Then $A = \Union_n\{f_n \ne 0\}$ is $\sigma$-finite and $\norm{\psi_A} = \norm\psi$. By the claim,
     $$\norm\psi = \left(\norm{\psi_A}^q + \norm{\psi_{A^c}}^q\right)^{\frac 1q}$$
     So $\Psi_{A^c} = 0$. By Case 2, find $g \in L_q(\mu_A) \subseteq L_q(\mu)$ such that $\psi_A = \phi_g$, so that
     $$\psi(f) = \psi_A{f\restriction_A} + \psi{A^c}(f\restriction{A^c}) = \int_A fg d\mu + 0 = \int_\Omega fg d\mu$$
@@ -762,11 +757,11 @@ Let $(\Omega, \mcF, \mu)$ be a measure space, $1 \le p < \infty, 1 < q \le \inft
   \end{enumerate}
 \end{proof}
 
-\begin{ncor}
+\begin{cor}
   For $1 < p < \infty$, $L_p(\mu)$ is reflexive.
-\end{ncor}
+\end{cor}
 \begin{proof}
-  Let $\psi \in L_p^{**}$. Then $g \mapsto \inn{\phi_g}\psi : L_q \mor \K$ is in $L_q^*$. By Theorem \ref{thm:lp-dual}.i, find $f \in L_p$ such that
+  Let $\psi \in L_p^{**}$. Then $g \mapsto \inn{\phi_g}\psi : L_q \to \K$ is in $L_q^*$. By Theorem \ref{thm:lp-dual}.i, find $f \in L_p$ such that
   $$\inn{\phi_g}\psi = \int_\Omega fg d\mu \inn f{\psi_g} = \inn{\phi_g}{\hat f}$$
   Since $L_p^* = \{\phi_g \mid g \in L_q\}$, this proves $\psi = \hat f$.
 \end{proof}
@@ -777,12 +772,12 @@ Let $(\Omega, \mcF, \mu)$ be a measure space, $1 \le p < \infty, 1 < q \le \inft
 
 Throughout, $K$ will be a compact Hausdorff topological space. Define
 \begin{align*}
-  C(K) & = \{f : K \mor \C \mid f \text{ continuous}\} \\
-  C^\R(K) & = \{f : K \mor \R \mid f \text{ continuous}\} \\
-  C^+(K) & = \{f : K \mor \R^+ \mid f \text{ continuous}\} \\
+  C(K) & = \{f : K \to \C \mid f \text{ continuous}\} \\
+  C^\R(K) & = \{f : K \to \R \mid f \text{ continuous}\} \\
+  C^+(K) & = \{f : K \to \R^+ \mid f \text{ continuous}\} \\
   M(K) & = C(K)^* \\
   M^\R(K) & = \{\phi \in M(K) \mid \for f \in C^\R(K), \phi(f) \in \R\} \\
-  M^+(K) & = \{\phi : C(K) \mor \C \mid \phi \text{ is $\R$-linear}, \for f \in C^+(K), 0 \le \phi(f) \in \R\}
+  M^+(K) & = \{\phi : C(K) \to \C \mid \phi \text{ is $\R$-linear}, \for f \in C^+(K), 0 \le \phi(f) \in \R\}
 \end{align*}
 
 $C(K), C^\R(K)$ are complex/real Banach spaces in the sup norm: $\norm f_\infty = \sup_K \abs f$. $M(K)$ is a complex Banach space in the operator norm. $M^\R(K)$ is a closed real-linear subspace of $M(k)$. Elements of $M^+(K)$ are called {\bf positive linear functionals}.
@@ -795,14 +790,14 @@ $C(K), C^\R(K)$ are complex/real Banach spaces in the sup norm: $\norm f_\infty 
 
 The next lemma tells us that it's enough to understand $M^+(K)$.
 
-\begin{nlemma}\label{lem:m-real-pos}~
+\begin{lem}\label{lem:m-real-pos}~
   \begin{enumerate}
     \item For all $\phi \in M(K)$, there are unique $\phi_1, \phi_2 \in M^\R(K)$ such that $\phi = \phi_1 + i\phi_2$.
-    \item $\phi \mapsto \phi\restriction_{C^\R(K)} : M^\R(K) \mor C^\R(K)^*$ is an isometric isomorphism.
+    \item $\phi \mapsto \phi\restriction_{C^\R(K)} : M^\R(K) \to C^\R(K)^*$ is an isometric isomorphism.
     \item $M^+(K) \subseteq M(K)$ and $M^+(K) = \{\phi \in M(K) \mid \norm\phi = \phi(1)\}$
     \item For all $\phi \in M^\R(K)$, there are unique $\phi^+, \phi^- \in M^+(K)$ such that $\phi = \phi^+ - \phi^-$ and $\norm\phi = \norm{\phi^+} + \norm{\phi^-}$.
   \end{enumerate}
-\end{nlemma}
+\end{lem}
 \begin{proof}~
   \begin{enumerate}
     \item Let $\phi \in M(K)$. Then $\bar\phi$ sending $f \mapsto \phi(\bar f)$ is in $M(K)$ as well and $\phi \in M^\R(K) \iff \bar\phi = \phi$.
@@ -859,18 +854,18 @@ The next lemma tells us that it's enough to understand $M^+(K)$.
 {\bf Topological preliminaries}
 \begin{enumerate}
   \item $K$ being compact Hausdorff, it is {\bf normal}: given disjoint closed sets $E, F$ in $K$, there are disjoint open sets $U, V$ such that $E \subseteq U, F \subseteq V$. Equivalently, given $E \subseteq U \subseteq K$, $E$, closed, $U$ open, there exists $V$ open such that $E \subseteq V \subseteq \bar V \subseteq U$.
-  \item Urysohn says: given disjoint closed sets $E, F$, there is a continuous function $f : K \mor [0, 1]$ such that $f = 0$ on $E$, $f = 1$ on $F$.
+  \item Urysohn says: given disjoint closed sets $E, F$, there is a continuous function $f : K \to [0, 1]$ such that $f = 0$ on $E$, $f = 1$ on $F$.
   \item Write $f \prec U$ to mean that $U$ is an open set, $f$ is continuous and $\supp f \subseteq U$. Write $E \prec f$ to mean that $E$ is closed, $f$ is continuous and $f = 1$ on $E$.
   \item Urysohn then becomes: Given $E \subseteq U$, there exists $f$ such that $E \prec f \prec U$.
 \end{enumerate}
 
-\begin{nlemma}\label{lem:partition-of-unity}
+\begin{lem}\label{lem:partition-of-unity}
   Let $E$ closed, $U_1, \dots, U_n$ open such that $E \subseteq \Union_n U_n$. Then
   \begin{enumerate}
     \item There exist open sets $V_j$ such that $\bar{V_j} \subseteq U_j$ and $E \subseteq \Union_j V_j$.
     \item There exist $f_j \prec U_j$ such that $0 \le \sum_j f_j \le 1$ and $\sum_j f_j = 1$ on $E$.
   \end{enumerate}
-\end{nlemma}
+\end{lem}
 \begin{proof}~
   \begin{enumerate}
     \item Induction on $n$:
@@ -884,7 +879,7 @@ The next lemma tells us that it's enough to understand $M^+(K)$.
   \end{enumerate}
 \end{proof}
 
-\begin{defi}[Borel measures]
+\begin{dfn*}[Borel measures]
   Let $X$ be a Hausdorff space and $\mcG$ its family of open sets. The {\bf Borel $\sigma$-algebra} is $\mcB := \sigma(\mcG)$, the $\sigma$-algebra generated by open sets. Elements of $\mcB$ are called {\bf Borel sets}. A {\bf Borel measure} on $X$ is a measure $\mu$ on $\mcB$. We say $\mu$ is {\bf regular} if
   \begin{enumerate}
     \item $\mu(E) < \infty$ for all compact $E \subseteq X$
@@ -892,7 +887,7 @@ The next lemma tells us that it's enough to understand $M^+(K)$.
     \item $\mu(U) = \sup_{\substack{E \text{ compact} \\ E \subseteq U}} \mu(E)$ for all open $U$
   \end{enumerate}
   A complex Borel measure $\nu$ is {\bf regular} if $\abs\nu$ is regular.
-\end{defi}
+\end{dfn*}
 
 If $X$ is compact and $\mu$ is a Borel measure on $X$, then
 \begin{align*}
@@ -901,30 +896,30 @@ If $X$ is compact and $\mu$ is a Borel measure on $X$, then
   & \iff \mu(X) < \infty \text{ and } \for A \in \mcB, \mu(A) = \sup_{\substack{E \text{ closed} \\ E \subseteq A}} \mu(E)
 \end{align*}
 
-\begin{defi}[Integration with respect to a complex measure]
+\begin{dfn*}[Integration with respect to a complex measure]
   Let $\Omega$ be a set, $\mcF$ a $\sigma$-algebra on $\Omega$, $\nu$ a complex measure on $\mcF$. Write $\nu = \nu_1 - \nu_2 + i\nu_3 - i\nu_4$ the Jordan decomposition. Say a measurable function is {\bf $\nu$-integrable} if $f$ is $\abs\nu$-integrable, or equivalently if $f$ is $\nu_1, \nu_2, \nu_3, \nu_4$-integrable. Define
   $$\int_\Omega f d\nu = \int_\Omega f d\nu_1 - \int_\Omega f d\nu_2 + i\int_\Omega f d\nu_3 - i\int_\Omega f d\nu_4$$
-\end{defi}
+\end{dfn*}
 
 \newlec
 
 \begin{prop}~
   \begin{enumerate}
     \item $\int_\Omega d\nu = \nu(A)$ for all $A \in \mcF$.
-    \item Linearity: If $f, g : \Omega \mor \C$ are $\nu$-integrable and $\lambda \in \C$, then
+    \item Linearity: If $f, g : \Omega \to \C$ are $\nu$-integrable and $\lambda \in \C$, then
     $$\int_\Omega f + g d\nu = \int_\Omega fd\nu + \int_\Omega gd\nu, \int_\Omega \lambda fd\nu = \lambda \int_\Omega fd\nu$$
-  \item Dominated Convergence: Let $f_n, f, g$ be measurable functions $\Omega \mor \C$ such that $f_n \mor f$ ae (with respect to $\abs\nu$), $g \in L_1$ and $\for n, f_n \le g$ ae. Then $f$ is $\nu$-integrable and $\int_\Omega f_n d\nu \mor \int_\Omega f d\nu$
+  \item Dominated Convergence: Let $f_n, f, g$ be measurable functions $\Omega \to \C$ such that $f_n \to f$ ae (with respect to $\abs\nu$), $g \in L_1$ and $\for n, f_n \le g$ ae. Then $f$ is $\nu$-integrable and $\int_\Omega f_n d\nu \to \int_\Omega f d\nu$
   \item $\abs{\int_\Omega f d\nu} \le \int_\Omega \abs f d\abs\nu$ for all $\nu$-integrable $f$. This is true for simple functions by properties 1 and 2. For general $f$, use Dominated Convergence.
   \end{enumerate}
 \end{prop}
 
 Let $\nu$ be a complex Borel measure on $K$. Then for $f \in C(K)$ we have
 $$\int_K \abs f d\abs\nu \le \norm f_\infty \abs\nu(K) = \norm f_\infty \norm\nu_1$$
-So $f$ is $\nu$-integrable. Define $\phi : C(K) \mor \C$ by $\phi(f) = \int_\Omega f d\nu$. Then $\phi \in M(K)$ and $\norm\phi \le \norm\nu_1$. If $\nu$ is a signed measure, then $\phi \in M^\R(K)$. If $\nu$ is a positive measure, then $\phi \in M^+(K)$.
+So $f$ is $\nu$-integrable. Define $\phi : C(K) \to \C$ by $\phi(f) = \int_\Omega f d\nu$. Then $\phi \in M(K)$ and $\norm\phi \le \norm\nu_1$. If $\nu$ is a signed measure, then $\phi \in M^\R(K)$. If $\nu$ is a positive measure, then $\phi \in M^+(K)$.
 
-\begin{nthm}[Riesz Representation Theorem]\label{thm:riesz-rep}
+\begin{thm}[Riesz Representation Theorem]\label{thm:riesz-rep}
   For every $\phi \in M^+(K)$, there exists a unique regular Borel measure $\mu$ on $K$ that represents $\phi$: $\phi(f) = \int_K f d\mu$ for all $f \in C(K)$. Moreover, $\norm\phi = \mu(K) = \norm\mu_1$.
-\end{nthm}
+\end{thm}
 \begin{proof}~\\
   {\bf Uniqueness} \\
   Assume $\mu_1, \mu_2$ both represent $\phi$. Let $E \subseteq U \subseteq K$ where $E$ closed, $U$ open. By Urysohn, find $f$ such that $E \prec f \prec U$. Now,
@@ -985,9 +980,9 @@ So $f$ is $\nu$-integrable. Define $\phi : C(K) \mor \C$ by $\phi(f) = \int_\Ome
 
 \newlec
 
-\begin{ncor}
+\begin{cor}
   For every $\phi \in M(K)$, there exists a unique regular complex Borel measure $\nu$ on $K$ that represents $\phi$: $\phi(f) = \int_K f d\nu$ for all $f \in C(K)$. Moreover, $\norm\phi = \norm\nu_1$ and if $\phi \in M^\R(K)$ then $\nu$ is a signed measure.
-\end{ncor}
+\end{cor}
 \begin{proof}~\\
   {\bf Existence} \\
   Apply Lemma \ref{lem:m-real-pos} and Theorem \ref{thm:riesz-rep} to obtain a regular complex Borel measure representing $\phi$. We now want $\norm\phi = \norm\nu_1$. \\
@@ -1011,14 +1006,14 @@ So $f$ is $\nu$-integrable. Define $\phi : C(K) \mor \C$ by $\phi(f) = \int_\Ome
   It follows that $\norm\nu_1 \le \norm\phi$.
 \end{proof}
 
-\begin{ncor}
+\begin{cor}
   The space of regular real (resp. complex) Borel measures on $K$ is a real (resp. complex) Banach space in $\norm\cdot_1$ isomorphic to $M^\R(K)$ (resp. $M(K)$).
-\end{ncor}
+\end{cor}
 
 \clearpage
 
 \section{Weak topologies}
-Let $X$ be a set and $\mcF$ a set of functions on $X$ such that each $f \in \mcF$ is a function $X \mor Y_f$ where $Y_f$ is a topological space. The {\bf weak topology $\sigma(X, \mcF)$ on $X$ generated by $\mcF$} is the smallest topology on $X$ that makes each $f \in \mcF$ continuous.
+Let $X$ be a set and $\mcF$ a set of functions on $X$ such that each $f \in \mcF$ is a function $X \to Y_f$ where $Y_f$ is a topological space. The {\bf weak topology $\sigma(X, \mcF)$ on $X$ generated by $\mcF$} is the smallest topology on $X$ that makes each $f \in \mcF$ continuous.
 
 \begin{rmks}~
   \begin{enumerate}
@@ -1032,22 +1027,22 @@ Let $X$ be a set and $\mcF$ a set of functions on $X$ such that each $f \in \mcF
     \item More generally, if $S_f$ is a subbase in $Y_f$, then $\{f^{-1}(U) \mid f \in \mcF, U \in S_f\}$ is a subbase of $\sigma(X, \mcF)$.
     \item If $Y_f$ is Hausdorff for all $f \in \mcF$ and {\bf $\mcF$ separates points of $X$} ($\for x \ne y, \exists f \in \mcF, f(x) \ne f(y)$), then $\sigma(X, \mcF)$ is Hausdorff.
     \item Let $Y \subseteq X, \mcF_Y = {f\restriction_Y \mid f \in \mcF}$. Then $\sigma(Y, \mcF_Y) = \sigma(X, \mcF)\restriction_Y$.
-    \item {\bf Universal property}: Let $Z$ be a topological space and $g : Z \mor X$. then
-    $$g \text{ continuous} \iff \for f \in \mcF, f \comp g : Z \mor Y_f \text{ continuous}$$
+    \item {\bf Universal property}: Let $Z$ be a topological space and $g : Z \to X$. then
+    $$g \text{ continuous} \iff \for f \in \mcF, f \comp g : Z \to Y_f \text{ continuous}$$
   \end{enumerate}
 \end{rmks}
 
-\begin{egs}~
+\begin{egs*}~
   \begin{enumerate}
-    \item Let $X$ be a topological space, $Y \subseteq X$ and $\iota : Y \mor X$ the inclusion map. Then $\sigma(Y, {\iota})$ is the subspace topology on $Y$.
-    \item Let $\Gamma$ be a set, $X_\gamma$ a topological space for each $\gamma \in \Gamma$, $X = \prod_{\gamma \in \Gamma} X_\gamma$. For each $\gamma$, we have $\pi_\gamma : X \mor X_\gamma$ sending $x \mapsto x_\gamma$, the {\bf evaluation map at $\gamma$}, or {\bf projection onto $X_\gamma$}. The weak topology $\sigma(X, \{\pi_\gamma \mid \gamma \in \Gamma\})$ is called the {\bf product topology} on $X$.
+    \item Let $X$ be a topological space, $Y \subseteq X$ and $\iota : Y \to X$ the inclusion map. Then $\sigma(Y, {\iota})$ is the subspace topology on $Y$.
+    \item Let $\Gamma$ be a set, $X_\gamma$ a topological space for each $\gamma \in \Gamma$, $X = \prod_{\gamma \in \Gamma} X_\gamma$. For each $\gamma$, we have $\pi_\gamma : X \to X_\gamma$ sending $x \mapsto x_\gamma$, the {\bf evaluation map at $\gamma$}, or {\bf projection onto $X_\gamma$}. The weak topology $\sigma(X, \{\pi_\gamma \mid \gamma \in \Gamma\})$ is called the {\bf product topology} on $X$.
     $$V \subseteq X \text{ open} \iff \substack{\for x \in V, \exists s \subseteq \Gamma \text{ finite}, U_\gamma \text{ neighborhood of } x_\gamma, \\ \{y \mid \for \gamma \in s, y_\gamma \in U_\gamma\} \subseteq V}$$
   \end{enumerate}
-\end{egs}
+\end{egs*}
 
-\begin{nprop}\label{prop:lcs-metrisable}
-  Let $X$ be a set. For each $n$, let $(Y_n, d_n)$ be a metric space and $f_n : X \mor Y_n$ be a separating family of functions. Then $\sigma(X, \{f_n \mid n \in \N\})$ is metrisable.
-\end{nprop}
+\begin{prop}\label{prop:lcs-metrisable}
+  Let $X$ be a set. For each $n$, let $(Y_n, d_n)$ be a metric space and $f_n : X \to Y_n$ be a separating family of functions. Then $\sigma(X, \{f_n \mid n \in \N\})$ is metrisable.
+\end{prop}
 \begin{proof}
   Call $\sigma := \sigma(X, \{f_n \mid n \in \N\})$. Define
   $$d(x, y) = \sum_{n = 0}^\infty 2^{-n}\min(d(f_n(x), f_n(y)), 1)$$
@@ -1057,9 +1052,9 @@ Let $X$ be a set and $\mcF$ a set of functions on $X$ such that each $f \in \mcF
   is $\sigma$-continuous for each $n$.
 \end{proof}
 
-\begin{nthm}[Tychonoff]\label{thm:tychonoff}
+\begin{thm}[Tychonoff]\label{thm:tychonoff}
   The product of compact topological spaces is compact.
-\end{nthm}
+\end{thm}
 \begin{proof}
   Assume each $X_\gamma$ is compact. Let $\mcE$ be a family of closed subsets with the FIP (finite intersection property). We want $\Inter_{E \in \mcE} E \ne \emptyset$. \\
   By Zorn, find a maximal family $\mcA$ of sets in $X$ such that $\mcE \subseteq \mcA$ and $\mcA$ has the FIP. We will show that $\Inter_{A \in \mcA} \bar A \ne \emptyset$. Maximality of $\mcA$ means that
@@ -1082,13 +1077,13 @@ $$U \text{ open} \iff \for x \in U, \exists f_1, \dots, f_n \in F, \eps > 0, \{y
 
 For $f \in F$, $x \in E$, let $p_f(x) = \abs{f(x)}$. Let $\mcP = \{p_f \mid f \in \mcF\}$. Then $(E, \mcP)$ is a LCS whose topology is $\sigma(E, F)$. So $\sigma(E, F)$ is Hausdorff and vector addition and scalar multiplication are continuous.
 
-\begin{nlemma}\label{lem:ker-inter}
+\begin{lem}\label{lem:ker-inter}
   Let $E$ be as above, $f, g_1, \dots, g_n$ linear functionals on $E$ such that
   $$\Inter_i \ker g_i \subseteq \ker f$$
   Then $f \in \Span \{g_1, \dots, g_n\}$.
-\end{nlemma}
+\end{lem}
 \begin{proof}
-  Reinterpret the $g_i$ as a single linear map $g : E \mor \K^n$. Then
+  Reinterpret the $g_i$ as a single linear map $g : E \to \K^n$. Then
   $$\ker g = \Inter_i \ker g_i \subseteq f$$
   Hence we have a factorisation $f = h \comp g$. Find $a_1, \dots, a_n$ such that $h(y) = \sum_i a_i y_i$ for all $y \in \K^n$. Then
   $$f(x) = h(g(x)) = \sum_i a_ig_i(x)$$
@@ -1112,7 +1107,7 @@ For $f \in F$, $x \in E$, let $p_f(x) = \abs{f(x)}$. Let $\mcP = \{p_f \mid f \i
   for all $\lambda$, so $f(x) = 0$. By Lemma \ref{lem:ker-inter}, $f \in \Span \{g_1, \dots, g_n\} \subseteq F$.
 \end{proof}
 
-\begin{egs}~
+\begin{egs*}~
   \begin{enumerate}
     \item Let $X$  be a normed space. The {\bf weak topology} on $X$ is the topology $\sigma(X, X^*)$ on $X$ ($X^*$ separates points of $X$ by Hahn-Banach). We sometimes write $(X, w)$ for $(X, \sigma(X, X^*))$. Open sets in $\sigma(X, X^*)$ are called {\bf weak open} or {\bf w-open}.
     \begin{equation*}
@@ -1131,7 +1126,7 @@ For $f \in F$, $x \in E$, let $p_f(x) = \abs{f(x)}$. Let $\mcP = \{p_f \mid f \i
     \end{gathered}
   \end{equation*}
   \end{enumerate}
-\end{egs}
+\end{egs*}
 
 \begin{properties}~
   \begin{enumerate}
@@ -1142,39 +1137,39 @@ For $f \in F$, $x \in E$, let $p_f(x) = \abs{f(x)}$. Let $\mcP = \{p_f \mid f \i
     $$\sigma(X, X^*)\restriction_Y = \sigma(Y, \{f\restriction_Y \mid f \in X^*\}) \overset{\text{Hahn-Banach}} = \sigma(Y, Y^*)$$
     Similarly,
     $$\sigma(X^{**}, X^*)\restriction_X = \sigma(X, X^*) = \sigma(X, \{\hat f\restriction_X \mid f \in X^*\})$$
-    So the canonical embedding is a homeomorphism $\sigma(X, X^*) \mor \sigma(\hat X, X^*)$.
+    So the canonical embedding is a homeomorphism $\sigma(X, X^*) \to \sigma(\hat X, X^*)$.
   \end{enumerate}
 \end{properties}
 
-\begin{nprop}
+\begin{prop}
   Let $X$ be a normed space.
   \begin{enumerate}
     \item A linear functional $f$ on $X$ is w-continuous iff $f \in X^*$. So $(X, w)^* = X^*$.
     \item A linear functional $\Lambda$ on $X^*$ is w*-continuous iff $\Lambda \in \hat X$. So $(X^*, w^*)^* = X$.
   \end{enumerate}
-\end{nprop}
+\end{prop}
 
 It follows that $\sigma(X^*, X) = \sigma(X^*, X^{**})$ iff $X$ is reflexive.
 
-\begin{defi}
+\begin{dfn*}
   Let $X$ be a normed space.
   \begin{enumerate}
     \item A set $A$ in $X$ is {\bf weakly bounded} if $\{f(x) \mid x \in A\}$ is bounded for all $f \in X^*$, or equivalently if for all w-neighborhood $U$ there exists $\lambda$ such that $A \subseteq \lambda U$.
     \item A set $B$ in $X^*$ is {\bf w*-bounded} if $\{f(x) \mid f \in B\}$ is bounded for all $x \in X$, or equivalently if for all w*-neighborhood $U$ there exists $\lambda$ such that $B \subseteq \lambda U$.
   \end{enumerate}
-\end{defi}
+\end{dfn*}
 
-\begin{thm}[Principle of uniform Bounded, PUB]
+\begin{thm*}[Principle of Uniform Boundedness, PUB]
   Let $X$ be a Banach space, $Y$ a normed space $\mcT \subseteq \mcB(X, Y)$. If $\mcT$ is {\bf pointwise bounded} ($\for x \in X, \sup_{T \in \mcT} \norm{Tx} < \infty$), then $\mcT$ is {\bf uniformly bounded} ($\sup_{T \in \mcT} \norm T < \infty$).
-\end{thm}
+\end{thm*}
 
-\begin{nprop}
+\begin{prop}\label{prop:weak-norm-bounded}
   Let $X$ be a normed space.
   \begin{enumerate}
     \item If $A \subseteq X$ is weakly bounded, then $A$ is norm-bounded.
     \item If $X$ is complete and $B \subseteq X^*$ is w*-bounded, then $B$ is norm-bounded.
   \end{enumerate}
-\end{nprop}
+\end{prop}
 \begin{proof}~
   \begin{enumerate}
     \item $A$ being weak bounded means that $\hat A = \{\hat x \mid x \in A\}$ is pointwise bounded. So we're done by PUB.
@@ -1183,52 +1178,52 @@ It follows that $\sigma(X^*, X) = \sigma(X^*, X^{**})$ iff $X$ is reflexive.
 \end{proof}
 
 \begin{notation}
-  We write $x_n \wtendsto x$ if $x_n$ converges to $x$ in the weak topology. Note that
-  $$x_n \wtendsto x \iff \for f \in X^*, \inn{x_n}f \mor \inn xf$$
-  We write $f_n \wstartendsto f$ if $f_n$ converges to $f$ in the w*-topology. Note that
-  $$f_n \wtendsto f \iff \for x \in X, \inn x{f_n} \mor \inn xf$$
+  We write $x_n \wto x$ if $x_n$ converges to $x$ in the weak topology. Note that
+  $$x_n \wto x \iff \for f \in X^*, \inn{x_n}f \to \inn xf$$
+  We write $f_n \wstarto f$ if $f_n$ converges to $f$ in the w*-topology. Note that
+  $$f_n \wto f \iff \for x \in X, \inn x{f_n} \to \inn xf$$
 \end{notation}
 
 \begin{thm}[Consequence of PUB]
-  Let $X$ be a Banach space, $Y$ a normed space, $T_n$ a sequence in $\mcB(X, Y)$. If $T_n$ converges pointwise to some function $T : X \mor Y$, then $T \in \mcB(X, Y)$, $\sup_n \norm{T_n} < \infty$ and $\norm T \le \liminf_n \norm{T_n}$.
+  Let $X$ be a Banach space, $Y$ a normed space, $T_n$ a sequence in $\mcB(X, Y)$. If $T_n$ converges pointwise to some function $T : X \to Y$, then $T \in \mcB(X, Y)$, $\sup_n \norm{T_n} < \infty$ and $\norm T \le \liminf_n \norm{T_n}$.
 \end{thm}
 
-\begin{nprop}
+\begin{prop}
   Let $X$ be a normed space.
   \begin{enumerate}
-    \item If $x_n \wtendsto x$ in $X$, then $\sup_n \norm{x_n} < \infty$ and $\norm x \le \liminf \norm{x_n}$.
-    \item If $f_n \wstartendsto f$ in $X^*$, then $\sup_n \norm{f_n} < \infty$ and $\norm f \le \liminf \norm{f_n}$.
+    \item If $x_n \wto x$ in $X$, then $\sup_n \norm{x_n} < \infty$ and $\norm x \le \liminf \norm{x_n}$.
+    \item If $f_n \wstarto f$ in $X^*$, then $\sup_n \norm{f_n} < \infty$ and $\norm f \le \liminf \norm{f_n}$.
   \end{enumerate}
-\end{nprop}
+\end{prop}
 \begin{proof}~
   \begin{enumerate}
-    \item $\widehat{x_n} \mor \hat x$ pointwise in $X^{**}$. Result follows by PUB.
-    \item $f_n \mor f$ pointwise in $X^*$. Result follows by PUB.
+    \item $\widehat{x_n} \to \hat x$ pointwise in $X^{**}$. Result follows by PUB.
+    \item $f_n \to f$ pointwise in $X^*$. Result follows by PUB.
   \end{enumerate}
 \end{proof}
 
 \newlec
 
-The weak topology is weaker than the norm topology as we see by the fact that $e_n \wtendsto 0$ in $\ell_p$ ($1 \le p < \infty$) but $e_n \not\mor 0$, where $e_n$ is the vector with a single $1$ in the $n$-th position.
+The weak topology is weaker than the norm topology as we see by the fact that $e_n \wto 0$ in $\ell_p$ ($1 \le p < \infty$) but $e_n \not\to 0$, where $e_n$ is the vector with a single $1$ in the $n$-th position.
 
 \subsection{Hahn-Banach Separation Theorems}
 
 Let $(X, \mcP)$ be a locally convex space. Let $C$ be a convex set such that $0 \in \interior C$. Then define
 \begin{align*}
-  \mu_C : X & \mor \R \\
+  \mu_C : X & \to \R \\
   x & \mapsto \inf \{t > 0 \mid x \in tC\}
 \end{align*}
-This is well-defined since $\frac 1n x \mor 0$ and so $\frac 1n x \in C$ for some $n$. $\mu_C$ is the {\bf Minkowski functional} (aka {\bf gauge functional}) of $C$.
+This is well-defined since $\frac 1n x \to 0$ and so $\frac 1n x \in C$ for some $n$. $\mu_C$ is the {\bf Minkowski functional} (aka {\bf gauge functional}) of $C$.
 
-\begin{eg}
+\begin{eg*}
   If $X$ is a normed space and $C = B_X$, then $\mu_C = \norm\cdot$.
-\end{eg}
+\end{eg*}
 
-\begin{nlemma}\label{lem:ball-gauge}
+\begin{lem}\label{lem:ball-gauge}
   $\mu_c$ is positive homogeneous and subadditive. Moreover,
   $$\{x \mid \mu_C(x) < 1\} \subseteq C \subseteq \{x \mid \mu_C(x) \le 1\}$$
   with the first equality holding iff $C$ is open and the second equality holding iff $C$ is closed.
-\end{nlemma}
+\end{lem}
 \begin{proof}~\\
   {\bf positive homogeneity} \\
   For $x \in X, s, t > 0$, we have $sx \in stC \iff x \in tC$. Hence
@@ -1253,28 +1248,28 @@ This is well-defined since $\frac 1n x \mor 0$ and so $\frac 1n x \in C$ for som
   If $C$ is balanced, then $\mu_C$ is a seminorm. If further $C$ is bounded, then $\mu_C$ is a norm.
 \end{rmk}
 
-\begin{nthm}[Hahn-Banach Separation]\label{thm:hb-separation-point}
+\begin{thm}[Hahn-Banach Separation]\label{thm:hb-separation-point}
   Let $(X, \mcP)$ be a LCS and $C$ be an open convex set with $0 \in C$. Let $x_0 \nin C$. Then there exists $f \in X^*$ such that $f(x_0) > f(x)$ for all $x \in C$.
-\end{nthm}
+\end{thm}
 TODO: Insert separation picture
 \begin{rmk}
-  From now on, we work with real scalars. The complex case follows from the fact that $\Re : X^* \mor X_\R^*$ is a real-linear bijection.
+  From now on, we work with real scalars. The complex case follows from the fact that $\Re : X^* \to X_\R^*$ is a real-linear bijection.
 \end{rmk}
 \begin{proof}
-  Consider $\mu_C$. By Lemma \ref{lem:ball-gauge}, $C = \{x \mid \mu_C(x) < 1\}$. So $\mu_C(x_0) \ge 1$. Let $Y = \Span(x_0)$ and $g : Y \mor \R$ defined by $g(\lambda x_0) = \lambda$. $g$ is linear and $g(x_0) = 1 \le \mu_C(x_0)$. Hence $g \le \mu_C$ on $Y$. \\
-  By Theorem \ref{thm:hb-positive}, find $ f : X \mor \R$ linear such that $f\restriction_Y = g$ and $f \le \mu_C$. For all $x \in C$, $f(x) \le \mu_C(x) < 1 = f(x_0)$. further, $f$ is continuous since $C \inter (-C)$ is a neighborhood of $0$ on which $\abs{f(x)} \le 1$.
+  Consider $\mu_C$. By Lemma \ref{lem:ball-gauge}, $C = \{x \mid \mu_C(x) < 1\}$. So $\mu_C(x_0) \ge 1$. Let $Y = \Span(x_0)$ and $g : Y \to \R$ defined by $g(\lambda x_0) = \lambda$. $g$ is linear and $g(x_0) = 1 \le \mu_C(x_0)$. Hence $g \le \mu_C$ on $Y$. \\
+  By Theorem \ref{thm:hb-positive}, find $ f : X \to \R$ linear such that $f\restriction_Y = g$ and $f \le \mu_C$. For all $x \in C$, $f(x) \le \mu_C(x) < 1 = f(x_0)$. further, $f$ is continuous since $C \inter (-C)$ is a neighborhood of $0$ on which $\abs{f(x)} \le 1$.
 \end{proof}
 
-\begin{nthm}\label{thm:hb-separation-set}
+\begin{thm}\label{thm:hb-separation-set}
   Let $(X, \mcP)$ be a LCS. Let $A, B$ be disjoint nonempty convex sets.
   \begin{itemize}
     \item If $A$ is open, then there exists $f \in X^*$ such that $f(x) < \inf_B f$ for all $x \in A$.
     \item If $A$ is compact and $B$ is closed, then there exists $f \in X^*$ such that $\sup_A f < \inf_B f$.
   \end{itemize}
-\end{nthm}
+\end{thm}
 \begin{proof}~
   \begin{itemize}
-    \item Fix $a \in A, b \in B$. Let $C = (A - a) - (B - b)$ and $x_0 = b - a$. Then $C$ is open, convex, $0 \in C$ and $x_0 \nin C$ ($A, B$ are disjoint). By Theorem \ref{thm:hb-separation-point}, find $f \in X^*$ such that $f(z) < f(x_0)$ for all $z \in C$. So for all $x \in A, y \in B$, $f(x - y + x_0) < f(x_0)$, namely $f(x) < f(y)$. In particular, $f \ne 0$. So find $u$ such that $f(u) > 0$. Given $x \in A$, as $A$ is open and $x + \frac 1n u \mor x$, find $n$ such that $x + \frac 1n u \in A$. Then
+    \item Fix $a \in A, b \in B$. Let $C = (A - a) - (B - b)$ and $x_0 = b - a$. Then $C$ is open, convex, $0 \in C$ and $x_0 \nin C$ ($A, B$ are disjoint). By Theorem \ref{thm:hb-separation-point}, find $f \in X^*$ such that $f(z) < f(x_0)$ for all $z \in C$. So for all $x \in A, y \in B$, $f(x - y + x_0) < f(x_0)$, namely $f(x) < f(y)$. In particular, $f \ne 0$. So find $u$ such that $f(u) > 0$. Given $x \in A$, as $A$ is open and $x + \frac 1n u \to x$, find $n$ such that $x + \frac 1n u \in A$. Then
     $$f(x) < f\left(x + \frac 1n u\right) \le \inf_B f$$
   \item
   \begin{claim}
@@ -1285,39 +1280,39 @@ TODO: Insert separation picture
     $$x + U \subseteq x_i + V_{x_i} + U \subseteq x_i + V_{x_i} + V_{x_i} \subseteq x_i + U_{x_i}$$
     is disjoint from $B$. Hence $A + U$ is disjoint from $B$.
   \end{proof}
-  Apply the first part with $A + U$ and $B$ to get $f \in X^*$ such that $f(x + u) < f(y)$ for all $x \in A, y \in B, u \in U$. In particular, $f \ne 0$, so find $z$ such that $f(z) > 0$. As $\frac 1n z \mor 0$, find $n$ such that $\frac 1n z \in U$. Then $f(x) + \frac 1n f(z) < f(y)$ for all $x \in A, y \in B$. So
+  Apply the first part with $A + U$ and $B$ to get $f \in X^*$ such that $f(x + u) < f(y)$ for all $x \in A, y \in B, u \in U$. In particular, $f \ne 0$, so find $z$ such that $f(z) > 0$. As $\frac 1n z \to 0$, find $n$ such that $\frac 1n z \in U$. Then $f(x) + \frac 1n f(z) < f(y)$ for all $x \in A, y \in B$. So
   $$\sup_A f < \sup_A f + \frac 1n f(z) \le \inf_B f$$
   \end{itemize}
 \end{proof}
 
-\begin{nthm}[Mazur]
+\begin{thm}[Mazur]
   Let $C$ be a convex set in a normed space. Then $\bar C^{\norm\cdot} = \bar C^{\text w}$. In particular,
   $$C \text{ norm-closed} \iff C \text{ w-closed}$$
-\end{nthm}
+\end{thm}
 \begin{proof}
   WLOG $C$ is nonempty. We already know $\bar C^{\norm\cdot} \subseteq \bar C^{\text w}$ as the weak topology is weaker than the norm-topology. \\
   If $x \nin \bar C^{\norm\cdot}$, then apply Theorem \ref{thm:hb-separation-set} to $A = \{x\}$ and $B = \bar C^{\norm\cdot}$ to obtain $f \in X^*$ such that $f(x) < \inf_B f$. Then $\{z \mid f(z) < \inf_B f\}$ is a w-open neighborhood of $x$ disjoint from $B$. So $x \nin \bar C^{\text w}$.
 \end{proof}
 
-\begin{ncor}
-  If $x_n \wtendsto 0$ in a normed space, then for $\eps > 0$ there is some $x$ in the convex hull of the $x_0$ such that $\norm x < \eps$.
-\end{ncor}
+\begin{cor}
+  If $x_n \wto 0$ in a normed space, then for $\eps > 0$ there is some $x$ in the convex hull of the $x_0$ such that $\norm x < \eps$.
+\end{cor}
 \begin{proof}
   $$0 \in \overline{\conv\{x_n \mid n \in \N\}}^{\text w} = \overline{\conv\{x_n \mid n \in \N\}}^{\norm\cdot}$$
 \end{proof}
 
 \begin{rmk}
-  It follows from this that there exist $p_1 < q_1 < p_2 < q_2 < \dots $ and convex combinations $z_n = \sum_{i = p_n}^{q_n} t_i x_i$ such that $z_n \mor 0$.
+  It follows from this that there exist $p_1 < q_1 < p_2 < q_2 < \dots $ and convex combinations $z_n = \sum_{i = p_n}^{q_n} t_i x_i$ such that $z_n \to 0$.
 \end{rmk}
 
 \newlec
 
-\begin{nthm}[Banach-Alaoglu]\label{thm:banach-alaoglu}
+\begin{thm}[Banach-Alaoglu]\label{thm:banach-alaoglu}
   For any normed space $X$, $(B_{X^*}, w^*)$ is compact.
-\end{nthm}
+\end{thm}
 \begin{proof}
-  For $x \in X$, let $K_x = \{\lambda \in \K \mid \abs\lambda \le \norm x\}$. Equip $K$ with its product topology. Let $\pi_x : K \mor K_x$ be the projection. Note
-  $$K = \{\lambda : X \mor \K \mid \for x \in X, \abs{\lambda(x)} \le \norm x\}$$
+  For $x \in X$, let $K_x = \{\lambda \in \K \mid \abs\lambda \le \norm x\}$. Equip $K$ with its product topology. Let $\pi_x : K \to K_x$ be the projection. Note
+  $$K = \{\lambda : X \to \K \mid \for x \in X, \abs{\lambda(x)} \le \norm x\}$$
   So $B_{X^*} \subseteq K$. By Tychonoff (Theorem \ref{thm:tychonoff}), $K$ is compact. So all we need to show is that $B_{X^*}$ is closed in $K$.
   \begin{align*}
     B_{X^*}
@@ -1328,24 +1323,24 @@ TODO: Insert separation picture
   is closed in $K$ since each $\pi_x$ is continuous.
 \end{proof}
 
-\begin{nprop}\label{prop:ck-separable}
+\begin{prop}\label{prop:ck-separable}
   Let $X$ be a normed space and $K$ be a compact Hausdorff space.
   \begin{enumerate}
     \item $X \text{ separable} \iff (B_{X^*}, w^*) \text{ metrisable}$
     \item $C(K) \text{ separable} \iff K \text{ metrisable}$
   \end{enumerate}
-\end{nprop}
+\end{prop}
 \begin{proof}~
   \begin{itemize}
-    \item[1. $\Rightarrow$] Fix a dense sequence $x_n$ in $X$. Let $\mcF = \{\hat x_n \mid n \in \N\}$. Then $\mcF$ separates the points of $X$, so $\sigma(B_{X^*}, \mcF)$ is Hausdorff and contained in the w*-topology of $B_{X^*}$. So
-    $$\id : (B_{X^*}, w^*) \mor (B_{X^*}, \sigma(B_{X^*}, \mcF))$$
+    \item[1. $\Rightarrow$] Fix a dense sequence $x_n$ in $X$. Let $\mcF = \{\hat x_n \mid n \in \N\}$. Then $\mcF$ separates points of $X^*$, so $\sigma(B_{X^*}, \mcF)$ is Hausdorff and contained in the w*-topology of $B_{X^*}$. So
+    $$\id : (B_{X^*}, w^*) \to (B_{X^*}, \sigma(B_{X^*}, \mcF))$$
     is a continuous bijection from compact to Hausdorff, hence a homeomorphism. So $\sigma(B_{X^*}, \mcF)$ is the w*-topology on $B_{X^*}$. This is metrisable by Proposition \ref{prop:lcs-metrisable}.
   \item[2. $\Rightarrow$] By the above, $(B_{C(K)^*}, w^*)$ is metrisable. For $k \in K$, define
   \begin{align*}
-    \delta_k : C(K) & \mor \K \\
+    \delta_k : C(K) & \to \K \\
     F \mapsto f(k)
   \end{align*}
-  Then $\delta_k \in B_{C(K)^*}$. We thus have $\delta : K \mor (B_{C(K)^*}, w^*)$.
+  Then $\delta_k \in B_{C(K)^*}$. We thus have $\delta : K \to (B_{C(K)^*}, w^*)$.
 
   {\bf $\delta$ continuous} \\
   By the universal property, it's enough to check that $\hat f \comp \delta$ is continuous for all $f \in C(K)$. But
@@ -1355,11 +1350,11 @@ TODO: Insert separation picture
   {\bf $\delta$ injective} \\
   $C(K)$ separates points of $K$.
 
-  Now, $\delta : K \mor (\delta(K), w^*)$ is a continuous bijection from compact to Hausdorff, hence a homeomorphism. Hence $K$ is metrisable.
+  Now, $\delta : K \to (\delta(K), w^*)$ is a continuous bijection from compact to Hausdorff, hence a homeomorphism. Hence $K$ is metrisable.
   \item[2. $\Leftarrow$] As $K$ is compact metrisable, it is separable. Fix a sequence $x_n$ dense in $K$. Let $f_n(x) = d(x, x_n)$. $d$ is a metric inducing the topology of $K$. Let $A$ be the subalgebra of $C(K)$ generated by $1$ and the $f_n$. Then $A$ is separable, closed under complex conjugation, separates points of $K$ and $1 \in A$. By Stone-Weierstrass, $\bar A = C(K)$. So $C(K)$ is separable.
-  \item[1. $\Leftarrow$] Let $K = (B_{X^*}, w^*)$. This is compact by Theorem \ref{thm:banach-alaoglu}. Since $K$ is metrisable, $C(K)$ is metrisable. It's enough to show that $X$ embeds isometrically into $C(K)$. Let
+  \item[1. $\Leftarrow$] Let $K = (B_{X^*}, w^*)$. This is compact by Theorem \ref{thm:banach-alaoglu}. Since $K$ is metrisable, $C(K)$ is separable. It's enough to show that $X$ embeds isometrically into $C(K)$. Let
   \begin{align*}
-    T : X & \mor C(K) \\
+    T : X & \to C(K) \\
     x & \mapsto \hat x\restriction_{B_{X^*}}
   \end{align*}
   Then $T$ is linear and $\norm{Tx}_\infty = \norm{\hat x} = \norm x$.
@@ -1379,16 +1374,16 @@ TODO: Insert separation picture
   \end{enumerate}
 \end{rmks}
 
-\begin{nprop}
+\begin{prop}
   Let $X$ be a normed space. Then
   $$X^* \text{ separable} \iff (B_X, w) \text{ metrisable}$$
-\end{nprop}
+\end{prop}
 \begin{proof}~
   \begin{itemize}
     \item[$\Rightarrow$] By Proposition \ref{prop:ck-separable}, $(B_{X^{**}}, w^*)$ is metrisable. Hence
     $$(B_X, w) = (B_{X^{**}}, w^*)\restriction_{B_X}$$
     is metrisable.
-    \item[$\Leftarrow$] Let $d$ metrise $(B_x, w)$. For all $n$, find $F_n \subseteq X^*$ finite and $\eps_n > 0$ such that
+    \item[$\Leftarrow$] Let $d$ metrise $(B_X, w)$. For all $n$, find $F_n \subseteq X^*$ finite and $\eps_n > 0$ such that
     $$U_n = \{x \in B_X \mid \for f \in F_n, \abs{f(x)} < \eps_n\} \subseteq \curlybrack{x \mid d(x, 0) < \frac 1n}$$
     We claim $Z = \Span_n F_n$ is dense. Then we're done. \\
     Let $g \in X^*, \eps > 0$. Then $\{x \in B_X \mid \abs{g(x)} < \eps\}$ is a w-neighborhood of $0$ in $B_X$, hence contains $U_n$ for some $n$. Let $Y = \Inter_{f \in F_n} \ker f$. For $x \in B_Y$, $x \in U_n$, so $\abs{g(x)} < \eps$. So $\norm{g\restriction_Y} \le \eps$. By Hahn-Banach, find $h \in X^*$ such that $h\restriction_Y = g\restriction_Y$ and $\norm h \le \eps$. Now
@@ -1397,27 +1392,27 @@ TODO: Insert separation picture
   \end{itemize}
 \end{proof}
 
-\begin{nthm}[Goldstine]\label{thm:goldstine}
+\begin{thm}[Goldstine]\label{thm:goldstine}
   For any normed space $X$,
   $$\overline{B_X}^{w^*} = B_{X^{**}}$$
   where $B_X$ is thought of as a subspace of $X^{**}$.
-\end{nthm}
+\end{thm}
 \begin{proof}
-  $B_{X^{**}}$ is w*-closed (by Theorem \ref{thm:banach-alaoglu}) and $B_X \subseteq B_{X^{**}}$, so $\overline{B_X}^{w^*} \subseteq B_{X^{**}}$. Now, let $\phi \nin \overline{B_X}^{w^*}$. Apply Theorem \ref{thm:hb-separation-set}.ii to $(X^{**}, w^*), A = \{\phi\}, B = \overline{B_X}^{w^*}$ and find $f \in X^*$ (TODO: why not $f \in X^{***}$?) such that $\phi(f) > \sup_B \hat f$ (or $\Re \phi(f) > \sup_B \Re \hat f$ in the complex case).
+  $B_{X^{**}}$ is w*-closed (by Theorem \ref{thm:banach-alaoglu}) and $B_X \subseteq B_{X^{**}}$, so $\overline{B_X}^{w^*} \subseteq B_{X^{**}}$. Now, let $\phi \nin \overline{B_X}^{w^*}$. Apply Theorem \ref{thm:hb-separation-set}.ii to $(X^{**}, w^*), A = \{\phi\}, B = \overline{B_X}^{w^*}$ and find $f \in X^*$? such that $\phi(f) > \sup_B \hat f$ (or $\Re \phi(f) > \sup_B \Re \hat f$ in the complex case).
   $$\norm\phi\norm f \ge \abs{\phi(f)} > \sup_B \norm{\hat f} = \sup_B \norm f \ge 1$$
   So $\phi \nin B_{X^{**}}$.
 \end{proof}
 
 \newlec
 
-\begin{nthm}
+\begin{thm}
   Let $X$ be a Banach space. TFAE
   \begin{enumerate}
     \item $X$ is reflexive.
     \item $(B_X, w)$ is compact.
     \item $X^*$ is reflexive.
   \end{enumerate}
-\end{nthm}
+\end{thm}
 \begin{proof}~
   \begin{itemize}
     \item[$1 \Rightarrow 2$] $(B_X, w) \cong (B_{X^{**}}, w^*)$ is compact by Banach-Alaoglu (Theorem \ref{thm:banach-alaoglu}).
@@ -1431,15 +1426,15 @@ TODO: Insert separation picture
   If $X$ is separable and reflexive, then $(B_X, w)$ is compact metrisable. Hence $B_X$ is sequentially compact.
 \end{rmk}
 
-\begin{nlemma}\label{lem:pi-surjection}
-  Let $(K, d)$ be a nonempty compact metric space. There exists a continuous surjection $\phi : \{0, 1\}^\N \mor K$ where $\{0, 1\}^\N$ is given the product topology.
-\end{nlemma}
+\begin{lem}\label{lem:pi-surjection}
+  Let $(K, d)$ be a nonempty compact metric space. There exists a continuous surjection $\phi : \{0, 1\}^\N \to K$ where $\{0, 1\}^\N$ is given the product topology.
+\end{lem}
 \begin{proof}
   Since $K$ is totally bounded, if $A$ is nonempty closed and $\eps > 0$ there exist nonempty closed sets $B_1, \dots, B_n$ such that $A = \Union_i B_i$ and $\diam B_i < \eps$. Applying this repeatedly, find nonempty closed sets $K_\eps$ for all $\eps \in \Sigma := \Union_{n = 0}^\infty \{0, 1\}^n$ such that
-  $$K_\emptyset = K, K_\eps = K_{\eps, 0} \union K_{\eps, 1}, \max_{\eps \in \{0, 1\}^n} \diam K_\eps \mor 0$$
+  $$K_\emptyset = K, K_\eps = K_{\eps, 0} \union K_{\eps, 1}, \max_{\eps \in \{0, 1\}^n} \diam K_\eps \to 0$$
   Define
   \begin{align*}
-    \phi : \{0, 1\}^\N & \mor K \\
+    \phi : \{0, 1\}^\N & \to K \\
     \eps & \mapsto \text{unique point in } \Inter_n K_{\eps_1, \dots, \eps_n}
   \end{align*}
 
@@ -1448,7 +1443,7 @@ TODO: Insert separation picture
 
   {\bf $\phi$ continuous} \\
   Let $\eps, \delta \in \{0, 1\}^\N, n \in \N$. If $\eps_i = \delta_i$ for all $i \le n$, then
-  $$d(\phi(\eps), \phi(\delta)) \le \diam K_{\eps_1, \dots, \eps_n} \mor 0$$
+  $$d(\phi(\eps), \phi(\delta)) \le \diam K_{\eps_1, \dots, \eps_n} \to 0$$
 \end{proof}
 
 \begin{rmk}
@@ -1456,11 +1451,11 @@ TODO: Insert separation picture
   $$\eps \mapsto \sum_{i = 1}^\infty 2\eps_i 3^{-i}$$
 \end{rmk}
 
-\begin{nthm}
+\begin{thm}
   Every separable Banach space $X$ embeds isometrically into $C[0, 1]$, namely $C[0, 1]$ is isometrically universal for $\mcS\mcB$.
-\end{nthm}
+\end{thm}
 \begin{proof}
-  From the proof of Proposition \ref{prop:ck-separable}, $X$ embeds isometrically into $C(K)$ where $K = (B_{X^*}, w^*)$. Since $X$ is separable, $K$ is metrisable. By Lemma \ref{lem:pi-surjection}, find $\phi : \Delta \mor K$ a continuous surjection. Hence $C(K)$ embeds isometrically into $C(\Delta)$ via $f \mapsto f \comp \phi$. $C(\Delta)$ embeds isometrically into $C[0, 1]$ via $f \mapsto \tilde f$ where $\tilde f$ linearly interpolates $f$ between elements of the Cantor set.
+  From the proof of Proposition \ref{prop:ck-separable}, $X$ embeds isometrically into $C(K)$ where $K = (B_{X^*}, w^*)$. Since $X$ is separable, $K$ is metrisable. By Lemma \ref{lem:pi-surjection}, find $\phi : \Delta \to K$ a continuous surjection. Hence $C(K)$ embeds isometrically into $C(\Delta)$ via $f \mapsto f \comp \phi$. $C(\Delta)$ embeds isometrically into $C[0, 1]$ via $f \mapsto \tilde f$ where $\tilde f$ linearly interpolates $f$ between elements of the Cantor set.
 \end{proof}
 
 \clearpage
@@ -1469,41 +1464,41 @@ TODO: Insert separation picture
 
 Let $X$ be a real or complex vector space and $K$ a convex set. A point $x \in K$ is an {\bf extreme point} of $K$ if, whenever $x = ay + bz, a, b > 0, a + b = 1$, we have $x = y = z$. Denote $\Ext K$ the set of extreme points of $K$.
 
-\begin{egs}~
+\begin{egs*}~
   TODO: Pictures
   \begin{itemize}
     \item $\Ext(B_{\ell_1^2}) = \{\pm e_1, \pm e_2\}$
     \item $\Ext(B_{\ell_2^2}) = S_{\ell_2^2}$
     \item $\Ext(B_{c_0}) = \emptyset$. Indeed, if $x \in B_{c_0}$, we can find $n$ such that $\abs{x_n} < \frac 12$ and define $y = x + \frac 12 e_n, z = x - \frac 12 e_n$ so that $y, z \in B_{c_0}$ and $x + \frac 12 y + \frac 12 z, y \ne x, z \ne x$.
   \end{itemize}
-\end{egs}
+\end{egs*}
 
-\begin{nthm}[Krein-Milman]\label{thm:krein-milman}
+\begin{thm}[Krein-Milman]\label{thm:krein-milman}
   Let $K$ be a nonempty compact convex set in a LCS $(X, \mcP)$. Then
   $$K = \overline\conv(\Ext K)$$
   In particular, $\Ext K$ is nonempty if $K$ is nonempty.
-\end{nthm}
+\end{thm}
 
-\begin{ncor}
+\begin{cor}
   If $X$ is a normed space, then $B_{X^*} = \overline\conv(\Ext B_{X^*})$ and $\Ext B_{X^*}$ is nonempty.
-\end{ncor}
+\end{cor}
 
 \begin{rmk}
   $c_0$ is not a dual space since $\Ext B_{c_0}$ is empty.
 \end{rmk}
 
-\begin{defi}
+\begin{dfn*}
   Let $K$ be a nonempty compact convex set in a LCS $(X, \mcP)$. A {\bf face} of $K$ is a nonempty compact convex set $E \subseteq K$ such that, for all $y, z \in K, a, b > 0, a + b = 1$, if $ay + bz \in E$ then $y, z \in E$.
-\end{defi}
+\end{dfn*}
 
-\begin{egs}~
+\begin{egs*}~
   \begin{itemize}
     \item $K$ is a face of $K$.
     \item For $x \in K$, $\{x\}$ is a face of $K$ iff $x \in \Ext K$.
     \item Let $f \in X^*, \alpha = \sup_K f$. Then $E = \{x \in K \mid f(x) = \alpha\}$ is a face of $K$.
     \item Let $E$ be a face of $K$. If $F$ is a face of $E$, then $F$ is a face of $K$. In particular, $\Ext E \subseteq \Ext K$.
   \end{itemize}
-\end{egs}
+\end{egs*}
 
 \begin{proof}[Proof of Theorem \ref{thm:krein-milman}]
   First we show that any nonempty compact convex set $K$ has an extreme point.
@@ -1516,6 +1511,325 @@ Let $X$ be a real or complex vector space and $K$ a convex set. A point $x \in K
 \end{proof}
 
 \newlec
+
+\begin{lem}\label{lem:nbhd-compact}
+  Let $(X, \mcP)$ be a LCS. Let $K \subseteq X$ be compact and $x_0 \in K$. Then for a neighborhood $V$ of $x_0$ in $X$, there exist $f_1, \dots, f_n \in X^*$ and $\alpha_1, \dots, \alpha_n \in \R$ such that
+  $$x \in \{x \in X \mid \for i, f_i(x) < \alpha_i\} \inter K \subseteq v$$
+\end{lem}
+\begin{proof}
+  Let $\tau$ be the topology of $X$ induced by $\mcP$. Let $\sigma = \sigma(X, X^*)$. Then $\id : (K, \tau) \to (K, \sigma)$ is a continuous bijection from compact to Hausdorff. Hence it is a homeomorphism and $\sigma = \tau$ on $K$.
+\end{proof}
+
+\begin{lem}\label{lem:nbhd-compact-extreme}
+  Let $(X, \mcP)$ be a LCS, $K \subseteq X$ be compact convex. Let $x_0 \in \Ext K$. Then for a neighborhood $V$ of $x_0$ in $X$ there exists $f \in X^*$ and $\alpha \in \R$ such that
+  $$x_0 \in \{x \in X \mid f(x) < \alpha\}$$
+\end{lem}
+\begin{proof}
+  Find $f_i$ and $\alpha_i$ from Lemma 3. Let $K_i = \{x \in K \mid \alpha_i \le f_i(x)\}$. This is compact and convex. $x_0 \nin V^c \subseteq \Union_i K_i$ and
+  $$\conv \Union_i K_i = \curlybrack{\sum_i t_i x_i \mid x_i \in K_i, t_i \ge 0, \sum_i t_i = 1}$$
+  Since $x_0$ is an extreme point of $K$, $x_0 \nin \conv \Union_i K_i$. Also,
+  $$K_1 \times \dots \times K_n \times \curlybrack{t \ge 0 \mid \sum_i t_i = 1}$$
+  is compact and
+  $$(x_1, \dots, x_n, t) \mapsto \sum_i t_i x_i$$
+  is continuous. So the image $B = \conv \Union_i K_i$ is compact. By Hahn-Banach Separation (Theorem \ref{thm:hb-separation-point}), find $f \in X^*$ such that $f(x_0) < \inf_B f$. Choose $\alpha \in \R$ such that $f(x_0) < \alpha < \inf_B f$. Then
+  $$x \in {\underbrace{\{x \in X \mid f(x) < \alpha\}}_{\text{disjoint from $B$}}} \inter K \subseteq V$$
+\end{proof}
+
+\begin{thm}[Partial converse to Krein-Milman]\label{thm:krein-milman-converse}
+  Let $(X, \mcP)$ be a LCS, $K \subseteq X$ compact convex, $S \subseteq K$. If $K = \overline\conv S$, then $\Ext K \subseteq \bar S$.
+\end{thm}
+\begin{rmk}
+  The closure is necessary, eg let $S$ be a dense subset of $B_{\ell_2^2}$. Then $\overline\conv S = B_{\ell_2^2}$ and $\Ext B_{\ell_2^2} = S_{\ell_2^2}$. Also $\Ext K$ need not be closed.
+
+  TODO: Insert picture
+\end{rmk}
+\begin{proof}
+  Assume $x_0 \in \Ext K \setminus \bar S$. Apply Lemma \ref{lem:nbhd-compact-extreme} with $V = \bar S^c$. So there exists $f \in X^*, \alpha \in \R$ such that
+  $$x_0 \in \{x \in X \mid f(x) < \alpha\} \inter K \subseteq V$$
+  Then $L = \{x \in K \mid \alpha \le f(x)\}$ is compact convex with $S \subseteq L$. Hence $K = \overline\conv S \subseteq L$, contradicting $x_0 \nin L$.
+\end{proof}
+
+\begin{ex}
+  $\Ext B_{C(K)^*} = \{\lambda \delta_k \mid \abs\lambda = 1, k \in K\}$ where $K$ is compact Hausdorff. Use Theorem \ref{thm:krein-milman-converse} for the inclusion.
+\end{ex}
+
+\begin{thm}[Banach-Stone]
+  Let $K, L$ be compact Hausdorff spaces. Then
+  $$C(K) \cong C(L) \iff K \cong L$$
+\end{thm}
+\begin{proof}~
+  \begin{itemize}
+    \item[$\Leftarrow$] If $\phi : K \to L$ is a homeomorphism, then $\phi^* : C(L) \to C(K)$ is an isometric isomorphism.
+    \item[$\Rightarrow$] Let $T : C(L) \to C(K)$ be an isometric isomorphism. Then so is $T^* : C(K)^* \to C(L)^*$. So $T^*(B_{C(K)^*}) = B_{C(L)^*}$ and $T^*(\Ext B_{C(K)^*}) = \Ext B_{C(L)^*}$. Thus, for each $k \in K$,
+    $$T^*(\delta_k) = \lambda(k) \delta_{\phi(k)}$$
+    for some scalar $\lambda(k)$ with $\abs{\lambda(k)} = 1$ and some $\phi(k) \in L$. So we have functions
+    \begin{align*}
+      \lambda : K & \to \K \\
+      \phi : K & \to L
+    \end{align*}
+    For all $k$, $\lambda(k) = T^*(\delta_k)(1) = (T 1)(k)$. So $\lambda = T 1 \in C(K)$ is continuous.
+
+    Recall $\delta : K \to (C(K), w^*)$ is continuous (in fact a homeomorphism from $K$ to $\delta(K)$). Also, $T^* : C(K)^* \to C(L)^*$ is w*-to-w*-continuous. Hence $k \mapsto \overline{\lambda(k)}T^*(\delta_k) = \delta_{\phi(k)}$ is continuous and so is $\phi$.
+
+    {\bf $\phi$ injective} \\
+    Assume $\phi(k_1) = \phi(k_2)$. Then $\overline{\lambda(k_1)}T^*(\delta_{k_1}) = \overline{\lambda(k_2)}T^*(\delta_{k_2})$. Evaluate at $1$ to get $\lambda(k_1) = \lambda(k_2)$. As $T^*$ is injective, we get $\delta_{k_1} = \delta_{k_2}$ and hence $k_1 = k_2$.
+
+    {\bf $\phi$ onto} \\
+    Given $\ell \in L$, find by surjectivity of $T^*$ a scalar $\mu$ and $k \in K$ such that $\abs\mu = 1, T^*(\mu\delta_k) = \delta_\ell$. So $\mu \lambda(k)\delta_{\phi(k)} = \delta_\ell$. Evaluate at $1$ to get $\mu \lambda(k) = 1$. So $\phi(k) = \ell$.
+  \end{itemize}
+\end{proof}
+
+\clearpage
+
+\section{Banach Algebras}
+
+A real/complex {\bf algebra} is a real/complex vector space $A$ with multiplication $A \times A \to A$ such that
+\begin{enumerate}
+  \item $a(bc) = (ab)c$
+  \item $a(b + c) = ab + ac$
+  \item $\lambda(ab) = (\lambda a)b = a(\lambda b)$
+\end{enumerate}
+
+$A$ is {\bf unital} if there exists an element $1 \in A$ such that $1 \ne 0$ and $\for a \in A, 1a = a1 = a$. This element is unique and is called the {\bf unit} of $A$.
+
+An {\bf algebra norm} on $A$ is a norm on $A$ such that $\for a, b, \norm{ab} \le \norm a\norm b$. A {\bf normed algebra} is an algebra equipped with an algebra norm. A {\bf Banach algebra} is a complete normed algebra. A {\bf unital normed algebra} is a normed algebra which is unital and such that $\norm 1 = 1$ ($1 \le \norm 1$ always since $\norm 1 = \norm{1 \cdot 1} \le \norm 1 \cdot \norm 1$). A {\bf unital Banach algebra} is a complete unital normed algebra.
+
+If $A$ is a normed algebra which is also a unital algebra (but not assuming $\norm 1 = 1$), then $\abs a = \sup_{\norm b \le 1} \norm{ab}$ defines an equivalent norm that makes $A$ into a unital normed algebra.
+
+In the category of normed algebras, an isomorphism will mean a continuous homeomorphism with continuous inverse. But {\bf a morphism need not be continuous}.
+
+\begin{note}
+  From now on, the scalar field is $\C$.
+\end{note}
+
+\newlec
+
+\begin{egs*}~
+  \begin{enumerate}
+    \item $C(K)$ with $K$ compact is a commutative unital normed algebra with pointwise multiplication and uniform norm.
+    \item Let $K$ be compact Hausdorff. A {\bf uniform normed algebra} on $K$ is a closed subalgebra of $C(K)$ that separates points of $K$ and contains the constant functions (if it's further closed under complex conjugation, Stone-Weierstrass says it's everything).
+    Eg, the {\bf disk algebra}
+    $$A(\Delta) = \{f \in C(\Delta) \mid f \text{ holomorphic on } \interior \Delta\}$$
+    where
+    $$\Delta = \{z \in \C \mid \abs z \le 1\}$$
+    More generally, let $K \subseteq \C$ be nonempty compact. We have the following uniform algebras on $K$:
+    $$\mcP(K) \subseteq \mcR(K) \subseteq \mcO(K) \subseteq A(K) \subseteq C(K)$$
+    where $\mcP(K), \mcR(K), \mcO(K)$ are the closures in $C(K)$ of polynomials, rational functions without poles in $K$, functions holomorphic on some open neighborhood of $K$ respectively, and
+    $$A(K) = \{f \in C(K) \mid f \text{ holomorphic on } \interior K\}$$
+    Later we will show that $\mcR(K) = \mcO(K)$ always, and
+    $$\mcP(K) = \mcR(K) \iff K^c \text{ connected}$$
+    In general, $A(K) \ne \mcO(K)$, and
+    $$A(K) = C(K) \iff \interior K = \emptyset$$
+    \item $L_1(\R)$ with $L_1$ norm and convolution
+    $$(f * g)(x) = \int_\R f(y)g(x - y) dy$$
+    is a commutative Banach without a unit (Riemann-Lebesgue lemma).
+    \item If $X$ is a Banach algebra, then $\mcB(X)$ with composition and operator norm is a unital Banach algebra (it's not commutative if $\dim X > 1$). If $X$ is a Hilbert space, then $\mcB(X)$ is a C*-algebra.
+  \end{enumerate}
+\end{egs*}
+
+\begin{dfn*}[Elementary constructions]~
+  \begin{enumerate}
+    \item If $A$ is a unital algebra, then a {\bf unital subalgebra} is a subalgebra $B$ of $A$ that contains $1$.
+    
+    If $A$ is a normed algebra, then the closure of a subalgebra of $A$ is a subalgebra.
+    \item {\bf Unitisation} \\
+    The unitisation of an algebra $A$ is the vector space direct sum $A_+ = A \oplus \C$ with multiplication $(a, \lambda)(b, \mu) = (ab + \lambda b + \mu a, \lambda\mu)$. Then $A_+$ is a unital algebra with unit $(0, 1)$. The ideal $\{(a, 0) \mid a \in A\}$ is isomorphic to $A$ and will always be identified with $A$. We can write
+    $$A_+ = \{a + \lambda 1 \mid a \in A, \lambda \in \C\}$$
+    If $A$ is a normed algebra, then $A_+$ becomes a unital normed algebra with
+    $$\norm{a + \lambda 1} = \norm a + \abs\lambda$$
+    Then $A$ is a closed ideal of $A_+$.
+
+    If $A$ is a Banach algebra, then $A_+$ is a unital Banach algebra.
+    \item The closure of an ideal of a normed algebra is an ideal. If $J$ is a closed ideal of the normed algebra $A$, then $A / J$ is a normed algebra in the quotient norm.
+    
+    If $A$ is a unital normed algebra and $J$ is a proper ($J \ne A$) closed ideal of $A$, then $A / J$ is a unital normed algebra with unit $1 + J$ ($\norm{1 + J} \le \norm 1 = 1$).
+    \item Let $\tilde A$ be the Banach space completion of a normed algebra $A$. Then $\tilde A$ is a Banach algebra with the following multiplication. Given $a, b \in \tilde A$, choose $a_n, b_n$ in $A$ such that $a_n \to a, b_n \to b$. Then define $ab = \lim_n a_n b_n$. One can check this is well-defined and respects the algebra axioms.
+    \item Let $A$ be a unital Banach algebra. Let $X = A$ thought of as a Banach space. FOr $a \in A$, define $L_a : X \to X, L_a(x) = ax$. Then $L_a \in \mcB(X)$ and $\norm{L_a} = \norm a$. The map $L : X \to \mcB(X)$ is an isometric unital homomorphism.
+  \end{enumerate}
+\end{dfn*}
+
+\begin{lem}\label{lem:inverse-near-one}
+  Let $A$ be a unital Banach algebra and $a \in A$. If $\norm{1 - a} < 1$, then $a$ is invertible and
+  $$\norm{a^{-1}} \le \frac 1{1 - \norm{1 - a}}$$
+\end{lem}
+\begin{proof}
+  For all $n$, $\norm{(1 - a)^n} \le \norm{1 - a}^n$. So $\sum_n \norm{(1 - a)^n} < \infty$. Hence $b := \sum_n (1 - a)^n$ converges absolutely. Then
+  $$(1 - a)b = b(1 - a) = b - 1$$
+  So $ab = ba = 1$. We see that
+  $$\norm b \le \sum_n \norm{(1 - a)^n} \le \sum_n \norm{1 - a}^n = \frac 1{1 - \norm{1 - a}}$$
+\end{proof}
+
+\begin{notation}
+  Let $G(A)$ denote the group of invertibles of a unital algebra $A$.
+\end{notation}
+
+\begin{cor}\label{cor:invertibles}
+  Let $A$ be a unital Banach algebra.
+  \begin{enumerate}
+    \item $G(A)$ is open in $A$.
+    \item $x \mapsto x^{-1}$ is continuous on $G(A)$.
+    \item If $X_n$ in $G(A)$ converges to $x \nin G(A)$, then $\norm{x_n^{-1}} \to \infty$.
+    \item If $x \in \partial G(A)$, then there exist $z_n$ in $A$ such that $\norm{z_n} = 1$ and $z_nx, xz_n \to 0$. It follows that $x$ has no left or right inverse in $A$, nor even in any unital Banach algebra $B$ containing $A$ as a (not necessarily unital) subalgebra.
+  \end{enumerate}
+\end{cor}
+\begin{proof}~
+  \begin{enumerate}
+    \item Let $x \in G(A)$. If $y \in A$ and $\norm{y - x} < \norm{x^{-1}}^{-1}$, then
+    $$\norm{1 - x^{-1}y} = \norm{x^{-1}(x - y)} \le \norm{x^{-1}}\norm{x - y} < 1$$
+    Hence $x^{-1}y \in G(A)$ by Lemma \ref{lem:inverse-near-one}. So $y \in G(A)$.
+    \item Let's fix $x \in G(A)$. For $y \in G(A)$;
+    $$y^{-1} - x^{-1} = y^{-1}(x - y)x^{-1}$$
+    So
+    $$\norm{y^{-1} - x^{-1}} \le \norm{y^{-1}}\norm{x - y}\norm{x^{-1}}$$
+    If $\norm{x - y} < \frac 1{2\norm{x^{-1}}}$, then
+    $$\norm{y^{-1} - x^{-1}} \le 2\norm{x^{-1}}^2\norm{x - y} \to 0$$
+    as $y \to x$.
+    \item From the proof of 1, if $\norm{x - x_n} < \norm{x_n^{-1}}^{-1}$, then $x \in G(A)$. Contradiction.
+    \item Given $x \in \partial G(A)$, find $x_n$ in $G(A)$ such that $x_n \to x$. By 3, $\norm{x_n^{-1}} \to \infty$. Set $z_n = \frac{x_n^{-1}}{\norm{x_n^{-1}}}$. Then
+    $$z_nx = z_n x_n + z_n(x - x_n) = \norm{x_n^{-1}}^{-1} + z_n(x - x_n) \to 0$$
+    as $\norm{z_n(x - x_n)} \le \norm{z_n}\norm{x - x_n} \to 0$. Similarly, $xz_n \to 0$.
+
+    Assume $B$ is a unital Banach algebra and $A$ is a subalgebra of $B$. If $y \in B$ and $yx = 1$, then $yxz_n = z_n$. So
+    $$1 = \norm{z_n} = \norm{yxz_n} \le \norm y\norm{xz_n} \to 0$$
+    Similarly, we can't have $y \in B$ and $xy = 1$.
+  \end{enumerate}
+\end{proof}
+
+\newlec
+
+\begin{dfn*}
+  Let $A$ be an algebra and $x \in A$. The {\bf spectrum} $\sigma_A$ of $x$ in $A$ is
+  \begin{itemize}
+    \item $\sigma_A(x) = \{\lambda \in \C \mid \lambda 1 - x \nin G(A)\}$ if $A$ is unital.
+    \item $\sigma_A(x) = \sigma_{A_+}(x)$ if $A$ is non-unital.
+  \end{itemize}
+\end{dfn*}
+
+\begin{egs*}~
+  \begin{enumerate}
+    \item If $A = M_n(\C)$, then $\sigma_A(x)$ is the set of eigenvalues of $x$.
+    \item If $A = C(K)$ where $K$ is compact Hausdorff, then $\sigma_A(f) = f(K)$.
+    \item If $A = \mcB(X)$ where $X$ is a Banach space, then
+    $$\sigma_A(T) = \{\lambda \in \C \mid \lambda I - T \text{ not an isomorphism}\}$$
+  \end{enumerate}
+\end{egs*}
+
+\begin{thm}\label{thm:spectrum-nonempty}
+  Let $A$ be a Banach algebra, $x \in A$. Then $\sigma_A(x)$ is a nonempty compact subset of $\{\lambda \in \C \mid \abs\lambda \le \norm x\}$.
+\end{thm}
+\begin{proof}
+  WLOG $A$ is a unital Banach algebra.
+
+  If $\abs\lambda > \norm x$, then $\norm{\frac x\lambda} < 1$. So by Lemma \ref{lem:inverse-near-one}, $1 - \frac x\lambda \in G(A)$ and $\lambda1 - x = \lambda\left(1 - \frac x\lambda\right) \in G(A)$. Hence $\sigma_A(x) \subseteq \{\lambda \in \C \mid \abs\lambda \le \norm x\}$. Also, $\sigma_A(x)$ is the preimage of the closed set $G(A)^c$ (Corollary \ref{cor:invertibles}.i) under the continuous function $\lambda \mapsto \lambda1 - x$. Hence it is closed. It follows that $\sigma_A(x)$ is compact.
+
+  Consider
+  \begin{align*}
+    f : \sigma_A(x)^c & \to A \\
+    \lambda & \mapsto (\lambda 1 - x)^{-1}
+  \end{align*}
+  By Corollary \ref{cor:invertibles}.ii, $f$ is continuous. For $\lambda \ne \mu$,
+  \begin{align*}
+    f(\lambda) - f(\mu)
+    & = f(\lambda)((\mu 1 - x) - (\lambda 1 - x))f(\mu) \\
+    & (\mu - \lambda)f(\lambda)f(\mu)
+  \end{align*}
+  So
+  $$\frac{f(\lambda) - f(\mu)}{\lambda - \mu} = -f(\lambda)f(\mu) \underset{\lambda \to \mu}\to -f(\mu)^2$$
+  Thus $f$ is holomorphic. \\
+  If $\abs\lambda > \norm x$, then $\lambda 1 - x \in G(A)$ and
+  $$\norm{(\lambda 1 - x)^{-1}} = \frac 1{\abs\lambda}\norm{\left(1 - \frac x\lambda\right)^{-1}} \le \frac 1{\abs\lambda}\frac 1{1 - \norm{\frac x\lambda}} = \frac 1{\abs\lambda - \norm x} \to 0$$
+  as $\abs\lambda \to \infty$. \\
+  If $\sigma_A(x) = \emptyset$, then $f$ is an entire function. By vector-valued Liouville (Theorem \ref{thm:vector-liouville}), $f$ is constant. But then $f(x) = x^{-1} \ne 0$ contradicts $f(\lambda) \to 0$ as $\lambda \to 0$.
+\end{proof}
+
+\begin{cor}[Gelfand-Mazur]
+  A complex unital normed division algebra $A$ ($G(A) = \{0\}^c$) is isometrically isomorphic to $\C$.
+\end{cor}
+\begin{proof}
+  Let's define
+  \begin{align*}
+    \theta : \C & \to A \\
+    \lambda & \mapsto \lambda 1
+  \end{align*}
+  Then $\theta$ is an isometric homomorphism. Is it onto?
+
+  Fix $a \in A$ and consider $B$ the completion of $A$. $B$ is a unital Banach algebra. Hence Theorem \ref{thm:spectrum-nonempty} tells us that $\sigma_B(x)$ is nonempty, namely there exists $\lambda \in \C$ such that $\lambda 1 - x$ is not invertible in $B$. But then $\lambda 1 - x$ is not invertible in $A$, so $\lambda 1 - x = 0$ and $\theta(\lambda) = x$.
+\end{proof}
+
+\begin{dfn*}
+  Let $A$ be a Banach algebra and $x \in A$. The {\bf spectral radius} $r_A(x)$ of $x$ in $A$ is
+  $$r_A(x) = \sup_{\lambda \in \sigma_A(x)} \abs\lambda$$
+  From Theorem \ref{thm:spectrum-nonempty}, $r_A(x)$ is well-defined and $r_A(x) \le \norm x$.
+\end{dfn*}
+
+\begin{note}
+  Let $x, y$ be commuting elements of a unital algebra $A$. Then
+  $$xy \in G(A) \iff x, y \in G(A)$$
+  Indeed, if $z(xy) = (xy)z = 1$, then
+  $$x(yz) = 1, (yz)x = zxyyzx = zyxyzx = zyx = zxy = 1$$
+  So $x \in G(A)$. Similarly, $y \in G(A)$.
+\end{note}
+
+\begin{lem}[Spectral Mapping Theorem for polynomials]\label{lem:poly-smt}
+  Let $A$ be a unital Banach algebra and $x \in A$. Then for a complex polynomial $p = \sum_{k = 0}^n a_k z^k$ we have
+  $$\sigma_A(p(x)) = \{p(\lambda) \mid \lambda \in \sigma_A(x)\} = p(\sigma_A(x))$$
+\end{lem}
+\begin{proof}
+  WLOG $n \ge 1$ and $a_n \ne 0$ ($\sigma_A(\lambda 1) = \{\lambda\}$). Fix $\mu \in \C$. Write
+  $$\mu - p(z) = c\prod_{k = 1}^n (\lambda_k - z)$$
+  for some $c, \lambda_1, \dots, \lambda_n \in \C, c \ne 0$. Note that
+  $$p^{-1}(\mu) = \{\lambda_1, \dots, \lambda_n\}$$
+  Now,
+  \begin{align*}
+    \mu \nin \sigma_A(p(x))
+    & \iff \mu 1 - p(x) = c \prod_{k = 1}^n (\lambda_k 1 - x) \text{ invertible} \\
+    & \iff \for k, \lambda_k 1 - x \text{ invertible (the factors commute)} \\
+    & \iff \for \lambda \in \sigma_A(x), p(\lambda) \ne \mu
+  \end{align*}
+  The result follows.
+\end{proof}
+
+\begin{thm}[Beurling-Gelfand Spectral Radius Formula]
+  Let $A$ be a Banach algebra, $x \in A$. Then
+  $$r_A(x) = \lim_n \norm{x^n}^{\frac 1n} = \inf_n \norm{x^n}^{\frac 1n}$$
+\end{thm}
+\begin{proof}
+  WLOG $A$ is unital.
+
+  By Lemma \ref{lem:poly-smt}, if $\lambda \in \sigma_A(x)$ and $n \in \N$, then $\lambda^n \in \sigma_A(x^n)$. By Theorem \ref{thm:spectrum-nonempty}, $\abs{\lambda^n} \le \norm{x^n}$. So $\abs\lambda \le \norm{x^n}^{1/n}$. It follows that
+  $$r_A(x) \le \inf_n \norm{x^n}^{1/n}$$
+  Consider
+  \begin{align*}
+    f : \sigma_A(x)^c & \to \C \\
+    \lambda & \mapsto (\lambda 1 - x)^{-1}
+  \end{align*}
+  By the proof of Theorem \ref{thm:spectrum-nonempty}, $f$ is holomorphic. Note
+  $$\sigma_A(x)^c \supseteq \{\lambda \mid r_A(x) < \abs\lambda\} \supseteq \{\lambda \mid \norm x < \abs\lambda\}$$
+  If $\abs\lambda > \norm x$, then
+  $$f(\lambda) = \frac 1\lambda \left(1 - \frac x\lambda\right)^{-1} = \frac 1\lambda \sum_{n = 0}^\infty \frac{x^n}{\lambda^n}$$
+  by the proof of Theorem \ref{lem:inverse-near-one}.
+
+  Fix $\varphi \in A^*$. Then $\varphi \comp f$ is holomorphic on $\sigma_A(x)^c$ and if $\abs\lambda > \norm x$ then
+  $$\varphi(f(\lambda)) = \sum_{n = 0}^\infty \varphi\left(\frac{x^n}{\lambda^n}\right)$$
+  So, for $\abs\lambda > r_A(x)$ and $\varphi \in A^*$, we have $\varphi(\frac{x^n}{\lambda^n}) \to 0$. Hence $\frac{x^n}{\lambda^n} \wto 0$. By Proposition \ref{prop:weak-norm-bounded}, there exists $M > 0$ such that $\norm{\frac{x^n}{\lambda^n}} \le M$ for all $n$. So $\norm{x^n} \le M^{1/n}\abs\lambda$. Hence $\limsup \norm{x^n}^{1/n} \le \abs\lambda$.
+
+  Thus we proved
+  $$r_A(x) \le \inf_n \norm{x^n}^{1/n} \le \liminf_n \norm{x^n}^{1/n} \le \limsup \norm{x^n}^{1/n} \le r_A(x)$$
+  The result follows.
+\end{proof}
+
+\begin{thm}
+  Let $A$ be a unital Banach algebra and $B$ be a closed unital subalgebra of $A$. Let $x \in B$. Then
+  $$\sigma_A(x) \subseteq \sigma_B(x), \quad \partial \sigma_B(x) \subseteq \partial \sigma_A(x)$$
+  It follows that $\sigma_B(x)$ is the union of $\sigma_A(x)$ and some of the bounded components of $\sigma_A(x)^c$.
+
+  INSERT PICTURE
+\end{thm}
+\begin{proof}
+  Let $\lambda \nin \sigma_B(x)$. Then $\lambda 1 - x$ is invertible in $B$, hence is invertible in $A$ and $\lambda \nin \sigma_A(x)$.
+
+  Assume $\lambda \in \partial \sigma_B(x) = \sigma_B(x) \setminus \interior \sigma_B(x)$. On one hand, $\lambda \nin \interior \sigma_B(x) \supseteq \interior \sigma_A(x)$. On the other hand, $\lambda 1 - x \in \partial G(B) = \overline{G(B)} \setminus G(B)$ (pick a sequence $\lambda_n \to \lambda$ with $\lambda_n \nin \sigma_B(x)$, then $\lambda_n 1 - x \to \lambda 1 - x$ and $\lambda_n 1 - x \in G(B)$), so Corollary \ref{cor:invertibles} tells us that $\lambda 1 - x$ is not invertible in any Banach superalgebra, in particular in $A$, meaning that $\lambda \in G(A)$. Hence $\lambda \in \sigma_A(x) \setminus \interior \sigma_A(x) = \partial \sigma_A(x)$.
+\end{proof}
 
 \printindex
 \end{document}
