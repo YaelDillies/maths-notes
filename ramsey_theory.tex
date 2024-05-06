@@ -8,21 +8,7 @@
 \def\ncourse{Ramsey Theory on Graphs}
 \def\draft{Incomplete}
 
-\usepackage{mathrsfs}
-\usepackage{imakeidx}
-\usepackage{marginnote}
-\usepackage{mathdots}
-\usepackage{tabularx}
-\usepackage{ifthen}
-
 \input{header}
-\swapnumbers
-\reversemarginpar
-
-\usetikzlibrary{positioning, decorations.pathmorphing, decorations.text, calc, backgrounds, fadings}
-\tikzset{node/.style = {circle,draw,inner sep=0.8mm}}
-
-\makeindex[intoc]
 
 \setcounter{section}{-1}
 
@@ -45,8 +31,8 @@
     \item For $X$ a set, $r \in \N$, $X^{(r)} = \{S \subseteq X | |S| = r\}$
     \item $\chi$ for a $k$-coloring of the edges of $K_n$
       \begin{align*}
-        \chi : E(K_n) \mor & [k] \\
-        \chi : E(K_n) \mor & \{\text{red}, \text{blue}\} & (\text{if } k = 2)
+        \chi : E(K_n) & \to [k] \\
+        \chi : E(K_n) & \to \{\text{red}, \text{blue}\} & (\text{if } k = 2)
       \end{align*}
   \end{itemize}
 \end{notation}
@@ -88,7 +74,7 @@ $R(\ell, k) = R(k, \ell)$. By convention, we will usually assume $\ell \le k$.
 
 \begin{lemma}
   For all $k, \ell \ge 3$,
-  $$R(\ell, k) \le \underbrace{R(\ell - 1, k)}a + \underbrace{R(\ell, k - 1)}b$$
+  $$R(\ell, k) \le \underbrace{R(\ell - 1, k)}_a + \underbrace{R(\ell, k - 1)}_b$$
 \end{lemma}
 \begin{proof}
   Let $n = a + b$. Pick a vertex $v$. By pigeonhole, either
@@ -167,19 +153,20 @@ $$R(3, k) \le \binom{k + 1}2 \le (k + 1)^2$$
   $$R(3, k) \ge c\left(\frac k{\log k}\right)^{\frac 32}$$
   for some constant $c > 0$.
 \end{thm}
+\begin{idea}
+  We will look at a binomial random graph and choose the parameters so that there are very few red $K_k$ and the number of blue $K_3$ is at most some fixed proportion of $n$. Then we will remove one vertex from each red $K_k$ and one vertex from each blue $K_3$. The resulting graph will have neither and most likely will still contain a fixed proportion of the vertices we started with.
+\end{idea}
 \begin{proof}
   Change the language. Discuss the blue graph. We are now looking for the maximum number of edges of a graph with no triangles and no independent set of size $k$. \\
-  Take $n = \left(\frac k{\log k}\right)^{\frac 32}, p = n^{-\frac 23} = \frac{\log k}k$. Now sample $G \sim G(n, p)$ and define $\tilde G$ to be $G$ with one vertex removed from each triangle and independent set of size $k$. By construction, $K_3 \not\subseteq \tilde G$ and $\alpha(\tilde G) < k$. We will show $\E[\abs{\tilde G}] \ge \frac n2$ using
-  $$\abs{\tilde G} \ge n - \#\text{triangles in } G - \#\text{independent sets of size $k$ in } G$$
+  Take $n = \left(\frac k{\log k}\right)^{\frac 32}, p = n^{-\frac 23} = \frac{\log k}k$. Now sample $G \sim G(n, p)$ and define $\tilde G$ to be $G$ with one vertex removed from each triangle and independent set of size $k$. By construction, $K_3 \not\subseteq \tilde G$ and $\alpha(\tilde G) < k$. We will show $\bbE |\tilde G| \ge \frac n2$ using
+  $$|\tilde G| \ge n - \#\text{triangles in } G - \#\text{independent sets of size $k$ in } G$$
   First,
-  \begin{align*}
-    \E[\#\text{triangles in } G]
-    & = \sum_{T \in [n]^(3)} \P(T \text { triangle in } G) \\
-    & = \binom n3 p^3 \le \frac{(np)^3}6 = \frac n6
-  \end{align*}
+  $$\bbE \#\text{triangles in } G
+  = \sum_{T \in [n]^(3)} \P(T \text { triangle in } G)
+  = \binom n3 p^3 \le \frac{(np)^3}6 = \frac n6$$
   Second,
   \begin{align*}
-    \E[\#\text{independent sets of size $k$ in } G]
+    \bbE \#\text{independent sets of size $k$ in } G
     & = \binom nk (1 - p)^{\binom k2} \\
     & \le \left(\frac{en}k\right)^k e^{-p\binom k2} \\
     & \sim \left(\frac{en}k e^{-\frac{pk}2}\right)^k \\
@@ -187,9 +174,13 @@ $$R(3, k) \le \binom{k + 1}2 \le (k + 1)^2$$
     & = \left(\frac e{\log^{\frac 32} k}\right)^k \longrightarrow 0
   \end{align*}
   Hence, for large enough $k$,
-  $$\E[\abs{\tilde G}] \ge n - \frac n6 - 1 \ge \frac n2 = \frac 12 \left(\frac k{\log k}\right)^{\frac 32}$$
+  $$\bbE |\tilde G| \ge n - \frac n6 - 1 \ge \frac n2 = \frac 12 \left(\frac k{\log k}\right)^{\frac 32}$$
   By adjusting $c > 0$, we have proved the theorem.
 \end{proof}
+\begin{rmk}
+  The values of $n$ and $p$ come from the constraints
+  $$n^3p^3 \ll n, \quad p^{-1}\log p^{-1} \ll k$$
+\end{rmk}
 
 We are being wasteful here. Why throw an entire vertex away when we could get away with removing a single edge? Because we might accidentally create an independent set of size $k$. But we can be smarter...
 
@@ -203,7 +194,7 @@ We are being wasteful here. Why throw an entire vertex away when we could get aw
 \end{thm}
 
 \begin{lemma}
-  Let $\mathcal F = \{A_1, \dots, A_m\}$ be a family of events in a probability space. Let $\Eps_t$ be the even that $t$ {\it independent} events from $\mathcal F$ occur. then
+  Let $\mathcal F = \{A_1, \dots, A_m\}$ be a family of events in a probability space. Let $\Eps_t$ be the event that $t$ {\it independent} events from $\mathcal F$ occur. then
   $$\P(\Eps_t) \le \frac 1{t!}\left(\sum_{i = 1}^m \P(A_i)\right)^t$$
 \end{lemma}
 \begin{proof}
@@ -220,6 +211,10 @@ We are being wasteful here. Why throw an entire vertex away when we could get aw
 
 \newlec
 
+\begin{idea}
+  Instead of killing vertices, we will kill edges. We only need to kill edges from a maximal set of edge-disjoint triangles. For this killing to create an independent set $I$ of size $k$, we must have killed all edges in $I$. But with high probability all sets of size $k$ contain a fixed fraction of the expectation $p\binom k2$ of the number of edges, and having so many edge-disjoint triangles each with two vertices among $k$ fixed vertices is unlikely.
+\end{idea}
+
 \begin{lemma}
   Let $n, k \in \N, p \in [0, 1]$ be such that $pk \ge 16\log n$. Then with high probability every subset of size $k$ of $G \sim G(n, p)$ contains at least $\frac{pk^2}8$ edges.
 \end{lemma}
@@ -228,15 +223,16 @@ We are being wasteful here. Why throw an entire vertex away when we could get aw
   We fix $n = \left(\frac{c_1 k}{\log k}\right)^2, p = c_2n^{-\frac 12} = \frac{c_2}{c_1}\frac{\log k}k$. Let $G \sim G(n, p), \mathcal T$ a maximal collection of edge-disjoint triangles in $G$, $\tilde G$ be $G$ with all edges of $\mathcal T$ removed. Note, $\tilde G$ contains no triangle. We show
   $$\P(\alpha(\tilde G) \ge k) < 1$$
   Let $Q$ be the event that every set of $k$ vertices of $G$ contains $\ge \frac{pk^2}8$ edges. Setting $\frac{c_2}{c_1} = 48$, we get
-  $$pk = \frac{c_2}{c_1}\frac{\log k}k k = 48\log k > 16\log n$$ By the lemma, we know so that $\P(Q) = 1 + o(1)$ by the lemma. Now note that
+  $$pk = \frac{c_2}{c_1}\frac{\log k}k k = 48\log k > 16\log n$$
+  so that $\P(Q) = 1 - o(1)$ by the lemma. Now note that
   $$\P(\alpha(\tilde G) \ge k) \le \P(\alpha(\tilde G) \ge k, Q) + \cancelto 0{\P(Q^c)}$$
-  So we focus on $\P(\alpha(\tilde G) \ge k, Q)$. Set $t = \frac{pk^2}{24}$.
+  So we focus on $\P(\alpha(\tilde G) \ge k, Q)$. Observe that if $\tilde G$ contains an independent set $I$ of size $k$ and $Q$ holds, then $I$ contains $\ge \frac{pk^2}8$ edges of $G$ by assumption. But $I$ is an independent set in $\tilde G$, so all $\frac{pk^2}8$ edges must have belonged to some triangle $T \in \mathcal T$ and been removed. Therefore
   \begin{align*}
     \P(\alpha(\tilde G) \ge k, Q)
-    & \le \P\left(\exists S \in [n]^{(k)}, \mathcal T \text{ meets $S$ in } \ge \frac{pk^2}8\right) \\
+    & \le \P\left(\exists S \in [n]^{(k)}, \mathcal T \text{ meets $S$ in $\ge \frac{pk^2}8$ edges}\right) \\
     & \le \binom n k \P\left(\underbrace{\substack{\text{at least $t$ triangles of $\mathcal T$} \\ \text{meet $[k]$ in at least two vertices}}}_B\right)
   \end{align*}
-  Let $\{T_i\}$ be the collection of triangles in $K_n$ that meet $[k]$ in at least two vertices. Let $A_i = \{T_i \subseteq G\}$. Note that if $T_{i_1}, \dots, T_{i_k}$ are edge-disjoint, then $A_{i_1}, \dots, A_{i_k}$ are independent. So
+  where $t = \frac{pk^2}{24}$. Let $\{T_i\}$ be the collection of triangles in $K_n$ that meet $[k]$ in at least two vertices. Let $A_i = \{T_i \subseteq G\}$. Note that if $T_{i_1}, \dots, T_{i_k}$ are edge-disjoint, then $A_{i_1}, \dots, A_{i_k}$ are independent. So
   \begin{align*}
     \P(B)
     & \le \P(\Eps_t) \\
@@ -248,15 +244,15 @@ We are being wasteful here. Why throw an entire vertex away when we could get aw
   by choosing $c_2 = \frac 1{\sqrt{24} e}$. To finish, observe that
   $$t = \frac{pk^2}{24} = 2k\log k \ge k\log n$$
   Hence
-  $$\binom n k \P(B) \le \binom n k e^{-t} \le \left(\frac{en}k e^{-\log n}\right)^k = \left(\frac ek\right)^k \mor 0$$
+  $$\binom n k \P(B) \le \binom n k e^{-t} \le \left(\frac{en}k e^{-\log n}\right)^k = \left(\frac ek\right)^k \to 0$$
 \end{proof}
 
 
 \subsection{Large deviation inequalities}
 
 Let $Z$ be a gaussian random variable.
-$$\P(Z - \E[Z] \ge t) \le e^{\frac{-t}{2\Var Z}}$$
-Let $X_1, \dots, X_n$ be iid Bernoulli random variables. We denote this $X_i \sim \Ber(p)$. Write $S_n = X_1 + \dots + X_n$. Note $\E[S_n] = np$, $\Var(S_n)=np(1 - p)$.
+$$\P(Z - \bbE Z \ge t) \le e^{\frac{-t}{2\Var Z}}$$
+Let $X_1, \dots, X_n$ be iid Bernoulli random variables. We denote this $X_i \sim \Ber(p)$. Write $S_n = X_1 + \dots + X_n$. Note $\bbE S_n = np, \Var(S_n) = np(1 - p)$.
 
 \begin{idea}
   Often, the tail of $S_n$ looks like a gaussian tail.
@@ -264,19 +260,23 @@ Let $X_1, \dots, X_n$ be iid Bernoulli random variables. We denote this $X_i \si
 
 \begin{thm}[Chernoff inequality]
   Let $X_1, \dots, X_n \sim \Ber(p)$. Then
-  $$\P\left(\abs{S_n - pn} \ge t\right) \le 2\exp\left(\underbrace{-\frac t{2pn}}_{\text{meat}} + \underbrace{\frac{t^3}{(pn)^2}}_{\text{error term}}\right)$$
+  $$\P\left(\abs{S_n - pn} \ge t\right) \le 2\exp\left(\underbrace{-\frac{t^2}{2pn}}_{\text{meat}} + \underbrace{\frac{t^3}{(pn)^2}}_{\text{error term}}\right)$$
 \end{thm}
 
 \newlec
 
-\begin{proof}[Proof of the $\frac{pk^8}8$ lemma]
+\begin{proof}[Proof of the $\frac{pk^2}8$ lemma]
+  Using Chernoff on $e(G[[k]])$, namely with $p := p, n := \binom k2, t := \frac{pk^2}4$, we get
   \begin{align*}
     \P(G \text{ fails the statement})
     & = \P\left(\exists S \in [n]^{(k)}, e(G[s]) < \frac{pk^2}8\right) \\
     & \le \binom nk \P\left(e(G[[k]]) < \frac{pk^2}8\right) \\
-    & \le \binom nk \P\left(\frac{pk^2}4 < \abs{e(G[[k]]) - p\binom k2}\right)
+    & \le \binom nk \P\left(\frac{pk^2}4 < \abs{e(G[[k]]) - p\binom k2}\right) \\
+    & \le 2\left(\frac{en}k\right)^k \exp\left(-\frac{pk^2}{16} + \frac 18\right) \\
+    & \ll \left(\frac{en}k\right)^k \exp\left(-k\log n\right) \\
+    & = \left(\frac ek\right)^k
   \end{align*}
-  We are now done by Chernoff. TODO: Are we really? The numbers don't seem to work out.
+  which tends to 0 as $k$ tends to infinity.
 \end{proof}
 
 \subsection{The Local Lemma}
@@ -337,7 +337,7 @@ The probabilistic method is like finding the hay in the hay stack. What if we wa
   \begin{enumerate}
     \item $p^3 = \P(A_T) \le x_T \prod_{\abs{T \inter T'} = 2} (1 - x_T) \prod_{\abs{I \inter T} \ge 2} (1 - x_I) = 3p^3 (1 - 3p^3)^{3n}(1 - n^{-k})^{3n^{k - 2}}$
     Indeed,
-    $$(1 - 3p^3)^{3n}(1 - n^{-k})^{3n^{k - 2}} \ge \exp(-18p^3n - 6n^{-2}) = \exp(-18\eps^2 p - 6n^{-2}) \mor 1$$
+    $$(1 - 3p^3)^{3n}(1 - n^{-k})^{3n^{k - 2}} \ge \exp(-18p^3n - 6n^{-2}) = \exp(-18\eps^2 p - 6n^{-2}) \to 1$$
 
 \newlec
 
@@ -484,7 +484,7 @@ extending continuously to $[0, 1]$ by $f(0) = 1, f(1) = \frac 12$. We remark tha
 
 \begin{proof}[Second proof of AKS]
   Let $I$ be an independent set in $G$ sampled uniformly among all independent sets of $G$. We will show
-  $$\E\abs I \ge c\frac nd\log n$$
+  $$\bbE\abs I \ge c\frac nd\log n$$
   Let $v$ be a vertex. We define the random variable
   $$X_v = d1_{v \in I} + \abs{N(v) \inter I}$$
   For any independent set $I$,
@@ -595,9 +595,9 @@ The idea now is that our adversary wants to reply ``red'' most of the time, so w
 What about lower bounds? Let's try the probabilistic method.
 
 Color triples blue with probability $p$.
-$$\E\left[\#\text{red }K_k^{(3)}\right] = \binom nk (1 - p)^{\binom k3} \le \left(\frac{en}k\right)^k e^{-p\binom k3} = \left(\frac{en}k e^{-\frac{pk^2}6}\right)^k$$
+$$\bbE\left[\#\text{red }K_k^{(3)}\right] = \binom nk (1 - p)^{\binom k3} \le \left(\frac{en}k\right)^k e^{-p\binom k3} = \left(\frac{en}k e^{-\frac{pk^2}6}\right)^k$$
 This is nontrivial if $p \gg \frac 1{k^2}$. Then
-$$\E\left[\#\text{blue }K_4^{(3)}\right] = \binom n4 p^4 \ge \left(\frac n4\right)^4 \gg \left(\frac n{k^2}\right)^4$$
+$$\bbE\left[\#\text{blue }K_4^{(3)}\right] = \binom n4 p^4 \ge \left(\frac n4\right)^4 \gg \left(\frac n{k^2}\right)^4$$
 So the (naïve) probabilistic approach looks useless for anything better than polynomial in $k$.
 
 \begin{thm}
@@ -620,10 +620,10 @@ So the (naïve) probabilistic approach looks useless for anything better than po
   \end{obs}
   But
   \begin{align*}
-    \E[\#\text{transitive tournament of size } k]
+    \bbE \#\text{transitive tournament of size } k
     & = \binom nk k! 2^{-\binom k2} \\
     & \le n^k 2^{-\binom k2} \\
-    & = \left(n2^{-\frac{k - 1}2}\right)^n \mor 0
+    & = \left(n2^{-\frac{k - 1}2}\right)^n \to 0
   \end{align*}
   Hence
   $$\P\left(\chi \text{ has no red } K_k^{(3)}\right) = \P(T \text{ has no transitive tournament of size } k) > 0$$
@@ -655,7 +655,7 @@ So the (naïve) probabilistic approach looks useless for anything better than po
 
   Call such a set $K \in [n]^{[k]}$ {\bf sad}. We consider
   \begin{align*}
-    \E[\#\text{ sad sets}]
+    \bbE \#\text{ sad sets}
     & \le n^k \prod_{i = 1}^k \binom r{\frac k4} \left(\frac k{4r}\right)^{k - i} \\
     & = n^k \binom r{\frac k4}^k \left(\frac k{4r}\right)^{\sum_{i = 1}^k k - i} \\
     & \le n^k \left(\frac{4er}k\right)^{\frac{k^2}4} \left(\frac k{4r}\right)^{\frac{k^2}4} \\
