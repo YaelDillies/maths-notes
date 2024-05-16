@@ -29,10 +29,10 @@ Let $G = \F_p^n$ where $p$ is a small fixed prime and $n$ is large.
   Write $\omega = e^{\frac{\tau i}p}$. Note $\sum_{a \in \F_p} \omega^a = 0$.
 \end{notation}
 
-\begin{ndef}
+\begin{dfn}
   Given $f : \F_p^n \to \C$, define its {\bf Fourier transform} $\hat f : \F_p^n \to \C$ by
   $$\hat f(t) = \E_{x \in \F_p^n} f(x) \omega^{x \cdot t}$$
-\end{ndef}
+\end{dfn}
 
 It is easy to verify the {\bf inversion formula}
 $$f(x) = \sum_{t \in \F_p^n} \hat f(t)\omega^{-x \cdot t}$$
@@ -70,23 +70,23 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
   & = \overline{\widehat{1_A}(t)}
 \end{align*}
 
-\begin{nex}\label{ex:dft-subspace}
+\begin{eg}\label{ex:dft-subspace}
   Let $V \le \F_p^n$. Then
   $$\widehat{1_V}(t) = \E_x 1_V(x) \omega^{x \cdot t} = \frac{\abs V}{\abs G} 1_{V^\perp}(t)$$
   So
   $$\widehat{\mu_V}(t) = 1_{V^\perp}(t)$$
-\end{nex}
+\end{eg}
 
-\begin{nex}\label{ex:dft-random-set}
+\begin{eg}\label{ex:dft-random-set}
   Let $R \subseteq \F_p^n$ be such that each $x$ is included with probability $\frac 12$ independently. Then with high probability
   $$\sup_{t \ne 0} \abs{\widehat{1_R}(t)} = O\left(\sqrt{\frac{\log(p^n)}{p^n}}\right)$$
   This is on Example Sheet 1 using a {\bf Chernoff-type bound}: Given $\C$-valued independent random variables $X_1, \dots, X_n$ with mean $0$ and $\theta \ge 0$, we have
   $$\P\left(\abs{\sum_i X_i} \ge \theta\sqrt{\sum_i \norm{X_i}^2_\infty}\right) \le 4\exp\left(-\frac{\theta^2}4\right)$$
-\end{nex}
+\end{eg}
 
-\begin{nex}
-  Let $Q = \{x \in \F_p^n \mid x \cdot x = 0\}$. Then $\abs Q = \left(\frac 1p + O(p^{-n})\right)p^n$ and $\sup_{t \ne 0} \abs{\widehat{1_Q}(t)} = O(p^{-\frac n2})$. See Example Sheet 1.
-\end{nex}
+\begin{eg}
+  Let $Q = \{x \in \F_p^n \mid x \cdot x = 0\}$. Then $\abs Q = \left(\frac 1p + O(p^{-n/2})\right)p^n$ and $\sup_{t \ne 0} \abs{\widehat{1_Q}(t)} = O(p^{-\frac n2})$. See Example Sheet 1.
+\end{eg}
 
 \begin{notation}
   Given $f, g : \F_p^n \to \C$, write
@@ -101,42 +101,42 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
   \end{align*}
 \end{notation}
 
-\begin{nlemma}\label{lem:plancherel-parseval}
+\begin{lem}\label{lem:plancherel-parseval}
   For all $f, g : \F_p^n \to \C$,
   \begin{align*}
     \inn f g & = \inn{\hat f}{\hat g} & \text{ (Plancherel)} \\
     \norm f_2 & = \norm{\hat f}_2 & \text{ (Parseval)}
   \end{align*}
-\end{nlemma}
+\end{lem}
 \begin{proof}
   Exercise.
 \end{proof}
 
-\begin{ndef}\label{def:large-spec}
+\begin{dfn}\label{def:large-spec}
   Let $\rho > 0$ and $f : \F_p^n \to \C$. Define the $\rho$-large spectrum of $f$ to be
   $$\Spec_\rho(f) = \{t \mid |\hat f(t)| \ge \rho\norm f_1\}$$
-\end{ndef}
+\end{dfn}
 
-\begin{nex}
+\begin{eg}
   By Example \ref{ex:dft-subspace}, if $V \le \F_p^n$, then
   $\Spec_\rho(1_V) = V^\perp$ for all $\rho > 0$.
-\end{nex}
+\end{eg}
 
-\begin{nlemma}\label{lem:card-large-spec}
+\begin{lem}\label{lem:card-large-spec}
   For all $\rho > 0$, $\abs{\Spec_\rho(f)} \le \rho^{-2} \frac{\norm f_2^2}{\norm f_1^2}$.
-\end{nlemma}
+\end{lem}
 \begin{proof}
   $$\norm f_2^2 = \norm{\hat f}_2^2 \ge \sum_{t \in \Spec_\rho(f)} \abs{\hat f(t)}^2 \ge \abs{\Spec_\rho(f)}(\rho \norm f_1)^2$$
 \end{proof}
 
 \newlec
 
-\begin{ndef}\label{def:convolution}
+\begin{dfn}\label{def:convolution}
   Given $f, g : \F_p^n \to \C$, define their {\bf convolution} $f \ast g : \F_p^n \to \C$ by
   $$(f \ast g)(x) = \E_y f(y)g(x - y)$$
-\end{ndef}
+\end{dfn}
 
-\begin{nex}\label{ex:convolution-indicators}
+\begin{eg}\label{ex:convolution-indicators}
   Given $A, B \subseteq \F_p^n$,
   \begin{align*}
     (1_A \ast 1_B)(x)
@@ -146,12 +146,12 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
   \end{align*}
   In particular, the support of $1_A \ast 1_B$ is the {\bf sum set}
   $$A + B = \{a + b \mid a \in A, b \in B\}$$
-\end{nex}
+\end{eg}
 
-\begin{nlemma}\label{lem:dft-convolution}
+\begin{lem}\label{lem:dft-convolution}
   Given $f, g : \F_p^n \to \C$,
   $$\widehat{f \ast g}(t) = \hat f(t) \hat g(t)$$
-\end{nlemma}
+\end{lem}
 \begin{proof}
   \begin{align*}
     \widehat{f \ast g}(t)
@@ -161,13 +161,13 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
   \end{align*}
 \end{proof}
 
-\begin{nex}
+\begin{eg}
   $\norm{\hat f}_4^4 = \E_{x + y = z + w} f(x)f(y)\overline{f(z)f(w)}$. See Example Sheet 1.
-\end{nex}
+\end{eg}
 
-\begin{nlemma}[Bogolyubov]
+\begin{lem}[Bogolyubov]
   If $A \subseteq \F_p^n$ is of density $\alpha > 0$, then there exists a subspace $V$ of codimension at most $2\alpha^{-2}$ such that $V \subseteq (A + A) - (A + A)$.
-\end{nlemma}
+\end{lem}
 \begin{proof}
   Observe that $(A + A) - (A + A) = \supp (\underbrace{1_A \ast 1_A \ast 1_{-A} \ast 1_{-A}}_g)$, so we wish to find $V$ such that $g(x) > 0$ for all $x \in V$. Let $K = \Spec_\rho(1_A)$ for some $\rho > 0$ and define $V = \langle K\rangle^\perp$. By Lemma \ref{lem:card-large-spec}, $\codim V \le \abs K \le \rho^{-2}\alpha^{-1}$. We calculate
   \begin{align*}
@@ -183,14 +183,14 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
   by Parseval. Picking $\rho = \sqrt{\frac\alpha 2}$, we thus get $\rho^2\alpha^3 \le \frac{\alpha^4}2$ and $g(x) > 0$ whenever $x \in V$.
 \end{proof}
 
-\begin{nex}
+\begin{eg}
   The set $A = \{x \in \F_2^n \mid \abs x \ge \frac n2 + \frac{\sqrt n}2\}$ has density at least $\frac 14$ but there is no coset $C$ of any subspace of codimension $\sqrt n$ such that $C \subseteq A + A$. See Example Sheet 1.
-\end{nex}
+\end{eg}
 
-\begin{nlemma}\label{lem:density-increment}
+\begin{lem}\label{lem:density-increment}
   Let $A \subseteq \F_p^n$ of density $\alpha$ be such that $\Spec_\rho(1_A)$ contains some $t \ne 0$. Then there exist $V \le \F_p^n$ of codimension $1$ and $x \in \F_p^n$ such that
   $$\abs{A \inter (x + V)} \ge \alpha\left(1 + \frac\rho 2\right)\abs V$$
-\end{nlemma}
+\end{lem}
 \begin{proof}
   Let $t \ne 0$ be such that $\abs{\widehat{1_A}(t)} \ge \rho\alpha$ and let $V = \langle t\rangle^\perp$. For $j = 1, \dots, p$, write
   $$v_j + V = \{x \in \F_p^n \mid x \cdot t = j\}$$
@@ -211,9 +211,9 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
 
 \newlec
 
-\begin{nlemma}\label{lem:3AP-estimate}
+\begin{lem}\label{lem:3AP-estimate}
   Let $p \ge 3$ and $A \subseteq \F_p^n$ of density $\alpha > 0$ be such that $\sup_{t \ne 0} \abs{\widehat{1_A}(t)} = o(1)$. Then $A$ contains $(\alpha^3 + o(1))\abs G^2$ three terms arithmetic progressions (aka 3AP).
-\end{nlemma}
+\end{lem}
 
 \begin{notation}
   Given $f, g, h : \F_p^n \to \C$, write
@@ -236,10 +236,10 @@ Note $\E_x f_A(x) = 0, \E_x \mu_A(x) = 1, \widehat{1_A}(0) = \E_x 1_A(x) = \alph
   $$\sup_{t \ne 0} \abs{\widehat{1_{2 \cdot A}}(t)} \sum_t \abs{\widehat{1_A}(t)}^2 = \alpha \sup_{t \ne 0} \abs{\widehat{1_A}(t)}$$
 \end{proof}
 
-\begin{nthm}[Meshulam]\label{thm:meshulam}
+\begin{thm}[Meshulam]\label{thm:meshulam}
   Let $p \ge 3$ and $A \subseteq \F_p^n$ be a set containing only trivial 3APs. Then
   $$\abs A = O\left(\frac{p^n}{\log(p^n)}\right)$$
-\end{nthm}
+\end{thm}
 \begin{proof}
   By assumption, $T_3(1_A, 1_A, 1_A) = \frac\alpha{p^n}$. But, as in Lemma \ref{lem:3AP-estimate},
   $$\abs{T_3(1_A, 1_A, 1_A) - \alpha^3} \le \alpha \sup_{t \ne 0} \abs{\widehat{1_A}(t)}$$
@@ -264,30 +264,30 @@ From now on, let $G$ be a finite abelian group. $G$ comes equipped with a set of
 \end{itemize}
 The latter is a special case of the former, but again $n$ should thought of as an asymptotic variable.
 
-\begin{ndef}
+\begin{dfn}
   Given $f : G \to \C$, define its {\bf Fourier transform} $\hat f : \hat G \to \C$ by
   $$\hat f(\gamma) = \E_{x \in G} f(x)\gamma(x)$$
-\end{ndef}
+\end{dfn}
 It is easy to verify that $f(x) = \sum_{\gamma \in \hat G} \hat f(\gamma) \overline{\gamma(x)}$. Similarly, Definitions \ref{def:large-spec}, \ref{def:convolution}, Examples \ref{ex:dft-random-set}, \ref{ex:convolution-indicators} and Lemmas \ref{lem:plancherel-parseval}, \ref{lem:card-large-spec}, \ref{lem:dft-convolution} go through in this more general context.
 
-\begin{nex}
+\begin{eg}
   Let $p$ be a prime, $L < p$ be even and $J = [-\frac L2, \frac L2] \subseteq \F_p$. Then for all $t \ne 0$ we have
   $$\widehat{1_J}(t) \le \min\left(\frac{L + 1}p, \frac 1{2\abs t}\right)$$
   See Example Sheet 1.
-\end{nex}
+\end{eg}
 
-\begin{nthm}[Roth]
+\begin{thm}[Roth]
   Let $A \subseteq [N]$ be a set containing only trivial 3APs. Then $\abs A = O(\frac N{\log\log N})$.
-\end{nthm}
+\end{thm}
 
-\begin{nlemma}
+\begin{lem}
   Let $A \subseteq [N]$ of density $\alpha > 0$ containing only trivial 3APs and satisfying $N > 50\alpha^{-2}$. Let $p$ be a prime in $[\frac N3, \frac{2N}3]$ and write $A' = A \inter [p] \subseteq \F_p$. Then either
   \begin{enumerate}
     \item $\sup_{t \ne 0} \abs{\widehat{1_A}(t)} \ge \frac{\alpha^2}{10}$ (where the Fourier coefficients are computed in $\F_p$)
     \item or there exists an interval $J$ of length $\ge \frac N3$ such that
     $$\abs{A \inter J} \ge \alpha\left(1 + \frac\alpha{400}\right)\abs J$$
   \end{enumerate}
-\end{nlemma}
+\end{lem}
 \begin{proof}
   If $\abs{A'} \le \alpha\left(1 - \frac\alpha{200}\right)p$, then
   $$\abs{A \inter [p + 1, N]} \ge \alpha(N - p) + \frac{\alpha^2p}{200} \ge \alpha\left(1 + \frac\alpha{400}\right)(N - p)$$
@@ -304,17 +304,17 @@ We now want to convert the large Fourier coefficient into a density increment. T
 
 TODO: Insert picture
 
-\begin{nlemma}\label{lem:partition-progressions-small-diam}
+\begin{lem}\label{lem:partition-progressions-small-diam}
   Let $m \in \N$ and $\phi : [m] \to \F_p$ be multiplication by some fixed $t \ne 0$. Given $\eps > 0$, there exists a partition of $[m]$ into progressions $P_i$ of length $\in [\frac{\eps\sqrt m}2, \eps\sqrt m]$ such that $\diam(\phi(P_i)) \le \eps p$.
-\end{nlemma}
+\end{lem}
 \begin{proof}
   Let $u = \floor{\sqrt m}$ and consider $0, t, \dots, ut$. By pigeonhole, find $0 \le v < w \le u$ such that $\abs{wt - vt} \le \frac pu$. Set $s = w - v \le u$ so that $\abs{st} \le \frac pu$. Divide $[m]$ into residue classes mod $s$. Each has size at least $\floor{\frac ms} \ge \floor{\frac mu}$ and can be divided into progressions of the form $a, a + s, \dots, a + ds$ with $\frac{\eps u}2 < d \le \eps u$. The diameter of each progression under $\phi$ is $\abs{dst} \le \eps p$.
 \end{proof}
 
-\begin{nlemma}
+\begin{lem}
   Let $A \subseteq [N]$ be of density $\alpha > 0$. Let $p$ be a prime in $[\frac N3, \frac{2N}3]$ and write $A' = A \inter [p]$. Suppose there exists $t \ne 0$ such that $\abs{\widehat{1_A}(t)} \ge \frac{\alpha^2}{10}$. Then there exists a progression $p$ of length at least $\alpha^2 \frac{\sqrt N}{500}$ such that
   $$\abs{A \inter P} \ge \alpha\left(1 + \frac\alpha{50}\right)\abs P$$
-\end{nlemma}
+\end{lem}
 \begin{proof}
   Let $\eps = \frac{\alpha^2}{40\pi}$ and use Lemma \ref{lem:partition-progressions-small-diam} to partition $[p]$ into progressions $P_i$ of length at least $\frac{\eps \sqrt p}2 \ge \frac{\alpha^2}{80\pi}\sqrt{\frac N3} \ge \frac{\alpha^2\sqrt N}{500}$ and $\diam \phi(P_i) \le \eps p$. Fix one $x_i$ inside each $P_i$.
   \begin{align*}
@@ -334,32 +334,32 @@ TODO: Insert picture
   Put the ingredients together, Similarly to Meshulam. See Example Sheet 1 for details.
 \end{proof}
 
-\begin{nex}[Behrend's construction]
+\begin{eg}[Behrend's construction]
   There exists a set $A \subseteq [N]$ containing non nontrivial 3APs of size at least $e^{-O(\sqrt{\log n})}$. See Example Sheet 1.
-\end{nex}
+\end{eg}
 
-\begin{ndef}
+\begin{dfn}
   Let $\Gamma \subseteq \hat G$. The {\bf Bohr set} of {\bf frequencies} $\Gamma$ and width $\rho$ is
   $$B(\Gamma, \rho) = \{x \in G \mid \for \gamma \in \Gamma, \abs{\gamma(x) - 1} \le \rho\}$$
   $\abs\Gamma$ is the {\bf rank} of the Bohr set.
-\end{ndef}
+\end{dfn}
 
-\begin{nex}
+\begin{eg}
   When $G = \F_p^n$, $B(\Gamma, \rho) = \langle\Gamma\rangle^\perp$ for all small enough $\rho$ (depending only on $p$, not $n$).
-\end{nex}
+\end{eg}
 
-\begin{nlemma}
+\begin{lem}
   Let $B$ be a Bohr set of rank $d$ and width $\rho$. Then $\abs B \ge \left(\frac\rho{2\pi}\right)^d\abs G$.
-\end{nlemma}
+\end{lem}
 \begin{proof}
   See Example Sheet 2.
 \end{proof}
 
 \newlec
 
-\begin{nlemma}[Bogolyubov]
+\begin{lem}[Bogolyubov]
   Given $A \subseteq \F_p$ of density $\alpha > 0$, there exists $\Gamma \subseteq \widehat{\F_p}$ of size at most $2\alpha^{-2}$ such that $B(\Gamma, \frac 12) \subseteq (A + A) - (A + A)$.
-\end{nlemma}
+\end{lem}
 \begin{proof}
   Recall $(1_A \ast 1_A \ast 1_{-A} \ast 1_{-A})(x) = \sum_{t \in \widehat{\F_p}} \abs{\widehat{1_A}(t)}^4 \omega^{-xt}$. Let $\Gamma = \Spec_{\sqrt{\frac\alpha 2}}(1_A)$ and note that we have $\cos(\frac{2\pi xt}p) > 0$ for all $x \in B(\Gamma, \frac 12)$ and $t \in \Gamma$. Hence
   \begin{align*}
@@ -378,30 +378,30 @@ If $A$ and $B$ are finite and nonempty, then
 $$\max(\abs A, \abs B) \le \abs{A \pm B} \le \abs A\abs B$$
 Better bounds are available in certain settings.
 
-\begin{nex}
+\begin{eg}
   Let $V \le \F_p^n$ be a subspace. Then $V + V$, so $\abs{V + V} = \abs V$. In fact, if $A \subseteq \F_p^n$ is such that $\abs{A + A} = \abs A$, then $A$ is a coset of some subspace.
-\end{nex}
+\end{eg}
 
-\begin{nex}\label{ex:doubling-lt-three-halves}
+\begin{eg}\label{ex:doubling-lt-three-halves}
   Let $A \subseteq \F_p^n$ be such that $\abs{A + A} < \frac 32 \abs A$. Then there exists $V \le \F_p^n$ such that $A$ is contained in a coset of $V$ and $\abs V < \frac 32\abs A$. See Example Sheet 2.
-\end{nex}
+\end{eg}
 
-\begin{nex}
+\begin{eg}
   Let $A \subseteq \F_p^n$ be a set of linearly independent vectors. Then $\abs{A + A} = \binom{\abs A + 1}2$. This is big doubling, but $\abs A \le n$ is small! \\
   Let $A \subseteq \F_p^n$ be a set where each point is taken randomly with probability $p^{-\theta n}$ where $\theta \in ]\frac 12, 1]$. Then with high probability $\abs{A + A} = (1 + o(1))\frac{\abs A^2}2$.
-\end{nex}
+\end{eg}
 
-\begin{ndef}
+\begin{dfn}
   Given finite sets $A, B \subseteq G$, we define the Ruzsa distance between $A$ and $B$ to be
   $$d(A, B) = \log \frac{\abs{A - B}}{\sqrt{\abs A\abs B}}$$
-\end{ndef}
+\end{dfn}
 
 $d(A, B)$ is clearly nonnegative and symmetric. However, $d(A, A) \ne 0$ in general.
 
-\begin{nlemma}[Ruzsa's triangle inequality]\label{lem:ruzsa-triangle}
+\begin{lem}[Ruzsa's triangle inequality]\label{lem:ruzsa-triangle}
   For $A, B, C \subseteq G$ finite,
   $$d(A, C) \le d(A, B) + d(B, C)$$
-\end{nlemma}
+\end{lem}
 \begin{proof}
   The inequality reduces to
   $$\abs B\abs{A - C} \le \abs{A - B}\abs{B - C}$$
@@ -413,9 +413,9 @@ $d(A, B)$ is clearly nonnegative and symmetric. However, $d(A, A) \ne 0$ in gene
   is injective, where for each $d \in A - C$ we have chosen $a_d \in A, c_d \in C$ such that $d = a - c$.
 \end{proof}
 
-\begin{ndef}
+\begin{dfn}
   Given a finite set $A \subseteq G$, we write $\sigma(A) = \frac{\abs{A + A}}{\abs A}$ the {\bf doubling constant} and $\delta(A) = \frac{\abs{A - A}}{\abs A}$ the {\bf difference constant} of $A$.
-\end{ndef}
+\end{dfn}
 
 $d(A, A) = \log \sigma(A)$ and $d(A, -A) = \log \delta(A)$, so Lemma \ref{lem:ruzsa-triangle} for $A, -A, -A$ tells us that $\delta(A) \le \sigma(A)^2$.
 
@@ -426,10 +426,10 @@ $d(A, A) = \log \sigma(A)$ and $d(A, -A) = \log \delta(A)$, so Lemma \ref{lem:ru
   $$\underbrace{A + \dots + A}_{\ell \text{ times}} - \underbrace{A + \dots + A}_{m \text{ times}}$$
 \end{notation}
 
-\begin{nthm}[Plünnecke's inequality]
+\begin{thm}[Plünnecke's inequality]
   Let $A, B \subseteq G$ be finite such that $\abs{A + B} \le K\abs A$. Then for all $\ell, m$,
   $$\abs{\ell B - mB} \le K^{\ell + m}\abs A$$
-\end{nthm}
+\end{thm}
 \begin{idea}
   $A$ should be thought of as being approximately a subspace. The assumption then says that $B$ is efficiently contained in (a translate of) $A$ and the conclusion now reads that $B$ must itself have small multiples. This makes sense, since we can use multiples of $A$ (which are not much bigger than $A$) to efficiently contain the multiples of $B$.
 \end{idea}
@@ -469,9 +469,9 @@ $d(A, A) = \log \sigma(A)$ and $d(A, -A) = \log \delta(A)$, so Lemma \ref{lem:ru
 
 We are now in a position to generalise Example \ref{ex:doubling-lt-three-halves}.
 
-\begin{nthm}[Freiman-Ruzsa]\label{thm:freiman-ruzsa}
+\begin{thm}[Freiman-Ruzsa]\label{thm:freiman-ruzsa}
   Let $A \subseteq \F_p^n$ be such that $\abs{A + A} \le K\abs A$ for some $K > 0$. Then $A$ is contained in a subspace $H \le \F_p^n$ of size $\abs H \le K^2 p^{K^4} \abs A$.
-\end{nthm}
+\end{thm}
 \begin{proof}
   Write $S = A - A$ and choose $X \subseteq A + S$ maximal such that the translates $x + A$ for $x \in X$ are disjoint. \\
   $X$ cannot be too large. Indeed, $\forall x \in X, x + A \subseteq 2A + S$. Hence $\Union_{x \in X} (x + A) \subseteq 2A + S$ and $\abs X\abs A = \abs{\Union_{x \in X} (x + A)} \le \abs{2A + S} \le K^4\abs A$ by Plünnecke, namely $\abs X \le K^4$. \\
@@ -484,21 +484,21 @@ We are now in a position to generalise Example \ref{ex:doubling-lt-three-halves}
 
 \newlec
 
-\begin{nex}
+\begin{eg}
   Let $A = H \union R \subseteq \F_p^n$ where $H$ is a subspace of dimension $K \ll d \ll n - k$ and $R$ consists of $K - 1$ linearly independent vectors in $H^\perp$. Then $\abs A = \abs{H \union R} \sim \abs H$ and $\abs{A + A} = \abs{H \union H + R \union R + R} \sim K\abs H \sim K\abs A$ but any subspace $V \le \F_p^n$ containing $A$ must have size $\ge p^{d + (K - 1)} = p^{K - 1} \abs H \sim p^{K - 1}\abs A$ where the constant is exponential in $K$.
-\end{nex}
+\end{eg}
 
-\begin{nconjecture}[Polynomial Freiman-Ruzsa]
+\begin{conj}[Polynomial Freiman-Ruzsa]
   Let $A \subseteq \F_p^n$ be such that $\abs{A + A} \le K\abs A$. Then there is a subspace $H \le \F_p^n$ of size at most $C_1(K)\abs A$ and $x \in \F_p^n$ such that $\abs{A \inter (x + H)} \ge \frac{\abs A}{C_2(K)}$ where $C_1(K)$ and $C_2(K)$ are polynomials.
-\end{nconjecture}
+\end{conj}
 
 For $p = 2$, this is now a theorem.
 
-\begin{ndef}
+\begin{dfn}
   Given an abelian group $G$ and finite sets $A, B \subseteq G$, define {\bf additive quadruples} to be the tuples $(a, a', b, b') \in A^2 \times B^2$ such that $a + b = a' + b'$ and the {\bf additive energy between $A$ and $B$} to be
   $$E(A, B) = \frac{\#\{\text{additive quadruples}\}}{\abs A^{\frac 32}\abs B^{\frac 32}}$$
   Write $E(A) = E(A, A)$ the {\bf additive energy of $A$}.
-\end{ndef}
+\end{dfn}
 
 Observe that, if $G$ is finite, then
 \begin{align*}
@@ -507,13 +507,13 @@ Observe that, if $G$ is finite, then
   & = \abs G^3 \norm{\widehat{1_A}}_4^4
 \end{align*}
 
-\begin{nex}
+\begin{eg}
   When $H \le \F_p^n$, we have $E(H) = 1$.
-\end{nex}
+\end{eg}
 
-\begin{nlemma}\label{lem:energy-lower-bound}
+\begin{lem}\label{lem:energy-lower-bound}
   Let $G$ be abelian and $A, B \subseteq G$ be finite. Then $E(A, B) \ge \frac{\sqrt{\abs A\abs B}}{\abs{A \pm B}}$. 
-\end{nlemma}
+\end{lem}
 \begin{proof}
   Write $r(x) = \#\{(a, b) \in A \times B \mid a + b = x\}$ so that
   $$\abs A^{\frac 32}\abs B^{\frac 32}E(A, B) = \#\{\text{additive quadruples}\} = \sum_x r(x)^2$$
@@ -529,21 +529,21 @@ Observe that, if $G$ is finite, then
 
 In particular, if $\abs{A + A} \le K\abs A$ then $E(A) \ge \frac 1K$. The mantra is "Small doubling implies big energy". The converse is {\bf not} true.
 
-\begin{nex}
+\begin{eg}
   Let $G$ be your favorite family of abelian groups. Then there are constants $\eta, \theta > 0$ such that for all sufficiently large $n$ there exists $A \subseteq G$ with $\abs A = n$ satisfying $E(A) \gg \eta$ and $\abs{A + A} \ge \theta \abs A^2$. See Example Sheet 2.
-\end{nex}
+\end{eg}
 
 If we can't hope for a set to have small doubling when its energy is big, we might at least be able to find a big subset with big energy.
 
-\begin{nthm}[Balog-Szemerédi-Gowers]\label{thm:bsg}
+\begin{thm}[Balog-Szemerédi-Gowers]\label{thm:bsg}
   Let $G$ be an abelian group and let $A \subseteq G$ be finite such that $E(A) \ge \eta$ for some $\eta > 0$. Then there exists $A' \subseteq A$ of size at least $c(\eta)\abs A$ such that $\abs{A' + A'} \le C(\eta)\abs A$ where $c(\eta)$ and $C(\eta)$ are polynomials in $\eta$.
-\end{nthm}
+\end{thm}
 
 We first prove a technical lemma using a method known as "dependent random choice".
 
-\begin{nlemma}\label{lem:bsg-drc}
+\begin{lem}\label{lem:bsg-drc}
   Let $A_1, \dots, A_m \subseteq [n]$ and suppose that $\sum_{i, j} \abs{A_i \inter A_j} \ge \delta^2nm^2$. Then there exists $X \subseteq [m]$ of size at least $\frac{\delta^5m}{\sqrt 2}$ such that $\abs{A_i \inter A_j} \ge \frac{\delta^2n}2$ for at least 90\% of the pairs $(i, j) \in X^2$.
-\end{nlemma}
+\end{lem}
 \begin{proof}
   Let $x_1, \dots, x_5$ be taken uniformly at random from $[n]$ and let
   $$X = \{i \in [m] \mid \forall k, x_k \in A_i\}$$
@@ -601,10 +601,10 @@ We first prove a technical lemma using a method known as "dependent random choic
 \clearpage
 \section{Probabilistic tools}
 
-\begin{nprop}
+\begin{prop}[Khintchine's inequality]
   Let $X_1, \dots, X_n$ be independent random variables taking values $\pm x_i$ with probability $\frac 12$. Then, for all $p \in [2, \infty[$,
   $$\norm{\sum_i X_i}_{L^p(\P)} = O\left(\sqrt p\left(\sum_i \norm{X_i}_{L^2(\P)}^2\right)^{\frac 12}\right)$$
-\end{nprop}
+\end{prop}
 
 \newlec
 
@@ -625,18 +625,18 @@ We first prove a technical lemma using a method known as "dependent random choic
   if $C \ge \sqrt 2$.
 \end{proof}
 
-\begin{ncor}[Rudin's inequality]
+\begin{cor}[Rudin's inequality]
   Let $\Lambda \subseteq \widehat{\F_2^n}$ be linearly independent and $f : \F_2^n \to \C$ be such that $\hat f$ is supported on $\Lambda$. Then, for all $p \in [2, \infty[$,
-  $$\norm{\sum_{\gamma \in \Lambda} \hat f(\gamma)\gamma}_{L^p(\F_2^n)} = O\left(\sqrt p \norm{\hat f}_{\ell^2(\Lambda)}\right)$$
-\end{ncor}
+  $$\norm{\sum_{\gamma \in \Lambda} \hat f(\gamma)\gamma}_{L^p(\F_2^n)} = O\left(\sqrt p \norm f_{L^2(\Lambda)}\right)$$
+\end{cor}
 \begin{proof}
   See Example Sheet 2.
 \end{proof}
 
-\begin{ncor}[Dual form of Rudin's inequality]\label{cor:dual-rudin}
+\begin{cor}[Dual form of Rudin's inequality]\label{cor:dual-rudin}
   Let $\Lambda \subseteq \widehat{\F_2^n}$ be linearly independent and let $q \in ]1, 2]$ Then for all $f \in L^q(\F_2^n)$,
   $$\norm{\hat f}_{\ell^2(\Lambda)} = O\left(\sqrt{\frac q{q - 1}} \norm f_{L^q(\F_2^n)}\right)$$
-\end{ncor}
+\end{cor}
 \begin{proof}
   Let $f \in L^q(\F_2^n)$ and write $g = \sum_{\gamma \in \Lambda} \hat f(\gamma)\gamma$. Then
   $$\hat g(\delta) = \E_x \delta(x) \sum_{\gamma \in \Lambda} \hat f(\gamma) \gamma(x) = \sum_{\gamma \in \Lambda} \hat f(\gamma) \E_x \gamma(x)\delta(x) = 1_\Lambda(\delta) \hat f(\delta)$$
@@ -653,9 +653,9 @@ Recall that, given $A \subseteq \F_2^n$ of density $\alpha > 0$, $\abs{\Spec_\rh
 $$\abs{\Spec_1(1_H)} = \abs{H^\perp} = \left(\frac{\abs H}{2^n}\right)^{-1}$$
 But here $H$ is very structured! And indeed in Bogolyubov we used the bound on the size of the spectrum only to bound the size of the subspace it generated. So maybe the {\it dimension} of the spectrum is what we should be looking at instead of its size.
 
-\begin{nthm}[Special case of Chang's lemma]
+\begin{thm}[Special case of Chang's lemma]
   Let $A \subseteq \F_2^n$ be of density $\alpha > 0$. Then for all $\rho > 0$ there exists a subspace $H \le \F_2^n$ of dimension $O(\rho^{-2}\log\alpha^{-1})$ such that $\Spec_\rho(1_A) \subseteq H$.
-\end{nthm}
+\end{thm}
 \begin{proof}
   Let $\Lambda \subseteq \Spec_\rho(1_A)$ be a maximal linearly independent subset and let $H = \langle\Spec_\rho(1_A)\rangle$. Then $\dim H = \abs\Lambda$. By Corollary \ref{cor:dual-rudin}, if $q \in ]1, 2]$,
   $$(\rho\alpha)^2\abs\Lambda \le \sum_{\gamma \in \Lambda} \abs{\widehat{1_A}(\gamma)}^2 = \norm{\widehat{1_A}}_{\ell^2(\Lambda)}^2 = O\left(\frac q{q - 1}\norm{1_A}_{L^q(\F_2^n)}\right) = O\left(\frac q{q - 1} \alpha^{\frac 2q}\right)$$
@@ -664,29 +664,29 @@ But here $H$ is very structured! And indeed in Bogolyubov we used the bound on t
 
 We will prove Chang's lemma in greater generality on Example Sheet 3. The key definition for the generalisation is the following.
 
-\begin{ndef}
+\begin{dfn}
   Let $G$ be a finite abelian group. We say $S \subseteq G$ is {\bf dissociated} if
   $$\sum_{s \in S} \eps_s s = 0 \implies \eps = 0$$
   for all $\eps \in \{-1, 0, 1\}^S$.
-\end{ndef}
+\end{dfn}
 
 Note that if $G = \F_2^n$ then a set $S \subseteq G$ is dissociated iff it's linearly independent.
 
 \newlec
 
-\begin{nthm}[Chang's lemma]
+\begin{thm}[Chang's lemma]
   Let $G$  be a finite abelian group and let $A \subseteq G$ be of density $\alpha > 0$. If $\Lambda \subseteq \Spec_\rho(1_A)$ is dissociated, then $\abs\Lambda = O(\rho^{-2}\log\alpha^{-1})$.
-\end{nthm}
+\end{thm}
 \begin{proof}
-  See Example Sheet 2.
+  See Example Sheet 3.
 \end{proof}
 
 We may bootstrap Khintchine's inequality to get the following.
 
-\begin{nthm}[Marcinkiewicz-Zygmund inequality]
+\begin{thm}[Marcinkiewicz-Zygmund inequality]
   Let $p \in [2, \infty[$ and $X_1, \dots, X_n \in L^p(\P)$ be independent random variables with $\E \sum_i X_i = 0$. Then
   $$\norm{\sum_i X_i}_{L^p(\P)} = O\left(\sqrt p \norm{\sum_i \abs{X_i}^2}_{L^{\frac p2}(\P)}^{\frac 12}\right)$$
-\end{nthm}
+\end{thm}
 \begin{proof}
   We can derive the complex-valued case from the real-valued case by taking real and imaginary parts and apply the triangle inequality. \\
   Next assume that the distribution of the $X_i$ is symmetric, ie $\P(X_i = a) = \P(X_i = -a)$ for all $a$. Partition the probability space $\Omega$ into sets $\Omega_1, \dots, \Omega_M$, writing $\P_j$ for the induced probability measure on $\Omega_j$. Do it so that all $X_i$ are symmetric and take at most two values on each $\Omega_j$. Applying Khintchine for each $j \in [M]$,
@@ -703,10 +703,10 @@ We may bootstrap Khintchine's inequality to get the following.
   by convexity.
 \end{proof}
 
-\begin{nthm}[Croot-Sisask Almost Periodicity]
+\begin{thm}[Croot-Sisask Almost Periodicity]
   Let $G$ be a finite abelian group, let $\eps > 0$ and let $p \in [2, \infty[$. Let $A, B \subseteq G$ be such that $\abs{A + B} \le K\abs A$ and let $f : G \to \C$. Then there exist $b \in B$ and a set $X \subseteq B - b$ such that $\abs X \ge (2K)^{-O(\eps^{-2}p)}\abs B$ and
   $$\norm{\tau_x(f \ast \mu_A) - f \ast \mu_A}_{L^p(G)} \le \eps \norm f_{L^p(G)}$$
-\end{nthm}
+\end{thm}
 \begin{proof}
   The main idea is to approximate
   $$(f \ast \mu_A)(y) = \E_x \mu_A(x) f(y - x) = \E_{x \in A} f(y - x)$$
@@ -744,16 +744,16 @@ We may bootstrap Khintchine's inequality to get the following.
   \end{align*}
 \end{proof}
 
-\begin{nthm}[Polynomial Bogolyubov]\label{thm:polynomial-bogolyubov}
+\begin{thm}[Polynomial Bogolyubov]\label{thm:polynomial-bogolyubov}
   Let $A \subseteq \F_p^n$ be a set of density $\alpha > 0$. Then there exists a subspace $V \le \F_p^n$ of codimension $O(\log^4\alpha^{-1})$ such that $V \subseteq A + A - (A + A)$.
-\end{nthm}
+\end{thm}
 \begin{proof}
   See Example Sheet 3.
 \end{proof}
 
-\begin{nthm}[Schoen, Shkredov]
+\begin{thm}[Schoen, Shkredov]
   Let $p \ne 5$ and let $A \subseteq \F_p^n$ be a set containing no nontrivial solution to $x_1 + x_2 + x_3 + x_4 + x_5 = 5y$. Then $\abs A = \exp(-\Omega(n^{\frac 15}))\abs{\F_p^n}$.
-\end{nthm}
+\end{thm}
 \begin{proof}
   Let $\alpha$ be the density of $A$. Partition $A$ into $A_1 \union A_2$ where $\abs{A_1} = \floor{\frac\alpha 2 p^n}, \abs{A_2} = \ceil{\frac\alpha 2 p^n}$. By averaging, find $z$ such that $\abs{A_1 \inter (z - A_2)} \ge \frac{\alpha^2}4 p^n$. Let $A' = A_1 \inter (z - A_2)$. By Theorem \ref{thm:polynomial-bogolyubov}, there exists $V \le \F_p^n$ of codimension $O(\log^4\alpha^{-1})$ such that $V \subseteq A' + A' - (A' + A')$. Hence
   $$2z + V \subseteq 2z + A' + A' - (A' + A') \subseteq A_1 + A_1 + A_2 + A_2$$
@@ -771,16 +771,16 @@ We get a similar bound in $\F_n$ where Behrend's construction offers a comparabl
 
 In $\F_p^n$, we can do much better, even for 3APs.
 
-\begin{nthm}[Ellenberg-Gijswijt, based on Croot-Lev-Pach]
+\begin{thm}[Ellenberg-Gijswijt, based on Croot-Lev-Pach]
   Let $A \subseteq \F_3^n$ be a set containing no nontrivial 3AP. Then $\abs A = O(2.765^n)$.
-\end{nthm}
+\end{thm}
 
 Let $M_n$ be the set of monomials in $X_1, \dots, X_n$ whose degree in each variable is at most $2$. Let $V_n$ be the $\F_3$-vector space generated by $M_n$. For any $d \in [0, 2n]$, write $M_n^d$ for the set of monomials in $M_n$ of total degree at most $d$, and write $V_n^d$ for the corresponding vector space. Set $m_d = \dim V_n^d = \abs{M_n^d}$.
 
-\begin{nlemma}\label{lem:polynomial-diagonal}
+\begin{lem}\label{lem:polynomial-diagonal}
   Let $A \subseteq \F_3^n$ and suppose $P \in V_n^d$ is such that $P(a + a') = 0$ for all $a, a' \in A$ distinct. Then
   $$\abs{\{a \in A \mid P(2a) \ne 0\}} \le 2m_{\frac d2}$$
-\end{nlemma}
+\end{lem}
 \begin{proof}
   Every $P \in V_n^d$ can be written as a linear combination of monomials from $M_n^d$. So
   $$P(x + y) = \sum_{\substack{m, m' \in M_n^d \\ \deg m + \deg m' \le d}} c_{m, m'} m(x)m'(y)$$
@@ -790,9 +790,9 @@ Let $M_n$ be the set of monomials in $X_1, \dots, X_n$ whose degree in each vari
   $$\abs{\{a \in A \mid P(2a) \ne 0\}} = \rank P \le 2m_{\frac d2}$$
 \end{proof}
 
-\begin{nprop}
+\begin{prop}
   Let $A \subseteq \F_3^n$ be a set containing no nontrivial 3AP. Then $\abs A \le 3m_{\frac{2n}3}$.
-\end{nprop}
+\end{prop}
 \begin{proof}
   Let $d \in [1, 2n]$ be an integer to be chosen later. Let $W$ be the subspace of $V_n^d$ that vanish on $2 \cdot A^c$. Clearly,
   $$\dim W \ge \dim V_n^d - \abs{2 \cdot A^c} = m_d - (3^n - \abs A)$$
@@ -809,7 +809,7 @@ Let $M_n$ be the set of monomials in $X_1, \dots, X_n$ whose degree in each vari
 
 We do {\bf not} know of a comparable bound for 4APs. Fourier-analytic techniques also fail.
 
-\begin{nex}
+\begin{eg}
   Recall from Lemma \ref{lem:3AP-estimate} that
   $$\abs{T_3(1_A, 1_A, 1_A) - \alpha^3} \le \sup_{t \ne 0} \abs{\widehat{1_A}(t)}$$
   But it is impossible to bound
@@ -817,16 +817,16 @@ We do {\bf not} know of a comparable bound for 4APs. Fourier-analytic techniques
   by $\sup_{t \ne 0} \abs{\widehat{1_A}(t)}$. Indeed, consider $Q = \{x \in \F_p^n \mid x \cdot x = 0\}$. By Question 2.ii on Example Sheet 1, $\frac{\abs Q}{p^n} = \frac 1p + O(p^{-\frac n2})$ and $\sup_{t \ne 0} \abs{\widehat{1_A}(t)} = O(p^{-\frac n2})$. But, given a 3AP $x, x + d, x + 2d \in Q$, we automatically have $x + 3d \in Q$ because of the following identity:
   $$x \cdot x - 3(x + d) \cdot (x + d) + 3(x + 2d) \cdot (x + 2d) - (x + 3d) \cdot (x + 3d)$$
   So $T_4(1_A, 1_A, 1_A, 1_A) = T_3(1_A, 1_A, 1_A) = \alpha^3 + o(1)$ by Lemma \ref{lem:3AP-estimate}.
-\end{nex}
+\end{eg}
 
-\begin{ndef}
+\begin{dfn}
   Given $g : G \to \C$ with $G$ finite abelian, define its {\bf $U^2$-norm} by the formula
   $$\norm f_{U^2}^4 = \E_{x, a, b} f(x) \overline{f(x + a) f(x + b)} f(x + a + b)$$
-\end{ndef}
+\end{dfn}
 
 Question 3.i on Example Sheet 1 showed that $\norm f_{U^2} = \norm{\hat f}_{\ell^4}$, so this is indeed a norm. Question 3.ii asserted the following.
 
-\begin{nlemma}\label{lem:t3-le-u2}
+\begin{lem}\label{lem:t3-le-u2}
   Let $f_1, f_2, f_3 : G \to \C$. Then
   \begin{align*}
     \abs{T_3(f_1, f_2, f_3)} \le
@@ -841,7 +841,7 @@ Question 3.i on Example Sheet 1 showed that $\norm f_{U^2} = \norm{\hat f}_{\ell
     & \norm{f_1}_\infty \norm{f_2}_{U^2} \norm{f_3}_\infty, \\
     & \norm{f_1}_\infty \norm{f_2}_\infty \norm{f_3}_{U^2}
   \end{align*}
-\end{nlemma}
+\end{lem}
 
 Note that
 $$\sup_\gamma \abs{\hat f(\gamma)}^4 \le \sum_\gamma \abs{\hat f(\gamma)}^4 \le \sup_\gamma \abs{\hat f(\gamma)}^2 \sum_\gamma \abs{\hat f(\gamma)}^2$$
@@ -858,15 +858,15 @@ by Lemma \ref{lem:t3-le-u2}.
 
 It remains to show that if $\norm{f_A}_{U^2}$ is not too small then there exists a subspace $V \le \F_p^n$ of bounded codimension on which $A$ has increased density.
 
-\begin{nthm}[$U^2$ inverse theorem]
+\begin{thm}[$U^2$ inverse theorem]
   Let $f : \F_p^n \to \C$ satisfy $\norm f_\infty \le 1$ and $\norm f_{U^2} \ge \delta$ for some $\delta > 0$. Then there exists $b$ such that $\abs{\E_x f(x) \omega^{x \cdot b}} \ge \delta^2$. \\
   In other words, $\abs{\inn f\phi} \ge \delta^2$ for $\phi(x) = \omega^{x \cdot b}$ and we say that "$f$ correlates with a linear function".
-\end{nthm}
+\end{thm}
 \begin{proof}
   We have seen that $\norm f_{U^2}^2 \le \norm{\hat f}_\infty \norm f_2 \le \norm{\hat f}_\infty$. So $\delta^2 \le \norm{\hat f}_\infty = \abs{\E_x f(x) \omega^{x \cdot n}}$ for some $b$.
 \end{proof}
 
-\begin{ndef}
+\begin{dfn}
   Given $f : G \to \C$ with $G$ finite abelian, define its {\bf $U^3$-norm} by
   \begin{align*}
     \norm f_{U^3}^8
@@ -874,21 +874,21 @@ It remains to show that if $\norm{f_A}_{U^2}$ is not too small then there exists
     & f(x + a + b) f(x + a + c) f(x + b + c) \overline{f(x + a + b + c)} \\
     = & \E_{x, h_1, h_2, h_3} \prod_{\eps \in \{0, 1\}^3} \mathrm{conj}^{\abs\eps} f(x + \eps \cdot h)
   \end{align*}
-\end{ndef}
+\end{dfn}
 
 It is easy to verify that $\norm f_{U^3}^8 = \E_h \norm{\Delta_h f}_{U^2}^4$ where $\Delta_h f(x) = f(x) \overline{f(x + h)}$.
 
-\begin{ndef}
+\begin{dfn}
   Given functions $f_\eps : G \to \C$ for $\eps \in \{0, 1\}^3$, define the {\bf Gowers $U^3$-inner product} by
   $$\langle f\rangle_{U^3} = \E_h \norm{\Delta_h f}_{U^2}^4$$
-\end{ndef}
+\end{dfn}
 
 Observe that $\langle f, \dots, f\rangle_{U^3} = \norm f_{U^3}^8$.
 
-\begin{nlemma}[Gowers-Cauchy-Schwarz]
+\begin{lem}[Gowers-Cauchy-Schwarz]
   Given $f_\eps : G \to \C$ for $\eps \in \{0, 1\}^3$,
   $$\abs{\langle f\rangle_{U^3}} \le \prod_\eps \norm{f_\eps}_{U^3}$$
-\end{nlemma}
+\end{lem}
 \begin{proof}
   See Example Sheet 3.
 \end{proof}
@@ -898,10 +898,10 @@ Setting $f_\eps = \begin{cases}
   1 & \text{ if } \eps_0 = 1
 \end{cases}$, the LHS equals $\norm f_{U^2}^4$. Hence $\norm f_{U^2} \le \norm f_{U^3}$.
 
-\begin{nprop}\label{prop:t4-le-u3}
+\begin{prop}\label{prop:t4-le-u3}
   Let $f : G \to \C$ with $\norm f_\infty \le 1$. Then
   $$\abs{T_4(f, f, f, f)} \le \norm f_{U^3}$$
-\end{nprop}
+\end{prop}
 \begin{proof}
   Reparametrising, we have
   \begin{align*}
@@ -938,9 +938,9 @@ Setting $f_\eps = \begin{cases}
 
 One might hope to generalise Meshulam's theorem (Theorem \ref{thm:meshulam}) as follows.
 
-\begin{nthm}[Szemerédi for 4APs]
+\begin{thm}[Szemerédi for 4APs]
   Let $A \subseteq \F_p^n$ be a set containing no nontrivial 4APs. Then $\abs A = o(p^n)$.
-\end{nthm}
+\end{thm}
 \begin{idea}
   By Proposition \ref{prop:t4-le-u3} with $f = f_A = 1_A - \alpha$,
   $$T_4(1_A, 1_A, 1_A, 1_A) - \alpha^4 = T_4(f_A, f_A, f_A, f_A) + \underbrace{\dots + \dots + \dots}_{\text{controlled by } \norm{f_A}_{U^2}} + \underbrace{\dots + \dots + \dots}_{\text{explicit}}$$
@@ -951,35 +951,35 @@ One might hope to generalise Meshulam's theorem (Theorem \ref{thm:meshulam}) as 
 
 What can we say about functions whose $U^3$-norm is large?
 
-\begin{nex}
+\begin{eg}
   Let $M$ be a $n \times n$ matrix with entries in $\F_p$. Then $f(x) = \omega^{x^\perp M x}$ satisfies $\norm f_{U^3} = 1$.
-\end{nex}
+\end{eg}
 
-\begin{nthm}[$U^3$ inverse theorem]
+\begin{thm}[$U^3$ inverse theorem]
   Let $f : \F_p^n \to \C$ satisfying $\norm f_\infty \le 1$ and $\norm f_{U^3} \ge \delta$ for some $\delta > 0$. Then there exists a symmetric matrix $M$ with entries in $\F_p$ and $b \in \F_p^n$ such that
   $$\abs{\E_x f(x) \omega^{x^\perp M x + b^\perp x}} \ge c_p(\delta)$$
   where $c_p$ is a polynomial. \\
   In other words, $\abs{\langle f, \phi\rangle} \ge c_p(\delta)$ for $\phi(x) = \omega^{x^\perp M x + b^\perp x}$ and we say that "$f$ correlates with a quadratic phase function".
-\end{nthm}
+\end{thm}
 \begin{proof}[Proof sketch]
   Suppose $\norm f_{U^3} \ge \delta$.
 
   {\bf Step 1: "Weak linearity"} \\
   If $\norm f_{U^3}^8 = \E_h \norm{\Delta_h f}_{U^2}^4 \ge \delta^8$, then for at least a $\frac{\delta^8}2$-proportion of $h \in \F_p^n$ we have $\norm{\Delta_h f}_{U^2}^4 \ge \frac{\delta^8}2$. For each such $f$, there exists $t_h$ such that $\abs{\widehat{\Delta_h}f(t_h)} \ge \frac{\delta^8}2$. Working a tiny bit harder, one can obtain the following.
 
-  \begin{nprop}\label{prop:weak-linearity}
+  \begin{prop}\label{prop:weak-linearity}
     Let $f : \F_p^n \to \C$ satisfy $\norm f_\infty \le 1$ and $\norm f_{U^3} \ge \delta$ for some $\delta > 0$. Suppose that $\abs{\F_p^n} = \Omega_\delta(1)$. Then there exists $S \subseteq \F_p^n$ of density $\Omega_\delta(1)$ and a function $\phi : S \to \F_p^n$ such that
     \begin{enumerate}
       \item $\abs{\widehat{\Delta_h}f(\phi(h))} = \Omega_\delta(1)$
       \item There are at least $\Omega_\delta(\abs{\F_p^n}^2)$ additive quadruples $(s_1, s_2, s_3, s_4) \in S^4$ (namely $s_1 + s_2 = s_3 + s_4$) such that $\phi(s_1) + \phi(s_2) = \phi(s_3) + \phi(s_4)$.
     \end{enumerate}
-  \end{nprop}
+  \end{prop}
 
   {\bf Step 2: "Strong linearity"} \\
   If $S$ and $\phi$ are as above, then there is an affine map $\psi : \F_p^n \to \widehat{\F_p^n}$ which coincides with $\phi$ for many elements of $S$. More precisely,
-  \begin{nprop}
+  \begin{prop}
     Let $S$ and $\phi$ be given by Proposition \ref{prop:weak-linearity}. Then there exists a $n \times n$ matrix with entries in $\F_p$ and $b \in \F_p^n$ such that the map $\psi : \F_p^n \to \widehat{\F_p^n}$ satisfies $\psi(x) = \phi(x)$ for $\Omega_\delta(\abs{\F_p^n})$ elements $x$ of $S$
-  \end{nprop}
+  \end{prop}
   \begin{proof}
     Consider the graph $\Gamma = \{(h, \phi(h)) \mid h \in S\} \subseteq \F_p^n \times \widehat{\F_p^n}$. By Proposition \ref{prop:weak-linearity}, $\Gamma$ has $\Omega_\delta(\abs{\F_p^n})$ additive quadruples. By Balog-Szemerédi-Gowers (Theorem \ref{thm:bsg}), there exists $\Gamma' \subseteq \Gamma$ with $\abs{\Gamma'} = \Omega_\delta(\abs\Gamma) = \Omega_\delta(\abs{\F_p^n})$ and $\abs{\Gamma' + \Gamma'} = O_\delta(\abs{\Gamma'})$. Denote by $\pi : \F_p^n \times \widehat{\F_p^n} \to \F_p^n$ the projection onto the first factor. Define $S' = \pi(\Gamma')$ and note that $\abs{S'} = \abs{\Gamma'} = \Omega_\delta(\abs{\F_p^n})$. By Freiman-Ruzsa (Theorem \ref{thm:freiman-ruzsa}) applied to $\Gamma' \subseteq \F_p^n \times \widehat{\F_p^n}$, there exists a subspace $H \le \F_p^n \times \widehat{\F_p^n}$ with $\abs H = \Omega_\delta(\abs{\Gamma'}) = \Omega_\delta(\abs{\F_p^n})$ such that $\Gamma' \subseteq H$. By construction, $S' \subseteq \pi(H)$. Moreover,
     $$\abs{\ker \pi\restriction_H} = \frac{\abs H}{\abs{\pi(H)}} = \frac{O_\delta(\abs{\F_p^n})}{\abs{S'}} = O_\delta(1)$$
@@ -992,9 +992,9 @@ What can we say about functions whose $U^3$-norm is large?
   Having obtained $\psi(x) = Mx + b$ for some matrix $M$ and vector $b$ such that $(h, Mh + b) \in \Gamma''$ for all $h \in S''$, we need to turn $M$ into a symmetric matrix in preparation of Step 4.
 
   {\bf Step 4: "Integrating"}
-  \begin{nprop}
+  \begin{prop}
     Suppose $f, M, b$ are as in Step 3 and $\E_h \abs{\widehat{\Delta_h}f(Mh + b)}^2 = \Omega_\delta(1)$. If $p > 2$, then there exists $b' \in \F_p^n$ such that $\E_x f(x) \omega^{x^T\frac{M + M^T}2 x + b'^T x} = \Omega_\delta(1)$.
-  \end{nprop}
+  \end{prop}
   \begin{proof}
     See Example Sheet 3.
   \end{proof}
