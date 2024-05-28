@@ -1,6 +1,6 @@
 {
   "Anki note": {
-    "scope": "latex"
+    "scope": "latex",
 		"prefix": "anki",
 		"body": [
       "\\begin{note}",
@@ -15,49 +15,93 @@
 		"description": "Anki note"
 	},
   "Definition": {
-    "scope": "latex"
-		"prefix": "def",
+    "scope": "latex",
+		"prefix": "dfn",
 		"body": [
-      "\\begin{defi}",
+      "\\begin{dfn}",
       "  $1",
-      "\\end{defi}"
+      "\\end{dfn}"
 		],
 		"description": "Definition"
-	}
+	},
   "Theorem": {
-    "scope": "latex"
+    "scope": "latex",
 		"prefix": "thm",
 		"body": [
-      "\\begin{nthm}",
+      "\\begin{thm}",
       "  $1",
-      "\\end{nthm}"
-      "\\begin{proof}",
-      "  $2",
-      "\\end{proof}"
+      "\\end{thm}"
 		],
-		"description": "Theorem and proof"
+		"description": "Theorem"
 	},
   "Lemma": {
-    "scope": "latex"
-		"prefix": "lemma",
+    "scope": "latex",
+		"prefix": "lem",
 		"body": [
-      "\\begin{nlemma}",
+      "\\begin{lem}",
       "  $1",
-      "\\end{nlemma}"
-      "\\begin{proof}",
-      "  $2",
-      "\\end{proof}"
+      "\\end{lem}"
 		],
-		"description": "Lemma and proof"
+		"description": "Lemma"
   },
+  "Proposition": {
+    "scope": "latex",
+		"prefix": "prop",
+		"body": [
+      "\\begin{prop}",
+      "  $1",
+      "\\end{prop}",
+		],
+		"description": "Proposition"
+  },
+  "Proof": {
+    "scope": "latex",
+		"prefix": "proof",
+		"body": [
+      "\\begin{proof}",
+      "  $1",
+      "\\end{proof}",
+		],
+		"description": "Proof"
+  },
+  "Conjecture": {
+    "scope": "latex",
+		"prefix": "conj",
+		"body": [
+      "\\begin{conj}",
+      "  $1",
+      "\\end{conj}"
+		],
+		"description": "Conjecture"
+	},
+  "Remark": {
+    "scope": "latex",
+		"prefix": "rmk",
+		"body": [
+      "\\begin{rmk}",
+      "  $1",
+      "\\end{rmk}"
+		],
+		"description": "Remark"
+	},
+  "Remarks": {
+    "scope": "latex",
+		"prefix": "rmks",
+		"body": [
+      "\\begin{rmks}",
+      "  $1",
+      "\\end{rmks}"
+		],
+		"description": "Remarks"
+	},
   "Finite field": {
-    "scope": "latex"
+    "scope": "latex",
     "prefix": "ff",
     "body": ["\\F_p^n"],
     "description": "Finite field notation"
 	},
   "Brackets": {
-    "scope": "latex"
+    "scope": "latex",
     "prefix": "\bra",
     "body": ["\\left($1\\right)"],
     "description": "Brackets"
