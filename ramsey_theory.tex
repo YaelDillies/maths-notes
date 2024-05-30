@@ -65,7 +65,7 @@ $R(\ell, k) = R(k, \ell)$. By convention, we will usually assume $\ell \le k$.
   \end{itemize}
 \end{eg}
 
-\section{Old bounds on \texorpdfstring{$R(k)$}{R(k)}}
+\section{Old bounds on \texorpdfstring{$R(\ell, k)$}{R(l, k)}}
 
 \begin{thm}[Erd\H os-Szekeres, 1935]
   $$R(\ell, k) \le \binom{k + \ell - 2}{\ell - 1}$$
@@ -179,7 +179,7 @@ $$R(3, k) \le \binom{k + 1}2 \le (k + 1)^2$$
 \end{proof}
 \begin{rmk}
   The values of $n$ and $p$ come from the constraints
-  $$n^3p^3 \ll n, \quad p^{-1}\log p^{-1} \ll k$$
+  $$n^3p^3 \ll n, \quad \frac{\log n}k \ll p$$
 \end{rmk}
 
 We are being wasteful here. Why throw an entire vertex away when we could get away with removing a single edge? Because we might accidentally create an independent set of size $k$. But we can be smarter...
@@ -301,7 +301,7 @@ The probabilistic method is like finding the hay in the hay stack. What if we wa
 \end{thm}
 
 \begin{thm}[Spencer]
-  $$R(k) \ge (1 + o(1)) \frac{\sqrt 2k}e 2^{\frac k2}$$
+  $$R(k) \ge (1 - o(1)) \frac{\sqrt 2k}e 2^{\frac k2}$$
 \end{thm}
 \begin{proof}
   Let $n = (1 - \eps)\frac{\sqrt 2k}e2^{\frac k2}$ for some $\eps > 0$. Let $\chi$ be a random edge-coloring of $K_n$ uniformly over all colorings. Define, for $S \in [n]^{(k)}$, the event
@@ -311,7 +311,7 @@ The probabilistic method is like finding the hay in the hay stack. What if we wa
   The maximum degree of $\Gamma$ Is
   $$\Delta = \sum_{t = 2}^{k - 1}\binom kt\binom{n - k}{k - t} = \binom nk - k\binom{n - k}{k - 1} - \binom{n - k}k - 1$$
   To apply the Local Lemma, we just check
-  $$\P(A_S) = 2^{-\frac k2 + 1} \le \frac 1{e(\Delta + 1)}$$
+  $$\P(A_S) = 2^{-\binom k2 + 1} \le \frac 1{e(\Delta + 1)}$$
 \end{proof}
 
 \begin{thm}[Lopsided Local Lemma]
@@ -326,72 +326,76 @@ The probabilistic method is like finding the hay in the hay stack. What if we wa
   for some $c > 0$.
 \end{thm}
 \begin{proof}
-  Let $n = \eps^4\left(\frac k{\log k}\right)^2, p = \frac\eps{\sqrt n} = \frac{\log k}{\eps k}, G \sim G(n, p)$. For all $T \in [n]^{(3)}$ and $I \in [n]^{(k)}$, define $A_T = \{T \subseteq G\}$ and $B_I = \{I \text{ independent in }B\}$. We want
+  Let $n = \eps^4\left(\frac k{\log k}\right)^2, p = \frac\eps{\sqrt n} = \frac{\log k}{\eps k}, G \sim G(n, p)$. For all $T \in [n]^{(3)}$ and $I \in [n]^{(k)}$, define $A_T = \{T \subseteq G\}$ and $B_I = \{I \subseteq G^c\}$. We want
   $$\P\left(\Inter_{T \in [n]^{(3)}} A_T^c \inter \Inter_{I \in [n]^{(k)}} B_I^c\right) > 0$$
-  Let $\mathcal A = \{A_T\}, \mathcal B = \{B_I\}$. Define $\Gamma$ so that \begin{align*}
+  Define the dependency graph $\Gamma$ by
+  \begin{align*}
     T \sim T' & \iff \abs{T \inter T'} = 2 \\
     T \sim I & \iff 2 \le \abs{I \inter T} \\
     I \sim I' & \iff 2 \le \abs{I \inter I'} < k
   \end{align*}
-  $A_T$ has at most $3n$ neighbors in $\mathcal A$ and $3n^{k - 2}$ neighbors in $\mathcal B$. $B_I$ has at most $k^2n$ neighbors in $\mathcal A$ and $k^2n^{k - 2}$ neighbors in $\mathcal B$. We now define $x_T = 3p^3, x_I = n^{-k}$. We have check
+  We see that
+  \begin{align*}
+    \#\{T' \in [n]^{(3)} \mid T' \sim T\} \le 3n & , \#\{I \in [n]^{(k)} \mid I \sim T\} \le 3n^{k - 2} \\
+    \#\{T \in [n]^{(3)} \mid T \sim I\} \le k^2n & , \#\{I' \in [n]^{(k)} \mid I' \sim I\} \le k^2n^{k - 2}
+  \end{align*}
+  We therefore check that
   \begin{enumerate}
-    \item $p^3 = \P(A_T) \le x_T \prod_{\abs{T \inter T'} = 2} (1 - x_T) \prod_{\abs{I \inter T} \ge 2} (1 - x_I) = 3p^3 (1 - 3p^3)^{3n}(1 - n^{-k})^{3n^{k - 2}}$
-    Indeed,
-    $$(1 - 3p^3)^{3n}(1 - n^{-k})^{3n^{k - 2}} \ge \exp(-18p^3n - 6n^{-2}) = \exp(-18\eps^2 p - 6n^{-2}) \to 1$$
+    \item $\P(A_T) \le x_T \prod_{T' \sim T} (1 - x_{T'}) \prod_{I \sim T} (1 - x_I)$. Indeed,
+      \begin{align*}
+        \lhs & = p^3 \\
+        \rhs & \ge 3p^3 (1 - 3p^3)^{3n}(1 - n^{-k})^{3n^{k - 2}}
+      \end{align*}
+      and, using $1 - x \ge e^{-2x}$ for small enough $x$,
+      $$(1 - 3p^3)^{3n}(1 - n^{-k})^{3n^{k - 2}} \ge \exp(-18p^3n - 6n^{-2}) = \exp(-18\eps^2 p - 6n^{-2}) \to 1$$
 
 \newlec
 
-    \item $(1 - p)^{\binom k2} = \P(B_I) \le x_I \prod_{\abs{T \inter I} \ge 2}(1 - x_T) \prod_{2 \le \abs{I \inter I'} < k} (1 - x_{I'}) = n^{-k}(1 - n^{-k})^{k^2k^{k - 2}}(1 - 3p^3)^{k^2n}$
-    \begin{align*}
-      n^{-k}(1 - n^{-k})^{k^2n^{k - 2}}(1 - 3p^3)^{k^2n}
-      & \ge \exp(-k\log n - 2k^2n^{-2} - 6k^2p^3n) \\
-      & \ge \exp(-2k\log k - 6k^2p\eps^2 + o(1)) \\
-      & \ge \exp\left(-\frac{k\log k}{4\eps} + o(1)\right) \\
-      & \ge \exp\left(-p\binom k2\right) \\
-      & \ge (1 - p)^{\binom k2}
-    \end{align*}
+    \item $\P(B_I) \le x_I \prod_{T \sim I}(1 - x_T) \prod_{I' \sim I} (1 - x_{I'})$. Indeed,
+      \begin{align*}
+        \lhs & = (1 - p)^{\binom k2} \\
+        \rhs & = n^{-k}(1 - n^{-k})^{k^2n^{k - 2}}(1 - 3p^3)^{k^2n}
+      \end{align*}
+      and, using $1 - x \ge e^{-2x}$ for small enough $x$,
+      \begin{align*}
+        \log\rhs
+        & \ge -k\log n - 2k^2n^{-2} - 6k^2p^3n \\
+        & \ge -2k\log k - 6k^2p\eps^2 + o(1) \\
+        & \ge -\frac{k\log k}{4\eps} + o(1) \\
+        & \ge -p\binom k2 \\
+        & \ge \log\lhs
+      \end{align*}
   \end{enumerate}
 \end{proof}
 
 \begin{proof}[Proof of the Local Lemma]
   Applying $\P(A \inter B) = \P(A) \P(B \mid A)$ repeatedly, write
   \begin{align*}
-    \P\left(\Inter_{i = 1}^n A_i\right)
+    \P\left(\Inter_{i = 1}^n A_i^c\right)
     & = \prod_{i = 1}^n \P(A_i^c \mid A_1^c \inter \dots \inter A_{i - 1}^c) \\
     & = \prod_{i = 1}^n (1 - \P(A_i \mid A_1^c \inter \dots \inter A_{i - 1}^c))
   \end{align*}
   It is enough to show that $\P(A_i \mid A_1^c \inter \dots \inter A_{i - 1}^c) \le x_i$. We prove
-  $$\P(A_i \mid \Inter_{j \in S} A_j^c)$$
+  $$\P(A_i \mid \Inter_{j \in S} A_j^c) \le x_i$$
   for all $S \subseteq [n]$ by induction:
   \begin{itemize}
     \item $S = \emptyset$. Done by assumption.
     \item Write
     $$I = \Inter_{\substack{j \in S \\ j \not\sim i}} A_j^c, D = \Inter_{\substack{j \in S \\ j \sim i}} A_j^c$$
     So
-    \begin{align*}
-      \P(A_i \mid I \inter D)
-      & = \frac{\P(A_i \inter I \inter D)}{\P(I \inter D)} \\
-      & \le \frac{\P(A_i \inter I)}{\P(I \inter D)} \\
-      & = \frac{\P(A_i)\P(I)}{\P(I \inter D)} \\
-      & = \frac{\P(A_i)}{\P(D \mid I)}
-    \end{align*}
+    $$\P(A_i \mid I \inter D) = \frac{\P(A_i \inter I \inter D)}{\P(I \inter D)} \le \frac{\P(A_i \inter I)}{\P(I \inter D)} = \frac{\P(A_i)\P(I)}{\P(I \inter D)} = \frac{\P(A_i)}{\P(D \mid I)}$$
     Now, write $D = A_{i_1}^c \inter \dots \inter A_{i_m}^c$ and
-    \begin{align*}
-    \P(D \mid I)
-    & = \prod_{j = 1}^m (1 - \P(A_{i_j} \mid I \inter A_{i_1}^c \inter \dots \inter A_{i_{j - 1}}^c)) \\
-    & \ge \prod_{j = 1}^m (1 - x_{i_j}) \\
-    & \ge \prod_{j \sim i} (1 - x_j)
-    \end{align*}
+    $$\P(D \mid I) = \prod_{j = 1}^m (1 - \P(A_{i_j} \mid I \inter A_{i_1}^c \inter \dots \inter A_{i_{j - 1}}^c)) \ge \prod_{j = 1}^m (1 - x_{i_j}) \ge \prod_{j \sim i} (1 - x_j)$$
   \end{itemize}
 \end{proof}
 
 \begin{thm}[Lovasz Local Lemma, symmetric version]
-  For $\mathcal F = \{A_1, \dots, A_n\}$, $\Gamma$ a dependency graph with maximum degree $\Delta$, if $\P(A_i) \le \frac 1{\Delta + 1}$ for all $i$, then
+  For $\mathcal F = \{A_1, \dots, A_n\}$, $\Gamma$ a dependency graph with maximum degree $\Delta$, if $\P(A_i) \le \frac 1{e(\Delta + 1)}$ for all $i$, then
   $$\P\left(\Inter_i A_i^c\right) \ge \left(1 - \frac 1{e(\Delta + 1)}\right)^n > 0$$
 \end{thm}
 \begin{proof}
   We use the Lopsided Local Lemma with $x_i = \frac 1{e(\Delta + 1)}$. Note
-  $$x_i \prod_{j \sim i} = \frac 1{\Delta + 1}\left(1 - \frac 1{\Delta + 1}\right)^\Delta \ge \frac 1{e(\Delta + 1)} \ge \P(A_i)$$
+  $$x_i \prod_{j \sim i} (1 - x_j) \ge \frac 1{\Delta + 1}\left(1 - \frac 1{\Delta + 1}\right)^\Delta \ge \frac 1{e(\Delta + 1)} \ge \P(A_i)$$
   So Lopsided Local Lemma applies.
 \end{proof}
 
@@ -420,7 +424,7 @@ $$\frac{ck^2}{(\log k)^2} \le R(3, k) \le (k + 1)^2$$
 \end{thm}
 
 \begin{rmk}
-  For general graphs, we know $\alpha(G) \ge \frac n{\chi(G)} \ge \frac n{d + 1}$ by the naïve greedy algorithm and this is basically best possible. The extra $\log d$ factor will come from tracking how sparse our graph is becoming as we remove vertices from it.
+  For general graphs, we know $\alpha(G) \ge \frac n{\chi(G)} \ge \frac n{\Delta + 1}$ by the naïve greedy algorithm and this is basically best possible. The extra $\log d$ factor will come from tracking how sparse our graph is becoming as we remove vertices from it.
 \end{rmk}
 
 We apply a random greedy algorithm to prove the following theorem due to Shearer.
@@ -439,7 +443,7 @@ extending continuously to $[0, 1]$ by $f(0) = 1, f(1) = \frac 12$. We remark tha
 \begin{thm}[Shearer]
   Let $G$ be a triangle-free graph on $n$ vertices with average degree $d > 0$.
   Then
-  $$\alpha(G) \ge nf(d) \ge (1 + o(1)) \frac n\Delta \log\Delta$$
+  $$\alpha(G) \ge nf(d) \ge (1 - o(1)) \frac n\Delta \log\Delta$$
 \end{thm}
 \begin{proof}
   Induction on $n$.
@@ -449,8 +453,8 @@ extending continuously to $[0, 1]$ by $f(0) = 1, f(1) = \frac 12$. We remark tha
     \alpha(G)
     & \ge 1 + \alpha(G') \\
     & \ge 1 + (n - \deg x - 1)f(d') \\
-    & \ge 1 + (n - \deg x - 1)(f(d) + (d - d')f'(d)) \\
-    & = nf(d) + 1 - (\deg x + 1)f(d) + (d\deg x + d + n(d - d') - d'\deg x - d')f'(d) \\
+    & \ge 1 + (n - \deg x - 1)(f(d) + (d' - d)f'(d)) \\
+    & = nf(d) + 1 - (\deg x + 1)f(d) + (d\deg x + d + n(d' - d) - d'\deg x - d')f'(d) \\
     & = nf(d) + 1 - (\deg x + 1)f(d) + \left(d\deg x + d - 2\sum_{y \sim x} \deg y\right)f'(d)
   \end{align*}
   where we used that $N(x)$ is an independent set to get that
@@ -468,16 +472,18 @@ extending continuously to $[0, 1]$ by $f(0) = 1, f(1) = \frac 12$. We remark tha
     \E_x \rhs & = 1 + (d^2 + d - 2\E_x\sum_{y \sim x} \deg y)f'(d)
   \end{align*}
   Notice that
-  $$\E_x\sum_{y \sim x} \deg y = \frac 1n \sum x\sum_{y \sim x} \deg y = \frac 1n \sum_x \deg x^2 \ge \left(\frac 1n\sum_x \deg x\right)^2$$
+  $$\E_x\sum_{y \sim x} \deg y = \frac 1n \sum_x\sum_{y \sim x} \deg y = \frac 1n \sum_x \deg x^2 \ge \left(\frac 1n\sum_x \deg x\right)^2$$
   Since $f'(d) \le 0$, we get
   $$\E_x \rhs \ge 1 + (d^2 + d - 2d^2)f'(d) = 1 + (d - d^2)f'(d) = (d + 1)f(d) = \E_x \lhs$$
   So such $x$ exists.
 \end{proof}
 
 \begin{proof}[Proof of the AKS bound using Shearer]
-  Let $G$ be a graph on $n$ vertices with neither a triangle nor an independent set of size $k$. By triangle freeness, the maximum degree $\Delta$ is strictly less than $k$. By AKS, there is an independent set of size $(1 + o(1))\frac nk \log k$. So
-  $$(1 + o(1))\frac nk \log k \le \alpha(G) < k$$
-  So $n \le (1 + o(1)) \frac{k^2}{\log k}$
+  Let $G$ be a graph on $n$ vertices with neither a triangle nor an independent set of size $k$. We have
+  $$d \le \Delta \le \alpha(G) < k$$
+  where the middle inequality holds by triangle freeness. Hence Shearer says
+  $$k > \alpha(G) \ge \frac nd \log d \ge \frac nk \log k$$
+  And $n \le \frac{k^2}{\log k}$ as wanted.
 \end{proof}
 
 \newlec
@@ -492,14 +498,8 @@ extending continuously to $[0, 1]$ by $f(0) = 1, f(1) = \frac 12$. We remark tha
   So
   $$\sum_v \E_I X_v \le 2d \E_I \abs I$$
   So we want to show that $\E_I X_v \ge c \log d$ for all $v$. \\
-  Let $G' = G - v - N(v)$, find $J$ an independent set in $G'$ minimising $\E_I[X_v \mid I \setminus (N(v) \union \{v\})]$ and let $F = \{w \in N(v) \mid N(w) \inter J = \emptyset\}$ and $t = \abs F$. Note carefully that $I \inter (F \union \{v\})$ is uniform over all independent sets in $G[F \union {v}]$, and that the independent sets of $G[F \union {v}]$ are exactly $\{v\}$ and the $2^t$ subsets of $F$. Hence
-  \begin{align*}
-    \E_I X_v
-    & \ge \E_I[X_v \mid I \setminus (N(v) \union \{v\}) = J] \\
-    & = \E_{I \subseteq F \union \{v\}} X_v \\
-    & = \frac 1{2^t + 1}d + \frac{2^t}{2^t + 1}\frac t2 \\
-    & \ge c \log d
-  \end{align*}
+  Let $G' = G - v - N(v)$, find $J$ an independent set in $G'$ minimising $\E_I[X_v \mid I \setminus (N(v) \union \{v\}) = J]$ and let $F = \{w \in N(v) \mid N(w) \inter J = \emptyset\}$ and $t = \abs F$. Note carefully that $I \inter (F \union \{v\})$ is uniform over all independent sets in $G[F \union {v}]$, and that the independent sets of $G[F \union {v}]$ are exactly $\{v\}$ and the $2^t$ subsets of $F$. Hence
+  $$\E_I X_v \ge \E_{I \setminus (N(v) \union \{v\}) = J} X_v = \E_{I \subseteq F \union \{v\}} X_v = \frac 1{2^t + 1}d + \frac{2^t}{2^t + 1}\frac t2 \ge c \log d$$
   for some $c > 0$ by optimising over $t$.
 \end{proof}
 
@@ -512,7 +512,7 @@ We have seen that the power of $k$ is correct for $\ell = 3$. As of recently, we
 
 \clearpage
 
-\section{Hypergraph Ramsey Numbers}
+\section{3-uniform hypergraph Ramsey numbers}
 
 We define $K_n^{(r)}$ to be the {\bf complete $r$-uniform hypergraph} on $n$ vertices. The {\bf $r$-uniform hypergraph Ramsey number} $R^{(r)}(\ell, k)$ is the minimal $n$ such that every edge coloring of $K_n^{(r)}$ contains either a blue $K_\ell^{(r)}$ or a red $K_k^{(r)}$. As before, the {\bf hypergraph diagonal Ramsey number} is $R^{(r)}(k) = R^{(r)}(k, k)$.
 
@@ -535,7 +535,7 @@ We define $K_n^{(r)}$ to be the {\bf complete $r$-uniform hypergraph} on $n$ ver
 
 \clearpage
 
-\subsection{Off-diagonal \texorpdfstring{$3$}{3}-uniform hypergraph Ramsey}
+\subsection{Off-diagonal}
 
 \newlec
 
@@ -590,8 +590,6 @@ The idea now is that our adversary wants to reply ``red'' most of the time, so w
   if we pick $c$ large enough.
 \end{proof}
 
-\newlec
-
 What about lower bounds? Let's try the probabilistic method.
 
 Color triples blue with probability $p$.
@@ -599,6 +597,8 @@ $$\bbE\left[\#\text{red }K_k^{(3)}\right] = \binom nk (1 - p)^{\binom k3} \le \l
 This is nontrivial if $p \gg \frac 1{k^2}$. Then
 $$\bbE\left[\#\text{blue }K_4^{(3)}\right] = \binom n4 p^4 \ge \left(\frac n4\right)^4 \gg \left(\frac n{k^2}\right)^4$$
 So the (naïve) probabilistic approach looks useless for anything better than polynomial in $k$.
+
+\newlec
 
 \begin{thm}
   $$R^{(3)}(4, k) \ge 2^{\frac{k - 1}2}$$
