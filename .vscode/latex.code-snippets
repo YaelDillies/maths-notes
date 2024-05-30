@@ -1,19 +1,4 @@
 {
-  "Anki note": {
-    "scope": "latex",
-		"prefix": "anki",
-		"body": [
-      "\\begin{note}",
-      "  \\tags{${3:Tags}}",
-      "  \\xplain{${4:Label}}",
-      "  \\xfield{${1:Front}}",
-      "  \\begin{field}",
-      "    ${2:Back}",
-      "  \\end{field}",
-      "\\end{note}"
-		],
-		"description": "Anki note"
-	},
   "Definition": {
     "scope": "latex",
 		"prefix": "dfn",
@@ -93,6 +78,41 @@
       "\\end{rmks}"
 		],
 		"description": "Remarks"
+	},
+  "Claim": {
+    "scope": "latex",
+		"prefix": "claim",
+		"body": [
+      "\\begin{claim}",
+      "  $1",
+      "\\end{claim}"
+		],
+		"description": "Claim"
+	},
+  "Idea": {
+    "scope": "latex",
+		"prefix": "idea",
+		"body": [
+      "\\begin{idea}",
+      "  $1",
+      "\\end{idea}"
+		],
+		"description": "Idea"
+	},
+  "Anki note": {
+    "scope": "latex",
+		"prefix": "anki",
+		"body": [
+      "\\begin{note}",
+      "  \\tags{${3:Tags}}",
+      "  \\xplain{${4:Label}}",
+      "  \\xfield{${1:Front}}",
+      "  \\begin{field}",
+      "    ${2:Back}",
+      "  \\end{field}",
+      "\\end{note}"
+		],
+		"description": "Anki note"
 	},
   "Finite field": {
     "scope": "latex",
