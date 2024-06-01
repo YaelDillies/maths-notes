@@ -543,7 +543,7 @@ Erd\H os-Rado gives
 $$R^{(3)}(4, k) \le 2^{ck^4}$$
 
 \begin{thm}[Conlon, Fox, Sudakov, 2010]
-  $$R^{(3)}(4, k) \le 2^{ck^2}$$
+  $$R^{(3)}(4, k) \le k^{ck^2}$$
 \end{thm}
 
 Erd\H os-Rado makes us shrink our world by a factor of $2$ at every query. Can we ask fewer questions? This suggests the following game.
@@ -570,7 +570,7 @@ Erd\H os-Rado makes us shrink our world by a factor of $2$ at every query. Can w
 
 The idea now is that our adversary wants to reply ``red'' most of the time, so we're willing to shrink our world much more when they reply ``blue''.
 
-\begin{proof}[Proof that $R^{(3)}(4, k) \le 3^{ck^2}$]
+\begin{proof}[Proof that $R^{(3)}(4, k) \le k^{ck^2}$]
   The proof follows the proof of Erd\H os-Rado but we now only refine our world based on the pairs that we query in the Ramsey game. We also have a different rule about when to refine our world to be blue vs red.
 
   Start with $A_0 = [n]$ where $n = k^{ck^2}$ and define
@@ -586,7 +586,7 @@ The idea now is that our adversary wants to reply ``red'' most of the time, so w
     \end{cases}
   \end{align*}
   At the end of time,
-  $$\abs{A_m} \ge n\left(\frac 1k\right)^{k^2}\left(1 - \frac 1k\right)^{2k^3} \ge k^{(c - 1)k^2}e^{-2k^2} \ge 1$$
+  $$\abs{A_m} \ge n\left(\frac 1k\right)^{k^2}\left(1 - \frac 1k\right)^{2k^3} \ge k^{(c - 1)k^2}e^{-4k^2} \ge 1$$
   if we pick $c$ large enough.
 \end{proof}
 
@@ -618,15 +618,9 @@ So the (naïve) probabilistic approach looks useless for anything better than po
   \begin{obs}
     If $K$ is a tournament where every triple is transitive, then $K$ itself is transitive.
   \end{obs}
-  But
-  \begin{align*}
-    \bbE \#\text{transitive tournament of size } k
-    & = \binom nk k! 2^{-\binom k2} \\
-    & \le n^k 2^{-\binom k2} \\
-    & = \left(n2^{-\frac{k - 1}2}\right)^n \to 0
-  \end{align*}
   Hence
-  $$\P\left(\chi \text{ has no red } K_k^{(3)}\right) = \P(T \text{ has no transitive tournament of size } k) > 0$$
+  $$\bbE \#\text{red } K_k^{(3)} = \bbE \#\text{transitive } K_k = \binom nk k! 2^{-\binom k2} \le n^k 2^{-\binom k2} = \left(n2^{-\frac{k - 1}2}\right)^k < 1$$
+  Hence there exists a tournament with no red $K_k^{(3)}$.
 \end{proof}
 
 \begin{thm}[Conlon, Fox, Sudakov, 2010]
@@ -643,12 +637,12 @@ So the (naïve) probabilistic approach looks useless for anything better than po
   \begin{idea}
     The fact that $\theta$ has no blue triangle will imply that $\chi$ has no blue $K_4^{(3)}$. The fact that $\theta$ has no red $K_{\frac k4}$ will imply that $\chi$ has no red $K_k^{(3)}$ with high probability.
   \end{idea}
-  Assume that $x < y_1 < y_2 < y_3$ are the vertices of a blue $K_4^{(3)}$. Note that $\sigma(xy_1)$, $\sigma(xy_2)$, $\sigma(xy_3)$ are distinct. So $\sigma(xy_1)\sigma(xy_2), \sigma(xy_2)\sigma(xy_3), \sigma(xy_3)\sigma(xy_1)$ are the edges of a triangle in $K_r$ which is blue in $\sigma$. Contradiction.
+  Assume that $x < y_1 < y_2 < y_3$ form a blue $K_4^{(3)}$. Note that $\sigma(xy_1)$, $\sigma(xy_2)$, $\sigma(xy_3)$ are distinct. So $\sigma(xy_1)\sigma(xy_2), \sigma(xy_2)\sigma(xy_3), \sigma(xy_3)\sigma(xy_1)$ are the edges of a triangle in $K_r$ which is blue in $\theta$. Contradiction.
   
   TODO: Insert figure
 
   Now assume that $K = \{x_1, \dots, x_k\}$ is a red $K_k^{(3)}$ in $\chi$. For each $i \in [k]$,
-  $$\abs{\{\sigma(x_ix_j) \mid i < j\}} < \frac k4$$
+  $$\abs{\{\sigma(x_ix_j) \mid j > i\}} < \frac k4$$
   as otherwise one can find $i < j_1 < \dots < j_{\frac k4}$ such that $\sigma(x_ix_{j_1}), \dots, \sigma(x_ix_{j_{\frac k4}})$ are all distinct, meaning that they are vertices of a red $K_{\frac k4}$ in $\theta$.
   
   TODO: Insert figure
@@ -660,7 +654,7 @@ So the (naïve) probabilistic approach looks useless for anything better than po
     & = n^k \binom r{\frac k4}^k \left(\frac k{4r}\right)^{\sum_{i = 1}^k k - i} \\
     & \le n^k \left(\frac{4er}k\right)^{\frac{k^2}4} \left(\frac k{4r}\right)^{\frac{k^2}4} \\
     & = \left(n\left(\frac e4 \frac kr\right)^{\frac k4}\right)^k \\
-    & \le \left(nk^{-\frac k4 + o(k)}\right)^k \text{ since } r > k^{2 + o(1)} \\
+    & \le \left(nk^{-\frac k4 + o(k)}\right)^k \text{ since } r > k^{2 - o(1)} \\
     & < \left(nk^{-\frac k5}\right)^k \\
     & = 1 \text{ since } n = k^{\frac k5}
   \end{align*}
