@@ -661,6 +661,448 @@ So the (naïve) probabilistic approach looks useless for anything better than po
   Hence find some $\sigma$ such that no set is sad. We're done.
 \end{proof}
 
+
+\subsection{Diagonal}
+
+\newlec
+
+The state of the art for $R^{(3)}(k)$ is
+$$2^{ck^2} \le R^{(3)}(k) \le 2^{2^{2k + 1}}$$
+for some $c > 0$.
+
+\begin{conj}[Erd\H os, Hajnal, Rado, 1965]
+  $$R^{(3)}(k) \ge 2^{2^{ck}}$$
+  for some $c > 0$.
+\end{conj}
+
+\begin{thm}[Erd\H os, Hajnal, 1980]
+  $$\underbrace{R_4^{(3)}(k)}_{4\text{ colors}} \ge 2^{2^{ck}}$$
+  for some $c > 0$.
+\end{thm}
+
+This is an example of ``stepping up''.
+
+\begin{lem}
+  For all $k$,
+  $$R_4^{(3)}(k) \ge 2^{R(k - 1) - 1}$$
+\end{lem}
+\begin{proof}
+  Let $r = R(k - 1) - 1$ and let $\theta$ be a red-blue edge coloring with no monochromatic $K_{k - 1}$. We now color triples on the ground set $\{0, 1\}^r$. For $x, y \in \{0, 1\}^r, x \ne y$, define
+  $$f(x, y) = \max \{i \mid x_i \ne y_i\}$$
+  so that
+  $$x < y \iff x_{f(x, y)} < y_{f(x, y)}$$
+  This is the reverse lexicographic order. Note that $f(x, y) \ne f(y, z)$ if $x < y < z$. We now define our coloring $\xi$ of $\{x, y, z\}, x < y < z$ to be one of four colors depending on which of the following hold:
+  $$f(x, y) < f(y, z), \quad \theta(f(x, y), f(y, z)) = \text{red}$$
+  Let $x_1 < \dots < x_k$ be the vertices of a monochromatic $K_k^{(3)}$, WLOG of the color where both conditions hold. We claim that $f(x_1, x_2) < f(x_2, x_3) < \dots f(x_{k - 1}, x_k)$ are the vertices of a monochromatic, in fact red, $K_{k - 1}$ in $\theta$. Indeed, since the $x_i$ are increasing,
+  $$f(x_{i + 1}, x_{j + 1}) = \max_{i < \ell \le j} f(x_\ell, x_{\ell + 1}) = f(x_j, x_{j + 1})$$
+  So
+  $$\theta(f(x_i, x_{i + 1}), f(x_j, x_{j + 1})) = \theta(f(x_i, x_{i + 1}), f(x_{i + 1}, x_{j + 1})) = \text{red}$$
+\end{proof}
+
+\begin{rmk}
+  We know a version of this stepping up (due to Erd\H os-Hajnal) for 2-colorings when the uniformity is $\ge 4$.
+\end{rmk}
+
+\begin{thm}[Conlon, Fox, Sudakov, 2010]
+  $$R^{4}(2k + 1) \ge 2^{R^{(3)}(k - 1) - 1}$$
+  and for $s \ge 4$ we have
+  $$R^{(s + 1)}(k + 1) \ge 2^{R^{(s)}(k) - 1}$$
+\end{thm}
+
+The state of the art for $R^{(3)}(k)$ is
+$$\underbrace{2^{\dots^{2^{c_0 k}}}}_{s - 2} \le R^{(s)}(k) \le \underbrace{2^{\dots^{2^{c_1 k}}}}_{s - 1}$$
+
+
+\section{The Szemerédi Regularity Lemma}
+
+{\bf Informal Statement} \\
+For all $\eps > 0$, there exist numbers $\ell(\eps), L(\eps)$ such that every graph can be partitioned into $V_1, \dots, V_k$, where $\ell(\eps) \le k \le L(\eps)$, $\abs{\abs{V_i} - \abs{V_j}} \le 1$ such that, for all but $\eps\binom k2$ pairs $(i, j)$, the graph between $V_i$ and $V_j$ is ``random-like'' up to some coarseness $\eps$.
+
+\begin{dfn}
+  In a graph $G$, let $X, Y$ be disjoint sets of vertices. We say that $(X, Y)$ is {\bf $\eps$-uniform} (aka {\bf $\eps$-regular}) if for all $X' \subseteq X, Y' \subseteq Y$ such that $\abs{X'} \ge \eps\abs X, \abs{Y'} \ge \eps\abs Y$ we have
+  $$\abs{d(X', Y') - d(X, Y)} < \eps$$
+  where
+  $$d(X', Y') = \frac{e(X, Y)}{\abs X\abs Y}$$
+  is the {\bf density} of edges.
+\end{dfn}
+
+\begin{rmk}
+  We need some lower bound on $\abs{X'}, \abs{Y'}$ in the definition, else uniformity will basically never hold.
+\end{rmk}
+
+\newlec
+
+\begin{prop}
+  For $\eps > 0$, let $(X, Y)$ be an $\eps$-regular pair in a graph $G$. Let $p = d(X, Y)$. Then
+  \begin{align*}
+    \#\{x \in X \mid \abs{N(x) \inter Y} < (p - \eps)\abs Y\} & < \eps\abs X \\
+    \#\{x \in X \mid \abs{N(x) \inter Y} > (p + \eps)\abs Y\} & < \eps\abs X
+  \end{align*}
+\end{prop}
+\begin{proof}
+  Let $X' = \{x \in X \mid \abs{N(x) \inter Y} < (p - \eps)\abs Y\}$. By definition of $X'$,
+  $$d(X', Y) = \frac{e(X', Y)}{\abs X\abs Y} < \frac{(p - \eps)\abs Y\abs{X'}}{\abs{X'}\abs Y} = p - \eps$$
+  So $\abs{X'} < \eps\abs X$ by definition of $\eps$-uniformity.
+\end{proof}
+
+\begin{lem}[Embedding lemma for triangles]
+  Let $\eps > 0$ and $p \ge 2\eps$. Let $G$ be a graph on $V = V_1 \union V_2 \union V_3$ where $V_1, V_2, V_3$ are disjoint of size $m \ge 1$, $(V_i, V_j)$ are $\eps$-uniform for $i \ne j$ and $d(V_i, V_j) \ge p \ge 2\eps$. Then there are at least
+  $$(1 - 2\eps)(p - \eps)^3m^3$$
+  triangles in $G$.
+\end{lem}
+\begin{proof}
+  We look at triangles with one vertex in each $V_i$. The number of $x \in V_1$ such that
+  $$\abs{N(x) \inter V_2} \ge (p - \eps)m, \quad \abs{N(x) \inter V_3} \ge (p - \eps)m$$
+  is at least $(1 - 2\eps)m$. For each such $x$, the number of $V_1, V_2, V_3$ triangles containing $x$ is at least
+  $$e(N(x) \inter V_2, N(x) \inter V_3) \ge (p - \eps)\abs{N(x) \inter V_2} \abs{N(x) \inter V_3} \ge (p - \eps)^3m^2$$
+  since $\abs{N(x) \inter V_2}, \abs{N(x) \inter V_3} \ge (p - \eps)m \ge \eps m$. So we get $(1 - 2\eps)(p - \eps)^3m^3$ triangles in total.
+
+  TODO: Insert figure
+\end{proof}
+
+\begin{dfn}
+  We say a partition $V = V_1 \union \dots \union V_k$ is an {\bf equipartition} if $\abs{\abs{V_i} - \abs{V_j}} \le 1$ for all $i, j$. Such a partition is {\bf $\eps$-uniform} if $(V_i, V_j)$ is $\eps$-uniform for all but $\eps\binom k2$ pairs $\{i, j\}$.
+\end{dfn}
+
+\begin{thm}[Szemerédi Regularity Lemma]
+  For all $\eps > 0, \ell \in \N$, there exists $L \in \N$ such that every graph has an $\eps$-uniform equipartition in $k \in [\ell, L]$ parts.
+\end{thm}
+\begin{rmks}~
+  \begin{itemize}
+    \item It is really important that $L$ does not depend on $\abs G$.
+    \item This does not directly say anything about graphs with $e(G) = o(n^2)$
+    \item The proof of the regularity lemma gives
+    $$L \le \underbrace{2^{\dots^2}}_{\eps^{-5}}$$
+    \item Gowers showed that
+    $$L \ge \underbrace{2^{\dots^2}}_{\eps^{-1/16}}$$
+    is needed.
+  \end{itemize}
+\end{rmks}
+
+\begin{lem}[Triangle removal lemma]
+  For all $\eps > 0$, there exists $\delta > 0$ such that every graph with at most $\delta n^3$ triangles contains $\eps n^2$ edges that together kill all triangles.
+\end{lem}
+\begin{proof}
+  Let $\eps' = \eps/4, \ell = 10\eps^{-1}, L = L(\eps, \ell), \delta = 2^{-16}\eps^4L^{-3}$. By Szemerédi Regularity Lemma, find a $\eps'$-uniform equipartition
+  $$V = V_1 \union \dots \union V_k$$
+  where $\ell \le k \le L$. We say $(i, j)$ is {\bf bad} if either of the following holds:
+  \begin{enumerate}
+    \item $d(V_i, V_j) \le \eps/2$
+    \item $(V_i, V_j)$ is not $\eps'$-uniform
+    \item $i = j$
+  \end{enumerate}
+  Now define
+  $$T = \{xy \in E(G) \mid x \in V_i, y \in V_j, (i, j) \text{ bad}\}$$
+  Then
+  \begin{align*}
+    \abs T \le
+    & \#\text{edges between pairs with } d(V_i, V_j) \le \eps/2 \\
+    & + \#\text{edges between $\eps'$-non-uniform pairs} \\
+    & + \sum_i \#\text{edges inside } V_i \\
+    \le{} & \frac\eps 2 \binom k2 \left(\frac nk\right)^2 + \frac\eps 4 \left(\frac nk\right)^2 \binom k2 + k\left(\frac nk\right)^2 \\
+    \le{} & \frac\eps 4 n^2 + \frac\eps 8 n^2 + \frac{n^2}k \\
+    \le{} & \left(\frac 14 + \frac 18 + \frac 1{10}\right)\eps n^2 \\
+    \le{} & \eps n^2
+  \end{align*}
+  Now, $G - T$ is triangle-free. Indeed if $x, y, z$ is a triangle then there must be $a, b, c$ distinct such that $(V_a, V_b), (V_b, V_c), (V_c, V_a)$ are $\eps/4$-uniform and
+  $$d(V_a, V_b), d(V_b, V_c), d(V_c, V_a) \ge \frac\eps 2$$
+  So the triangle embedding lemma tells us that there are at least
+  $$\left(1 - 2 \frac\eps 4\right) \left(\frac\eps 4\right)^2 \left(\frac nk\right)^3 \ge \left(1 - \frac\eps 2\right)2^{-6}L^{-3}\eps^3n^3 > \delta n^3$$
+  triangles. Contradiction.
+\end{proof}
+
+\newlec
+
+\begin{thm}[Roth's theorem]
+  For $\eps > 0$, there exists $N$ such that for all $n \ge N$ any $A \subseteq [n]$ of density at least $\eps$ contains a non-trivial arithmetic progression of length three.
+\end{thm}
+\begin{proof}
+  Assume $\eps > 0$. Let $\delta$ be the $\delta$ from the triangle removal lemma applied to $3\eps$, and set $N = 3\delta^{-1}$. Define a tripartite graph on $[3n], [3n], [3n]$ by declaring that $(x, x + a, x + 2a)$ are the edges of a triangle for each $x \in [3n]$ and $a \in A$. We call such a triangle {\bf explicit}. There are $3n\abs A \ge 3\eps n^2$ explicit triangles in our graph and they are edge-disjoint. Therefore triangle removal tells us that there are at least $\delta n^3 = 3N^{-1}n^3 > 3n^2 \ge 3n\abs A$ triangles in our graph. Hence there must be some triangle that's not explicit. But a non-explicit triangle $(x, x + a, x + a + b) = (x, x + a, x + 2c)$ exactly corresponds to a non-trivial arithmetic progression.
+\end{proof}
+
+\begin{thm}[Tur\' an]
+  Let $G$ be a $K_{r + 1}$-free graph. Then
+  $$e(G) \le \left(1 - \frac 1r\right)\frac{n^2}2$$
+  and this bound is sharp for the Tur\' an graph.
+\end{thm}
+
+But the Tur\' an graph is a bit pathological in the sense that it has huge independence number $\alpha = \frac nr$. What if we require $\alpha(G) = o(n)$?
+
+For $r = 2$, the neighborhood of any vertex is an independent set, so $\deg v = o(n)$ and $e(G) = o(n^2)$. For $r = 3$, we get an interesting problem.
+
+\begin{thm}[Szemerédi]\label{thm:k4-free-small-indep}
+  For $\eps > 0$, there exists $\delta > 0$ such that any $K_4$-free graph $G$ on $n$ vertices with $\alpha(G) < \delta n$ has
+  $$e(G) \le \frac{n^2}8 + \eps n^2$$
+  In other words, if $G$ is $K_4$-free and $\alpha(G) = o(n)$, then $e(G) \le \frac{n^2}8 + o(n^2)$.
+\end{thm}
+\begin{rmks}
+  The $\frac 18$ is sharp!
+\end{rmks}
+
+\begin{dfn}
+  For $0 < \alpha < 1, \eps > 0$ and a partition
+  $$V(G) = V_1 \union \dots \union V_k$$
+  the {\bf reduced graph} $R_{\alpha, \eps}$ is the graph whose vertices are $[k]$ and
+  $$i \sim j \iff (V_i, V_j) \eps-\text{uniform and } d(V_i, V_j) \ge \alpha$$
+\end{dfn}
+
+\begin{proof}[Proof of Theorem \ref{thm:k4-free-small-indep}]
+  Let $\eps > 0$. We may assume $\eps < 1/4$. Let $L = L(10\eps^{-1}, \eps/4), \delta = \eps^2L^{-1}/10$. Assume $G$ is $K_4$-free and $\alpha(G) < \delta n$. We want
+  $$e(G) \le \frac{n^2}8 + \eps n^2$$
+  Regularity with $\eps/4$ and $\ell = 10/\eps$ gives a partition $V = V_1 \union \dots \union V_k$ where $\ell \le k \le L$. Let $R = R_{\eps, \eps/4}(V_1, \dots, V_k)$ be the corresponding reduced graph and $m = n/k$.
+  \begin{claim}
+    $R$ is triangle-free.
+  \end{claim}
+  \begin{proof}
+    Assume $V_a, V_b, V_c$ form a triangle in $R$. Since the pairs are $\eps/4$-uniform and have density at least $\eps$, the triangle embedding lemma tells us that there are at least
+    $$(1 - 2\eps)\eps^3 m^3$$
+    triangles on $V_a, V_b, V_c$, where $m = \frac nk$. Find therefore $x \in V_a, y \in V_b$ such that $x \sim y$ and
+    $$\#\{z \in V_c \mid x, y, z\text{ is a triangle}\} \ge (1 - 2\eps)\eps^3m \ge \frac 12 \eps^3 \frac nL > \delta n$$
+    Hence $Z$ can't be an independent set and there are some $u, v \in Z$ such that $u \sim v$. But then $x, y, u, v$ is a $K_4$. Contradiction.
+  \end{proof}
+
+  \newlec
+
+  \begin{claim}
+    All $\eps/4$-uniform pairs $(V_i, V_j)$ have $d(V_i, V_j) \le 1/2 + \eps$.
+  \end{claim}
+  \begin{proof}
+    Assume $(V_i, V_j)$ contradicts the claim. Then let
+    $$U = \{v \in V_i \mid \abs{N(v) \inter V_j} \ge \frac 12 + \frac\eps 2\}$$
+    so that $\abs U \ge (1 - \eps/4)m > \delta n$ by uniformity. By assumption, there therefore exist $x, y \in U$ such that $x \sim y$. Now note that
+    $$\abs{N(x) \inter N(y)} \ge \eps\abs{V_j} = \eps m \ge \delta n$$
+    So there exist $u, v \in N(x) \inter N(y)$ such that $u \sim v$. But now $x, y, u, v$ is a $K_4$. Contradiction.
+  \end{proof}
+  The first claim gives us a bound on the number of edges in the reduced graph, the second claim gives us a bound on the density of those edges, and all other edges have negligible density. So we are morally done. Formally, by splitting the edges of $G$ according to which kind of pair of the partition it belongs to,
+  \begin{align*}
+    e(G)
+    & \le \underbrace{e(R_{\eps, \eps/4})\left(\frac 12 + \eps\right)m}_{\text{in the reduced graph}}
+    + \underbrace{\frac\eps 4 \binom k2 m^2}_{\text{not $\eps/4$-uniform}}
+    + \underbrace{\eps \binom k2 m^2}_{\text{low density}}
+    + \underbrace{k m^2}_{\text{within a part}} \\
+    & \le \frac 12 e(R_{\eps, \eps/4}) m^2 + C\eps n^2 \\
+    & \le \frac{n^2}8 + C'\eps n^2 \text{ by Tur\' an}
+  \end{align*}
+\end{proof}
+
+\begin{thm}[Chv\' atal-Rödl-Szemerédi-Trotter, 1983]
+  $$r(H) \le C_d \abs H$$
+  for some constant $C_d$ where $H$ has max degree $d$.
+\end{thm}
+\begin{rmk}
+  The naïve Ramsey bound gives
+  $$r(H) \le R(\abs H) \le 4^{\abs H}$$
+\end{rmk}
+
+\begin{lem}[Embedding lemma]
+  Let $H$ be a $r$-partite graph with max degree $d$ and $r$-partition
+  $$V(H) = W_1 \union \dots \union W_r$$
+  where $\abs{W_i} \le s$. Now let $m \in \N, \eps, \lambda \in ]0, 1[$ be such that
+  $$\eps(d + 1) < (\lambda - \eps)^d, \quad s \le \eps m$$
+  where $\abs{V_i} = m$, $(V_i, V_j)$ is $\eps$-uniform and $d(V_i, V_j) \ge \lambda$. Then $H \subseteq G$.
+\end{lem}
+\begin{proof}
+  We define an algorithm to embed $H$ into $G$. In each step of the algorithm, we will choose a new vertex in $V(H)$ that has not been embedded yet and find some vertex in $V(G)$ to map it to.
+
+  At step $t$, for each vertex $u \in V(H)$, define
+  $$E_t = \text{ already embedded vertices}, \quad \mathcal C_t(u) = V_\ell \inter \Inter_{\substack{w \in E_t \\ w \sim_H u}} N_G(w) \text{ where } u \in V_\ell$$
+  At each step of the algorithm, ensure the following:
+  \begin{enumerate}
+    \item If $x, y \in E_t$ and $x \sim_H y$, then $x \sim_G y$.
+    \item For all $u \nin E_t$,
+    $$\mathcal C_t(u) \ge m(\lambda - \eps)^{\abs{N(u) \inter E_t}}$$
+  \end{enumerate}
+  At step $t + 1$, let $v \nin E_t$. We want to find a vertex in $\mathcal C_t(v)$ to map $v$ to. This ensure condition 1. Now, for $u \nin E_t \union \{v\}$,
+  $$\mathcal C_{t + 1}(u) = \begin{cases}
+    \mathcal C_t(u) \inter N_G(v) & \text{ if } u \sim_H v \\
+    \mathcal C_t(u) & \text{ if } u \not\sim_H v
+  \end{cases}$$
+  So we just need to exclude vertices from $\mathcal C_t(u)$ that have
+  \begin{enumerate}
+    \item $\abs{\mathcal C_t(u) \inter N_G(v)} < (\lambda - \eps)\abs{\mathcal C_t(u)}$
+    \item are already identified with vertices in $E_t$.
+  \end{enumerate}
+  By uniformity, there are at most $d\eps m$ vertices of the first type. Since $\abs{W_\ell} \le s \le \eps m$, there are at most $\eps m$ vertices of the second type. Thus there are at least
+  $$\abs{\mathcal C_t(u)} - \eps(d + 1)m \ge (\lambda - \eps)^d m - \eps(d + 1)m > 0$$
+  good choices for $v$. Pick one. Done.
+\end{proof}
+
+\newlec
+
+\begin{lem}
+  Let $H$ be a $n$-vertex graph with max degree $d$. Then there exists a partition
+  $$V(H) = V_1 \union \dots \union V_{10d^2}$$
+  so that all edges are between parts and
+  $$\abs{V_i} \le \frac{100n}d$$
+\end{lem}
+\begin{proof}
+  $H$ is $d + 1$-colorable, say with parts $W_1, \dots, W_{d + 1}$. Split each $W_i$ into at most $\ceil{d/100}$ parts of size at most $100n/d$. This gives at most
+  $$(d + 1)\ceil{\frac d{100}} \le \frac{d^2}{25} \le 10d^2$$
+  parts for big enough $d$.
+\end{proof}
+
+\begin{proof}[Proof of the theorem]
+  Let $r = 10d^2, t = R(10d^2)$. Let $\eps < \frac 1{t + 1}$ be such that
+  $$(d + 1)\eps < \left(\frac 12 - \eps\right)^d$$
+  Let $\ell > t + 1$ and $L(\ell, \eps)$ be the Regularity Lemma constant. Writing $\abs H = n$. We will show that
+  $$r(H) \le \frac{Ln}\eps$$
+  Let $N > \max(100/d, 1) Ln/\eps$ and $\chi$ be a red/blue edge coloring of $K_N$. Let $G$ be the red graph. Apply the Regularity Lemma with parameters $\eps, \ell$ to get a partition $V_1, \dots, V_k$ with $\ell \le k \le L$.
+
+  {\bf Step 1} \\
+  There are at least $(1 - \eps)\binom k2 > (1 - \frac 1{t + 1})\binom k2$ $\eps$-uniform pairs, so we can find a $K_t$ in the graph of $\eps$-uniform pairs. WLOG $V_1, \dots, V_t$ is that $K_t$.
+
+  {\bf Step 2} \\
+  Color each pair $(V_i, V_j)$ with the majority color between $V_i$ and $V_j$ in $G$. Apply Ramsey to find a monochromatic $K_{10d^2}$. WLOG $V_1, \dots, V_{10d^2}$ are all majority red. Partition $H$ into parts $W_1, \dots, W_{10d^2}$ of size at most $100n/d$. Since
+  $$\abs{W_i} \le \frac{100n}d \le \frac{\eps N}L \le \frac{\eps N}k$$
+  we can apply the Embedding Lemma with $\lambda = 1/2, m = N/L, s = \eps N/L$ to finish.
+\end{proof}
+
+
+\section{Dependent Random Choice}
+
+\begin{dfn}
+  Let $G$ be a graph. We say $R \subseteq V(G)$ is {\bf $(s, k)$-rich} if, for all $x_1, \dots, x_k \in R$,
+  $$k \le \abs{N(x_1) \inter \dots \inter N(x_k)}$$
+\end{dfn}
+
+TODO: Insert picture
+
+\begin{thm}
+  Let $G$ be a graph on $n$ vertices with $m$ edges. Let $t, s, r, k > 0$ satisfy
+  $$\frac{(2m)^t}{n^{2t - 1}} - \binom ns \left(\frac kn\right)^t \ge r$$
+  Then $G$ contains a $(s, k)$-rich set of size at least $r$.
+\end{thm}
+\begin{rmk}
+  $t$ is a free parameter in the statement, so we get to optimise over $t$ in applications.
+\end{rmk}
+\begin{idea}
+  Choose $v_1, \dots, v_t \in V(G)$ uniformly at random and consider $R = N(v_1) \inter \dots \inter N(v_t)$. neighborhoods of high degree often are in $R$, so $R$ is likely to be rich.
+\end{idea}
+\begin{proof}
+  Let $v_1, \dots, v_t \in V(G)$ be chosen uniformly at random. First consider
+  \begin{align*}
+    \E_{v_1, \dots, v_t} \abs{N(v_1) \inter \dots \inter N(v_t)}
+    & = \E_{v_1, \dots, v_t} \sum_y 1_{y \sim v_1, \dots, v_t} \\
+    & = \sum_y \P(y \sim v_1, \dots, v_t) \\
+    & = \sum_y \P(y \sim v_1) \dots P(y \sim v_t) \\
+    & = \sum_y \left(\frac{d(y)}n\right)^t \\
+    & \ge n \left(\frac{2m}{n^2}\right)^t \\
+    & = \frac{(2m)^t}{n^{2t - 1}}
+  \end{align*}
+  Let
+  $$Y = \{(y_1, \dots, y_s) \in (N(v_1) \inter \dots \inter N(v_t))^s \mid \abs{N(y_1) \inter \dots \inter N(y_s)} < k\}$$
+  We compute
+  \begin{align*}
+    \E_{v_1, \dots, v_t} \abs Y
+    & = \E_{v_1, \dots, v_t} \sum_{\abs{N(y_1) \inter \dots \inter N(y_s)} < k} 1_{y_1, \dots, y_s \in N(v_1) \inter \dots \inter N(v_t)} \\
+    & = \sum_{\abs{N(y_1) \inter \dots \inter N(y_s)} < k} \P(y_1, \dots, y_s \in N(v_1) \inter \dots \inter N(v_t)) \\
+    & \le \binom ns \left(\frac kn\right)^t
+  \end{align*}
+  Define $R$ to be $N(v_1) \inter \dots \inter N(v_t)$ with a vertex removed from each tuple $(y_1, \dots, y_s)$ such that $\abs{N(y_1) \inter \dots N(y_s)} < k$. Then
+  $$\E \abs R \ge \E[\abs{N(v_1) \inter \dots \inter N(v_t)} - Y] \ge \frac{(2m)^t}{n^{2t - 1}} - \binom ns \left(\frac kn\right)^t \ge r$$
+  So $\abs R \ge r$ for some $y_1, \dots, y_s$, and we have found a $(s, k)$-rich set of size at least $r$.
+\end{proof}
+
+In Part II Graph Theory, we saw
+$$\mathrm{ex}(n, K_{t, t}) \le C_t n^{2 - 1/t}$$
+
+\begin{thm}[Füredi, 1991]
+  Let $H$ be a bipartite graph with bipartition $A \union B$ where $\deg y \le s$ for all $y \in B$. Then
+  $$\mathrm{ex}(n, H) \le C_H n^{2 - 1/s}$$
+  for some constant $C_H$.
+\end{thm}
+
+\newlec
+
+\begin{lem}[Rich Set Embedding Lemma]
+  Let $H$ be a bipartite graph on parts $A$ and $B$ such that $\deg y \le s$ for all $y \in B$. Let $G$ be a graph and $R \subseteq V(G)$ be a $(s, \abs B)$-rich set with $\abs R \ge \abs A$. Then $H \subseteq G$.
+\end{lem}
+\begin{proof}
+  Let $A = \{x_1, \dots, x_a\}, B = \{y_1, \dots, y_b\}$. Find $\tilde x_1, \dots, \tilde x_a \in R$ distinct. Start by embedding $x_i \mapsto \tilde x_i$. We choose $\tilde y_i$ such that $y_i \mapsto \tilde y_i$ inductively as follows. Assume we have already determined $\tilde y_1, \dots, \tilde y_i$. Consider $N(y_{i + 1}) = \{x_{i_1}, \dots, x_{i_\ell}\}$ and note that
+  $$\abs{N(\tilde x_{i_1} \inter \dots \inter N(\tilde x_{i_\ell}))} \ge \abs H$$
+  by richness. Thus simply choose any
+  $$\tilde y_{i + 1} \in N(\tilde x_{i_1}) \inter \dots \inter N(\tilde x_{i_\ell}) \setminus \{\tilde y_1, \dots, \tilde y_i\}$$
+\end{proof}
+
+\begin{proof}[Proof of Füredi]
+  We want to apply our Rich Set Embedding Lemma to find a $(s, \abs H)$-rich set $R \subseteq V(G)$ such that $\abs R \ge \abs H$. We know $m \ge C_H n^{2 - 1/s}$ for some constant $C_H$ to be chosen and we want to find $t$ such that
+  $$\frac{(2m)^t}{n^{2t - 1}} - \binom ns \left(\frac{\abs H}N\right)^t \ge \abs H$$
+  Take $C_H = 2\abs H, t = s$ so that
+  $$\lhs \ge \frac{(2C_H)^t n^{2t - t/s}}{n^{2t - 1}} - \left(\frac{en}s\right)^s \left(\frac{\abs H}n\right)^t = \left(4^s - \left(\frac es\right)^s\right)\abs H^s \ge \abs H$$
+\end{proof}
+
+Let $Q_d$ be the graph on $\{0, 1\}^d$ such that $x \sim y$ iff they differ in one coordinate.
+
+\begin{thm}
+  For all large enough $d$,
+  $$r(Q_d) \le 2^{3d}$$
+\end{thm}
+\begin{proof}
+  We want to apply DRC + Rich Set Embedding Lemma. Let $N = 2^{3d}$ and $\chi$ be a red-blue coloring of $K_N$. Let $G$ be the graph of the majority color, so that
+  $$e(G) \ge \frac 12 \binom N2 =: m$$
+  By the Rich Set Embedding Lemma, we are done if we find a $(d, 2^d)$-rich set $R \subseteq V(G)$ with $\abs R \ge 2^d$. By DRC, there exists such a rich set if we can find $t$ such that
+  $$\frac{(2m)^t}{N^{2t - 1}} - \binom Nd \left(\frac{2^d}N\right)^t \ge 2^d$$
+  Pick $t = \frac 32 d$. Then
+  \begin{align*}
+    \lhs
+    & \ge \frac 1{N^{2t - 1}} \left(\frac{N(N - 1)}2\right)^t - \left(\frac{eN}D\right)^d \left(\frac{2^d}N\right)^t \\
+    & = \left(1 - \frac 1N\right)^t \frac N{2^t} - \left(\frac ed\right)^d N^{d - \frac 23 t} \\
+    & = (1 - o(1))2^{\frac 32 d} - \left(\frac ed\right)^d \\
+    & \gg 2^d
+  \end{align*}
+\end{proof}
+\begin{rmk}
+  The same argument shows
+  $$r(Q_d) \le 2^{(\varphi + 1 + o(1))d}$$
+  where $\varphi + 1 = \frac{3 + \sqrt 5}2 = 2.618\dots$.
+\end{rmk}
+
+How does $r(Q_d)$ grow?
+
+\begin{conj}[Erd\H os]
+  $$r(Q_d) \le C 2^d$$
+\end{conj}
+
+\begin{thm}[Conlon-Fox-Sudakov]
+  $$r(Q_d) \le 2^{2d + o(d)}$$
+\end{thm}
+
+\begin{thm}[Tikharimov]
+  $$r(Q_d) \le 2^{(2 - c)d}$$
+  for some $c > 0$ and all large enough $d$.
+\end{thm}
+
+
+\subsection{Ramsey-Tur\' an}
+
+\begin{dfn}
+  For $n, k \in \N$ and a graph $H$, we define
+  $$\mathrm{RT}(n, H, t) = \max\{e(G) \mid \abs G = n, G \not\supseteq H, \alpha(G) \le k\}$$
+\end{dfn}
+
+We showed that
+$$\mathrm{RT}(n, K_4, o(n)) \le \frac{n^2}8 + o(n^2)$$
+
+\begin{thm}[Sudakov]
+  Let $\delta(n) = \exp(-\omega(n)\sqrt{\log n})$ where $\omega(n) \to \infty$. Then
+  $$\mathrm{RT}(n, K_4, \delta(n) n) = o(n^2)$$
+\end{thm}
+\begin{proof}
+  Let $G$ be a $n$-vertex graph with $G \not\supseteq K_4$ and $\alpha(G) \le \delta(n)n$. Let's first find a $(2, \delta(n)n)$-rich set $R \subseteq V(G)$ such that $\abs R > \delta(n)n$. By DRC, we are looking for $t$ such that
+  $$\frac{(2\eps n^2)^t}{n^{2t - 1}} - \binom n2 \left(\frac{\delta(n)n}n\right)^t \ge \delta(n)n$$
+  Choose $t = 2\sqrt{\log n}/\omega(n)$ so that $\delta(n)^t = n^{-2}$. Since $\omega(n)^2 \gg 2\log\eps^{-1}$, we have
+  \begin{align*}
+    \lhs
+    & \ge \eps^t n - n^2 \delta(n)^t \\
+    & = \exp\left(-\frac{3\log \eps^{-1}}{\omega(n)}\sqrt{\log n}\right)n - 1 \\
+    & \ge \exp\left(-\omega(n)\sqrt{\log n}\right)n \quad \text{ for large enough }n \\
+    & = \delta(n)n
+  \end{align*}
+\end{proof}
+
+
+\section{Exponential improvement on Ramsey numbers}
+
 \newlec
 
 \printindex
