@@ -312,7 +312,7 @@ TODO: Insert picture
 \end{proof}
 
 \begin{lem}
-  Let $A \subseteq [N]$ be of density $\alpha > 0$. Let $p$ be a prime in $[\frac N3, \frac{2N}3]$ and write $A' = A \inter [p]$. Suppose there exists $t \ne 0$ such that $\abs{\widehat{1_A}(t)} \ge \frac{\alpha^2}{10}$. Then there exists a progression $p$ of length at least $\alpha^2 \frac{\sqrt N}{500}$ such that
+  Let $A \subseteq [N]$ be of density $\alpha > 0$. Let $p$ be a prime in $[\frac N3, \frac{2N}3]$ and write $A' = A \inter [p]$. Suppose there exists $t \ne 0$ such that $\abs{\widehat{1_A}(t)} \ge \frac{\alpha^2}{10}$. Then there exists a progression $P$ of length at least $\alpha^2 \frac{\sqrt N}{500}$ such that
   $$\abs{A \inter P} \ge \alpha\left(1 + \frac\alpha{50}\right)\abs P$$
 \end{lem}
 \begin{proof}
@@ -388,7 +388,7 @@ Better bounds are available in certain settings.
 
 \begin{eg}
   Let $A \subseteq \F_p^n$ be a set of linearly independent vectors. Then $\abs{A + A} = \binom{\abs A + 1}2$. This is big doubling, but $\abs A \le n$ is small! \\
-  Let $A \subseteq \F_p^n$ be a set where each point is taken randomly with probability $p^{-\theta n}$ where $\theta \in ]\frac 12, 1]$. Then with high probability $\abs{A + A} = (1 + o(1))\frac{\abs A^2}2$.
+  Let $A \subseteq \F_p^n$ be a set where each point is taken randomly with probability $p^{-\theta n} = N^{-\theta}$ where $\theta \in ]\frac 12, 1]$. Then with high probability $\abs{A + A} = (1 + o(1))\frac{\abs A^2}2$.
 \end{eg}
 
 \begin{dfn}
@@ -410,7 +410,7 @@ $d(A, B)$ is clearly nonnegative and symmetric. However, $d(A, A) \ne 0$ in gene
     \phi : B \times (A - C) & \to (A - B) \times (B - C) \\
     (b, d) & \mapsto (a_d - b, b - c_d)
   \end{align*}
-  is injective, where for each $d \in A - C$ we have chosen $a_d \in A, c_d \in C$ such that $d = a - c$.
+  is injective, where for each $d \in A - C$ we have chosen $a_d \in A, c_d \in C$ such that $d = a_d - c_c$.
 \end{proof}
 
 \begin{dfn}
@@ -423,12 +423,12 @@ $d(A, A) = \log \sigma(A)$ and $d(A, -A) = \log \delta(A)$, so Lemma \ref{lem:ru
 
 \begin{notation}
   Given $A \subseteq G$ and $\ell, m \in \N$, write $\ell A - m A$ for the set
-  $$\underbrace{A + \dots + A}_{\ell \text{ times}} - \underbrace{A + \dots + A}_{m \text{ times}}$$
+  $$\underbrace{A + \dots + A}_{\ell \text{ times}} - \underbrace{A - \dots - A}_{m \text{ times}}$$
 \end{notation}
 
 \begin{thm}[Plünnecke's inequality]
   Let $A, B \subseteq G$ be finite such that $\abs{A + B} \le K\abs A$. Then for all $\ell, m$,
-  $$\abs{\ell B - mB} \le K^{\ell + m}\abs A$$
+  $$\abs{\ell B - mB} \le K^{\ell + m}\abs A$$ww
 \end{thm}
 \begin{idea}
   $A$ should be thought of as being approximately a subspace. The assumption then says that $B$ is efficiently contained in (a translate of) $A$ and the conclusion now reads that $B$ must itself have small multiples. This makes sense, since we can use multiples of $A$ (which are not much bigger than $A$) to efficiently contain the multiples of $B$.
@@ -572,7 +572,7 @@ We first prove a technical lemma using a method known as "dependent random choic
     & < \frac{\eta\abs A}2 \abs A^2 + \frac{\eta\abs A}2\sum_d r_{A - A}(d) \\
     & = \eta\abs A^3 
   \end{align*}
-  Define a graph with vertex set $A$ and with $x \sim y$ if $y - x$ is a popular difference. Since we have at least $\frac{\eta\abs A}2$ popular differences, our graph has at least $\frac{\eta^2\abs A^2}4$ (directed) edges. We have $\E_{x, y \in A} \abs{N(x) \inter N(y)} \ge \frac{\eta^2\abs A}4$. Indeed,
+  Define a graph with vertex set $A$ and with $x \sim y$ if $y - x$ is a popular difference. Since we have at least $\frac{\eta\abs A}2$ popular differences, our graph has at least $\frac{\eta^2\abs A^2}4$ (directed) edges. We have $\E_{x, y \in A} \abs{N(x) \inter N(y)} \ge \frac{\eta^4\abs A}{2^4}$. Indeed,
   \begin{align*}
     \E_{x, y \in A} \abs{N(x) \inter N(y)}
     & = \E_{x, y \in A} \sum_{z \in A} 1_{x \sim z} 1_{y \sim z} \\
