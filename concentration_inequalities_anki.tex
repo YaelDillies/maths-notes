@@ -1,0 +1,355 @@
+% To use these notes, you must copy anki_header.tex
+% into the header of your card type in Anki
+
+% layout in Anki:
+\documentclass[10pt]{article}
+\usepackage[a4paper]{geometry}
+\geometry{paperwidth=.5\paperwidth,paperheight=100in,left=2em,right=2em,bottom=1em,top=2em}
+\pagestyle{empty}
+\setlength{\parindent}{0in}
+
+% encoding:
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% packages:
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{centernot}
+\usepackage{parskip}
+
+% Theorem-like environments
+\theoremstyle{definition}
+\newtheorem*{claim}{Claim}
+\newtheorem*{conjecture}{Conjecture}
+
+% Command redirections
+\let\P\oldP
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+% Letter shorthands
+\newcommand{\C}{\mathbb C}
+\newcommand{\E}{\mathbb E}
+\newcommand{\F}{\mathbb F}
+\newcommand{\K}{\mathbb K}
+\newcommand{\N}{\mathbb N}
+\newcommand{\P}{\mathbb P}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\mcA}{\mathcal A}
+\newcommand{\mcB}{\mathcal B}
+\newcommand{\mcC}{\mathcal C}
+\newcommand{\mcD}{\mathcal D}
+\newcommand{\mcE}{\mathcal E}
+\newcommand{\mcF}{\mathcal F}
+\newcommand{\mcG}{\mathcal G}
+\newcommand{\mcH}{\mathcal H}
+\newcommand{\mcM}{\mathcal M}
+\newcommand{\mcN}{\mathcal N}
+\newcommand{\mcO}{\mathcal O}
+\newcommand{\mcP}{\mathcal P}
+\newcommand{\mcQ}{\mathcal Q}
+\newcommand{\mcR}{\mathcal R}
+\newcommand{\mcS}{\mathcal S}
+\newcommand{\mcT}{\mathcal T}
+\newcommand{\mcU}{\mathcal U}
+\newcommand{\mcV}{\mathcal V}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Eps}{\mathcal E}
+
+\newcommand{\curlybrack}[1]{\left\{ #1\right\}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\inn}[2]{\left\langle #1, #2\right\rangle}
+\newcommand{\floor}[1]{\left\lfloor #1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1\right\rceil}
+\newcommand{\doublesqbrack}[1]{[\![#1]\!]}
+
+\newcommand{\imp}{\implies}
+\newcommand{\for}{\forall}
+\newcommand{\nin}{\notin}
+\newcommand{\comp}{\circ}
+\newcommand{\union}{\cup}
+\newcommand{\inter}{\cap}
+\newcommand{\Union}{\bigcup}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\hatplus}{\mathbin{\widehat{+}}}
+\newcommand{\symdif}{\mathbin\varbigtriangleup}
+\newcommand{\aeeq}{\overset{\text{ae}}=}
+\newcommand{\lexlt}{\overset{\text{lex}}<}
+\newcommand{\colexlt}{\overset{\text{colex}}<}
+\newcommand{\wto}{\overset w\to}
+\newcommand{\wstarto}{\overset{w*}\to}
+\renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
+\renewcommand{\bar}[1]{\overline{#1}}
+
+\let\Im\relax
+\let\Re\relax
+
+\DeclareMathOperator{\Ber}{Ber}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\esssup}{ess sup}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\lhs}{LHS}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Re}{Re}
+\DeclareMathOperator{\rhs}{RHS}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Var}{Var}
+
+%  pdf layout:
+\geometry{paperheight=74.25mm}
+\usepackage{pgfpages}
+\pagestyle{empty}
+\pgfpagesuselayout{8 on 1}[a4paper,border shrink=0cm]
+\makeatletter
+\@tempcnta=1\relax
+\loop\ifnum\@tempcnta<9\relax
+\pgf@pset{\the\@tempcnta}{bordercode}{\pgfusepath{stroke}}
+\advance\@tempcnta by 1\relax
+\repeat
+\makeatother
+
+%  notes, fields, tags:
+\def \ifempty#1{\def\temp{#1} \ifx\temp\empty }
+\newcommand{\xfield}[1]{
+        #1\par
+        \vfill
+        {\tiny\texttt{\parbox[t]{\textwidth}{\localtag\hfill\\\globaltag\hfill\uuid}}}
+        \newpage}
+\newenvironment{field}{}{\newpage}
+\newif\ifnote
+\newenvironment{note}{\notetrue}{\notefalse}
+\newcommand{\localtag}{}
+\newcommand{\globaltag}{}
+\newcommand{\uuid}{}
+\newcommand{\tags}[1]{
+    \ifnote
+        \renewcommand{\localtag}{#1}
+    \else
+        \renewcommand{\globaltag}{#1}
+    \fi
+    }
+\newcommand{\xplain}[1]{
+  \label{#1} % make sure there's no duplicate label
+  \renewcommand{\uuid}{#1} % update the UUID for display and Anki disambiguation
+  }
+
+\begin{document}
+
+% Lecture 1
+
+\begin{note}
+  \xplain{weak-law-large-numbers}
+  \xfield{Weak Law of Large Numbers}
+  \begin{field}
+    Let $X_i$ be iid random variables with finite expectation and second moment. Then, for any $\eps > 0$,
+    $$\lim_{n \to \infty} \P\left(\abs{\frac{\sum_{i = 1}^n X_i}n - \frac 12} > \eps\right) = 0$$
+    \begin{proof}
+      By Chebyshev,
+      $$\P\left(\abs{\frac{\sum_{i = 1}^n (X_i - \mu)}n} \ge t\right) \le \frac{n\sigma^2}{n^2t^2} = \frac{\sigma^2}{nt^2} \to 0$$
+      assuming we have finite variance.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \xplain{central-limit-theorem}
+  \xfield{Central Limit Theorem}
+  \begin{field}
+    Let $X_i$ be iid random variables with mean $\mu$ and variance $\sigma^2$. Then
+    $$\frac{\sum_{i = 1}^n(X_i - \mu)}{\sigma\sqrt n} \overset d\to \mathcal N(0, 1)$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \xplain{chebyshev-inequality}
+  \xfield{Chebyshev's inequality}
+  \begin{field}
+    For a random variable with mean $\mu$ and variance $\sigma^2$,
+    $$\P(\abs{X - \mu} \ge t) \le \frac{\sigma^2}{t^2}$$
+    \begin{proof}
+      By Markov,
+      $$\P(\abs{X - \mu} \ge t) = \P((X - \mu)^2 \ge t ^ 2) \le \frac{\sigma^2}{t^2}$$
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \xplain{talagrand-principle}
+  \xfield{Talagrand's principle}
+  \begin{field}
+    A {\it smooth} function of many {\it independent} random variables concentrates around its mean.
+  \end{field}
+\end{note}
+
+% Lecture 2
+
+\begin{note}
+  \xplain{markov-inequality}
+  \xfield{Markov's inequality}
+  \begin{field}
+    Let $Y$ be a nonnegative random variable. Then for all $t > 0$ we have
+    $$\P(T \ge t) \le \frac{\E Y}t$$
+    \begin{proof}
+      Observe that
+      $$Y \ge Y1_{Y \ge t} \ge t1_{Y \ge t}$$
+      and take expectations.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{log-mgf}
+  \xplain{log-mgf-def}
+  \xfield{log-MGF of a random variable $Z$}
+  \begin{field}
+    $$\psi_Z(\lambda) = \log \E e^{\lambda Z}$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{log-mgf cramer-transform}
+  \xplain{cramer-transform-def}
+  \xfield{Cramer transform}
+  \begin{field}
+    $$\psi_Z^*(t) = \sup_{\lambda \ge 0} \lambda t - \phi_Z(\lambda)$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{cramer-transform}
+  \xplain{chernoff-bound}
+  \xfield{Chernoff bound}
+  \begin{field}
+    $$\P(Z \ge t) \le \exp(-\psi_Z^*(t))$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{log-mgf cramer-transform}
+  \xplain{log-mgf-cramer-transform-properties}
+  \xfield{Basic properties of $\psi_Z$ and $\psi_Z^*$}
+  \begin{field}
+    \begin{itemize}
+      \item $\psi_Z$ is infinitely differentiable on $]0, \sup \{\lambda \mid \phi_Z(\lambda) < \infty\}[$ because the MGF is.
+      \item $\psi_Z$ is convex: If $a, b \ge 0, a + b = 1$, then
+      $$\E e^{(a\lambda_1 + b\lambda_2)Z} = \E (e^{\lambda_1X})^a (e^{\lambda_2 Z})^b \le (\E e^{\lambda_1 Z})^a (\E e^{\lambda_2 Z})^b$$
+      by Hölder.
+      \item $\psi_Z^*$ is nonnegative because $\lambda t - \psi_Z(\lambda) = 0$ when $\lambda = 0$.
+      \item $\psi_Z^*$ is convex because it is the supremum of linear functions.
+    \end{itemize}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{log-mgf cramer-transform}
+  \xplain{cramer-transform-unconstrained}
+  \xfield{How to unconstrain $\psi_Z^*$}
+  \begin{field}
+    If $t > \E Z$ (namely we're looking for a right tail bound), then
+    $$\psi_Z* = \sup_\lambda \lambda t - \psi_Z(\lambda)$$
+    because in general $\E e^{\lambda Z} \ge e^{\lambda \E Z}$ by Jensen, meaning that $\psi_Z(\lambda) \ge \lambda \E Z$ and that, if $\lambda < 0$ then $$\lambda t - \psi_Z(\lambda) \le \lambda(t - \E Z) < 0 \le \psi_Z^*(t)$$
+  \end{field}
+\end{note}
+
+% Lecture 3
+
+\begin{note}
+  \tags{log-mgf}
+  \xplain{log-mgf-gaussian}
+  \xfield{MGF and log-MGF of the gaussian distribution}
+  \begin{field}
+    Complete the square inside the exponent to get
+    \begin{align*}
+      \E e^{\lambda Z}
+      & = \int \frac 1{\sqrt{2\pi\sigma^2}} e^{-\frac{t^2}{2\sigma^2}} e^{\lambda t}\ dt \\
+      & = e^{\frac{\lambda^2 \sigma^2}2} \int \frac 1{\sqrt{2\pi\sigma^2}} e^{-\frac{(t - \lambda \sigma^2)^2}{2\sigma^2}}\ dt \\
+      & = e^{\frac{\lambda^2 \sigma^2}2}
+    \end{align*}
+    So the log-MGF is
+    $$\psi_Z(\lambda) = \frac{\lambda^2 \sigma^2}2$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{cramer-transform}
+  \xplain{cramer-transform-gaussian}
+  \xfield{Cramer transform and Chernoff bound for the gaussian distribution}
+  \begin{field}
+    The log-MGF of the gaussian distribution is
+    $$\psi_Z(\lambda) = \frac{\lambda^2 \sigma^2}2$$
+    So $\lambda t - \psi_Z(\lambda) = \lambda t - \frac{\lambda^2 \sigma^2}2$ is maximised at $\lambda = \frac t{\sigma^2}$ and, for all $t \ge 0$,
+    $$\psi_Z^*(t) = \sup_{\lambda \ge 0} \lambda t - \frac{\lambda^2 \sigma^2}2 = \frac{t^2}{2\sigma^2}$$
+    Hence the Chernoff bound is
+    $$\P(Z \ge t) \le \exp\left(-\frac{t^2}{2\sigma^2}\right)$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{subgaussian}
+  \xplain{subgaussian-def}
+  \xfield{Subgaussian random variables}
+  \begin{field}
+    A random variable $X$ with mean $0$ is subgaussian with variance parameter $\nu$ if
+    $$\psi_X(\lambda) \le \frac{\lambda^2\nu}2$$
+    for all $\lambda$. The set of all subgaussian random variables with variance parameter $\nu$ is denoted $\mathcal G(\nu)$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{subgaussian}
+  \xplain{subgaussian-basic}
+  \xfield{Basic properties of subgaussian random variables}
+  \begin{field}
+    \begin{itemize}
+      \item If $X \in \mathcal G(\nu)$, then $\P(X \ge t), \P(X \le -t) \le e^{-\frac{t^2}[2\nu]}$.
+      \item If $X \in \mathcal G(\nu)$, then $\P(X \ge t), \P(X \le -t) \le e^{-\frac{t^2}[2\nu]}$.
+      \item If $X_i \in \mathcal G(\nu_i)$ are independent, then $\sum_i X_i \in \mathcal G(\sum_i \nu_i)$.
+    \end{itemize}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{subgaussian variance}
+  \xplain{subgaussian-variance}
+  \xfield{If $X \in \mathcal G(\nu)$, then $\Var X \le \nu$.}
+  \begin{field}
+    We know
+    $$\E e^{\lambda X} \le e^{\frac{\lambda^2\nu}2}$$
+    Taylor-expanding and using the fact that $\E X = 0$,
+    $$1 + \frac{\lambda^2}2 \E X^2 + O(\lambda^3) \le 1 + \frac{\lambda^2}2 \nu + O(\lambda^3)$$
+    Taking $\lambda \to 0$,
+    $$\Var X = \E X^2 \le \nu$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{subgaussian}
+  \xplain{subgaussian-alt}
+  \xfield{Equivalent definitions of subgaussian random variables}
+  \begin{field}
+    The following are equivalent up to choices of $\nu, b, c, d$:
+    \begin{itemize}
+      \item $X \in \mathcal G(\nu)$
+      \item $\for t > 0, P(X \ge t), \P(X \le -t) \le e^{-\frac{t^2}{2b}}$
+      \item $\for q, \E X^{2q} \le q! c^q$
+      \item $\E e^{dX^2} \le 2$
+    \end{itemize}
+  \end{field}
+\end{note}
+
+\end{document}
+
