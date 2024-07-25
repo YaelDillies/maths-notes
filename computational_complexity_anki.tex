@@ -1,0 +1,666 @@
+% To use these notes, you must copy anki_header.tex
+% into the header of your card type in Anki
+
+% layout in Anki:
+\documentclass[10pt]{article}
+\usepackage[a4paper]{geometry}
+\geometry{paperwidth=.5\paperwidth,paperheight=100in,left=2em,right=2em,bottom=1em,top=2em}
+\pagestyle{empty}
+\setlength{\parindent}{0in}
+
+% encoding:
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% packages:
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{centernot}
+\usepackage{parskip}
+
+% Theorem-like environments
+\theoremstyle{definition}
+\newtheorem*{claim}{Claim}
+\newtheorem*{conjecture}{Conjecture}
+
+% Command redirections
+\let\P\oldP
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+% Letter shorthands
+\newcommand{\C}{\mathbb C}
+\newcommand{\E}{\mathbb E}
+\newcommand{\F}{\mathbb F}
+\newcommand{\K}{\mathbb K}
+\newcommand{\N}{\mathbb N}
+\newcommand{\P}{\mathbb P}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\mcA}{\mathcal A}
+\newcommand{\mcB}{\mathcal B}
+\newcommand{\mcC}{\mathcal C}
+\newcommand{\mcD}{\mathcal D}
+\newcommand{\mcE}{\mathcal E}
+\newcommand{\mcF}{\mathcal F}
+\newcommand{\mcG}{\mathcal G}
+\newcommand{\mcH}{\mathcal H}
+\newcommand{\mcM}{\mathcal M}
+\newcommand{\mcN}{\mathcal N}
+\newcommand{\mcO}{\mathcal O}
+\newcommand{\mcP}{\mathcal P}
+\newcommand{\mcQ}{\mathcal Q}
+\newcommand{\mcR}{\mathcal R}
+\newcommand{\mcS}{\mathcal S}
+\newcommand{\mcT}{\mathcal T}
+\newcommand{\mcU}{\mathcal U}
+\newcommand{\mcV}{\mathcal V}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Eps}{\mathcal E}
+
+\newcommand{\curlybrack}[1]{\left\{ #1\right\}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\inn}[2]{\left\langle #1, #2\right\rangle}
+\newcommand{\floor}[1]{\left\lfloor #1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1\right\rceil}
+\newcommand{\doublesqbrack}[1]{[\![#1]\!]}
+
+\newcommand{\imp}{\implies}
+\newcommand{\for}{\forall}
+\newcommand{\nin}{\notin}
+\newcommand{\comp}{\circ}
+\newcommand{\union}{\cup}
+\newcommand{\inter}{\cap}
+\newcommand{\Union}{\bigcup}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\hatplus}{\mathbin{\widehat{+}}}
+\newcommand{\symdif}{\mathbin\varbigtriangleup}
+\newcommand{\aeeq}{\overset{\text{ae}}=}
+\newcommand{\lexlt}{\overset{\text{lex}}<}
+\newcommand{\colexlt}{\overset{\text{colex}}<}
+\newcommand{\wto}{\overset w\to}
+\newcommand{\wstarto}{\overset{w*}\to}
+\renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
+\renewcommand{\bar}[1]{\overline{#1}}
+\newcommand{\compc}[1]{\mathrm{\mathbf{#1}}}
+
+\let\Im\relax
+\let\Re\relax
+
+\DeclareMathOperator{\Ber}{Ber}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\esssup}{ess sup}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\lhs}{LHS}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Re}{Re}
+\DeclareMathOperator{\rhs}{RHS}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Var}{Var}
+
+%  pdf layout:
+\geometry{paperheight=74.25mm}
+\usepackage{pgfpages}
+\pagestyle{empty}
+\pgfpagesuselayout{8 on 1}[a4paper,border shrink=0cm]
+\makeatletter
+\@tempcnta=1\relax
+\loop\ifnum\@tempcnta<9\relax
+\pgf@pset{\the\@tempcnta}{bordercode}{\pgfusepath{stroke}}
+\advance\@tempcnta by 1\relax
+\repeat
+\makeatother
+
+%  notes, fields, tags:
+\def \ifempty#1{\def\temp{#1} \ifx\temp\empty }
+\newcommand{\xfield}[1]{
+        #1\par
+        \vfill
+        {\tiny\texttt{\parbox[t]{\textwidth}{\localtag\hfill\\\globaltag\hfill\uuid}}}
+        \newpage}
+\newenvironment{field}{}{\newpage}
+\newif\ifnote
+\newenvironment{note}{\notetrue}{\notefalse}
+\newcommand{\localtag}{}
+\newcommand{\globaltag}{}
+\newcommand{\uuid}{}
+\newcommand{\tags}[1]{
+    \ifnote
+        \renewcommand{\localtag}{#1}
+    \else
+        \renewcommand{\globaltag}{#1}
+    \fi
+    }
+\newcommand{\xplain}[1]{
+  \label{#1} % make sure there's no duplicate label
+  \renewcommand{\uuid}{#1} % update the UUID for display and Anki disambiguation
+  }
+
+\begin{document}
+
+% Lecture 1
+
+\begin{note}
+  \tags{turing-machine}
+  \xplain{turing-machine-def}
+  \xfield{$k$-tape Turing machine}
+  \begin{field}
+    \begin{itemize}
+      \item A finite set $A$, called the {\it alphabet}.
+      \item A collection of $k$ {\it tapes}, each an infinite sequence of {\it cells} each containing an element of $A$. One tape is declared to be the {\it input} and another one is declared to be the {\it output}.
+      \item A set $S$ of {\it states}, including two special states: $S_{\mathrm{init}}$ and $S_{\mathrm{halt}}$.
+      \item A {\it transition function} $\delta : A^k \times S \rightarrow A^k \times S \times \{L, N, R\}$.
+      \item A {\it head} which is in a state and a {\it position} on each tape.
+    \end{itemize}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class::p}
+  \xplain{complexity-class-p-def}
+  \xfield{Complexity class $\compc P$}
+  \begin{field}
+    $f \in \compc P$ iff there exists a Turing machine $T$ and a polynomial $p$ such that, for all $x$, $T$ computes $f(x)$ in time at most $p(x)$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{turing-machine::nondet}
+  \xplain{non-deterministic-turing-machine-def}
+  \xfield{Non-deterministic Turing machine}
+  \begin{field}
+    A non-deterministic Turing machine $T$ is like a Turing machine except that it has two transition functions, and we say that $T$ computes $f$ if, for all input $x$, $f(x) = 1$ iff there's a sequence of choices between the two transition functions such that the output tape is $1$ when $T$ halts.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class::np turing-machine::nondet}
+  \xplain{complexity-class-np-def}
+  \xfield{Complexity class $\compc{NP}$}
+  \begin{field}
+    $f \in \compc{NP}$ iff there exists a non-deterministic Turing machine $T$ and a polynomial $p$ such that, for all $x$, $T$ computes $f(x)$ in time at most $p(x)$.
+  \end{field}
+\end{note}
+
+% Lecture 2
+
+\begin{note}
+  \tags{complexity-class:np}
+  \xplain{complexity-class-np-def-alt}
+  \xfield{Alternative definition of $\compc{NP}$}
+  \begin{field}
+    $f \in \compc{NP}$ iff there is a polynomial $p$ and a function $g \in P$ such that, for every $x$, $f(x) = 1$ iff $\exists y \in \{0, 1\}^{p(\abs x)}, g(x, y) = 1$.
+    \begin{proof}~
+      \begin{itemize}
+        \item[$\implies$] Use $y$ to encode the choices made by the non-deterministic TM. Then the TM for $g$ is "Run the non-deterministic TM, reading $y$ to know which transition function to follow.".
+        \item[$\impliedby$] Non-deterministically write down $y$ and apply $g$.
+      \end{itemize}
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:co-np}
+  \xplain{complexity-class-co-np}
+  \xfield{Complexity class $\compc{co-NP}$}
+  \begin{field}
+    $f \in \compc{co-NP}$ iff $\neg f \in \compc{NP}$
+
+    Alternatively, $f \in \compc{co-NP}$ iff there is a polynomial $p$ and a function $g \in P$ such that, for every $x$, $f(x) = 1$ iff $\forall y \in \{0, 1\}^{p(\abs x)}, g(x, y) = 1$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:ph}
+  \xplain{complexity-class-ph}
+  \xfield{Polynomial hierarchy}
+  \begin{field}
+    Define $\compc{\Sigma_0^P}$ and $\compc{\Pi_0^P}$ to be $\compc P$ and
+    \begin{align*}
+      f \in \compc{\Sigma_{k + 1}^P} \iff & \exists \text{ polynomial }p\text{ and } g \in \compc{\Pi_k^P}, \\
+      & \forall x, f(x) = 1 \iff \exists y, g(x, y) = 1 \\
+      f \in \compc{\Pi_{k + 1}^P} \iff & \exists \text{ polynomial }p\text{ and } g \in \compc{\Sigma_k^P}, \\
+      & \forall x, f(x) = 1 \iff \forall y, g(x, y) = 1 \\
+    \end{align*}
+    Define
+    $$\compc{PH} = \Union_k \compc{\Sigma_k^P} \union \compc{\Pi_k^P}$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:p complexity-class:np complexity-class:ph}
+  \xplain{polynomial-hierarchy-p-np-collapse}
+  \xfield{If $\compc P = \compc{NP}$, then $\compc P = \compc{PH}$}
+  \begin{field}
+    Induction on $k$:
+    \begin{itemize}
+      \item $\compc{\Sigma_1^P}$ by assumption. $\compc{\Pi_1^P} = P$ since we can negate, calculate in polynomial time, negate again.
+      \item If $f \in \Sigma_{k + 1}^P$, then there exists $g \in \Pi_k^P$ such that $\forall x, f(x) = 1 \iff \exists y, g(x, y) = 1$. By induction hypothesis, $g \in \compc P$. So $f \in \compc{NP} = \compc P$. Similarly, $\compc{\Pi_{k + 1}^P} = \compc P$.
+    \end{itemize}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:ph}
+  \xplain{polynomial-hierarchy-collapse}
+  \xfield{Polynomial hierarchy collapse}
+  \begin{field}
+    If $\compc{\Sigma_k^P} = \compc{\Sigma_{k + 1}^P}$ or $\compc{\Sigma_k^P} = \compc{\Pi_k^P}$, then $\compc{PH} = \compc{\Sigma_k^P}$.
+    \begin{proof}
+      Prove $\compc{\Sigma_\ell^P} = \compc{\Pi_\ell^P} = \compc{\Sigma_k^P}$ by induction on $\ell$. The trick is to use the induction hypothesis to turn $\exists\forall$ or $\forall\exists$ into $\forall\forall$ or $\exists\exists$ and then collapse the quantifiers.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:pspace}
+  \xplain{complexity-class-pspace}
+  \xfield{Complexity class $\compc{PSPACE}$}
+  \begin{field}
+    $f \in \compc{PSPACE}$ iff $f$ can be computed by a Turing machine using a polynomial amount of tape.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:np complexity-class:pspace}
+  \xplain{np-subset-pspace}
+  \xfield{$\compc{NP} \subseteq \compc{PSPACE}$}
+  \begin{field}
+    Assume $f(x) = 1 \iff \exists y, g(x, y) = 1$ where $g \in \compc P$. It takes a polynomial amount of space to iterate through all possible $y$ and a polynomial amount of space to compute $g(x, y)$ for each $y$. Hence it takes a polynomial amount of space to compute $f$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:ph complexity-class:pspace}
+  \xplain{ph-subset-pspace}
+  \xfield{$\compc{PH} \subseteq \compc{PSPACE}$}
+  \begin{field}
+    Prove that $\compc{\Sigma_k^P}, \compc{\Pi_k^P} \subseteq \compc{PSPACE}$ by induction on $k$, using the fact that it's possible to bruteforce search $y$ of polynomial size such that $g(x, y) = 0$ or $g(x, y) = 1$ in polynomial time if $g \in \compc P$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:exptime}
+  \xplain{complexity-class-exptime}
+  \xfield{Complexity class $\compc{EXPTIME}$}
+  \begin{field}
+    $f \in \compc{EXPTIME}$ iff $f$ can be computed by a Turing machine in time $\exp(O(n^k))$ for some $k$
+  \end{field}
+\end{note}
+
+% Lecture 3
+
+\begin{note}
+  \tags{complexity-class:pspace complexity-class:exptime}
+  \xplain{pspace-subset-exptime}
+  \xfield{$\compc{PSPACE} \subseteq \compc{EXPTIME}$}
+  \begin{field}
+    If a Turing machine takes polynomial space to compute inputs of size $n$, say $p(n)$, then its {\bf configuration} (combination of the state, the position on the tapes, the values of each cell on the tapes) goes through at most $p(n)^k\abs S\abs A^{kp(n)} = \exp(O(p(n)))$ possibilities. Further, if it went through one possibility twice, it would loop. Hence the computation takes exponential time.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:nexptime}
+  \xplain{complexity-class-nexptime}
+  \xfield{Complexity class $\compc{NEXPTIME}$}
+  \begin{field}
+    $f \in \compc{NEXPTIME}$ iff there is a polynomial $p$ and a function $g \in \compc{EXPTIME}$ such that, for every $x$, $f(x) = 1$ iff $\exists y \in \{0, 1\}^{p(\abs x)}, g(x, y) = 1$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:expspace}
+  \xplain{complexity-class-expspace}
+  \xfield{Complexity class $\compc{EXPSPACE}$}
+  \begin{field}
+    $f \in \compc{EXPSPACE}$ iff $f$ can be computed using tapes of length $\exp(O(n^k))$ for some $k$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:pspace complexity-class:pspace complexity-class:exptime}
+  \xplain{basic-complexity-classes-hierarchy}
+  \xfield{Hierarchy of the basic complexity classes}
+  \begin{field}
+    $$\compc P \subseteq \compc{NP} \subseteq \compc{PSPACE}$$
+    $$\subseteq$$
+    $$\compc{EXPTIME} \subseteq \compc{NEXPTIME} \subseteq \compc{EXPSPACE}$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{circuit}
+  \xplain{circuit-def}
+  \xfield{Circuit}
+  \begin{field}
+    A \textit{circuit} is a directed acyclic graph (DAG) such that each vertex is labelled as either an \textit{input}, an $\mathbf{AND}$ gate, an $\mathbf{OR}$ gate or a $\mathbf{NOT}$ gate.
+    \begin{itemize}
+      \item An input is a vertex of in-degree $0$.
+      \item A $\mathbf{NOT}$ gate has in-degree $1$.
+      \item All vertices of in-degree $>1$ are $\mathbf{AND}$ or $\mathbf{OR}$ gates.
+      \item Vertices of out-degree $0$ are outputs.
+    \end{itemize}
+    The value at an $\mathbf{AND}/\mathbf{OR}$ is the $\min/\max$ of its predecessors.
+    The value at a $\mathbf{NOT}$ is $1-x$ where $x$ is the value at its predecessor.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{circuit}
+  \xplain{fan-in-def}
+  \xfield{Fan-in of a circuit}
+  \begin{field}
+    The fan-in of a circuit is the maximum in-degree of any $\mathbf{AND}$ or $\mathbf{OR}$ gate.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{straight-line-computation}
+  \xplain{straight-line-computation-def}
+  \xfield{Straight-line computations}
+  \begin{field}
+    A straight-line computation of $f : \{0, 1\}^n \to \{0, 1\}$ of length $m$ is a sequence of functions $f_1, \dots, f_m$ starting with $f_i(x) = x_i$ for $i = 1, \dots, n$, ending with $f_m = f$, and for each $i > n$ there are some $j_1, \dots j_k < i$ such that either
+    \begin{align*}
+      f_i & = f_{j_1} \wedge \dots \wedge f_{j_k} \\
+      f_i & = f_{j_1} \vee \dots \vee f_{j_k}
+    \end{align*}
+    This is the same as taking intersections and unions of half-spaces in an hypercube in order to get to some set.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{circuit straight-line-computation}
+  \xplain{straight-line-computation-circuit}
+  \xfield{The smallest size of a circuit computing $f$ is the shortest length of a  straight line computing $f$}
+  \begin{field}
+    A straight-line computation is the same as a circuit whose vertices have been totally ordered in a way that respects its edges.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{circuit}
+  \xplain{circuit-exponential}
+  \xfield{Every function $f : \{0, 1\}^n \to \{0, 1\}$ can be computed by a circuit of size exponential in $n$.}
+  \begin{field}
+    For every possible input $x$, build a circuit that recognises $x$ (using at most $n$ $\mathbf{AND}$ gates and $n$ $\mathbf{NOT}$ gates) and outputs $f(x)$ if it's recognised. Then take a giant $\mathbf{OR}$ gate of all of those. This circuit has size at most $2^{n + 1}$ and computes $f$ since
+    $$f(x_1) \wedge (x_1 = x_i) \vee \dots f(x_{2^n}) \wedge (x_{2^n} = x_i) = f(x_i)$$ 
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{circuit turing-machine}
+  \xplain{turing-machine-to-circuits}
+  \xfield{Family of circuits that each computes the output of a Turing machine on inputs of a given size}
+  \begin{field}
+    Let $f$ be a function computed by a $k$-tapes Turing machine $T$ in time $p(n)$ for inputs of size $n$. Then there is a family $C_n$ of circuits such that $C_n$ computes $f$ for inputs of size $n$ and
+    $$\abs{C_n} = O(p(n)^{k+2})$$
+    \begin{proof}
+      WLOG assume the alphabet is $\{0, 1\}$. Encode the configuration of the machine in $\abs S$ variables for the state, $2kp(n)$ variables for the position of the heads, $2kp(n)$ variables for the values of the reachable cells. The transition function has $k + \abs S$ inputs, hence can be computed in a circuit of size $O(1)$. Updating the variables takes a circuit of size $O(p(n))$. Hence the whole circuit has size $O(p(n)^2)$.
+    \end{proof}
+  \end{field}
+\end{note}
+
+% Lecture 4
+
+\begin{note}
+  \tags{complexity-class:p-poly}
+  \xplain{complexity-class-p-poly}
+  \xfield{Complexity class $\compc{P/poly}$}
+  \begin{field}
+    $f \in \compc{P/poly}$ if one (hence all) of the following holds
+    \begin{itemize}
+      \item There is a family $C_n$ of polynomial-size circuits such that $C_{\abs x}$ computes $f(x)$.
+      \item There is a polynomial $p$ and a sequence $y_n$ with $\abs{y_n} = p(n)$ and a function $g \in \compc P$ such that $f(x) = 1 \iff g(x, y_{\abs x}) = 1$. $y_n$ should be thought of as an "advice string" to help compute $f$.
+      \item There is a sequence of Turing machines $T_n$ and a polynomial $p$ such that $T_n$ has $\le p(n)$ states and computes $f(x)$ when $|x| = n$.
+    \end{itemize}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:p-poly}
+  \xplain{complexity-class-p-poly-alt}
+  \xfield{The three definitions of $\compc{P/poly}$ are equivalent}
+  \begin{field}
+    \begin{itemize}
+      \item Family of circuits $\implies$ advice string. Let $y_n$ be an encoding of $C_n$ and let $g(x, y) = 1$ if the circuit encoded by $y$ outputs $1$ with input $x$.
+      \item Advice string $\implies$ family of circuits. Let $C'_n$ compute $g$ and make $C_n$ to be $C'_n$ with the last $p(n)$ inputs set to $y_n$.
+      \item Advice string $\implies$ family of TMs. Let $T$ compute $g$ and let $T_n$ be a Turing machine that prints out $y_n$ and then uses $T$ to compute $g(x, y_n)$.
+      \item Family of TMs $\implies$ advice string. Let $y_n$ be an encoding of $T_n$ and let $g(x, y) = 1$ if the Turing machine encoded by $y$ outputs $1$ with input $x$ ($g$ is encoded by a universal TM).
+    \end{itemize}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{p-uniformity}
+  \xplain{p-uniformity-def}
+  \xfield{$\compc P$-uniformity}
+  \begin{field}
+    A family of circuits $C_n$ is $\compc P$-uniform if there is an algorithm that generates it in polynomial-time (in $n$).
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:p complexity-class:np}
+  \xplain{p-np-search-decision-problem}
+  \xfield{If $\compc P = \compc{NP}$, then search problems are equivalent to decision problems}
+  \begin{field}
+    If $\compc P = \compc{NP}$ and $f \in \compc{NP}$, say $f(x) = 1 \iff \exists y, \abs y = p(\abs x) \text{ and } g(x, y) = 1$ where $g \in \compc P$, then there is some polynomial-time algorithm $h$ such that if $f(x) = 1$ then $g(x, h(x)) = 1$.
+    \begin{proof}
+      For each $i$, let $g_i$ be the function with input $x$ and $u_i$ where $\abs{u_i} = i$ and output whether it can be extended by a $1$. Now calculate $u_1 = g_0(x)$, $u_2 = g_1(x, u_1)$, $u_3 = g_1(x, u_1, u_2)$, etc. At the end we obtain $h(x) = (u_1, \dots, u_{p(\abs x)})$ such that $g(x, u) = 1$. \\
+      Each $g_i$ is obviously in $\compc{NP} = \compc P$, so $h$ can be computed in polynomial time (assuming the $g_i$ are uniformly in polynomial time).
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:np complexity-class:p-poly}
+  \xplain{np-subset-p-poly-certificate}
+  \xfield{If $\compc{NP} \subseteq \compc{P/Poly}$, and $f \in \compc{NP}$, then we can compute certificates for $f$ using polynomial-size circuits}
+  \begin{field}
+    Say $f(x) = 1 \iff \exists y, g(x, y) = 1$ where $g \in \compc P$. Define $g_i(x, u_1, \dots, u_i) = 1 \iff \exists y, g(x, u_1, \dots, u_i, 1, y)$. $g_i \in \compc{NP} \subseteq \compc{P/Poly}$, hence find a polynomial-size circuit family $C_{i, n}$ that computes $g_i$. Now put circuits $C_{0, n}, \dots, C_{p(n), n}$ together as follows:
+    \begin{itemize}
+      \item $C_{0, n}$ takes inputs $x_1, \dots, x_n$ and outputs $u_1$
+      \item $C_{1, n}$ takes inputs $x_1, \dots x_n, u_1$ and outputs $u_2$
+      \item $\dots$
+    \end{itemize}
+    The resulting circuit $C_n$ is such that if $\exists y, g(x, y) = 1$ then $g(x, C_n(x)) = 1$.
+  \end{field}
+\end{note}
+
+% Lecture 5
+
+\begin{note}
+  \tags{complexity-class:np complexity-class:p-poly complexity-class:ph}
+  \xplain{karp-lipton}
+  \xfield{Karp-Lipton theorem}
+  \begin{field}
+    If $\compc{NP} \subseteq \compc{P/poly}$, then $\compc{\Sigma_2^P} = \compc{\Pi_2^P}$.
+    \begin{proof}
+      By symmetry, it's enough to prove $\compc{\Pi_2^P} \subseteq \compc{\Sigma_2^P}$. Let $f \in \compc{\Pi_2^P}$ and let $g \in \compc{NP}, h \in \compc P$ be such that
+      \begin{align*}
+        f(x) = 1 & \iff \forall y, g(x, y) = 1 \\
+        g(x, y) = 1 & \iff \exists z, h(x, y, z) = 1
+      \end{align*}
+      By the existence of polynomial certificates when $\compc{NP} \subseteq \compc{P/poly}$, find a polynomial-size circuit family $C_n$ such that $g(x, y) = 1 \implies h(x, y, C_n(x, y))$. Then
+      $$f(x) = 1 \implies \exists C, \forall y, h(x, y, C_n(x, y)) = 1$$
+      The converse is true by assumption. Hence $f \in \compc{\Sigma_2^P}$.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{circuit}
+  \xplain{boolean-function-precise-polynomial}
+  \xfield{For every $k$, there's a boolean function $f$ that can be computed by a circuit family of size $n^{k + 1}$ but not by a circuit family of size $n^k$.}
+  \begin{field}
+    TODO
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{circuit complexity-class:ph}
+  \xplain{boolean-function-sigma-four-not-polynomial}
+  \xfield{For every $k$, there is a boolean function $f \in \compc{\Sigma_4^P}$ that cannot be computed by a family of circuits of size $n^k$}
+  \begin{field}
+    For sufficiently large $n$, the lemma gives us $f'_n : \{0, 1\}^n \to \{0, 1\}$ that can be computed by a circuit of size $n^{k + 1}$ but not by a circuit of size $n^k$. Choose an ordering of the circuits of size $\le n^{k + 1}$ that's computable in polynomial time. Let $C_n$ be the first circuit in this ordering such that no circuit of size $\le n^k$ computes the same function as $C_n$. Let $f(x) = C_{\abs x}(x)$. Then
+    \begin{align*}
+      f(x) = 1 \iff
+      & \exists C_n, \abs{C_n} \le n^{k + 1} \text{ and }C_n(x) = 1 \\
+      & \text{and } \forall D, \abs D \le n^k, \exists y, C_n(y) \ne D(y) \\
+      & \text{and } \forall E < C_n, \exists F, \abs F \le n^k, \forall z, E(z) = f(z)
+    \end{align*}
+    The $\exists \forall \exists \forall$ shows that $f\in \Sigma_4^P$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:np complexity-class:ph circuit}
+  \xplain{kannan}
+  \xfield{Kannan's theorem}
+  \begin{field}
+    For every $k$, there is a function $f \in \compc{\Sigma_2^P} \inter \compc{\Pi_2^P}$ that cannot be computed by a circuit family of size $n^k$.
+    \begin{proof}
+      If $\compc{NP} \subseteq \compc{P/poly}$, then $\compc{PH} \subseteq \compc{\Sigma_2^P} \inter \compc{\Pi_2^P}$ by Karp-Lipton. So the function in $\compc{\Sigma_4^P}$ that cannot be computed by a circuit of size $\le n^{k + 1}$ does the job. \\
+      If $\compc{NP} \not\subseteq \compc{P/poly}$, then there is some $f \in \compc{NP} \subseteq \compc{\Sigma_2^P} \inter \compc{\Pi_2^P}$ that cannot be computed by {\it any} polynomial-size circuit family.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:l}
+  \xplain{complexity-class-l}
+  \xfield{Complexity class $\compc L$}
+  \begin{field}
+    $f \in \compc L$ iff $f$ can be computed with a logarithmic amount of memory. Formally, $f \in \compc L$ iff it can be computed by some Turing machine with a read-only input tape, a write-only output tape and worktapes of size $O(\log n)$ for inputs of size $n$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:nl}
+  \xplain{complexity-class-nl}
+  \xfield{Complexity class $\compc{NL}$}
+  \begin{field}
+    $f \in \compc{NL}$ iff $f$ can be non-deterministically computed with a logarithmic amount of memory. Formally, $f \in \compc{NL}$ iff it can be computed by some non-deterministic Turing machine with a read-only input tape, a write-only output tape and worktapes of size $O(\log n)$ for inputs of size $n$.
+  \end{field}
+\end{note}
+
+% Lecture 6
+
+\begin{note}
+  \tags{complexity-class:nl complexity-class:p}
+  \xplain{nl-subset-p}
+  \xfield{$\compc{NL} \subseteq \compc P$}
+  \begin{field}
+    Let $f\in \compc{NL}$, $T$ be a non-deterministic Turing machine that computes $f$ in $\log$-space and $G$ be the \textit{configuration graph} of $T$. Then $f(x) = 1$ iff there is a directed path in $G$ from the initial configuration to one such that $T$ has halted with output $1$. Since $T$ runs on $O(\log n)$ space, the number of vertices of $G$ is polynomial in $n$ ($\abs{V(G)} \le 2^{O(\log n)} |S| = n^{O(1)}$). But note that {\bf REACHABILITY}, the problem of determining whether there is a directed path from a vertex $x$ to a subset $S$ of vertices on a directed graph is easily seen to be in $\compc P$: just brute force search to find the neighbours.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:nc complexity-class:ac}
+  \xplain{complexity-class-nc-ac}
+  \xfield{Low depth-computation classes}
+  \begin{field}
+    The class $\compc{NC}^i$ where $i \in \N$ consists of all functions that can be computed by a family of circuits of polynomial size, fan-in 2 and depth $O(\log^i n)$, where \textit{depth} of a circuit is the length of the longest directed path in the associated DAG.
+
+    $\compc{AC}^i$ is like $\compc{NC}^i$ except that we allow unbounded fan-in.
+
+    We then define
+    $$\compc{NC} = \Union_i \compc{NC}^i, \compc{AC} = \Union_i \compc{AC}^i$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:nc}
+  \xplain{log-space-uniformity-def}
+  \xfield{$\log$-space uniformity}
+  \begin{field}
+    $f \in \compc{u-NC}^i$ iff $f$ can be computed by a family of circuits of polynomial size, fan-in 2 and depth $O(\log^i n)$ that can be generated in $\log$-space.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:nc complexity-class:ac}
+  \xplain{ac-eq-nc}
+  \xfield{$\compc{AC} = \compc{NC}$}
+  \begin{field}
+    Obviously, $\compc{NC}^i \subseteq \compc{AC}^i$. But we also have $\compc{AC}^i \subseteq \compc{NC}^{i + 1}$ since a circuit of fan-in $k$ can be replace by a circuit of fan-in $2$ which is at most $\log k$ bigger by replacing each gate of in-degree $d$ by $\log d$ gates of in-degree $2$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:rp complexity-class:co-rp complexity-class:zpp}
+  \xplain{complexity-class-rp-co-rp-zpp}
+  \xfield{Complexity classes $\compc{RP}$, $\compc{co-RP}$ and $\compc{ZPP}$}
+  \begin{field}
+    $f \in \compc{RP}$ (randomised polynomial time) iff there is a polynomial $p$ and a function $g \in \compc P$ such that if $\abs x = n$ and $m = p(n)$ then
+    $$\P_{y \in \{0, 1\}^m}(g(x, y) = 1) \begin{cases}
+      = 0 & \text{ if } f(x) = 0 \\
+      \ge \frac 12 & \text{ if } f(x) = 1
+    \end{cases}$$
+    $f \in \compc{co-RP}$ iff $\neg f \in \compc{RP}$.
+    
+    $\compc{ZPP}$ (zero-error probabilistic polynomial time) is $\compc{RP} \inter \compc{co-RP}$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:rp}
+  \xplain{rp-improved-accuracy}
+  \xfield{How to improve the accuracy of an algorithm in $\compc{RP}$}
+  \begin{field}
+    Run the algorithm many times. Say we're computing $f$ and $g \in \compc P$ is such that
+    $$\P(g(x, y) = 1) \begin{cases}
+      = 0 & \text{ if } f(x) = 0 \\
+      \ge \frac 12 & \text{ if } f(x) = 1
+    \end{cases}$$
+    Then if $y_1, \dots y_k$ are independent samples, we get
+    $$\P(\exists i, g(x, y_i) = 1) \begin{cases}
+      = 0 & \text{ if } f(x) = 0 \\
+      \ge 1 - 2^{-k} & \text{ if } f(x) = 1
+    \end{cases}$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:bpp}
+  \xplain{complexity-class-bpp}
+  \xfield{Complexity class $\compc{BPP}$}
+  \begin{field}
+    $f \in \compc{BPP}$ (bounded-error probabilistic polynomial time) iff there is a polynomial $p$ and a function $g \in \compc P$ such that if $\abs x = n$ and $m = p(n)$ then
+    $$\P_{y \in \{0, 1\}^m}(g(x, y) = f(x)) \ge \frac 23$$
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:bpp}
+  \xplain{bpp-improved-accuracy}
+  \xfield{How to improve the accuracy of an algorithm in $\compc{BPP}$}
+  \begin{field}
+    Run the algorithm many times. Say we're computing $f$ and $g \in \compc P$ is such that
+    $$\P(g(x, y) = f(x)) \ge \frac 23$$
+    Take $y_1, \dots y_k$ independent samples. Compute $g(x, y_1)$, $\dots$, $g(x, y_k)$. Output the majority. The probability of getting the wrong answer is at most $\exp(-\frac k{48})$ by Chernoff.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{complexity-class:bpp complexity-class:p-poly}
+  \xplain{bpp-subset-p-poly}
+  \xfield{$\compc{BPP} \subseteq \compc{P/poly}$}
+  \begin{field}
+    If $k \ge 48n$, then the probability that the majority is wrong is $< 2^{-n}$. Therefore there exist $y_1, \dots, y_k$ such that for {\bf every} $x$ the majority vote is correct. $y_1\dots y_k$ serves as an advice string, together with the function that computes the majority vote.
+  \end{field}
+\end{note}
+
+\end{document}
