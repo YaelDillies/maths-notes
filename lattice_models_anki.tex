@@ -76,8 +76,8 @@
 \newcommand{\aeeq}{\overset{\text{ae}}=}
 \newcommand{\lexlt}{\overset{\text{lex}}<}
 \newcommand{\colexlt}{\overset{\text{colex}}<}
-\newcommand{\wtendsto}{\overset w\to}
-\newcommand{\wstartendsto}{\overset{w*}\to}
+\newcommand{\wto}{\overset w\to}
+\newcommand{\wstarto}{\overset{w*}\to}
 \renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
 \renewcommand{\bar}[1]{\overline{#1}}
 
@@ -344,8 +344,7 @@
   \xplain{percolation-exponential-decay-supercritical}
   \xfield{If $p > p_c$, then $\inf_{S \in \mathcal S} \varphi_p(S) > 0$.}
   \begin{field}
-    For all $S \in \mathcal S$,
-    $$\varphi_p(S) \ge P_p(0 \leftrightarrow \infty) > 0$$
+    For all $S \in \mathcal S$, $\varphi_p(S) \ge P_p(0 \leftrightarrow \infty) > 0$.
   \end{field}
 \end{note}
 
@@ -437,7 +436,7 @@
   \xplain{Label}
   \xfield{Triangular percolation has no infinite cluster at $p = \frac 12$.}
   \begin{field}
-    Assume there is an infinite cluster with probability $1$. Consider the $(2N + 1) \times (2N + 1)$ rhombus $R_N$ centered at the origin and its sides $L_1, E_2, L_3, L_4$. Define $E_i$ the event that $L_i \leftrightarrow \infty$. By Harris, these events are positively correlated, so
+    Assume there is an infinite cluster with probability $1$. Consider the $(2N + 1) \times (2N + 1)$ rhombus $R_N$ centered at the origin and its sides $L_1, L_2, L_3, L_4$. Define $E_i$ the event that $L_i \leftrightarrow \infty$. By Harris, these events are positively correlated, so
     $$P(E_1^c)^4 = \prod_i P(E_i^c) \le P(E_1^c, \dots, E_4^c) \le P(R_N \not\leftrightarrow \infty) \to 0$$
     Hence $P(E_i) \to 1$ for each $i$ and the following happens with strictly positive probability: There are infinite open paths from $L_1$ and $L_3$ and infinite closed paths from $L_2$ and $L_4$. But in that case it is impossible to have a single infinite cluster. Contradiction.
   \end{field}
