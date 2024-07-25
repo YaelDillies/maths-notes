@@ -18,6 +18,7 @@
 
 \clearpage
 
+\setcounter{section}{-1}
 \section{Introduction}
 
 For a finite set $A$, we write its cardinality $\abs A$.
@@ -49,7 +50,7 @@ Upon seeing this theorem, Erd\H os immediately knew he could drastically improve
 
 This is best possible, as we see by taking $x_1 = \dots = x_n = 1$.
 
-Let $G$ be a bipartite graph with parts $U$ and $W$. A {\bf complete matching} from $U$ to $W$ is an injective function $f : U \mor W$ such that $\for u \in U, u \sim f(u)$. \\
+Let $G$ be a bipartite graph with parts $U$ and $W$. A {\bf complete matching} from $U$ to $W$ is an injective function $f : U \to W$ such that $\for u \in U, u \sim f(u)$. \\
 If $G$ has a complete matching, then certainly $\abs A \le \abs{\Gamma(A)}$. Surprisingly, this is enough.
 
 \begin{nthm}[K\H onig-Egerv\'ary-Hall Theorem, Hall's Marriage Theorem]\label{thm:hall}
@@ -839,7 +840,7 @@ This was proved by Lov\'asz in 1978, with a much simpler proof provided by B\'ar
 
 \begin{nthm}[Lusternik-Schnirelmann 1930, Borsuk 1933]\label{thm:borsuk}~
   \begin{enumerate}
-    \item Let $f : S^n \mor \R^n$ be continuous. Then there exists $x \in S^n$ such that $f(x) = f(-x)$.
+    \item Let $f : S^n \to \R^n$ be continuous. Then there exists $x \in S^n$ such that $f(x) = f(-x)$.
     \item Let $V_1, \dots, V_{n + 1}$ form a closed cover of $S^n$. Then some $V_i$ contains a pair of antipodal points, ie there exist $i$ and $x$ such that $\pm x \in V_i$.
   \end{enumerate}
 \end{nthm}
@@ -861,7 +862,7 @@ This was proved by Lov\'asz in 1978, with a much simpler proof provided by B\'ar
   {\bf General case} \\
   Suppose no set contains a pair of antipodal points. For each $V \in \mcV$, define
   \begin{align*}
-    f_V : S^n & \mor \R \\
+    f_V : S^n & \to \R \\
     x & \mapsto \max(d(x, V), d(-x, V))
   \end{align*}
   By assumption, $f_V(x) > 0$ for all $x$. Since $S^n$ is compact, find $\eps_V > 0$ such that $f_V(x) \ge \eps_V$ for all $x$. Then define
