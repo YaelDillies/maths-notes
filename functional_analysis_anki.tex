@@ -1,0 +1,360 @@
+% To use these notes, you must copy anki_header.tex
+% into the header of your card type in Anki
+
+% layout in Anki:
+\documentclass[10pt]{article}
+\usepackage[a4paper]{geometry}
+\geometry{paperwidth=.5\paperwidth,paperheight=100in,left=2em,right=2em,bottom=1em,top=2em}
+\pagestyle{empty}
+\setlength{\parindent}{0in}
+
+% encoding:
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% packages:
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{centernot}
+\usepackage{parskip}
+
+% Theorem-like environments
+\theoremstyle{definition}
+\newtheorem*{claim}{Claim}
+\newtheorem*{conjecture}{Conjecture}
+
+% Command redirections
+\let\P\oldP
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+% Letter shorthands
+\newcommand{\C}{\mathbb C}
+\newcommand{\E}{\mathbb E}
+\newcommand{\F}{\mathbb F}
+\newcommand{\K}{\mathbb K}
+\newcommand{\N}{\mathbb N}
+\newcommand{\P}{\mathbb P}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\mcA}{\mathcal A}
+\newcommand{\mcB}{\mathcal B}
+\newcommand{\mcC}{\mathcal C}
+\newcommand{\mcD}{\mathcal D}
+\newcommand{\mcE}{\mathcal E}
+\newcommand{\mcF}{\mathcal F}
+\newcommand{\mcG}{\mathcal G}
+\newcommand{\mcH}{\mathcal H}
+\newcommand{\mcM}{\mathcal M}
+\newcommand{\mcN}{\mathcal N}
+\newcommand{\mcO}{\mathcal O}
+\newcommand{\mcP}{\mathcal P}
+\newcommand{\mcQ}{\mathcal Q}
+\newcommand{\mcR}{\mathcal R}
+\newcommand{\mcS}{\mathcal S}
+\newcommand{\mcT}{\mathcal T}
+\newcommand{\mcU}{\mathcal U}
+\newcommand{\mcV}{\mathcal V}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Eps}{\mathcal E}
+
+\newcommand{\curlybrack}[1]{\left\{ #1\right\}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\inn}[2]{\left\langle #1, #2\right\rangle}
+\newcommand{\floor}[1]{\left\lfloor #1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1\right\rceil}
+\newcommand{\doublesqbrack}[1]{[\![#1]\!]}
+
+\newcommand{\imp}{\implies}
+\newcommand{\for}{\forall}
+\newcommand{\nin}{\notin}
+\newcommand{\comp}{\circ}
+\newcommand{\union}{\cup}
+\newcommand{\inter}{\cap}
+\newcommand{\Union}{\bigcup}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\hatplus}{\mathbin{\widehat{+}}}
+\newcommand{\symdif}{\mathbin\varbigtriangleup}
+\newcommand{\aeeq}{\overset{\text{ae}}=}
+\newcommand{\lexlt}{\overset{\text{lex}}<}
+\newcommand{\colexlt}{\overset{\text{colex}}<}
+\newcommand{\wto}{\overset w\to}
+\newcommand{\wstarto}{\overset{w*}\to}
+\renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
+\renewcommand{\bar}[1]{\overline{#1}}
+
+\let\Im\relax
+\let\Re\relax
+
+\DeclareMathOperator{\Ber}{Ber}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\esssup}{ess sup}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\lhs}{LHS}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Re}{Re}
+\DeclareMathOperator{\rhs}{RHS}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Var}{Var}
+
+%  pdf layout:
+\geometry{paperheight=74.25mm}
+\usepackage{pgfpages}
+\pagestyle{empty}
+\pgfpagesuselayout{8 on 1}[a4paper,border shrink=0cm]
+\makeatletter
+\@tempcnta=1\relax
+\loop\ifnum\@tempcnta<9\relax
+\pgf@pset{\the\@tempcnta}{bordercode}{\pgfusepath{stroke}}
+\advance\@tempcnta by 1\relax
+\repeat
+\makeatother
+
+%  notes, fields, tags:
+\def \ifempty#1{\def\temp{#1} \ifx\temp\empty }
+\newcommand{\xfield}[1]{
+        #1\par
+        \vfill
+        {\tiny\texttt{\parbox[t]{\textwidth}{\localtag\hfill\\\globaltag\hfill\uuid}}}
+        \newpage}
+\newenvironment{field}{}{\newpage}
+\newif\ifnote
+\newenvironment{note}{\notetrue}{\notefalse}
+\newcommand{\localtag}{}
+\newcommand{\globaltag}{}
+\newcommand{\uuid}{}
+\newcommand{\tags}[1]{
+    \ifnote
+        \renewcommand{\localtag}{#1}
+    \else
+        \renewcommand{\globaltag}{#1}
+    \fi
+    }
+\newcommand{\xplain}[1]{
+  \label{#1} % make sure there's no duplicate label
+  \renewcommand{\uuid}{#1} % update the UUID for display and Anki disambiguation
+  }
+
+\begin{document}
+
+% Lecture 1
+% Lecture 2
+% Lecture 3
+% Lecture 4
+% Lecture 5
+% Lecture 6
+% Lecture 7
+% Lecture 8
+% Lecture 9
+% Lecture 10
+% Lecture 11
+
+\begin{note}
+  \tags{boundedness, norm-topology}
+  \xplain{principle-uniform-Boundedness}
+  \xfield{Principle of Uniform Boundedness}
+  \begin{field}
+    If $\mathcal T \subseteq X^*$ is pointwise bounded ($\for x, \sup_{T \in \mathcal T} \norm{Tx} < \infty$), then it is uniformly bounded ($\sup_{T \in \mathcal T} \norm T < \infty$).
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{boundedness, weak-topology, norm-topology}
+  \xplain{weak-bounded-implies-norm-bounded}
+  \xfield{If $A \subseteq X$ is weak-bounded, then it is norm-bounded.}
+  \begin{field}
+    This is exactly PUB applied to $\hat A = \{\hat x \mid x \in A\}$.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{boundedness, weak-star-topology, norm-topology}
+  \xplain{weak-star-bounded-implies-norm-bounded}
+  \xfield{If $B \subseteq X^*$ is w*-bounded, then it is norm-bounded.}
+  \begin{field}
+    This is exactly PUB applied to $B$.
+  \end{field}
+\end{note}
+
+% Lecture 12
+
+\begin{note}
+  \tags{convexity, norm-topology, weak-topology}
+  \xplain{mazur}
+  \xfield{Mazur's theorem}
+  \begin{field}
+    Let $C$ be a convex set in a normed space. Then $\bar C^{\norm\cdot} = \bar C^{\text w}$. In particular,
+    $$C \text{ norm-closed} \iff C \text{ w-closed}$$
+    \begin{proof}
+      WLOG $C$ is nonempty. We already know $\bar C^{\norm\cdot} \subseteq \bar C^{\text w}$ as the weak topology is weaker than the norm-topology. \\
+      If $x \nin \bar C^{\norm\cdot}$, then Hahn-Banach with $A = \{x\}$ and $B = \bar C^{\norm\cdot}$ gives us $f \in X^*$ such that $f(x) < \inf_B f$. Then $\{z \mid f(z) < \inf_B f\}$ is a w-open neighborhood of $x$ disjoint from $B$. So $x \nin \bar C^{\text w}$.
+    \end{proof}
+  \end{field}
+\end{note}
+
+% Lecture 13
+
+% Lecture 14
+
+% Lecture 15
+
+% Lecture 16
+
+\begin{note}
+  \tags{}
+  \xplain{p-r-o-a-def}
+  \xfield{Definitions of $\mathcal P(K), \mathcal R(K), \mathcal O(K), A(K)$}
+  \begin{field}
+    \begin{align*}
+      \mathcal P(K) & = \overline{\{f \in C(K) \mid f \text{ polynomial}\}} \\
+      \mathcal R(K) & = \overline{\{f \in C(K) \mid f \text{ rational function without poles}\}} \\
+      \mathcal O(K) & = \overline{\{f \in C(K) \mid f \text{ holomorphic on a nhbd of } K\}} \\
+      A(K) & = \{f \in C(K) \mid f \text{ is holomorphic on } \interior K\}
+    \end{align*}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{}
+  \xplain{p-r-o-a-inclusions}
+  \xfield{Inclusions between $\mathcal P(K), \mathcal R(K), \mathcal O(K), A(K)$}
+  \begin{field}
+    $$\mathcal P(K) \subseteq \mathcal R(K) \subseteq \mathcal O(K) \subseteq A(K) \subseteq C(K)$$
+    \begin{align*}
+      \mathcal P(K) = \mathcal R(K) & \iff K^c \text{ connected} \\
+      \mathcal R(K) = \mathcal O(K) & \text{ always} \\
+      \mathcal O(K) \ne A(K) & \text{ in general} \\
+      \mathcal A(K) = C(K) & \iff \interior K = \emptyset
+    \end{align*}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{}
+  \xplain{closed-subalgebra-b}
+  \xfield{Any Banach algebra $A$ is a closed subalgebra of $\mathcal B(X)$ for some $X$.}
+  \begin{field}
+    WLOG $A$ is unital. For $a \in A$, consider the map
+    \begin{align*}
+      L_a : A & \to A \\
+      b & \mapsto ab
+    \end{align*}
+    $L_a \in \mathcal B(A)$ and $\norm{L_a} = \norm a$. Hence
+    $$L : A \to \mathcal B(A)$$
+    is a unital isometric homomorphism.
+  \end{field}
+\end{note}
+
+% Lecture 17
+
+\begin{note}
+  \tags{spectrum}
+  \xplain{spectrum-compact}
+  \xfield{Let $A$ be a Banach algebra and let $x \in A$. Then $\sigma_A(x)$ is a compact subset of
+  $$\{\lambda \in \C \mid \abs\lambda \le \norm x\}$$}
+  \begin{field}
+    First, if $\abs\lambda > \norm x$, then $\norm{\frac x\lambda} < 1$ and $1 - \frac x\lambda$ is invertible. So $\lambda 1 - x$ is invertible and $\lambda \nin \sigma_A(x)$.
+
+    $\sigma_A(x)$ is the preimage of the closed set $G(A)^c$ under the continuous map $\lambda \mapsto \lambda 1 - x$, hence is closed. Since it is bounded, it is also compact.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{spectrum}
+  \xplain{spectrum-nonempty}
+  \xfield{Let $A$ be a normed algebra and let $x \in A$. Then $\sigma_A(x)$ is nonempty.}
+  \begin{field}
+    WLOG $A$ is a Banach algebra. If $\sigma_A(x)$ is empty, then
+    \begin{align*}
+      f : \C & \to A \\
+      \lambda & \mapsto (\lambda 1 - x)^{-1}
+    \end{align*}
+    is holomorphic since it is continuous and $f(\lambda) - f(\mu) = (\mu - \lambda)f(\lambda)f(\mu)$, namely
+    $$\frac{f(\lambda) - f(\mu)}{\lambda - \mu} \underset{\lambda \to \mu}\to -f(\mu)^2$$
+    Also, as $\abs\lambda \to \infty$,
+    $$\norm{f(\lambda)} \le \frac 1{\abs\lambda - \norm x} \to 0$$
+    meaning that $f$ is bounded. By vector-valued Liouville, $f$ is constant, which is clearly nonsense.
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{division-algebra}
+  \xplain{gelfand-Mazur}
+  \xfield{Gelfand-Mazur theorem}
+  \begin{field}
+    Any complex unital normed division algebra is isomorphic to $\C$.
+    \begin{proof}
+      Consider
+      \begin{align*}
+        f : \C & \to A \\
+        \lambda & \mapsto \lambda 1
+      \end{align*}
+      $f$ is an isometric homomorphism. Since $\sigma_A(x)$ is nonempty, there is some $\lambda$ such that $\lambda 1 - x$ is not invertible, namely $\lambda 1 = x$ and $f(\lambda) = x$. So $f$ is surjective.
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{spectrum}
+  \xplain{spectral-mapping-polynomial}
+  \xfield{Spectral Mapping Theorem for polynomials}
+  \begin{field}
+    Let $A$ be a unital Banach algebra, $x \in A$, $p$ a polynomial. Then
+    $$\sigma_A(p(x)) = p(\sigma_A(x))$$
+    \begin{proof}
+      For a fixed $\mu \in \C$, write $\mu - p(z) = c\prod_{i = 1}^n (\lambda_i - z)$ for some $c \ne 0$ and some $\lambda_1, \dots, \lambda_n$. Then
+      \begin{align*}
+        \mu \nin \sigma_A(p(x))
+        & \iff \mu 1 - p(x) = c\prod_{i = 1}^n (\lambda_i 1 - x) \text{ invertible} \\
+        & \iff \for i,\lambda_i 1 - x \text{ invertible} \\
+        & \iff \for \lambda \in \sigma_A(x), \for i, \lambda_i \ne \lambda \\
+        & \iff \for \lambda \in \sigma_A(x), \mu - p(\lambda) \ne 0
+      \end{align*}
+    \end{proof}
+  \end{field}
+\end{note}
+
+\begin{note}
+  \tags{spectrum:spectral-radius}
+  \xplain{spectral-radius-formula}
+  \xfield{Beurling-Gelfand Spectral Radius Formula}
+  \begin{field}
+    $$r_A(x) = \lim_n \norm{x^n}^{1/n} = \inf_n \norm{x^n}^{1/n}$$
+    \begin{proof}
+      If $\lambda \in \sigma_A(x)$, then $\lambda^n \in \sigma_A(x^n)$. So $\abs\lambda \le \norm{x^n}^{1/n}$.
+
+      Let's show $\frac{x^n}{\lambda^n} \wto 0$ if $\abs\lambda > r_A(x)$. This implies $\norm{x^n}^{1/n} \le C^{1/n}\abs\lambda$ for some $C$. Let $\varphi \in A^*$. Define $f : \C \to \C, \lambda \mapsto \varphi((\lambda 1 - x)^{-1})$. Observe that for all $\abs\lambda > \norm x$ we have the Laurent series
+      $$f(\lambda) = \frac 1\lambda \sum_{n = 0}^\infty \varphi\left(\frac{x^n}{\lambda^n}\right)$$
+      By unicity of Laurent series, this also holds for all $\abs\lambda > r_A(x)$, meaning that $\varphi\left(\frac{x^n}{\lambda^n}\right) \to 0$, as wanted.
+    \end{proof}
+  \end{field}
+\end{note}
+
+% Lecture 18
+
+% Lecture 19
+
+% Lecture 20
+
+% Lecture 21
+
+% Lecture 22
+
+% Lecture 23
+
+% Lecture 24
+
+\end{document}
+
