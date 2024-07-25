@@ -762,7 +762,7 @@ Let $(\Omega, \mcF, \mu)$ be a measure space, $1 \le p < \infty, 1 < q \le \inft
 \end{cor}
 \begin{proof}
   Let $\psi \in L_p^{**}$. Then $g \mapsto \inn{\phi_g}\psi : L_q \to \K$ is in $L_q^*$. By Theorem \ref{thm:lp-dual}.i, find $f \in L_p$ such that
-  $$\inn{\phi_g}\psi = \int_\Omega fg d\mu \inn f{\psi_g} = \inn{\phi_g}{\hat f}$$
+  $$\inn{\phi_g}\psi = \int_\Omega fg d\mu = \inn f{\phi_g} = \inn{\phi_g}{\hat f}$$
   Since $L_p^* = \{\phi_g \mid g \in L_q\}$, this proves $\psi = \hat f$.
 \end{proof}
 
@@ -1728,14 +1728,11 @@ In the category of normed algebras, an isomorphism will mean a continuous homeom
     \lambda & \mapsto (\lambda 1 - x)^{-1}
   \end{align*}
   By Corollary \ref{cor:invertibles}.ii, $f$ is continuous. For $\lambda \ne \mu$,
-  \begin{align*}
-    f(\lambda) - f(\mu)
-    & = f(\lambda)((\mu 1 - x) - (\lambda 1 - x))f(\mu) \\
-    & (\mu - \lambda)f(\lambda)f(\mu)
-  \end{align*}
+  $$f(\lambda) - f(\mu) = f(\lambda)((\mu 1 - x) - (\lambda 1 - x))f(\mu) = (\mu - \lambda)f(\lambda)f(\mu)$$
   So
   $$\frac{f(\lambda) - f(\mu)}{\lambda - \mu} = -f(\lambda)f(\mu) \underset{\lambda \to \mu}\to -f(\mu)^2$$
-  Thus $f$ is holomorphic. \\
+  Thus $f$ is holomorphic.
+  
   If $\abs\lambda > \norm x$, then $\lambda 1 - x \in G(A)$ and
   $$\norm{(\lambda 1 - x)^{-1}} = \frac 1{\abs\lambda}\norm{\left(1 - \frac x\lambda\right)^{-1}} \le \frac 1{\abs\lambda}\frac 1{1 - \norm{\frac x\lambda}} = \frac 1{\abs\lambda - \norm x} \to 0$$
   as $\abs\lambda \to \infty$. \\
