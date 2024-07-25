@@ -83,8 +83,8 @@
 \newcommand{\aeeq}{\overset{\text{ae}}=}
 \newcommand{\lexlt}{\overset{\text{lex}}<}
 \newcommand{\colexlt}{\overset{\text{colex}}<}
-\newcommand{\wtendsto}{\overset w\to}
-\newcommand{\wstartendsto}{\overset{w*}\to}
+\newcommand{\wto}{\overset w\to}
+\newcommand{\wstarto}{\overset{w*}\to}
 \renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
 \renewcommand{\bar}[1]{\overline{#1}}
 
@@ -526,7 +526,7 @@
 \begin{note}
   \tags{integer-model}
   \xplain{partition-progressions-small-diam}
-  \xfield{For $t \ne 0, \eps > 0$ and $\phi : [m] \to \Z/p\Z$ multiplication by $t$, how to partition $[m]$ into progressions of length roughly $\eps\sqrt m$ such that $\diam(t \cdot P_i) \le \eps p$?}
+  \xfield{For $t \ne 0, \eps > 0$ and $\phi : [m] \to \Z/p\Z$ multiplication by $t$, how to partition $[m]$ into progressions of length roughly $\eps\sqrt m$ such that $\diam(\phi(P_i)) \le \eps p$?}
   \begin{field}
     Let $u = \floor{\sqrt m}$ and consider $0, t, \dots, ut$. By pigeonhole, find $0 \le v < w \le u$ such that $\abs{wt - vt} \le \frac pu$. Set $s = w - v \le u$ so that $\abs{st} \le \frac pu$. Divide $[m]$ into residue classes mod $s$. Each has size at least $\floor{\frac ms} \ge \floor{\frac mu}$ and can be divided into progressions of the form $a, a + s, \dots, a + ds$ with $\frac{\eps u}2 < d \le \eps u$. The diameter of each progression under $\phi$ is $\abs{dst} \le \eps p$.
   \end{field}
@@ -562,7 +562,15 @@
   \xplain{behrend}
   \xfield{Behrend's construction}
   \begin{field}
-    There exists a set $A \subseteq [N]$ containing non nontrivial 3APs of size at least $e^{-O(\sqrt{\log n})}$. See Example Sheet 1.
+    There exists a set $A \subseteq [N]$ containing non nontrivial 3APs of size at least $e^{-O(\sqrt{\log N})}$. See Example Sheet 1.
+    \begin{proof}
+      $[m]^d$ contains $m^d$ points which all lie on some sphere of radius squared $\le md^2$. Hence one of the spheres contains at least $\frac{m^{d - 2}}d$ integer points. Send those to $\Z$ via the map
+      \begin{align*}
+        [m]^d & \to [(2m)^d] \\
+        x & \mapsto \sum_i (2m - 1)^i x_i
+      \end{align*}
+      Density is at least $\frac 1{2^d m^2 d}$, which we optimise by taking $d = \sqrt{\log N}$.
+    \end{proof}
   \end{field}
 \end{note}
 
@@ -611,6 +619,14 @@
   \end{field}
 \end{note}
 
+\begin{note}
+  \xplain{balanced-function-fourier-analysis-relevance}
+  \xfield{Why is the balanced function important in Fourier-analytic arguments?}
+  \begin{field}
+    Passing from a function to its balanced function kills the $0$-th Fourier coefficient, which otherwise has to be special-cased everywhere.
+  \end{field}
+\end{note}
+
 \tags{combinatorial-methods}
 
 \begin{note}
@@ -635,9 +651,9 @@
 \begin{note}
   \tags{doubling-constant}
   \xplain{doubling-constant-lt-three-halves}
-  \xfield{If $A$ has Small doubling constant then $A$ lies in a small coset.}
+  \xfield{If $A$ has very small doubling constant then $A$ lies in a small coset.}
   \begin{field}
-    If $A$ is such that $\abs{A + A} < \frac 32 \abs A$. Then there exists $V \le \F_p^n$ such that $A$ is contained in a coset of $V$ and $\abs V < \frac 32\abs A$.
+    If $A$ is such that $\abs{A + A} < \frac 32 \abs A$, then there exists $V \le \F_p^n$ such that $A$ is contained in a coset of $V$ and $\abs V < \frac 32\abs A$.
   \end{field}
 \end{note}
 
